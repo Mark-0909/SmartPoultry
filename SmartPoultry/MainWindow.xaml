@@ -5,13 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartPoultry"
         mc:Ignorable="d"
-        Title="MainWindow" Height="1000" Width="1994" WindowState="Maximized" WindowStartupLocation="CenterScreen" Background="#FFE3E3E3">
+        Title="MainWindow" Height="857" Width="1457" WindowState="Maximized" WindowStartupLocation="CenterScreen" Background="#FFE3E3E3">
     <Grid>
-        <StackPanel HorizontalAlignment="Left" Height="892" Margin="0,92,0,0" VerticalAlignment="Top" Width="101" Background="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}"/>
-        <Rectangle HorizontalAlignment="Center" Height="92" VerticalAlignment="Top" Width="1994" Fill="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}"/>
-        <Rectangle HorizontalAlignment="Left" Height="892" Margin="0,92,0,0" VerticalAlignment="Top" Width="92" Fill="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}"/>
-        <Image HorizontalAlignment="Left" Height="86" Margin="10,7,0,0" VerticalAlignment="Top" Width="240" Source="/logo.png"/>
-        <Button HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" Height="83" Width="82" Background="#FFC0E4BE" Click="Button_Click" Foreground="#FF66C265" BorderBrush="#FF66C265">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition Width="0*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel HorizontalAlignment="Left" Height="892" Margin="0,92,0,0" VerticalAlignment="Top" Width="101" Background="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}" Grid.ColumnSpan="2"/>
+        <Rectangle HorizontalAlignment="Center" Height="92" VerticalAlignment="Top" Width="1994" Fill="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}" Grid.Column="1"/>
+        <Rectangle HorizontalAlignment="Left" Height="892" Margin="0,92,0,0" VerticalAlignment="Top" Width="92" Fill="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}" Grid.ColumnSpan="2"/>
+        <Image HorizontalAlignment="Left" Height="86" Margin="10,7,0,0" VerticalAlignment="Top" Width="240" Source="/logo.png" Grid.ColumnSpan="2"/>
+        <Button HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" Height="83" Width="82" Background="#FFC0E4BE" Click="Button_Click" Foreground="#FF66C265" BorderBrush="#FF66C265" Grid.ColumnSpan="2">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}" BorderBrush="#FF66C265" BorderThickness="1" CornerRadius="5">
@@ -21,7 +28,7 @@
             </Button.Template>
             <Image Height="52" Width="54" Source="/homeicongreen.png"/>
         </Button>
-        <Button HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Height="83" Width="82" Click="Button_Click" Foreground="#FF66C265" Background="#FFF4F7FC">
+        <Button HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Height="83" Width="82" Click="Button_Click" Foreground="#FF66C265" Background="#FFF4F7FC" Grid.ColumnSpan="2">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" BorderBrush="#FFF4F7FC" BorderThickness="1" CornerRadius="5">
@@ -31,7 +38,7 @@
             </Button.Template>
             <Image Height="52" Width="54" Source="/homeicongrey.png"/>
         </Button>
-        <Button HorizontalAlignment="Left" Margin="10,273,0,0" VerticalAlignment="Top" Height="83" Width="82" Click="Button_Click" Foreground="#FF66C265" Background="#FFF4F7FC">
+        <Button HorizontalAlignment="Left" Margin="10,273,0,0" VerticalAlignment="Top" Height="83" Width="82" Click="Button_Click" Foreground="#FF66C265" Background="#FFF4F7FC" Grid.ColumnSpan="2">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" BorderBrush="#FFF4F7FC" BorderThickness="1" CornerRadius="5">
@@ -41,7 +48,7 @@
             </Button.Template>
             <Image Height="52" Width="54" Source="/homeicongrey.png"/>
         </Button>
-        <Button HorizontalAlignment="Left" Margin="10,361,0,0" VerticalAlignment="Top" Height="83" Width="82" Click="Button_Click" Foreground="#FF66C265" Background="#FFF4F7FC">
+        <Button HorizontalAlignment="Left" Margin="10,361,0,0" VerticalAlignment="Top" Height="83" Width="82" Click="Button_Click" Foreground="#FF66C265" Background="#FFF4F7FC" Grid.ColumnSpan="2">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" BorderBrush="#FFF4F7FC" BorderThickness="1" CornerRadius="5">
@@ -51,6 +58,7 @@
             </Button.Template>
             <Image Height="52" Width="54" Source="/homeicongrey.png"/>
         </Button>
+        <local:UserControl1 Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="743" Width="1350"/>
 
 
     </Grid>
