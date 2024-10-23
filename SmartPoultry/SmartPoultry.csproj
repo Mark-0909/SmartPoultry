@@ -9,10 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="homeicongreen.png" />
+    <None Remove="homeicongrey.png" />
     <None Remove="logo.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="homeicongreen.png" />
+    <Resource Include="homeicongrey.png" />
     <Resource Include="logo.png" />
   </ItemGroup>
 
