@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace SmartPoultry
 {
     /// <summary>
-    /// Interaction logic for home.xaml
+    /// Interaction logic for inventory.xaml
     /// </summary>
-    public partial class home : UserControl
+    public partial class inventory : UserControl
     {
-        public home()
+        public inventory()
         {
             InitializeComponent();
         }

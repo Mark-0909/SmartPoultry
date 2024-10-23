@@ -58,7 +58,11 @@
             </Button.Template>
             <Image Height="52" Width="54" Source="/homeicongrey.png"/>
         </Button>
-        <local:UserControl1 Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="743" Width="1350"/>
+        <local:records Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="734" Width="1341"/>
+        <local:inventory Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Width="1341" Height="734"/>
+        <local:dashboard Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Width="1341" Height="734"/>
+        <local:home Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="734" Width="1341"/>
+
 
 
     </Grid>
