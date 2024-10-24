@@ -5,9 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
              mc:Ignorable="d" 
-             d:DesignHeight="720" d:DesignWidth="1321" Width="1321" Height="7" Background="White">
+             d:DesignHeight="720" d:DesignWidth="1321" Width="1321" Height="7" Background="#FFE3E3E3">
     <Grid>
-        <Label Content="HOME" HorizontalAlignment="Left" Margin="22,20,0,0" VerticalAlignment="Top"/>
+        <Label Content="HOME" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Margin="10,4,0,0"/>
+        <Rectangle HorizontalAlignment="Left" Height="764" Margin="994,0,0,0" VerticalAlignment="Top" Width="372" Fill="White"/>
+        <Label Content="Orders" HorizontalAlignment="Left" Margin="999,5,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.128,0.014" FontSize="23"/>
+        <Rectangle HorizontalAlignment="Left" Height="5" Margin="994,51,0,0" VerticalAlignment="Top" Width="400" Fill="#FFE3E3E3"/>
+        <Button Content="DROP" HorizontalAlignment="Left" Margin="994,688,0,0" VerticalAlignment="Top" Height="59" Width="180" Background="#FFF0A34A" BorderBrush="#FFF0A34A" FontSize="15" Foreground="White" FontWeight="Bold"/>
+        <Button Content="CHECKOUT" HorizontalAlignment="Left" Margin="1174,688,0,0" VerticalAlignment="Top" Height="59" Width="182" Background="#FF89D467" BorderBrush="#FF89D467" Foreground="White" FontSize="15" FontWeight="Bold"/>
+        <Rectangle HorizontalAlignment="Left" Height="52" Margin="10,56,0,0" VerticalAlignment="Top" Width="975" Fill="White"/>
+        <TextBox HorizontalAlignment="Left" Margin="774,5,0,0" TextWrapping="Wrap" Text="Search Product" VerticalAlignment="Top" Width="211" Height="41" Background="White" BorderBrush="White" TextAlignment="Justify" Padding="10,9,0,10" FontSize="15" MaxLines="1" />
 
     </Grid>
 </UserControl>

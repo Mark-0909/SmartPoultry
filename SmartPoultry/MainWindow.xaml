@@ -158,7 +158,7 @@
         <local:records x:Name="recordsControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="744" Width="1351"/>
         <local:inventory x:Name="inventoryControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Width="1351" Height="744"/>
         <local:dashboard x:Name="dashboardControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Width="1351" Height="744"/>
-        <local:home x:Name="homeControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="744" Width="1351"/>
+        <local:home x:Name="homeControl" Grid.ColumnSpan="5" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="761" Width="1377"/>
 
 
 
