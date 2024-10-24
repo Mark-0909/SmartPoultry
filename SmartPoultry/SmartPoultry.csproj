@@ -9,15 +9,27 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="homeicongreen.png" />
-    <None Remove="homeicongrey.png" />
-    <None Remove="logo.png" />
+    <None Remove="Images\dashboardgreen.png" />
+    <None Remove="Images\dashboardgrey.png" />
+    <None Remove="Images\homeicongreen.png" />
+    <None Remove="Images\homeicongrey.png" />
+    <None Remove="Images\inventorygreen.png" />
+    <None Remove="Images\inventorygrey.png" />
+    <None Remove="Images\logo.png" />
+    <None Remove="Images\recordsgreen.png" />
+    <None Remove="Images\recordsgrey.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="homeicongreen.png" />
-    <Resource Include="homeicongrey.png" />
-    <Resource Include="logo.png" />
+    <Resource Include="Images\dashboardgreen.png" />
+    <Resource Include="Images\dashboardgrey.png" />
+    <Resource Include="Images\homeicongreen.png" />
+    <Resource Include="Images\homeicongrey.png" />
+    <Resource Include="Images\inventorygreen.png" />
+    <Resource Include="Images\inventorygrey.png" />
+    <Resource Include="Images\logo.png" />
+    <Resource Include="Images\recordsgreen.png" />
+    <Resource Include="Images\recordsgrey.png" />
   </ItemGroup>
 
 </Project>

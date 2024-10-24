@@ -15,53 +15,149 @@
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
         <StackPanel HorizontalAlignment="Left" Height="892" Margin="0,92,0,0" VerticalAlignment="Top" Width="101" Background="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}" Grid.ColumnSpan="2"/>
-        <Rectangle HorizontalAlignment="Center" Height="92" VerticalAlignment="Top" Width="1994" Fill="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}" Grid.Column="1"/>
+        <Rectangle HorizontalAlignment="Center" Height="92" VerticalAlignment="Top" Width="1994" Fill="#FFF4F7FC" Grid.Column="1"/>
         <Rectangle HorizontalAlignment="Left" Height="892" Margin="0,92,0,0" VerticalAlignment="Top" Width="92" Fill="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}" Grid.ColumnSpan="2"/>
-        <Image HorizontalAlignment="Left" Height="86" Margin="10,7,0,0" VerticalAlignment="Top" Width="240" Source="/logo.png" Grid.ColumnSpan="2"/>
-        <Button HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" Height="83" Width="82" Background="#FFC0E4BE" Click="Button_Click" Foreground="#FF66C265" BorderBrush="#FF66C265" Grid.ColumnSpan="2">
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" BorderBrush="#FF66C265" BorderThickness="1" CornerRadius="5">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
-            <Image Height="52" Width="54" Source="/homeicongreen.png"/>
-        </Button>
-        <Button HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Height="83" Width="82" Click="Button_Click" Foreground="#FF66C265" Background="#FFF4F7FC" Grid.ColumnSpan="2">
+        <Image HorizontalAlignment="Left" Height="86" Margin="10,7,0,0" VerticalAlignment="Top" Width="240" Source="Images/logo.png" Grid.ColumnSpan="2"/>
+
+
+        <Button x:Name="homeButton" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" Height="83" Width="82" Background="#FFC0E4BE" Click="HomeButton_Click" BorderBrush="#FF66C265" BorderThickness="10" Grid.ColumnSpan="2">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border Background="{TemplateBinding Background}" BorderBrush="#FFF4F7FC" BorderThickness="1" CornerRadius="5">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="#FF66C265" BorderThickness="2"  CornerRadius="5" x:Name="homeBorder">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="homeBorder" 
+                                                 Storyboard.TargetProperty="Opacity" 
+                                                 To="0.5" Duration="0:0:0.3" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="homeBorder" 
+                                                 Storyboard.TargetProperty="Opacity" 
+                                                 To="1.0" Duration="0:0:0.3" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Button.Template>
-            <Image Height="52" Width="54" Source="/homeicongrey.png"/>
+            <Image x:Name="homeIcon" Height="52" Width="54" Source="Images/homeicongreen.png"/>
         </Button>
-        <Button HorizontalAlignment="Left" Margin="10,273,0,0" VerticalAlignment="Top" Height="83" Width="82" Click="Button_Click" Foreground="#FF66C265" Background="#FFF4F7FC" Grid.ColumnSpan="2">
+
+
+        <Button x:Name="dashboardButton" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Height="83" Width="82" Click="DashboardButton_Click" Foreground="#FF66C265" Background="#FFF4F7FC" Grid.ColumnSpan="2">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border Background="{TemplateBinding Background}" BorderBrush="#FFF4F7FC" BorderThickness="1" CornerRadius="5">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="#FFF4F7FC" BorderThickness="1" CornerRadius="5" x:Name="dashboardBorder">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="dashboardBorder" 
+                                                 Storyboard.TargetProperty="Opacity" 
+                                                 To="0.5" Duration="0:0:0.3" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="dashboardBorder" 
+                                                 Storyboard.TargetProperty="Opacity" 
+                                                 To="1.0" Duration="0:0:0.3" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Button.Template>
-            <Image Height="52" Width="54" Source="/homeicongrey.png"/>
+            <Image x:Name="dashboardIcon" Height="63" Width="64" Source="Images/dashboardgrey.png"/>
         </Button>
-        <Button HorizontalAlignment="Left" Margin="10,361,0,0" VerticalAlignment="Top" Height="83" Width="82" Click="Button_Click" Foreground="#FF66C265" Background="#FFF4F7FC" Grid.ColumnSpan="2">
+
+
+        <Button x:Name="inventoryButton" HorizontalAlignment="Left" Margin="10,273,0,0" VerticalAlignment="Top" Height="83" Width="82" Click="InventoryButton_Click" Foreground="#FF66C265" Background="#FFF4F7FC" Grid.ColumnSpan="2">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border Background="{TemplateBinding Background}" BorderBrush="#FFF4F7FC" BorderThickness="1" CornerRadius="5">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="#FFF4F7FC" BorderThickness="1" CornerRadius="5" x:Name="inventoryBorder">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="inventoryBorder" 
+                                                 Storyboard.TargetProperty="Opacity" 
+                                                 To="0.5" Duration="0:0:0.3" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="inventoryBorder" 
+                                                 Storyboard.TargetProperty="Opacity" 
+                                                 To="1.0" Duration="0:0:0.3" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Button.Template>
-            <Image Height="52" Width="54" Source="/homeicongrey.png"/>
+            <Image x:Name="inventoryIcon" Height="60" Width="63" Source="Images/inventorygrey.png"/>
         </Button>
-        <local:records Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="734" Width="1341"/>
-        <local:inventory Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Width="1341" Height="734"/>
-        <local:dashboard Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Width="1341" Height="734"/>
-        <local:home Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="734" Width="1341"/>
+
+
+
+        <Button x:Name="recordsButton" HorizontalAlignment="Left" Margin="10,361,0,0" VerticalAlignment="Top" Height="83" Width="82" Click="RecordsButton_Click" Foreground="#FF66C265" Background="#FFF4F7FC" Grid.ColumnSpan="2">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="#FFF4F7FC" BorderThickness="1" CornerRadius="5" x:Name="recordsBorder">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="recordsBorder" 
+                                                 Storyboard.TargetProperty="Opacity" 
+                                                 To="0.5" Duration="0:0:0.3" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="recordsBorder" 
+                                                 Storyboard.TargetProperty="Opacity" 
+                                                 To="1.0" Duration="0:0:0.3" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+            <Image x:Name="recordsIcon" Height="59" Width="59" Source="Images/recordsgrey.png"/>
+        </Button>
+
+
+
 
 
 

@@ -22,7 +22,7 @@ namespace SmartPoultry
     {
         public inventory()
         {
-            InitializeComponent();
+            
         }
     }
 }
