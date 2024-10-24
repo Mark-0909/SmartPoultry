@@ -22,10 +22,18 @@ namespace SmartPoultry
         }
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
+            //active inactive buttons
             ActiveButton(homeButton, "Images/homeicongreen.png", "homeBorder", homeIcon);
             InactiveButton(dashboardButton, "Images/dashboardgrey.png", "dashboardBorder", dashboardIcon);
             InactiveButton(inventoryButton, "Images/inventorygrey.png", "inventoryBorder", inventoryIcon);
             InactiveButton(recordsButton, "Images/recordsgrey.png", "recordsBorder", recordsIcon);
+
+
+            //front usercontrol
+            Panel.SetZIndex(homeControl, 10);
+            Panel.SetZIndex(dashboardControl, 0);
+            Panel.SetZIndex(inventoryControl, 0);
+            Panel.SetZIndex(recordsControl, 0);
 
         }
         private void DashboardButton_Click(object sender, RoutedEventArgs e)
@@ -34,6 +42,12 @@ namespace SmartPoultry
             ActiveButton(dashboardButton, "Images/dashboardgreen.png", "dashboardBorder", dashboardIcon);
             InactiveButton(inventoryButton, "Images/inventorygrey.png", "inventoryBorder", inventoryIcon);
             InactiveButton(recordsButton, "Images/recordsgrey.png", "recordsBorder", recordsIcon);
+
+            //front usercontrol
+            Panel.SetZIndex(homeControl, 0);
+            Panel.SetZIndex(dashboardControl, 10);
+            Panel.SetZIndex(inventoryControl, 0);
+            Panel.SetZIndex(recordsControl, 0);
         }
         private void InventoryButton_Click(object sender, RoutedEventArgs e)
         {
@@ -41,6 +55,12 @@ namespace SmartPoultry
             InactiveButton(dashboardButton, "Images/dashboardgrey.png", "dashboardBorder", dashboardIcon);
             ActiveButton(inventoryButton, "Images/inventorygreen.png", "inventoryBorder", inventoryIcon);
             InactiveButton(recordsButton, "Images/recordsgrey.png", "recordsBorder", recordsIcon);
+
+            //front usercontrol
+            Panel.SetZIndex(homeControl, 0);
+            Panel.SetZIndex(dashboardControl, 0);
+            Panel.SetZIndex(inventoryControl, 10);
+            Panel.SetZIndex(recordsControl, 0);
         }
         private void RecordsButton_Click(object sender, RoutedEventArgs e)
         {
@@ -49,6 +69,12 @@ namespace SmartPoultry
             InactiveButton(inventoryButton, "Images/inventorygrey.png", "inventoryBorder", inventoryIcon);
             ActiveButton(recordsButton, "Images/recordsgreen.png", "recordsBorder", recordsIcon);
 
+
+            //front usercontrol
+            Panel.SetZIndex(homeControl, 0);
+            Panel.SetZIndex(dashboardControl, 0);
+            Panel.SetZIndex(inventoryControl, 0);
+            Panel.SetZIndex(recordsControl, 10);
 
         }
 
