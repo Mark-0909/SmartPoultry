@@ -159,6 +159,10 @@
         <local:inventory x:Name="inventoryControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Width="1351" Height="744"/>
         <local:dashboard x:Name="dashboardControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Width="1351" Height="744"/>
         <local:home x:Name="homeControl" Grid.ColumnSpan="5" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="761" Width="1377"/>
+        <ComboBox Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="130,164,0,0" VerticalAlignment="Top" Width="157" Height="30"/>
+        <ComboBox Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="292,164,0,0" VerticalAlignment="Top" Width="157" Height="30"/>
+        <ComboBox Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="454,164,0,0" VerticalAlignment="Top" Width="157" Height="30"/>
+        <Button Content="Button" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="1027,164,0,0" VerticalAlignment="Top" Width="56" Height="30"/>
 
 
 

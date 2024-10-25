@@ -4,8 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
-             mc:Ignorable="d" 
-             d:DesignHeight="720" d:DesignWidth="1321" Width="1321" Height="7" Background="#FFE3E3E3">
+             mc:Ignorable="d" Width="1357" Height="747" Background="#FFE3E3E3">
     <Grid>
         <Label Content="HOME" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Margin="10,4,0,0"/>
         <Rectangle HorizontalAlignment="Left" Height="764" Margin="994,0,0,0" VerticalAlignment="Top" Width="372" Fill="White"/>
