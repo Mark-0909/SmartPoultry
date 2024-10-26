@@ -5,15 +5,119 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
              mc:Ignorable="d" Width="1357" Height="747" Background="#FFE3E3E3">
+
+    <UserControl.Resources>
+        <Style x:Key="NoHoverButton" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <!-- Animation for the button itself when hovered -->
+                                            <DoubleAnimation 
+                                                Storyboard.TargetProperty="Opacity" 
+                                                To=".7" Duration="0:0:0.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+
+                                            <DoubleAnimation 
+                                                Storyboard.TargetProperty="Opacity" 
+                                                To="1.0" Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
     <Grid>
+
+
+        <Border BorderThickness="1" HorizontalAlignment="Left" Height="41" Margin="775,8,0,0" VerticalAlignment="Top" Width="210" Background="White" CornerRadius="10"/>
+
+        <Border HorizontalAlignment="Left" Height="764" Margin="994,0,0,0" VerticalAlignment="Top" Width="372" 
+                Background="White" CornerRadius="10"/>
         <Label Content="HOME" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Margin="10,4,0,0"/>
-        <Rectangle HorizontalAlignment="Left" Height="764" Margin="994,0,0,0" VerticalAlignment="Top" Width="372" Fill="White"/>
+
         <Label Content="Orders" HorizontalAlignment="Left" Margin="999,5,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.128,0.014" FontSize="23"/>
         <Rectangle HorizontalAlignment="Left" Height="5" Margin="994,51,0,0" VerticalAlignment="Top" Width="400" Fill="#FFE3E3E3"/>
-        <Button Content="DROP" HorizontalAlignment="Left" Margin="994,688,0,0" VerticalAlignment="Top" Height="59" Width="180" Background="#FFF0A34A" BorderBrush="#FFF0A34A" FontSize="15" Foreground="White" FontWeight="Bold"/>
-        <Button Content="CHECKOUT" HorizontalAlignment="Left" Margin="1174,688,0,0" VerticalAlignment="Top" Height="59" Width="182" Background="#FF89D467" BorderBrush="#FF89D467" Foreground="White" FontSize="15" FontWeight="Bold"/>
-        <Rectangle HorizontalAlignment="Left" Height="52" Margin="10,56,0,0" VerticalAlignment="Top" Width="975" Fill="White"/>
-        <TextBox HorizontalAlignment="Left" Margin="774,5,0,0" TextWrapping="Wrap" Text="Search Product" VerticalAlignment="Top" Width="211" Height="41" Background="White" BorderBrush="White" TextAlignment="Justify" Padding="10,9,0,10" FontSize="15" MaxLines="1" />
+
+        <Button Content="DROP" HorizontalAlignment="Left" Margin="994,688,0,0" VerticalAlignment="Top" Height="59" Width="180" Background="#FFF0A34A" BorderBrush="#FFF0A34A" FontSize="15" Foreground="White" FontWeight="Bold" Style="{StaticResource NoHoverButton}"/>
+        <Button Content="CHECKOUT" HorizontalAlignment="Left" Margin="1174,688,0,0" VerticalAlignment="Top" Height="59" Width="182" Background="#FF89D467" BorderBrush="#FF89D467" Foreground="White" FontSize="15" FontWeight="Bold" Style="{StaticResource NoHoverButton}"/>
+
+        <TextBox HorizontalAlignment="Left" Margin="783,14,0,0" TextWrapping="Wrap" Text="Search Product" VerticalAlignment="Top" Width="196" Height="32" Background="White" BorderBrush="White" TextAlignment="Justify" Padding="0,4,0,0" FontSize="14" MaxLines="1" RenderTransformOrigin="0.5,0.5">
+            <TextBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="0.287"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="0.09"/>
+                </TransformGroup>
+            </TextBox.RenderTransform>
+        </TextBox>
+
+        <Border HorizontalAlignment="Left" Height="105" Margin="10,56,0,0" VerticalAlignment="Top" Width="975" 
+        Background="White" CornerRadius="10">
+
+            <!-- Use a Grid as a container to hold multiple elements within the Border -->
+            <Grid>
+                <!-- "All" Button in its Border Container -->
+                <Border CornerRadius="10" BorderBrush="#FF66C265" BorderThickness="1" 
+                HorizontalAlignment="Left" Height="40" Margin="4,4,0,0" VerticalAlignment="Top" Width="62" 
+                Background="#FFC0E4BE">
+                    <Button x:Name="animalAllBtn" Click="AllButton_Click" Content="All" Margin="9,5,9,4" Background="#FFC0E4BE" BorderBrush="#FFC0E4BE" 
+                    FontSize="18" Foreground="#FF66C265" Style="{StaticResource NoHoverButton}"/>
+                </Border>
+
+                <!-- Chicken Button in its Border Container -->
+                <Border x:Name="animalChicken" Height="40" Width="92" VerticalAlignment="Top" 
+                Margin="71,4,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+                BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
+                    <Button x:Name="animalChickenBtn" Click="ChickenButton_Click" Content="Chicken"  
+                    FontSize="18" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                    Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
+                </Border>
+
+                <!-- Dog Button in its Border Container -->
+                <Border Height="40" Width="74" VerticalAlignment="Top" 
+                Margin="168,4,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+                BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
+                    <Button x:Name="animalDogBtn" Click="DogButton_Click" Content="Dog"
+                    FontSize="18" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                    Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
+                </Border>
+
+                
+                <Border Height="40" Width="73" VerticalAlignment="Top" 
+                Margin="247,4,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+                BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
+                    <Button x:Name="animalCatBtn" Click="CatButton_Click" Content="Cat" 
+                    FontSize="18" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                    Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
+                </Border>
+            </Grid>
+        </Border>
+
+
+
 
     </Grid>
 </UserControl>

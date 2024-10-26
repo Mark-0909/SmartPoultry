@@ -29,5 +29,23 @@ namespace SmartPoultry
         {
 
         }
+
+        private void AllButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void ChickenButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DogButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        private void CatButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -10,6 +10,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\**" />
+    <EmbeddedResource Remove="Data\**" />
+    <None Remove="Data\**" />
+    <Page Remove="Data\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Images\dashboardgreen.png" />
     <None Remove="Images\dashboardgrey.png" />
     <None Remove="Images\homeicongreen.png" />
@@ -39,10 +46,6 @@
     <Resource Include="Images\logo.png" />
     <Resource Include="Images\recordsgreen.png" />
     <Resource Include="Images\recordsgrey.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\" />
   </ItemGroup>
 
 </Project>
