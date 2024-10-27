@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="addicon.png" />
     <None Remove="Images\dashboardgreen.png" />
     <None Remove="Images\dashboardgrey.png" />
     <None Remove="Images\homeicongreen.png" />
@@ -30,6 +31,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="addicon.png" />
     <Resource Include="Images\dashboardgreen.png" />
     <Resource Include="Images\dashboardgrey.png" />
     <Resource Include="Images\homeicongreen.png" />
@@ -39,6 +41,10 @@
     <Resource Include="Images\logo.png" />
     <Resource Include="Images\recordsgreen.png" />
     <Resource Include="Images\recordsgrey.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DataServices\" />
   </ItemGroup>
 
 </Project>

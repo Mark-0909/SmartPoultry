@@ -5,9 +5,45 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
              mc:Ignorable="d" 
-             d:DesignHeight="720" d:DesignWidth="1321" Background="White">
+             d:DesignHeight="741" d:DesignWidth="1357" Background="#FFE3E3E3" Width="1357" Height="747">
     <Grid>
-        <Label Content="DASHBOARD" HorizontalAlignment="Left" Margin="33,29,0,0" VerticalAlignment="Top"/>
-
+        <Label Content="DASHBOARD" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Margin="10,4,0,0" Width="235"/>
+        <Border CornerRadius="10" BorderThickness="1" Margin="10,59,982,29" Background="White"/>
+        <Border CornerRadius="10 10 0 0" BorderThickness="1" Margin="10,50,982,653" Background="#FF077C5E" Height="38">
+            <Label Content="Transactions" Foreground="White" FontSize="21" Margin="9,-2,118,2"/>
+        </Border>
+        <Border CornerRadius="10" BorderThickness="1" Margin="411,60,41,370" Background="White">
+            <Border CornerRadius="10 10 0 0" BorderThickness="1" Margin="-1,-11,-1,282" Background="#FF077C5E" Height="38">
+                <Label Content="Charts" Foreground="White" FontSize="21" Margin="9,-2,118,2"/>
+            </Border>
+        </Border>
+        <Border CornerRadius="10" BorderThickness="1" Margin="871,409,31,25" Background="White" Width="455" Height="314">
+            <Border CornerRadius="10 10 0 0" BorderThickness="1" Margin="-1,-11,-1,277" Background="#FF077C5E" Height="38">
+                <Label Content="Pending Deliveries" Foreground="White" FontSize="21" Margin="9,-2,118,2"/>
+            </Border>
+        </Border>
+        <Border CornerRadius="10" BorderThickness="1" Margin="401,409,501,25" Background="White" Width="455" Height="314">
+            <Border CornerRadius="10 10 0 0" BorderThickness="1" Margin="-1,-11,-1,277" Background="#FF077C5E" Height="38">
+                <Label Content="Deliveries" Foreground="White" FontSize="21" Margin="9,-2,118,2"/>
+            </Border>
+        </Border>
+        <Label Content="ID" HorizontalAlignment="Left" Margin="81,102,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label Content="Payment Method&#xD;&#xA;" HorizontalAlignment="Left" Margin="143,102,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label Content="Total Price&#xA;" HorizontalAlignment="Left" Margin="286,102,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label Content="Receiver" HorizontalAlignment="Left" Margin="448,452,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label Content="Receiver" HorizontalAlignment="Left" Margin="932,452,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label Content="Date" HorizontalAlignment="Left" Margin="1078,452,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label Content="Due Date" HorizontalAlignment="Left" Margin="574,452,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label Content="" HorizontalAlignment="Left" Margin="706,452,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label Content="Status" HorizontalAlignment="Left" Margin="1187,452,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Button HorizontalAlignment="Left" Margin="737,415,0,0" VerticalAlignment="Top" Width="21" Background="{x:Null}" BorderBrush="#FF077C5E">
+            <Image Height="15" Width="21" Source="/addicon.png"/>
+        </Button>
+        <ComboBox HorizontalAlignment="Left" Margin="763,414,0,0" VerticalAlignment="Top" Width="88"/>
+        <Button HorizontalAlignment="Left" Margin="1207,415,0,0" VerticalAlignment="Top" Width="21" Background="{x:Null}" BorderBrush="#FF077C5E">
+            <Image Height="15" Width="21" Source="/addicon.png"/>
+        </Button>
+        <ComboBox HorizontalAlignment="Left" Margin="1233,414,0,0" VerticalAlignment="Top" Width="88"/>
+        <ComboBox HorizontalAlignment="Left" Margin="1221,58,0,0" VerticalAlignment="Top" Width="88"/>
     </Grid>
 </UserControl>
