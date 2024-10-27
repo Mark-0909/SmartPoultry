@@ -171,8 +171,6 @@
                         Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
                 </Border>
 
-
-
                 <!-- FOR PRODUCT TYPE NAV -->
                 <Border x:Name="typeAllBorder" CornerRadius="10" BorderBrush="#FF66C265" BorderThickness="1" 
                 HorizontalAlignment="Left" Height="40" Margin="591,4,0,0" VerticalAlignment="Top" Width="62" 
@@ -216,15 +214,7 @@
                         FontSize="18" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                         Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
                 </Border>
-
-
-
-
             </Grid>
         </Border>
-
-
-
-
     </Grid>
 </UserControl>
