@@ -24,5 +24,11 @@ namespace SmartPoultry
         {
             InitializeComponent();
         }
+
+        private void OpenAddForm_Click(object sender, RoutedEventArgs e)
+        {
+            Inventory_AddingForm addForm = new Inventory_AddingForm();
+            addForm.ShowDialog();
+        }
     }
 }

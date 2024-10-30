@@ -14,6 +14,34 @@
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
+        <local:records x:Name="recordsControl" Grid.ColumnSpan="5" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="761" Width="1377"/>
+
+
+
+
+
+
+        <local:inventory x:Name="inventoryControl" Grid.ColumnSpan="5" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="761" Width="1377"/>
+
+
+
+
+
+
+        <local:dashboard x:Name="dashboardControl" Grid.ColumnSpan="5" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Width="1377" Height="761"/>
+
+
+
+
+
+
+        <local:home x:Name="homeControl" Grid.ColumnSpan="5" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="761" Width="1377"/>
+
+
+
+
+
+
         <StackPanel HorizontalAlignment="Left" Height="892" Margin="0,92,0,0" VerticalAlignment="Top" Width="101" Background="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}" Grid.ColumnSpan="2"/>
         <Rectangle HorizontalAlignment="Center" Height="92" VerticalAlignment="Top" Width="1994" Fill="#FFF4F7FC" Grid.Column="1"/>
         <Rectangle HorizontalAlignment="Left" Height="892" Margin="0,92,0,0" VerticalAlignment="Top" Width="92" Fill="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}" Grid.ColumnSpan="2"/>
@@ -155,10 +183,6 @@
             </Button.Template>
             <Image x:Name="recordsIcon" Height="59" Width="59" Source="Images/recordsgrey.png"/>
         </Button>
-        <local:records x:Name="recordsControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="744" Width="1351"/>
-        <local:inventory x:Name="inventoryControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Width="1351" Height="744"/>
-        <local:dashboard x:Name="dashboardControl" Grid.ColumnSpan="5" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Width="1377" Height="761"/>
-        <local:home x:Name="homeControl" Grid.ColumnSpan="5" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="761" Width="1377"/>
 
 
 

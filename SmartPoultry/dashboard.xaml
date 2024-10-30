@@ -36,14 +36,41 @@
         <Label Content="Due Date" HorizontalAlignment="Left" Margin="574,452,0,0" VerticalAlignment="Top" FontSize="15"/>
         <Label Content="" HorizontalAlignment="Left" Margin="706,452,0,0" VerticalAlignment="Top" FontSize="15"/>
         <Label Content="Status" HorizontalAlignment="Left" Margin="1187,452,0,0" VerticalAlignment="Top" FontSize="15"/>
-        <Button HorizontalAlignment="Left" Margin="737,415,0,0" VerticalAlignment="Top" Width="21" Background="{x:Null}" BorderBrush="#FF077C5E">
+        <Button HorizontalAlignment="Left" Margin="742,418,0,0" VerticalAlignment="Top" Width="21" Background="{x:Null}" BorderBrush="#FF077C5E">
             <Image Height="15" Width="21" Source="/addicon.png"/>
         </Button>
-        <ComboBox HorizontalAlignment="Left" Margin="763,414,0,0" VerticalAlignment="Top" Width="88"/>
-        <Button HorizontalAlignment="Left" Margin="1207,415,0,0" VerticalAlignment="Top" Width="21" Background="{x:Null}" BorderBrush="#FF077C5E">
+        <Button HorizontalAlignment="Left" Margin="1212,418,0,0" VerticalAlignment="Top" Width="21" Background="{x:Null}" BorderBrush="#FF077C5E">
             <Image Height="15" Width="21" Source="/addicon.png"/>
         </Button>
-        <ComboBox HorizontalAlignment="Left" Margin="1233,414,0,0" VerticalAlignment="Top" Width="88"/>
-        <ComboBox HorizontalAlignment="Left" Margin="1221,58,0,0" VerticalAlignment="Top" Width="88"/>
+        <Border CornerRadius="0 10 0 0" BorderBrush="#FFACACAC" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="1237,65,0,0" VerticalAlignment="Top" Width="94" Background="#FFEAEAEA">
+            <ComboBox Margin="6,2,3,2" BorderBrush="#FFEBEBEB" BorderThickness="0">
+                <ComboBox.Background>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="#FFF0F0F0"/>
+                        <GradientStop Color="#FFEBEBEB" Offset="1"/>
+                    </LinearGradientBrush>
+                </ComboBox.Background>
+            </ComboBox>
+        </Border>
+        <Border CornerRadius="0 10 0 0" BorderBrush="#FFACACAC" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="1238,414,0,0" VerticalAlignment="Top" Width="94" Background="#FFEAEAEA">
+            <ComboBox Margin="6,2,3,2" BorderBrush="#FFEBEBEB" BorderThickness="0">
+                <ComboBox.Background>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="#FFF0F0F0"/>
+                        <GradientStop Color="#FFEBEBEB" Offset="1"/>
+                    </LinearGradientBrush>
+                </ComboBox.Background>
+            </ComboBox>
+        </Border>
+        <Border CornerRadius="0 10 0 0" BorderBrush="#FFACACAC" BorderThickness="1" HorizontalAlignment="Left" Height="28" Margin="768,414,0,0" VerticalAlignment="Top" Width="94" Background="#FFEAEAEA">
+            <ComboBox Margin="6,2,3,2" BorderBrush="#FFEBEBEB" BorderThickness="0">
+                <ComboBox.Background>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="#FFF0F0F0"/>
+                        <GradientStop Color="#FFEBEBEB" Offset="1"/>
+                    </LinearGradientBrush>
+                </ComboBox.Background>
+            </ComboBox>
+        </Border>
     </Grid>
 </UserControl>
