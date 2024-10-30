@@ -5,8 +5,201 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartPoultry"
         mc:Ignorable="d"
-        Title="Inventory_AddingForm" Height="412" Width="521" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Background="Transparent">
+        Title="Inventory_AddingForm" Height="694" Width="624" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Background="Transparent">
+    <Window.Resources>
+        <Style x:Key="NoHoverButton" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <!-- Animation for the button itself when hovered -->
+                                            <DoubleAnimation 
+                                                Storyboard.TargetProperty="Opacity" 
+                                                To=".7" Duration="0:0:0.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation 
+                                                Storyboard.TargetProperty="Opacity" 
+                                                To="1.0" Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
     <Grid>
+
+        <Border CornerRadius="10" BorderBrush="#FF077C5E" BorderThickness="2" Background="#FFDDDDDD">
+            <Border CornerRadius="10 10 0 0" BorderThickness="1" Margin="-2,-2,-2,652" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
+                <Button Content="Button" Margin="534,9,9,9" Click="CloseAddPopup_Click"/>
+            </Border>
+        </Border>
+        <Label Content="ADD PRODUCT" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" Width="179" Height="41" Foreground="White" FontStretch="SemiExpanded" Margin="0,-3,0,0"/>
+        <Border CornerRadius="10" BorderThickness="1" Margin="32,70,396,411" Background="White" BorderBrush="#FFD8D8D8">
+            <Button Margin="9,9,9,9">
+                <Image Height="100" Width="100" Source="/addicon.png"/>
+            </Button>
+        </Border>
+        <Border x:Name="animalChickenBorder" Height="39" Width="76" VerticalAlignment="Top" 
+            Margin="32,316,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
+            <Button x:Name="animalChickenBtn" Click="ChickenButton_Click" Content="Chicken"  
+                FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
+        </Border>
+        <Label Content="Animal:" HorizontalAlignment="Left" Margin="32,285,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label Content="Name:" HorizontalAlignment="Left" Margin="252,70,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label Content="Product Type:" HorizontalAlignment="Left" Margin="32,404,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Border x:Name="animalChickenBorder_Copy" Height="39" Width="56" VerticalAlignment="Top" 
+            Margin="113,316,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
+            <Button x:Name="animalChickenBtn1" Click="ChickenButton_Click" Content="Dog"  
+                FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
+        </Border>
+        <Border x:Name="animalChickenBorder_Copy1" Height="39" Width="56" VerticalAlignment="Top" 
+            Margin="174,316,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
+            <Button x:Name="animalChickenBtn2" Click="ChickenButton_Click" Content="Cat"  
+                FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
+        </Border>
+        <Border x:Name="animalChickenBorder_Copy2" Height="39" Width="47" VerticalAlignment="Top" 
+            Margin="235,316,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
+            <Button x:Name="animalChickenBtn3" Click="ChickenButton_Click" Content="Pig"  
+                FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
+        </Border>
+        <Border x:Name="animalChickenBorder_Copy3" Height="39" Width="93" VerticalAlignment="Top" 
+            Margin="287,316,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
+            <Button x:Name="animalChickenBtn4" Click="ChickenButton_Click" Content="Guinea Pig"  
+                FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
+        </Border>
+        <Border x:Name="animalChickenBorder_Copy4" Height="39" Width="58" VerticalAlignment="Top" 
+            Margin="385,316,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
+            <Button x:Name="animalChickenBtn5" Click="ChickenButton_Click" Content="Duck"  
+                FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
+        </Border>
+        <Border x:Name="animalChickenBorder_Copy5" Height="39" Width="55" VerticalAlignment="Top" 
+            Margin="448,316,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
+            <Button x:Name="animalChickenBtn6" Click="ChickenButton_Click" Content="Cow"  
+                FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
+        </Border>
+        <Border x:Name="animalChickenBorder_Copy6" Height="39" Width="65" VerticalAlignment="Top" 
+            Margin="508,316,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
+            <Button x:Name="animalChickenBtn7" Click="ChickenButton_Click" Content="Horse"  
+                FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
+        </Border>
+        <Border x:Name="animalChickenBorder_Copy7" Height="39" Width="65" VerticalAlignment="Top" 
+            Margin="32,360,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
+            <Button x:Name="animalChickenBtn8" Click="ChickenButton_Click" Content="Rabbit"  
+                FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
+        </Border>
+        <Border x:Name="animalChickenBorder_Copy8" Height="39" Width="50" VerticalAlignment="Top" 
+            Margin="102,360,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
+            <Button x:Name="animalChickenBtn9" Click="ChickenButton_Click" Content="Bird"  
+                FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
+        </Border>
+        <Border x:Name="animalChickenBorder_Copy9" Height="39" Width="50" VerticalAlignment="Top" 
+            Margin="157,360,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
+            <Button x:Name="animalChickenBtn10" Click="ChickenButton_Click" Content="Fish"  
+                FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
+        </Border>
+        <Border x:Name="typeFeedsBorder" Height="39" Width="59" VerticalAlignment="Top" 
+            Margin="32,439,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
+            <Button x:Name="typeFeedsBtn" Click="FeedsButton_Click" Content="Feeds"  
+                FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                Style="{StaticResource NoHoverButton}" Margin="9,4,9,0" Height="29" VerticalAlignment="Top"/>
+        </Border>
+        <Border x:Name="typeAccessoriesBorder_Copy" Height="39" Width="82" VerticalAlignment="Top" 
+            Margin="96,439,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
+            <Button x:Name="typeAccessoriesBtn1" Click="AccessoriesButton_Click" Content="Medicine"  
+                FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
+        </Border>
+        <Border x:Name="typeAccessoriesBorder_Copy1" Height="39" Width="82" VerticalAlignment="Top" 
+            Margin="183,439,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
+            <Button x:Name="typeAccessoriesBtn2" Click="AccessoriesButton_Click" Content="Vitamins"  
+                FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
+        </Border>
+        <Border x:Name="typeAccessoriesBorder_Copy2" Height="39" Width="100" VerticalAlignment="Top" 
+            Margin="270,439,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
+            <Button x:Name="typeAccessoriesBtn3" Click="AccessoriesButton_Click" Content="Accessories"  
+                FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
+        </Border>
+        <Border x:Name="typeAccessoriesBorder_Copy3" Height="39" Width="77" VerticalAlignment="Top" 
+            Margin="375,439,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
+            <Button x:Name="typeAccessoriesBtn4" Click="AccessoriesButton_Click" Content="Vaccines"  
+                FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
+        </Border>
+        <Border CornerRadius="10                 " BorderBrush="#FFDDDDDD" BorderThickness="1" Margin="252,205,27,442" Background="White">
+            <TextBox HorizontalAlignment="Center" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="325" Height="26" FontSize="18" BorderBrush="White"/>
+        </Border>
+        <Label Content="Supplier:" HorizontalAlignment="Left" Margin="252,163,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label Content="Variations: " HorizontalAlignment="Left" Margin="30,491,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Border CornerRadius="10                 " BorderBrush="#FFDDDDDD" BorderThickness="1" Margin="252,112,27,535" Background="White">
+            <TextBox HorizontalAlignment="Center" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="325" Height="26" FontSize="18" BorderBrush="White"/>
+        </Border>
+        <Border x:Name="typeFeedsBorder_Copy" Height="63" Width="59" VerticalAlignment="Top" 
+            Margin="32,526,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
+            <Button Content="Button" Margin="9,9,9,9" Click="CloseAddPopup_Click"/>
+        </Border>
+        <Border x:Name="typeFeedsBorder_Copy1" Height="39" Width="59" VerticalAlignment="Top" 
+            Margin="32,598,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
+            <Button x:Name="typeFeedsBtn1" Click="FeedsButton_Click" Content="Feeds"  
+                FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                Style="{StaticResource NoHoverButton}" Margin="9,4,9,0" Height="29" VerticalAlignment="Top"/>
+        </Border>
+        <Border x:Name="typeFeedsBorder_Copy3" Height="35" Width="622" VerticalAlignment="Top" 
+            Margin="0,658,0,0" HorizontalAlignment="Center" CornerRadius="0 0 10 10" 
+            BorderThickness="1" BorderBrush="#FF077C5E" Background="#FF077C5E">
+            <Button Content="Submit" Margin="9,-1,9,-1" Click="CloseAddPopup_Click" Background="#FF077C5E" Foreground="White" FontWeight="Bold" FontSize="20" BorderThickness="0" Style="{StaticResource NoHoverButton}"/>
+        </Border>
 
     </Grid>
 </Window>

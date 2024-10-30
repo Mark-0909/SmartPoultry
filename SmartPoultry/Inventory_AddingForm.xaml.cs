@@ -6,16 +6,20 @@ namespace SmartPoultry
 {
     public partial class Inventory_AddingForm : Window
     {
-        
+        public MainWindow mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
         public Inventory_AddingForm()
         {
-            MainWindow mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
             InitializeComponent();
             SetRoundedCorners();
             mainWindow.Opacity = 0.5;
             SetRoundedCorners();
 
             this.Closed += (s, e) => mainWindow.Opacity = 1.0;
+            
+        }
+        public void MainWindowClick()
+        {
+            
         }
 
         private void SetRoundedCorners()
@@ -24,15 +28,32 @@ namespace SmartPoultry
             this.AllowsTransparency = true;
             this.Background = Brushes.Transparent;
 
-            Border border = new Border
-            {
-                CornerRadius = new CornerRadius(10),
-                Background = Brushes.White,
-                BorderBrush = (Brush)new BrushConverter().ConvertFrom("#FF077C5E"),
-                BorderThickness = new Thickness(2)
-            };
+        
+        }
 
-            this.Content = border;
+        private void CloseAddPopup_Click(object sender, RoutedEventArgs e)
+        {
+            ClosePopUp();
+        }
+
+        public void ClosePopUp()
+        {
+            this.Close();
+        }
+
+        private void ChickenButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AccessoriesButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void FeedsButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
