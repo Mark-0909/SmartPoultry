@@ -53,7 +53,7 @@
                 <Button Content="Button" Margin="534,9,9,9" Click="CloseAddPopup_Click"/>
             </Border>
         </Border>
-        <Label Content="ADD PRODUCT" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" Width="179" Height="41" Foreground="White" FontStretch="SemiExpanded" Margin="0,-3,0,0"/>
+        <Label Content="ADD PRODUCT" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" Width="180" Height="41" Foreground="White" FontStretch="SemiExpanded" Margin="0,-5,0,0"/>
         <Border CornerRadius="10" BorderThickness="1" Margin="32,70,396,445" Background="White" BorderBrush="#FFD8D8D8">
             <Button Margin="9,9,9,9" Background="White" BorderBrush="#FFE4E1E1">
                 <Image Height="72" Width="70" Source="/Images/clipicon.png"/>
@@ -174,7 +174,7 @@
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                 Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
         </Border>
-        
+
         <Border CornerRadius="10" BorderBrush="#FFDDDDDD" BorderThickness="1" Margin="252,209,27,466" Background="White" Height="46">
 
             <ComboBox Margin="9,5,9,5" Background="Transparent" BorderBrush="Transparent">
