@@ -11,6 +11,9 @@
 
   <ItemGroup>
     <None Remove="addicon.png" />
+    <None Remove="Images\addbaseunit.png" />
+    <None Remove="Images\addvariant.png" />
+    <None Remove="Images\clipicon.png" />
     <None Remove="Images\dashboardgreen.png" />
     <None Remove="Images\dashboardgrey.png" />
     <None Remove="Images\homeicongreen.png" />
@@ -32,6 +35,9 @@
 
   <ItemGroup>
     <Resource Include="addicon.png" />
+    <Resource Include="Images\addbaseunit.png" />
+    <Resource Include="Images\addvariant.png" />
+    <Resource Include="Images\clipicon.png" />
     <Resource Include="Images\dashboardgreen.png" />
     <Resource Include="Images\dashboardgrey.png" />
     <Resource Include="Images\homeicongreen.png" />

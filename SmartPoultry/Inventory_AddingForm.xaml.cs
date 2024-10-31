@@ -15,12 +15,27 @@ namespace SmartPoultry
             SetRoundedCorners();
 
             this.Closed += (s, e) => mainWindow.Opacity = 1.0;
-            
         }
-        public void MainWindowClick()
+        private void ProductName_GotFocus(object sender, RoutedEventArgs e)
         {
             
+            if (ProductNameTextBox.Text == "Enter text here...")
+            {
+                ProductNameTextBox.Text = "";
+                ProductNameTextBox.Foreground = Brushes.Black;
+            }
         }
+
+        private void ProductName_LostFocus(object sender, RoutedEventArgs e)
+        {
+            
+            if (string.IsNullOrWhiteSpace(ProductNameTextBox.Text))
+            {
+                ProductNameTextBox.Text = "Enter text here...";
+                ProductNameTextBox.Foreground = Brushes.Gray;
+            }
+        }
+
 
         private void SetRoundedCorners()
         {

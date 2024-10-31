@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartPoultry"
         mc:Ignorable="d"
-        Title="Inventory_AddingForm" Height="694" Width="624" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Background="Transparent">
+        Title="Inventory_AddingForm" Height="721" Width="624" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Background="Transparent">
     <Window.Resources>
         <Style x:Key="NoHoverButton" TargetType="Button">
             <Setter Property="Background" Value="White"/>
@@ -23,7 +23,6 @@
                                 <Trigger.EnterActions>
                                     <BeginStoryboard>
                                         <Storyboard>
-                                            <!-- Animation for the button itself when hovered -->
                                             <DoubleAnimation 
                                                 Storyboard.TargetProperty="Opacity" 
                                                 To=".7" Duration="0:0:0.2" />
@@ -50,14 +49,14 @@
     <Grid>
 
         <Border CornerRadius="10" BorderBrush="#FF077C5E" BorderThickness="2" Background="#FFDDDDDD">
-            <Border CornerRadius="10 10 0 0" BorderThickness="1" Margin="-2,-2,-2,652" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
+            <Border CornerRadius="10 10 0 0" BorderThickness="1" Margin="-2,-2,-2,680" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
                 <Button Content="Button" Margin="534,9,9,9" Click="CloseAddPopup_Click"/>
             </Border>
         </Border>
         <Label Content="ADD PRODUCT" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" Width="179" Height="41" Foreground="White" FontStretch="SemiExpanded" Margin="0,-3,0,0"/>
-        <Border CornerRadius="10" BorderThickness="1" Margin="32,70,396,411" Background="White" BorderBrush="#FFD8D8D8">
-            <Button Margin="9,9,9,9">
-                <Image Height="100" Width="100" Source="/addicon.png"/>
+        <Border CornerRadius="10" BorderThickness="1" Margin="32,70,396,445" Background="White" BorderBrush="#FFD8D8D8">
+            <Button Margin="9,9,9,9" Background="White" BorderBrush="#FFE4E1E1">
+                <Image Height="72" Width="70" Source="/Images/clipicon.png"/>
             </Button>
         </Border>
         <Border x:Name="animalChickenBorder" Height="39" Width="76" VerticalAlignment="Top" 
@@ -67,8 +66,8 @@
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                 Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
         </Border>
-        <Label Content="Animal:" HorizontalAlignment="Left" Margin="32,285,0,0" VerticalAlignment="Top" FontSize="15"/>
-        <Label Content="Name:" HorizontalAlignment="Left" Margin="252,70,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label Content="Animal:" HorizontalAlignment="Left" Margin="32,281,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label Content="Name:" HorizontalAlignment="Left" Margin="252,73,0,0" VerticalAlignment="Top" FontSize="20"/>
         <Label Content="Product Type:" HorizontalAlignment="Left" Margin="32,404,0,0" VerticalAlignment="Top" FontSize="15"/>
         <Border x:Name="animalChickenBorder_Copy" Height="39" Width="56" VerticalAlignment="Top" 
             Margin="113,316,0,0" HorizontalAlignment="Left" CornerRadius="10" 
@@ -175,31 +174,142 @@
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                 Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
         </Border>
-        <Border CornerRadius="10                 " BorderBrush="#FFDDDDDD" BorderThickness="1" Margin="252,205,27,442" Background="White">
-            <TextBox HorizontalAlignment="Center" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="325" Height="26" FontSize="18" BorderBrush="White"/>
+        
+        <Border CornerRadius="10" BorderBrush="#FFDDDDDD" BorderThickness="1" Margin="252,209,27,466" Background="White" Height="46">
+
+            <ComboBox Margin="9,5,9,5" Background="Transparent" BorderBrush="Transparent">
+                <ComboBox.Style>
+                    <Style TargetType="ComboBox">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ComboBox">
+                                    <Border x:Name="Border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="4">
+                                        <Grid>
+                                            <!-- Define two columns, with the second for the dropdown icon -->
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <ContentPresenter x:Name="ContentSite"
+                                                  IsHitTestVisible="False"
+                                                  Content="{TemplateBinding SelectionBoxItem}"
+                                                  ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                                  ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                                  Margin="5,3,23,3"
+                                                  VerticalAlignment="Center"
+                                                  HorizontalAlignment="Left"/>
+
+                                            <ToggleButton x:Name="ToggleButton"
+                                              Background="{TemplateBinding Background}"
+                                              BorderBrush="{TemplateBinding BorderBrush}"
+                                              BorderThickness="0"
+                                              Grid.Column="1"
+                                              Focusable="false"
+                                              IsChecked="{Binding IsDropDownOpen, RelativeSource={RelativeSource TemplatedParent}}"
+                                              ClickMode="Press">
+                                                <Path Fill="Black" Data="M 0 0 L 4 4 L 8 0 Z" Margin="0,0,4,0" />
+                                            </ToggleButton>
+
+                                            <Popup x:Name="Popup"
+                                       Placement="Bottom"
+                                       IsOpen="{TemplateBinding IsDropDownOpen}"
+                                       AllowsTransparency="True"
+                                       Focusable="False"
+                                       PopupAnimation="Slide">
+                                                <Grid x:Name="DropDown"
+                                          SnapsToDevicePixels="True"
+                                          MinWidth="{TemplateBinding ActualWidth}"
+                                          MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                                    <Border x:Name="DropDownBorder"
+                                                Background="White"
+                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                BorderThickness="1"/>
+                                                    <ScrollViewer Margin="4,6,4,6"
+                                                      SnapsToDevicePixels="True">
+                                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                                    </ScrollViewer>
+                                                </Grid>
+                                            </Popup>
+                                        </Grid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsEnabled" Value="False">
+                                            <Setter TargetName="Border" Property="Background" Value="Gray"/>
+                                            <Setter Property="Foreground" Value="DarkGray"/>
+                                        </Trigger>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="Border" Property="BorderBrush" Value="Transparent"/>
+                                        </Trigger>
+                                        <Trigger Property="IsDropDownOpen" Value="True">
+                                            <Setter TargetName="Border" Property="BorderBrush" Value="Transparent"/>
+                                        </Trigger>
+                                        <Trigger Property="HasItems" Value="False">
+                                            <Setter TargetName="DropDownBorder" Property="BorderThickness" Value="0"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                    </Style>
+                </ComboBox.Style>
+                <ComboBoxItem Content="Item1"/>
+                <ComboBoxItem Content="Item2"/>
+                <ComboBoxItem Content="Item3"/>
+                <ComboBoxItem Content="Item4"/>
+            </ComboBox>
+
+
+
         </Border>
-        <Label Content="Supplier:" HorizontalAlignment="Left" Margin="252,163,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <Label Content="Variations: " HorizontalAlignment="Left" Margin="30,491,0,0" VerticalAlignment="Top" FontSize="15"/>
-        <Border CornerRadius="10                 " BorderBrush="#FFDDDDDD" BorderThickness="1" Margin="252,112,27,535" Background="White">
-            <TextBox HorizontalAlignment="Center" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="325" Height="26" FontSize="18" BorderBrush="White"/>
-        </Border>
-        <Border x:Name="typeFeedsBorder_Copy" Height="63" Width="59" VerticalAlignment="Top" 
-            Margin="32,526,0,0" HorizontalAlignment="Left" CornerRadius="10" 
-            BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
-            <Button Content="Button" Margin="9,9,9,9" Click="CloseAddPopup_Click"/>
-        </Border>
-        <Border x:Name="typeFeedsBorder_Copy1" Height="39" Width="59" VerticalAlignment="Top" 
-            Margin="32,598,0,0" HorizontalAlignment="Left" CornerRadius="10" 
-            BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
-            <Button x:Name="typeFeedsBtn1" Click="FeedsButton_Click" Content="Feeds"  
-                FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
-                Style="{StaticResource NoHoverButton}" Margin="9,4,9,0" Height="29" VerticalAlignment="Top"/>
+        <Label Content="Supplier:" HorizontalAlignment="Left" Margin="252,166,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label Content="Variations: " HorizontalAlignment="Left" Margin="32,483,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Border CornerRadius="10                 " BorderBrush="#FFDDDDDD" BorderThickness="1" Margin="252,114,27,561" Background="White">
+            <TextBox x:Name="ProductNameTextBox" GotFocus="ProductName_GotFocus" LostFocus="ProductName_LostFocus" 
+         HorizontalAlignment="Center" TextWrapping="Wrap" 
+         Text="Enter text here..." VerticalAlignment="Center" 
+         Width="325" Height="26" FontSize="18" Foreground="#FF585858">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="SelectionBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
         </Border>
         <Border x:Name="typeFeedsBorder_Copy3" Height="35" Width="622" VerticalAlignment="Top" 
-            Margin="0,658,0,0" HorizontalAlignment="Center" CornerRadius="0 0 10 10" 
+            Margin="0,684,0,0" HorizontalAlignment="Center" CornerRadius="0 0 10 10" 
             BorderThickness="1" BorderBrush="#FF077C5E" Background="#FF077C5E">
             <Button Content="Submit" Margin="9,-1,9,-1" Click="CloseAddPopup_Click" Background="#FF077C5E" Foreground="White" FontWeight="Bold" FontSize="20" BorderThickness="0" Style="{StaticResource NoHoverButton}"/>
         </Border>
+        <Label Content="Prices: " HorizontalAlignment="Left" Margin="32,581,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <StackPanel Margin="32,518,27,140" Orientation="Horizontal">
+            <Border x:Name="typeFeedsBorder_Copy" Height="55" Width="56" CornerRadius="10" 
+            BorderThickness="1" BorderBrush="#FF66C265" Background="#FFC0E4BE">
+                <Button Margin="3,4,3,4" Click="CloseAddPopup_Click" BorderBrush="#FFC0E4BE" Background="#FFC0E4BE" Style="{StaticResource NoHoverButton}">
+                    <Image Height="39" Width="33" Source="/Images/addbaseunit.png"/>
+                </Button>
+            </Border>
+        </StackPanel>
+        <StackPanel Margin="32,616,27,54" Orientation="Horizontal">
+            <Border CornerRadius="10" BorderBrush="#FF66C265" BorderThickness="1" Width="56" Height="40" Background="#FFC0E4BE">
+                <Label Content="Label" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFC0E4BE" BorderBrush="#FFC0E4BE" Foreground="#FF66C265" FontSize="15"/>
+            </Border>
+        </StackPanel>
+
 
     </Grid>
 </Window>
