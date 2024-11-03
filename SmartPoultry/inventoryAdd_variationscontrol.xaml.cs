@@ -34,6 +34,8 @@ namespace SmartPoultry
 
         public int positionlist;
 
+        public Inventory_AddingForm? inventoraddingWindow = Application.Current.Windows.OfType<Inventory_AddingForm>().FirstOrDefault();
+
         public inventoryAdd_variationscontrol(string unitname, string price, string conversion, string type, string stocks, string basevalue, int position)
         {
             InitializeComponent();
@@ -71,9 +73,10 @@ namespace SmartPoultry
             priceLabel.Content = price;
             conversionLabel.Content = conversion;
 
+            inventoraddingWindow.UpdateBaseValueForAllInstances(name, price, conversion, stocks, baseunit, position);
 
 
-        
+
         }
     }
 }

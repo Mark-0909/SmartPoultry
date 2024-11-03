@@ -331,6 +331,9 @@
                 </Button>
             </Border>
         </WrapPanel>
+        <Label Content="Stocks: " HorizontalAlignment="Left" Margin="20,636,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label x:Name="stocklisting" Content="stocks " HorizontalAlignment="Left" Margin="111,636,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label x:Name="stockunit" Content="stocks " HorizontalAlignment="Left" Margin="175,636,0,0" VerticalAlignment="Top" FontSize="15"/>
 
 
 

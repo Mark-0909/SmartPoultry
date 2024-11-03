@@ -16,6 +16,7 @@ namespace SmartPoultry
     {
         public static string baseUnitValue = "";
 
+        public static string? stocksvar;
         
 
         public bool baseUnit = false;
@@ -31,23 +32,62 @@ namespace SmartPoultry
 
 
 
-        public MainWindow mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
+        public MainWindow? mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
         public Inventory_AddingForm()
         {
             InitializeComponent();
             SetRoundedCorners();
             mainWindow.Opacity = 0.5;
-          
-            
-        
+
+            stockunit.Visibility = Visibility.Collapsed;
+            stocklisting.Visibility = Visibility.Collapsed;
+
             this.Closed += (s, e) => mainWindow.Opacity = 1.0;
         }
 
 
         public void UpdateBaseValueForAllInstances(string name, string price, string conversion, string stocks, string newBaseValue, int position)
         {
+
             unitsWPanel.Children.Clear();
+
+
+            unitlist[position] = name;
+            pricelist[position] = price;
+            conversionlist[position] = conversion;
+
+            string stockupdate = stocks;
+            if (stocks == null)
+            {
+                stockupdate = stocklisting.Content.ToString();
+            }
             
+            stocklisting.Content = stockupdate;
+
+            string type;
+
+            for (int i = 0; i < unitlist.Count; i++) {
+                if (i != 0)
+                {
+                    type = "sub";
+
+                }
+                else {
+                    type = "base";
+                }
+
+                inventoryAdd_variationscontrol? control = new inventoryAdd_variationscontrol(unitlist[i], pricelist[i], conversionlist[i], type, stockupdate, unitlist[0], i)
+                {
+                    Height = 166,
+                    Width = 60,
+                    VerticalAlignment = VerticalAlignment.Center 
+                };
+
+                unitsWPanel.Children.Add(control);
+
+            }
+
+            unitsWPanel.Children.Add(addUnitBtn);
         }
 
 
@@ -58,13 +98,16 @@ namespace SmartPoultry
 
         public void AddUnit(string name, string price, string conversion, string stocks, string type, int position)
         {
+            
+
             if (baseUnit == false)
             {
                 baseUnit = true;
                 baseUnitValue = name;
             }
+          
 
-            inventoryAdd_variationscontrol control = new inventoryAdd_variationscontrol(name, price, conversion, type, stocks, baseUnitValue, position)
+            inventoryAdd_variationscontrol? control = new inventoryAdd_variationscontrol(name, price, conversion, type, stocks, baseUnitValue, position)
             {
                 Height = 166,
                 Width = 60,
@@ -78,6 +121,21 @@ namespace SmartPoultry
             unitlist.Add(name); 
             pricelist.Add(price);
             conversionlist.Add(conversion);
+
+            if (stocks != null)
+            {
+                stocklisting.Visibility = Visibility.Visible;
+                stocklisting.Content = stocks;
+                stockunit.Visibility = Visibility.Visible;
+                stockunit.Content = unitlist[0];
+            }
+            else { 
+            
+            
+            }
+            
+
+            
         }
 
         public void AddUnitPopup_Click(object sender, RoutedEventArgs s)
@@ -85,12 +143,12 @@ namespace SmartPoultry
             int position = unitlist.Count;
             if (!baseUnit)
             {
-                Inventory_Unitadder popup = new Inventory_Unitadder("base_unit", baseUnitValue, "add", position);
+                Inventory_Unitadder? popup = new Inventory_Unitadder("base_unit", baseUnitValue, "add", position);
                 MessageBox.Show(position.ToString(), "Items List", MessageBoxButton.OK, MessageBoxImage.Information);
                 popup.ShowDialog();
             }
             else {
-                Inventory_Unitadder popup = new Inventory_Unitadder("sub_unit", baseUnitValue, "add", position);
+                Inventory_Unitadder? popup = new Inventory_Unitadder("sub_unit", baseUnitValue, "add", position);
                 MessageBox.Show(position.ToString(), "Items List", MessageBoxButton.OK, MessageBoxImage.Information);
                 popup.ShowDialog();
             }
@@ -142,7 +200,7 @@ namespace SmartPoultry
 
         private void SelectImage_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog 
+            OpenFileDialog? openFileDialog = new OpenFileDialog 
             {
                 Filter = "Image Files (*.jpg;*.jpeg;*.png;*.bmp)|*.jpg;*.jpeg;*.png;*.bmp"
             };
@@ -151,7 +209,7 @@ namespace SmartPoultry
             {
                 
                 string selectedFilePath = openFileDialog.FileName;
-                BitmapImage bitmap = new BitmapImage(new Uri(selectedFilePath));
+                BitmapImage? bitmap = new BitmapImage(new Uri(selectedFilePath));
                 SelectedImage.Source = bitmap; 
                 SelectedImage.Height = SelectImageBtn.Height;
                 SelectedImage.Width = SelectImageBtn.Width;
@@ -342,8 +400,8 @@ namespace SmartPoultry
 
         private void ActiveButton(String stringbutton, String stringborder, String category, String toSave)
         {
-            Button button = FindName(stringbutton) as Button;
-            Border border = FindName(stringborder) as Border;
+            Button? button = FindName(stringbutton) as Button;
+            Border? border = FindName(stringborder) as Border;
 
             if (button != null && border != null)
             {
@@ -370,8 +428,8 @@ namespace SmartPoultry
 
         private void InactiveButton(String stringbutton, String stringborder, String category, String toSave)
         {
-            Button button = FindName(stringbutton) as Button;
-            Border border = FindName(stringborder) as Border;
+            Button? button = FindName(stringbutton) as Button;
+            Border? border = FindName(stringborder) as Border;
 
 
             if (button != null && border != null)

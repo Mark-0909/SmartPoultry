@@ -23,7 +23,7 @@ namespace SmartPoultry
     /// </summary>
     public partial class Inventory_Unitadder : Window
     {
-        public Inventory_AddingForm inventoraddingWindow = Application.Current.Windows.OfType<Inventory_AddingForm>().FirstOrDefault();
+        public Inventory_AddingForm? inventoraddingWindow = Application.Current.Windows.OfType<Inventory_AddingForm>().FirstOrDefault();
 
         public static String? actionDeclaration; // add or edit
         public static String? agenda; // base_unit or sub_unit
@@ -147,7 +147,7 @@ namespace SmartPoultry
                 }
                 else
                 {
-                    inventoraddingWindow.AddUnit(unitLabelTextbox.Text, priceTextBox.Text, conversionTextbox.Text, "0", "sub", positionlist);
+                    inventoraddingWindow.AddUnit(unitLabelTextbox.Text, priceTextBox.Text, conversionTextbox.Text, null, "sub", positionlist);
                     MessageBox.Show("2", "Items List", MessageBoxButton.OK, MessageBoxImage.Information);
                     this.Close();
                     
@@ -165,7 +165,7 @@ namespace SmartPoultry
                 }
                 else
                 {
-                    unitcontrol.EditUnit(unitLabelTextbox.Text, priceTextBox.Text, conversionTextbox.Text, "0", baseunit, positionlist);
+                    unitcontrol.EditUnit(unitLabelTextbox.Text, priceTextBox.Text, conversionTextbox.Text, null, baseunit, positionlist);
                     MessageBox.Show(positionlist.ToString(), "Items List", MessageBoxButton.OK, MessageBoxImage.Information);
                     this.Close();
                     
