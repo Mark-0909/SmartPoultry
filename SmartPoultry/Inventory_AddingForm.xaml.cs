@@ -4,14 +4,31 @@ using System.Windows.Media;
 using Microsoft.Win32; // Add this at the top if not already present
 using System.Windows.Media.Imaging;
 using System.Collections.Generic;
+using System;
+using Microsoft.VisualBasic;
+using System.Collections;
+using System.Diagnostics;
+using System.Xml.Linq;
 
 namespace SmartPoultry
 {
     public partial class Inventory_AddingForm : Window
     {
+        public static string baseUnitValue = "";
+
+        
+
+        public bool baseUnit = false;
         
         public List<String> AnimalList = new List<String>();
         public List<String> ProductTypeList = new List<String>();
+
+        public List<String> unitlist = new List<String>();
+        public List<String> pricelist = new List<String>();
+        public List<String> conversionlist = new List<String>();
+
+
+
 
 
         public MainWindow mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
@@ -20,9 +37,64 @@ namespace SmartPoultry
             InitializeComponent();
             SetRoundedCorners();
             mainWindow.Opacity = 0.5;
-            SetRoundedCorners();
-
+          
+            
+        
             this.Closed += (s, e) => mainWindow.Opacity = 1.0;
+        }
+
+
+        public void UpdateBaseValueForAllInstances(string name, string price, string conversion, string stocks, string newBaseValue, int position)
+        {
+            unitsWPanel.Children.Clear();
+            
+        }
+
+
+
+
+
+
+
+        public void AddUnit(string name, string price, string conversion, string stocks, string type, int position)
+        {
+            if (baseUnit == false)
+            {
+                baseUnit = true;
+                baseUnitValue = name;
+            }
+
+            inventoryAdd_variationscontrol control = new inventoryAdd_variationscontrol(name, price, conversion, type, stocks, baseUnitValue, position)
+            {
+                Height = 166,
+                Width = 60,
+                VerticalAlignment = VerticalAlignment.Center // Ensure correct syntax and property name
+            };
+
+            unitsWPanel.Children.Remove(addUnitBtn);
+            unitsWPanel.Children.Add(control);
+            unitsWPanel.Children.Add(addUnitBtn);
+
+            unitlist.Add(name); 
+            pricelist.Add(price);
+            conversionlist.Add(conversion);
+        }
+
+        public void AddUnitPopup_Click(object sender, RoutedEventArgs s)
+        {
+            int position = unitlist.Count;
+            if (!baseUnit)
+            {
+                Inventory_Unitadder popup = new Inventory_Unitadder("base_unit", baseUnitValue, "add", position);
+                MessageBox.Show(position.ToString(), "Items List", MessageBoxButton.OK, MessageBoxImage.Information);
+                popup.ShowDialog();
+            }
+            else {
+                Inventory_Unitadder popup = new Inventory_Unitadder("sub_unit", baseUnitValue, "add", position);
+                MessageBox.Show(position.ToString(), "Items List", MessageBoxButton.OK, MessageBoxImage.Information);
+                popup.ShowDialog();
+            }
+            
         }
         private void ProductName_GotFocus(object sender, RoutedEventArgs e)
         {
@@ -47,8 +119,6 @@ namespace SmartPoultry
             this.WindowStyle = WindowStyle.None;
             this.AllowsTransparency = true;
             this.Background = Brushes.Transparent;
-
-        
         }
         private void CloseAddPopup_Click(object sender, RoutedEventArgs e)
         {
@@ -57,7 +127,7 @@ namespace SmartPoultry
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
             string message = "Here are your animal list:\n" + string.Join("\n", AnimalList) + "\nHere are your Product Type List:\n" + string.Join("\n", ProductTypeList);
-            
+
 
             MessageBox.Show(message, "Items List", MessageBoxButton.OK, MessageBoxImage.Information);
         }
@@ -66,6 +136,10 @@ namespace SmartPoultry
         {
             this.Close();
         }
+
+
+
+
         private void SelectImage_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog 

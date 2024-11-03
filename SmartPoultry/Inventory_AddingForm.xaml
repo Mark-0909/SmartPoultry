@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartPoultry"
         mc:Ignorable="d"
-        Title="Inventory_AddingForm" Height="721" Width="624" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Background="Transparent">
+        Title="Inventory_AddingForm" Height="721" Width="624" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Background="Transparent" ShowInTaskbar="False">
     <Window.Resources>
         <Style x:Key="NoHoverButton" TargetType="Button">
             <Setter Property="Background" Value="White"/>
@@ -59,7 +59,7 @@
                 <Image x:Name="SelectedImage" Height="72" Width="70" Source="/Images/clipicon.png"/>
             </Button>
         </Border>
-        
+
         <Border x:Name="animalChickenBorder" Height="39" Width="76" VerticalAlignment="Top" 
             Margin="32,316,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
@@ -67,11 +67,11 @@
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                 Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
         </Border>
-        
+
         <Label Content="Animal:" HorizontalAlignment="Left" Margin="32,281,0,0" VerticalAlignment="Top" FontSize="15"/>
         <Label Content="Name:" HorizontalAlignment="Left" Margin="252,73,0,0" VerticalAlignment="Top" FontSize="20"/>
         <Label Content="Product Type:" HorizontalAlignment="Left" Margin="32,404,0,0" VerticalAlignment="Top" FontSize="15"/>
-        
+
         <Border x:Name="animalDogBorder" Height="39" Width="56" VerticalAlignment="Top" 
             Margin="113,316,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
@@ -79,7 +79,7 @@
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                 Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
         </Border>
-        
+
         <Border x:Name="animalCatBorder" Height="39" Width="56" VerticalAlignment="Top" 
             Margin="174,316,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
@@ -94,7 +94,7 @@
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                 Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
         </Border>
-        
+
         <Border x:Name="animalGuineaBorder" Height="39" Width="93" VerticalAlignment="Top" 
             Margin="287,316,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
@@ -102,7 +102,7 @@
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                 Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
         </Border>
-        
+
         <Border x:Name="animalDuckBorder" Height="39" Width="58" VerticalAlignment="Top" 
             Margin="385,316,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
@@ -110,7 +110,7 @@
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                 Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
         </Border>
-        
+
         <Border x:Name="animalCowBorder" Height="39" Width="55" VerticalAlignment="Top" 
             Margin="448,316,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
@@ -118,7 +118,7 @@
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                 Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
         </Border>
-        
+
         <Border x:Name="animalHorseBorder" Height="39" Width="65" VerticalAlignment="Top" 
             Margin="508,316,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
@@ -126,7 +126,7 @@
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                 Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
         </Border>
-        
+
         <Border x:Name="animalRabbitBorder" Height="39" Width="65" VerticalAlignment="Top" 
             Margin="32,360,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
@@ -134,7 +134,7 @@
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                 Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
         </Border>
-        
+
         <Border x:Name="animalBirdBorder" Height="39" Width="50" VerticalAlignment="Top" 
             Margin="102,360,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
@@ -142,7 +142,7 @@
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                 Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
         </Border>
-        
+
         <Border x:Name="animalFishBorder" Height="39" Width="50" VerticalAlignment="Top" 
             Margin="157,360,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
@@ -150,8 +150,8 @@
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                 Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
         </Border>
-        
-        
+
+
         <Border x:Name="typeFeedsBorder" Height="39" Width="59" VerticalAlignment="Top" 
             Margin="32,439,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
@@ -159,7 +159,7 @@
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                 Style="{StaticResource NoHoverButton}" Margin="9,4,9,0" Height="29" VerticalAlignment="Top"/>
         </Border>
-        
+
         <Border x:Name="typeMedicineBorder" Height="39" Width="82" VerticalAlignment="Top" 
             Margin="96,439,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
@@ -167,7 +167,7 @@
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                 Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
         </Border>
-        
+
         <Border x:Name="typeVitaminsBorder" Height="39" Width="82" VerticalAlignment="Top" 
             Margin="183,439,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
@@ -284,7 +284,7 @@
 
         </Border>
         <Label Content="Supplier:" HorizontalAlignment="Left" Margin="252,166,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <Label Content="Variations: " HorizontalAlignment="Left" Margin="32,483,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label Content="Variations: " HorizontalAlignment="Left" Margin="20,503,0,0" VerticalAlignment="Top" FontSize="15"/>
         <Border CornerRadius="10                 " BorderBrush="#FFDDDDDD" BorderThickness="1" Margin="252,114,27,561" Background="White">
             <TextBox x:Name="ProductNameTextBox" GotFocus="ProductName_GotFocus" LostFocus="ProductName_LostFocus" 
          HorizontalAlignment="Center" TextWrapping="Wrap" 
@@ -310,20 +310,28 @@
             BorderThickness="1" BorderBrush="#FF077C5E" Background="#FF077C5E">
             <Button Content="Submit" Margin="9,-1,9,-1" Click="Submit_Click" Background="#FF077C5E" Foreground="White" FontWeight="Bold" FontSize="20" BorderThickness="0" Style="{StaticResource NoHoverButton}"/>
         </Border>
-        <Label Content="Prices: " HorizontalAlignment="Left" Margin="32,581,0,0" VerticalAlignment="Top" FontSize="15"/>
-        <StackPanel Margin="32,518,27,140" Orientation="Horizontal">
-            <Border x:Name="typeFeedsBorder_Copy" Height="55" Width="56" CornerRadius="10" 
-            BorderThickness="1" BorderBrush="#FF66C265" Background="#FFC0E4BE">
-                <Button Margin="3,4,3,4" Click="CloseAddPopup_Click" BorderBrush="#FFC0E4BE" Background="#FFC0E4BE" Style="{StaticResource NoHoverButton}">
+        <Label Content="Prices: " HorizontalAlignment="Left" Margin="20,555,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label Content="Conversion: " HorizontalAlignment="Left" Margin="20,601,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <WrapPanel x:Name="unitsWPanel" Width="386" Margin="102,485,136,70" Orientation="Horizontal">
+            <Border x:Name="addUnitBtn" 
+            CornerRadius="10" 
+            BorderThickness="1" 
+            BorderBrush="#FF66C265" 
+            Background="#FFC0E4BE" 
+            Height="55" 
+            Width="56" 
+            Margin="1,4,0,0" 
+            VerticalAlignment="Top">
+                <Button Margin="3,4,3,4" 
+                Click="AddUnitPopup_Click" 
+                BorderBrush="#FFC0E4BE" 
+                Background="#FFC0E4BE" 
+                Style="{StaticResource NoHoverButton}">
                     <Image Height="39" Width="33" Source="/Images/addbaseunit.png"/>
                 </Button>
             </Border>
-        </StackPanel>
-        <StackPanel Margin="32,616,27,54" Orientation="Horizontal">
-            <Border CornerRadius="10" BorderBrush="#FF66C265" BorderThickness="1" Width="56" Height="40" Background="#FFC0E4BE">
-                <Label Content="Label" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFC0E4BE" BorderBrush="#FFC0E4BE" Foreground="#FF66C265" FontSize="15"/>
-            </Border>
-        </StackPanel>
+        </WrapPanel>
+
 
 
     </Grid>

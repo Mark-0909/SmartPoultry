@@ -6,7 +6,7 @@ namespace SmartPoultry.DataAccess
     public class AppDbContext : DbContext
     {
         public DbSet<Models.User> Users { get; set; }
-       
+        public DbSet<Models.Products> Products { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
