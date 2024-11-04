@@ -47,7 +47,7 @@
     <Grid>
         <Border x:Name="unitTemplate" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FF66C265" Background="#FFC0E4BE" Margin="2,2,2,106" Width="56" Height="55">
-            <Button x:Name="nameBtn" Margin="3,4,3,4" BorderBrush="#FFC0E4BE" Background="#FFC0E4BE" Style="{StaticResource NoHoverButton}" Content="Unit" Foreground="#FF66C265" FontSize="15" Click="nameBtn_Click"/>
+            <Button x:Name="nameBtn" Margin="3,4,3,4" BorderBrush="#FFC0E4BE" Background="#FFC0E4BE" Style="{StaticResource NoHoverButton}" Content="Unit" Foreground="#FF66C265" FontSize="15" Click="NameBtn_Click"/>
         </Border>
         <Border x:Name="priceTemplate" CornerRadius="10" BorderBrush="#FF66C265" BorderThickness="1" Background="#FFC0E4BE" Margin="2,61,2,60" Width="56">
             <Label x:Name="priceLabel" Content="Price" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFC0E4BE" BorderBrush="#FFC0E4BE" Foreground="#FF66C265" FontSize="15" Height="31" />

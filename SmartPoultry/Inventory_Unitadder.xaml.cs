@@ -140,7 +140,6 @@ namespace SmartPoultry
                 if (agenda == "base_unit")
                 {
                     inventoraddingWindow.AddUnit(unitLabelTextbox.Text, priceTextBox.Text, "1", stocksTextBox.Text, "base", positionlist);
-                    MessageBox.Show("1", "Items List", MessageBoxButton.OK, MessageBoxImage.Information);
                     this.Close();
                     
                     
@@ -148,7 +147,6 @@ namespace SmartPoultry
                 else
                 {
                     inventoraddingWindow.AddUnit(unitLabelTextbox.Text, priceTextBox.Text, conversionTextbox.Text, null, "sub", positionlist);
-                    MessageBox.Show("2", "Items List", MessageBoxButton.OK, MessageBoxImage.Information);
                     this.Close();
                     
                 }
@@ -158,7 +156,6 @@ namespace SmartPoultry
                 if (agenda == "base_unit")
                 {
                     unitcontrol.EditUnit(unitLabelTextbox.Text, priceTextBox.Text, "1", stocksTextBox.Text, baseunit, positionlist);
-                    MessageBox.Show(positionlist.ToString(), "Items List", MessageBoxButton.OK, MessageBoxImage.Information);
                     this.Close();
                     
                     
@@ -166,7 +163,7 @@ namespace SmartPoultry
                 else
                 {
                     unitcontrol.EditUnit(unitLabelTextbox.Text, priceTextBox.Text, conversionTextbox.Text, null, baseunit, positionlist);
-                    MessageBox.Show(positionlist.ToString(), "Items List", MessageBoxButton.OK, MessageBoxImage.Information);
+
                     this.Close();
                     
                     

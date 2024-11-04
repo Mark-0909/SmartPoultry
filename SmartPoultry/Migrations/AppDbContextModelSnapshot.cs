@@ -16,6 +16,34 @@ namespace SmartPoultry.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
 
+            modelBuilder.Entity("SmartPoultry.Models.ProductVariations", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("conversion_rate")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("isBaseUnit")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("price")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("product_id")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("variant_type")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("id");
+
+                    b.ToTable("ProductVariations");
+                });
+
             modelBuilder.Entity("SmartPoultry.Models.Products", b =>
                 {
                     b.Property<int>("product_id")
@@ -55,6 +83,9 @@ namespace SmartPoultry.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("stocks")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("supplier_id")
                         .HasColumnType("INTEGER");

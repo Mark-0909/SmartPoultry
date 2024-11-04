@@ -52,17 +52,15 @@ namespace SmartPoultry
 
             positionlist = position;
         }
-        private void nameBtn_Click(object sender, RoutedEventArgs e)
+        private void NameBtn_Click(object sender, RoutedEventArgs e)
         {
             if (typevar == "base")
             {
                 Inventory_Unitadder popup = new Inventory_Unitadder("base_unit", "edit", namevar, pricevar, conversionvar, basevaluevar, stocksvar, this, positionlist);
-                MessageBox.Show(typevar, "Items List", MessageBoxButton.OK, MessageBoxImage.Information);
                 popup.ShowDialog();
             }
             else {
                 Inventory_Unitadder popup = new Inventory_Unitadder("sub_unit", "edit", namevar, pricevar, conversionvar, basevaluevar, stocksvar, this, positionlist);
-                MessageBox.Show(typevar, "Items List", MessageBoxButton.OK, MessageBoxImage.Information);
                 popup.ShowDialog();
             }
         }

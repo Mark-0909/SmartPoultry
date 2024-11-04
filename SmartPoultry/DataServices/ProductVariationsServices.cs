@@ -1,0 +1,46 @@
+﻿using SmartPoultry.DataAccess;
+using SmartPoultry.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
+
+namespace SmartPoultry.DataServices
+{
+    public class ProductVariationServices
+    {
+        private readonly AppDbContext _context;
+
+        public ProductVariationServices(AppDbContext context)
+        {
+            _context = context;
+        }
+
+        public bool Create(int productid, string variantname, bool unittype, int price, int conversionrate)
+        {
+            try
+            {
+
+                var newvariations = new ProductVariations() { 
+                    product_id = productid,
+                    variant_type = variantname,
+                    isBaseUnit = unittype,
+                    price = price,
+                    conversion_rate = conversionrate
+                };
+
+                _context.ProductVariations.Add(newvariations);
+                _context.SaveChanges();
+                return true;
+
+            }
+            catch (Exception ex) {
+
+                MessageBox.Show($"Error creating product: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+
+            }
+        
+        
+        }
+    }
+}

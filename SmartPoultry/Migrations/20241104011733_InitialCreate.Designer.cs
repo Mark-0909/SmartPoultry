@@ -10,14 +10,42 @@ using SmartPoultry.DataAccess;
 namespace SmartPoultry.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241031084832_Products")]
-    partial class Products
+    [Migration("20241104011733_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
+
+            modelBuilder.Entity("SmartPoultry.Models.ProductVariations", b =>
+                {
+                    b.Property<int>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("conversion_rate")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<bool>("isBaseUnit")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("price")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("product_id")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("variant_type")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("id");
+
+                    b.ToTable("ProductVariations");
+                });
 
             modelBuilder.Entity("SmartPoultry.Models.Products", b =>
                 {
@@ -58,6 +86,9 @@ namespace SmartPoultry.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("stocks")
+                        .HasColumnType("INTEGER");
 
                     b.Property<int>("supplier_id")
                         .HasColumnType("INTEGER");

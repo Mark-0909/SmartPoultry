@@ -1,6 +1,7 @@
 ﻿using SmartPoultry.DataAccess;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,15 +21,30 @@ namespace SmartPoultry
     /// </summary>
     public partial class LoginPage : Window
     {
-        
+
         public LoginPage()
         {
             InitializeComponent();
-            using (var context = new AppDbContext())
+            CreateProductImagesFolder();
+            var context = new AppDbContext();
+
+            context.Database.EnsureCreated();
+                
+            
+        }
+        private void CreateProductImagesFolder()
+        {
+            
+            string folderPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Product_Images");
+
+            
+            if (!System.IO.Directory.Exists(folderPath))
             {
-                context.Database.EnsureCreated(); 
+                System.IO.Directory.CreateDirectory(folderPath);
+                MessageBox.Show("Product_Images folder created.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             }
         }
+
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {

@@ -7,14 +7,17 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SmartPoultry.Models
 {
-    public class Product_Variations
+    public class ProductVariations
     {
         [Key]
         public int id { get; set; }
         public int product_id { get; set; }
         [MaxLength (100)]
-        public string unitName { get; set; }
+        public string? variant_type { get; set; }
         public bool isBaseUnit { get; set; }
 
+        public int price { get; set; }
+
+        public int conversion_rate { get; set; }
     }
 }

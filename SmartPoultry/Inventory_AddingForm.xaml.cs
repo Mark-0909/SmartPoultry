@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using Microsoft.Win32; // Add this at the top if not already present
+using Microsoft.Win32; 
 using System.Windows.Media.Imaging;
 using System.Collections.Generic;
 using System;
@@ -9,30 +9,25 @@ using Microsoft.VisualBasic;
 using System.Collections;
 using System.Diagnostics;
 using System.Xml.Linq;
+using SmartPoultry.DataServices;
+using SmartPoultry.DataAccess;
 
 namespace SmartPoultry
 {
     public partial class Inventory_AddingForm : Window
     {
+        public MainWindow? mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
         public static string baseUnitValue = "";
-
         public static string? stocksvar;
-        
-
         public bool baseUnit = false;
-        
         public List<String> AnimalList = new List<String>();
         public List<String> ProductTypeList = new List<String>();
-
         public List<String> unitlist = new List<String>();
         public List<String> pricelist = new List<String>();
         public List<String> conversionlist = new List<String>();
 
-
-
-
-
-        public MainWindow? mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
+        private readonly ProductServices productService;
+        private readonly ProductVariationServices productVariationService;
         public Inventory_AddingForm()
         {
             InitializeComponent();
@@ -43,6 +38,10 @@ namespace SmartPoultry
             stocklisting.Visibility = Visibility.Collapsed;
 
             this.Closed += (s, e) => mainWindow.Opacity = 1.0;
+
+            var context = new AppDbContext();
+            productService = new ProductServices(context);
+            productVariationService = new ProductVariationServices(context);
         }
 
 
@@ -144,12 +143,10 @@ namespace SmartPoultry
             if (!baseUnit)
             {
                 Inventory_Unitadder? popup = new Inventory_Unitadder("base_unit", baseUnitValue, "add", position);
-                MessageBox.Show(position.ToString(), "Items List", MessageBoxButton.OK, MessageBoxImage.Information);
                 popup.ShowDialog();
             }
             else {
                 Inventory_Unitadder? popup = new Inventory_Unitadder("sub_unit", baseUnitValue, "add", position);
-                MessageBox.Show(position.ToString(), "Items List", MessageBoxButton.OK, MessageBoxImage.Information);
                 popup.ShowDialog();
             }
             
@@ -184,18 +181,69 @@ namespace SmartPoultry
         }
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            string message = "Here are your animal list:\n" + string.Join("\n", AnimalList) + "\nHere are your Product Type List:\n" + string.Join("\n", ProductTypeList);
+            string animaltypelist = string.Join(",", AnimalList);
+            string producttypelist = string.Join(",", ProductTypeList);
+
+            
+            int stocks;
+            if (!int.TryParse(stocklisting.Content.ToString(), out stocks))
+            {
+                MessageBox.Show("Invalid stock value. Please enter a numeric value.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
 
 
-            MessageBox.Show(message, "Items List", MessageBoxButton.OK, MessageBoxImage.Information);
+            int id = productService.Create(ProductNameTextBox.Text, animaltypelist, producttypelist, 1, 1, stocks, "////");
+
+            if (id == 0)
+            {
+
+            }
+            else {
+                AddVariations(id);
+            }
+            
         }
+
+        public void AddVariations(int id) 
+        {
+            try
+            {
+                for (int i = 0; i < unitlist.Count; i++)
+                {
+                    int price = Convert.ToInt32(pricelist[i]);
+                    int conversion = Convert.ToInt32(conversionlist[i]);
+                    if (i == 0)
+                    {
+                        productVariationService.Create(id, unitlist[i], true, price, conversion);
+                    }
+                    else
+                    {
+                        productVariationService.Create(id, unitlist[i], false, price, conversion);
+                    }
+
+                }
+                MessageBox.Show("Sucess", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex) {
+                MessageBox.Show($"Error creating product: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            
+            
+        }
+
+
 
         public void ClosePopUp()
         {
             this.Close();
         }
 
+        public void SaveProductDB()
+        {
+            
 
+        }
 
 
         private void SelectImage_Click(object sender, RoutedEventArgs e)

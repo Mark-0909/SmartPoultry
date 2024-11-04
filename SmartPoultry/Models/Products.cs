@@ -20,6 +20,8 @@ namespace SmartPoultry.Models
         [MaxLength(100)]
         public int employee_incharge { get; set; }
         public int supplier_id {  get; set; }
+        public int stocks { get; set; }
+
         [MaxLength(100)]
         public string status { get; set; }
         [MaxLength(255)]
