@@ -5,37 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartPoultry"
         mc:Ignorable="d"
-        Title="MainWindow" Height="857" Width="1457" WindowState="Maximized" WindowStartupLocation="CenterScreen" Background="#FFE3E3E3">
+        Title="MainWindow" Height="716" Width="1229" WindowStartupLocation="CenterScreen" Background="#FFE3E3E3" ResizeMode="NoResize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0*"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="1019*"/>
+            <ColumnDefinition Width="438*"/>
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
-        <local:records x:Name="recordsControl" Grid.ColumnSpan="5" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="761" Width="1377"/>
+        <local:Supplier Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,92,0,0" VerticalAlignment="Top"/>
+
+
+
+        <local:Organization Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top"/>
+
+
+
+        <local:records x:Name="recordsControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1126"/>
 
 
 
 
 
 
-        <local:inventory x:Name="inventoryControl" Grid.ColumnSpan="5" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="761" Width="1377"/>
+        <local:inventory x:Name="inventoryControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123"/>
 
 
 
 
 
 
-        <local:dashboard x:Name="dashboardControl" Grid.ColumnSpan="5" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Width="1377" Height="761"/>
+        <local:dashboard x:Name="dashboardControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Width="1123" Height="603"/>
 
 
 
 
 
 
-        <local:home x:Name="homeControl" Grid.ColumnSpan="5" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="761" Width="1377"/>
+        <local:home x:Name="homeControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123"/>
 
 
 
@@ -43,8 +52,8 @@
 
 
         <StackPanel HorizontalAlignment="Left" Height="892" Margin="0,92,0,0" VerticalAlignment="Top" Width="101" Background="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}" Grid.ColumnSpan="2"/>
-        <Rectangle HorizontalAlignment="Center" Height="92" VerticalAlignment="Top" Width="1994" Fill="#FFF4F7FC" Grid.Column="1"/>
-        <Rectangle HorizontalAlignment="Left" Height="892" Margin="0,92,0,0" VerticalAlignment="Top" Width="92" Fill="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}" Grid.ColumnSpan="2"/>
+        <Rectangle HorizontalAlignment="Center" Height="92" VerticalAlignment="Top" Width="1229" Fill="#FFF4F7FC" Grid.Column="1" Grid.ColumnSpan="2"/>
+        <Rectangle HorizontalAlignment="Left" Height="608" Margin="0,92,0,0" VerticalAlignment="Top" Width="92" Fill="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}" Grid.ColumnSpan="2"/>
         <Image HorizontalAlignment="Left" Height="86" Margin="10,7,0,0" VerticalAlignment="Top" Width="240" Source="Images/logo.png" Grid.ColumnSpan="2"/>
 
 
@@ -183,9 +192,70 @@
             </Button.Template>
             <Image x:Name="recordsIcon" Height="59" Width="59" Source="Images/recordsgrey.png"/>
         </Button>
-
-
-
+        <Button x:Name="organizationButton" HorizontalAlignment="Left" Margin="10,449,0,0" VerticalAlignment="Top" Height="83" Width="82" Click="OrganizationButton_Click" Foreground="#FF66C265" Background="#FFF4F7FC" Grid.ColumnSpan="2">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="#FFF4F7FC" BorderThickness="1" CornerRadius="5" x:Name="organizationBorder">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="organizationBorder" 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            To="0.5" Duration="0:0:0.3" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="organizationBorder" 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            To="1.0" Duration="0:0:0.3" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+            <Image x:Name="organizationIcon" Height="59" Width="59" Source="/Images/organizationgrey.png"/>
+        </Button>
+        <Button x:Name="supplierButton" HorizontalAlignment="Left" Margin="10,537,0,0" VerticalAlignment="Top" Height="83" Width="82" Click="SupplierButton_Click" Foreground="#FF66C265" Background="#FFF4F7FC" Grid.ColumnSpan="2">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="#FFF4F7FC" BorderThickness="1" CornerRadius="5" x:Name="supplierBorder">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="supplierBorder" 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            To="0.5" Duration="0:0:0.3" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="supplierBorder" 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            To="1.0" Duration="0:0:0.3" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+            <Image x:Name="supplierIcon" Height="59" Width="59" Source="/Images/suppliergrey.png"/>
+        </Button>
 
 
 

@@ -27,6 +27,8 @@ namespace SmartPoultry
             InactiveButton(dashboardButton, "Images/dashboardgrey.png", "dashboardBorder", dashboardIcon);
             InactiveButton(inventoryButton, "Images/inventorygrey.png", "inventoryBorder", inventoryIcon);
             InactiveButton(recordsButton, "Images/recordsgrey.png", "recordsBorder", recordsIcon);
+            InactiveButton(organizationButton, "Images/organizationgrey.png", "organizationBorder", organizationIcon);
+            InactiveButton(supplierButton, "Images/suppliergrey.png", "supplierBorder", supplierIcon);
 
 
             //front usercontrol
@@ -43,6 +45,8 @@ namespace SmartPoultry
             ActiveButton(dashboardButton, "Images/dashboardgreen.png", "dashboardBorder", dashboardIcon);
             InactiveButton(inventoryButton, "Images/inventorygrey.png", "inventoryBorder", inventoryIcon);
             InactiveButton(recordsButton, "Images/recordsgrey.png", "recordsBorder", recordsIcon);
+            InactiveButton(organizationButton, "Images/organizationgrey.png", "organizationBorder", organizationIcon);
+            InactiveButton(supplierButton, "Images/suppliergrey.png", "supplierBorder", supplierIcon);
 
             //front usercontrol
             Panel.SetZIndex(homeControl, 0);
@@ -57,6 +61,8 @@ namespace SmartPoultry
             InactiveButton(dashboardButton, "Images/dashboardgrey.png", "dashboardBorder", dashboardIcon);
             ActiveButton(inventoryButton, "Images/inventorygreen.png", "inventoryBorder", inventoryIcon);
             InactiveButton(recordsButton, "Images/recordsgrey.png", "recordsBorder", recordsIcon);
+            InactiveButton(organizationButton, "Images/organizationgrey.png", "organizationBorder", organizationIcon);
+            InactiveButton(supplierButton, "Images/suppliergrey.png", "supplierBorder", supplierIcon);
 
             //front usercontrol
             Panel.SetZIndex(homeControl, 0);
@@ -71,6 +77,8 @@ namespace SmartPoultry
             InactiveButton(dashboardButton, "Images/dashboardgrey.png", "dashboardBorder", dashboardIcon);
             InactiveButton(inventoryButton, "Images/inventorygrey.png", "inventoryBorder", inventoryIcon);
             ActiveButton(recordsButton, "Images/recordsgreen.png", "recordsBorder", recordsIcon);
+            InactiveButton(organizationButton, "Images/organizationgrey.png", "organizationBorder", organizationIcon);
+            InactiveButton(supplierButton, "Images/suppliergrey.png", "supplierBorder", supplierIcon);
 
 
             //front usercontrol
@@ -79,6 +87,25 @@ namespace SmartPoultry
             Panel.SetZIndex(inventoryControl, 0);
             Panel.SetZIndex(recordsControl, 10);
 
+        }
+        private void OrganizationButton_Click(object sender, RoutedEventArgs e)
+        {
+            InactiveButton(homeButton, "Images/homeicongrey.png", "homeBorder", homeIcon);
+            InactiveButton(dashboardButton, "Images/dashboardgrey.png", "dashboardBorder", dashboardIcon);
+            InactiveButton(inventoryButton, "Images/inventorygrey.png", "inventoryBorder", inventoryIcon);
+            InactiveButton(recordsButton, "Images/recordsgrey.png", "recordsBorder", recordsIcon);
+            ActiveButton(organizationButton, "Images/organizationgreen.png", "organizationBorder", organizationIcon);
+            InactiveButton(supplierButton, "Images/suppliergrey.png", "supplierBorder", supplierIcon);
+        }
+
+        private void SupplierButton_Click(object sender, RoutedEventArgs e)
+        {
+            InactiveButton(homeButton, "Images/homeicongrey.png", "homeBorder", homeIcon);
+            InactiveButton(dashboardButton, "Images/dashboardgrey.png", "dashboardBorder", dashboardIcon);
+            InactiveButton(inventoryButton, "Images/inventorygrey.png", "inventoryBorder", inventoryIcon);
+            InactiveButton(recordsButton, "Images/recordsgrey.png", "recordsBorder", recordsIcon);
+            InactiveButton(organizationButton, "Images/organizationgrey.png", "organizationBorder", organizationIcon);
+            ActiveButton(supplierButton, "Images/suppliergreen.png", "supplierBorder", supplierIcon);
         }
 
         private void ActiveButton(Button button, string imagesource, string buttonborder, Image icon)

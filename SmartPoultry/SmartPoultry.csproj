@@ -21,8 +21,12 @@
     <None Remove="Images\inventorygreen.png" />
     <None Remove="Images\inventorygrey.png" />
     <None Remove="Images\logo.png" />
+    <None Remove="Images\organizationgreen.png" />
+    <None Remove="Images\organizationgrey.png" />
     <None Remove="Images\recordsgreen.png" />
     <None Remove="Images\recordsgrey.png" />
+    <None Remove="Images\suppliergreen.png" />
+    <None Remove="Images\suppliergrey.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -45,8 +49,12 @@
     <Resource Include="Images\inventorygreen.png" />
     <Resource Include="Images\inventorygrey.png" />
     <Resource Include="Images\logo.png" />
+    <Resource Include="Images\organizationgreen.png" />
+    <Resource Include="Images\organizationgrey.png" />
     <Resource Include="Images\recordsgreen.png" />
     <Resource Include="Images\recordsgrey.png" />
+    <Resource Include="Images\suppliergreen.png" />
+    <Resource Include="Images\suppliergrey.png" />
   </ItemGroup>
 
   <ItemGroup>

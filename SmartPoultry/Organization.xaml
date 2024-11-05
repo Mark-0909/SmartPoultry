@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="SmartPoultry.Organization"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SmartPoultry"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Width="1104" Height="582" Background="#FFE3E3E3">
+    <Grid>
+        <Label Content="ORGANIZATION" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Margin="10,4,0,0"/>
+
+    </Grid>
+</UserControl>

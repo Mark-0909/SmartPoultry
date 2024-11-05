@@ -318,8 +318,8 @@ namespace SmartPoultry
         //Active and inactive button properties change
         private void ActiveButton(String stringbutton, String stringborder)
         {
-            Button button = FindName(stringbutton) as Button;
-            Border border = FindName(stringborder) as Border;
+            Button? button = FindName(stringbutton) as Button;
+            Border? border = FindName(stringborder) as Border;
 
             if (button != null && border != null)
             {
@@ -339,8 +339,8 @@ namespace SmartPoultry
 
         private void InactiveButton(String stringbutton, String stringborder)
         {
-            Button button = FindName(stringbutton) as Button;
-            Border border = FindName(stringborder) as Border;
+            Button? button = FindName(stringbutton) as Button;
+            Border? border = FindName(stringborder) as Border;
 
 
             if (button != null && border != null)

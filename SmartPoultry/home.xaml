@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
-             mc:Ignorable="d" Width="1357" Height="747" Background="#FFE3E3E3">
+             mc:Ignorable="d" Width="1104" Height="582" Background="#FFE3E3E3">
 
     <UserControl.Resources>
         <Style x:Key="NoHoverButton" TargetType="Button">
@@ -51,30 +51,30 @@
     <Grid>
 
 
-        <Border BorderThickness="1" HorizontalAlignment="Left" Height="41" Margin="775,8,0,0" VerticalAlignment="Top" Width="210" Background="White" CornerRadius="10"/>
+        <Border BorderThickness="1" HorizontalAlignment="Left" Height="41" Margin="611,8,0,0" VerticalAlignment="Top" Width="210" Background="White" CornerRadius="10">
+            <TextBox HorizontalAlignment="Left" TextWrapping="Wrap" Text="Search Product" VerticalAlignment="Top" Width="196" Height="32" Background="White" BorderBrush="White" TextAlignment="Justify" Padding="0,4,0,0" FontSize="14" MaxLines="1" RenderTransformOrigin="0.5,0.5" Margin="9,5,0,0">
+                <TextBox.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform AngleX="0.287"/>
+                        <RotateTransform/>
+                        <TranslateTransform X="0.09"/>
+                    </TransformGroup>
+                </TextBox.RenderTransform>
+            </TextBox>
+        </Border>
 
-        <Border HorizontalAlignment="Left" Height="764" Margin="994,0,0,0" VerticalAlignment="Top" Width="372" 
-                Background="White" CornerRadius="10"/>
+        <Border HorizontalAlignment="Left" Height="604" Margin="826,0,0,0" VerticalAlignment="Center" Width="300" 
+                Background="White" CornerRadius="10 0 0 0"/>
         <Label Content="HOME" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Margin="10,4,0,0"/>
 
-        <Label Content="Orders" HorizontalAlignment="Left" Margin="999,5,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.128,0.014" FontSize="23"/>
-        <Rectangle HorizontalAlignment="Left" Height="5" Margin="994,51,0,0" VerticalAlignment="Top" Width="400" Fill="#FFE3E3E3"/>
+        <Label Content="Orders" HorizontalAlignment="Left" Margin="832,4,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.128,0.014" FontSize="21"/>
+        <Rectangle HorizontalAlignment="Left" Height="5" Margin="826,44,0,0" VerticalAlignment="Top" Width="300" Fill="#FFE3E3E3"/>
 
-        <Button Content="DROP" HorizontalAlignment="Left" Margin="994,688,0,0" VerticalAlignment="Top" Height="59" Width="180" Background="#FFF0A34A" BorderBrush="#FFF0A34A" FontSize="15" Foreground="White" FontWeight="Bold" Style="{StaticResource NoHoverButton}"/>
-        <Button Content="CHECKOUT" HorizontalAlignment="Left" Margin="1174,688,0,0" VerticalAlignment="Top" Height="59" Width="182" Background="#FF89D467" BorderBrush="#FF89D467" Foreground="White" FontSize="15" FontWeight="Bold" Style="{StaticResource NoHoverButton}"/>
+        <Button Content="DROP" HorizontalAlignment="Left" Margin="826,526,0,0" VerticalAlignment="Top" Height="58" Width="139" Background="#FFF0A34A" BorderBrush="#FFF0A34A" FontSize="15" Foreground="White" FontWeight="Bold" Style="{StaticResource NoHoverButton}"/>
+        <Button Content="CHECKOUT" HorizontalAlignment="Left" Margin="965,526,0,0" VerticalAlignment="Top" Height="59" Width="151" Background="#FF89D467" BorderBrush="#FF89D467" Foreground="White" FontSize="15" FontWeight="Bold" Style="{StaticResource NoHoverButton}"/>
 
-        <TextBox HorizontalAlignment="Left" Margin="783,14,0,0" TextWrapping="Wrap" Text="Search Product" VerticalAlignment="Top" Width="196" Height="32" Background="White" BorderBrush="White" TextAlignment="Justify" Padding="0,4,0,0" FontSize="14" MaxLines="1" RenderTransformOrigin="0.5,0.5">
-            <TextBox.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform AngleX="0.287"/>
-                    <RotateTransform/>
-                    <TranslateTransform X="0.09"/>
-                </TransformGroup>
-            </TextBox.RenderTransform>
-        </TextBox>
-
-        <Border HorizontalAlignment="Left" Height="93" Margin="10,56,0,0" VerticalAlignment="Top" Width="975" 
+        <Border HorizontalAlignment="Left" Height="83" Margin="10,56,0,0" VerticalAlignment="Top" Width="811" 
         Background="White" CornerRadius="10">
 
 
@@ -83,135 +83,135 @@
                 <!-- FOR ANIMAL TYPE NAV -->
 
                 <Border x:Name="animalAllBorder" CornerRadius="10" BorderBrush="#FF66C265" BorderThickness="1" 
-                HorizontalAlignment="Left" Height="40" Margin="4,4,0,0" VerticalAlignment="Top" Width="62" 
+                HorizontalAlignment="Left" Height="36" Margin="4,4,0,0" VerticalAlignment="Top" Width="47" 
                 Background="#FFC0E4BE">
-                    <Button x:Name="animalAllBtn" Click="AllButton_Click" Content="All" Margin="9,5,9,4" Background="#FFC0E4BE" BorderBrush="#FFC0E4BE" 
-                    FontSize="18" Foreground="#FF66C265" Style="{StaticResource NoHoverButton}"/>
+                    <Button x:Name="animalAllBtn" Click="AllButton_Click" Content="All" Margin="9,5,9,5" Background="#FFC0E4BE" BorderBrush="#FFC0E4BE" 
+                    FontSize="16" Foreground="#FF66C265" Style="{StaticResource NoHoverButton}"/>
                 </Border>
 
-                <Border x:Name="animalChickenBorder" Height="40" Width="92" VerticalAlignment="Top" 
-                Margin="71,4,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+                <Border x:Name="animalChickenBorder" Height="36" Width="77" VerticalAlignment="Top" 
+                Margin="56,4,0,0" HorizontalAlignment="Left" CornerRadius="10" 
                 BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
                     <Button x:Name="animalChickenBtn" Click="ChickenButton_Click" Content="Chicken"  
-                    FontSize="18" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                    FontSize="16" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                     Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
                 </Border>
 
 
-                <Border x:Name="animalDogBorder" Height="40" Width="74" VerticalAlignment="Top" 
-                Margin="168,4,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+                <Border x:Name="animalDogBorder" Height="36" Width="63" VerticalAlignment="Top" 
+                Margin="138,4,0,0" HorizontalAlignment="Left" CornerRadius="10" 
                 BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
                     <Button x:Name="animalDogBtn" Click="DogButton_Click" Content="Dog"
-                    FontSize="18" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                    FontSize="16" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                     Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
                 </Border>
 
 
-                <Border x:Name="animalCatBorder" Height="40" Width="73" VerticalAlignment="Top" 
-                Margin="247,4,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+                <Border x:Name="animalCatBorder" Height="36" Width="51" VerticalAlignment="Top" 
+                Margin="206,4,0,0" HorizontalAlignment="Left" CornerRadius="10" 
                 BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
                     <Button x:Name="animalCatBtn" Click="CatButton_Click" Content="Cat" 
-                    FontSize="18" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                    FontSize="16" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                     Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
                 </Border>
-                <Border x:Name="animalPigBorder" Height="40" Width="73" VerticalAlignment="Top" 
-                    Margin="325,4,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+                <Border x:Name="animalPigBorder" Height="34" Width="52" VerticalAlignment="Top" 
+                    Margin="262,5,0,0" HorizontalAlignment="Left" CornerRadius="10" 
                     BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
                     <Button x:Name="animalPigBtn" Click="PigButton_Click" Content="Pig" 
-                        FontSize="18" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                        FontSize="16" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                         Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
                 </Border>
-                <Border x:Name="animalDuckBorder" Height="40" Width="78" VerticalAlignment="Top" 
-                    Margin="4,49,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+                <Border x:Name="animalDuckBorder" Height="34" Width="57" VerticalAlignment="Top" 
+                    Margin="4,45,0,0" HorizontalAlignment="Left" CornerRadius="10" 
                     BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
                     <Button x:Name="animalDuckBtn" Click="DuckButton_Click" Content="Duck" 
-                        FontSize="18" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                        FontSize="16" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                         Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
                 </Border>
-                <Border x:Name="animalCowBorder" Height="40" Width="68" VerticalAlignment="Top" 
-                    Margin="87,49,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+                <Border x:Name="animalCowBorder" Height="34" Width="58" VerticalAlignment="Top" 
+                    Margin="66,45,0,0" HorizontalAlignment="Left" CornerRadius="10" 
                     BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
                     <Button x:Name="animalCowBtn" Click="CowButton_Click" Content="Cow" 
-                        FontSize="18" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                        FontSize="16" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                         Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
                 </Border>
-                <Border x:Name="animalHorseBorder" Height="40" Width="82" VerticalAlignment="Top" 
-                    Margin="160,49,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+                <Border x:Name="animalHorseBorder" Height="34" Width="66" VerticalAlignment="Top" 
+                    Margin="129,45,0,0" HorizontalAlignment="Left" CornerRadius="10" 
                     BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
                     <Button x:Name="animalHorseBtn" Click="HorseButton_Click" Content="Horse" 
-                        FontSize="18" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                        FontSize="16" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                         Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
                 </Border>
-                <Border x:Name="animalRabbitBorder" Height="40" Width="82" VerticalAlignment="Top" 
-                    Margin="247,49,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+                <Border x:Name="animalRabbitBorder" Height="34" Width="69" VerticalAlignment="Top" 
+                    Margin="200,45,0,0" HorizontalAlignment="Left" CornerRadius="10" 
                     BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
                     <Button x:Name="animalRabbitBtn" Click="RabbitButton_Click" Content="Rabbit" 
-                        FontSize="18" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                        FontSize="16" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                         Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
                 </Border>
-                <Border x:Name="animalBirdBorder" Height="40" Width="82" VerticalAlignment="Top" 
-                    Margin="334,49,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+                <Border x:Name="animalBirdBorder" Height="35" Width="64" VerticalAlignment="Top" 
+                    Margin="274,44,0,0" HorizontalAlignment="Left" CornerRadius="10" 
                     BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
                     <Button x:Name="animalBirdBtn" Click="BirdButton_Click" Content="Bird" 
-                        FontSize="18" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                        FontSize="16" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                         Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
                 </Border>
-                <Border x:Name="animalFishBorder" Height="40" Width="82" VerticalAlignment="Top" 
-                    Margin="421,49,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+                <Border x:Name="animalFishBorder" Height="35" Width="64" VerticalAlignment="Top" 
+                    Margin="343,44,0,0" HorizontalAlignment="Left" CornerRadius="10" 
                     BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
                     <Button x:Name="animalFishBtn" Click="FishButton_Click" Content="Fish" 
-                        FontSize="18" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                        FontSize="16" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                         Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
                 </Border>
-                <Border x:Name="animalGuineaBorder" Height="40" Width="114" VerticalAlignment="Top" 
-                    Margin="403,4,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+                <Border x:Name="animalGuineaBorder" Height="34" Width="97" VerticalAlignment="Top" 
+                    Margin="319,5,0,0" HorizontalAlignment="Left" CornerRadius="10" 
                     BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
                     <Button x:Name="animalGuineaBtn" Click="GuineaButton_Click" Content="Guinea Pig" 
-                        FontSize="18" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                        FontSize="16" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                         Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
                 </Border>
 
                 <!-- FOR PRODUCT TYPE NAV -->
                 <Border x:Name="typeAllBorder" CornerRadius="10" BorderBrush="#FF66C265" BorderThickness="1" 
-                HorizontalAlignment="Left" Height="40" Margin="591,4,0,0" VerticalAlignment="Top" Width="62" 
+                HorizontalAlignment="Left" Height="35" Margin="494,6,0,0" VerticalAlignment="Top" Width="52" 
                 Background="#FFC0E4BE">
-                    <Button x:Name="typeAllBtn" Click="TypeAllButton_Click" Content="All" Margin="9,5,9,4" Background="#FFC0E4BE" BorderBrush="#FFC0E4BE" 
-                    FontSize="18" Foreground="#FF66C265" Style="{StaticResource NoHoverButton}"/>
+                    <Button x:Name="typeAllBtn" Click="TypeAllButton_Click" Content="All" Margin="9,5,9,5" Background="#FFC0E4BE" BorderBrush="#FFC0E4BE" 
+                    FontSize="16" Foreground="#FF66C265" Style="{StaticResource NoHoverButton}"/>
                 </Border>
 
-                <Border x:Name="typeFeedsBorder" Height="40" Width="83" VerticalAlignment="Top" 
-                Margin="658,4,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+                <Border x:Name="typeFeedsBorder" Height="34" Width="69" VerticalAlignment="Top" 
+                Margin="551,6,0,0" HorizontalAlignment="Left" CornerRadius="10" 
                 BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
                     <Button x:Name="typeFeedsBtn" Click="FeedsButton_Click" Content="Feeds"  
-                    FontSize="18" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                    FontSize="16" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                     Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
                 </Border>
 
-                <Border x:Name="typeMedicineBorder" Height="40" Width="113" VerticalAlignment="Top" 
-                    Margin="746,4,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+                <Border x:Name="typeMedicineBorder" Height="34" Width="90" VerticalAlignment="Top" 
+                    Margin="625,6,0,0" HorizontalAlignment="Left" CornerRadius="10" 
                     BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
                     <Button x:Name="typeMedicineBtn" Click="MedicineButton_Click" Content="Medicine"  
-                        FontSize="18" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                        FontSize="16" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                         Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
                 </Border>
 
-                <Border x:Name="typeVitaminsBorder" Height="40" Width="107" VerticalAlignment="Top" 
-                    Margin="864,4,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+                <Border x:Name="typeVitaminsBorder" Height="34" Width="86" VerticalAlignment="Top" 
+                    Margin="720,6,0,0" HorizontalAlignment="Left" CornerRadius="10" 
                     BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
                     <Button x:Name="typeVitaminsBtn" Click="VitaminsButton_Click" Content="Vitamins"  
-                        FontSize="18" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                        FontSize="16" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                         Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
                 </Border>
-                <Border x:Name="typeVaccinesBorder" Height="40" Width="107" VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="10" 
-                    BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White" Margin="715,49,0,0">
+                <Border x:Name="typeVaccinesBorder" Height="34" Width="90" VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="10" 
+                    BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White" Margin="603,45,0,0">
                     <Button x:Name="typeVaccinesBtn" Click="VaccinesButton_Click" Content="Vaccines"  
-                        FontSize="18" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                        FontSize="16" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                         Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
                 </Border>
-                <Border x:Name="typeAccessoriesBorder" Height="40" Width="119" VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="10" 
-                    BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White" Margin="591,49,0,0">
+                <Border x:Name="typeAccessoriesBorder" Height="34" Width="104" VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="10" 
+                    BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White" Margin="494,45,0,0">
                     <Button x:Name="typeAccessoriesBtn" Click="AccessoriesButton_Click" Content="Accessories"  
-                        FontSize="18" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
+                        FontSize="16" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                         Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
                 </Border>
             </Grid>
