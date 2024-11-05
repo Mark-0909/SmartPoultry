@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System;
+using System.Windows.Controls;
 
 
 namespace SmartPoultry.DataServices
@@ -16,6 +17,19 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+        public List<Products> GetAllProducts()
+        {
+            try
+            {
+                return _context.Products.ToList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error retrieving products: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return new List<Products>();
+            }
+        }
+
         public int Create(string product_name, string animal_type, string product_type, int employee_incharge, int supplierId, int stocks, string image)
         {
             try
@@ -46,6 +60,29 @@ namespace SmartPoultry.DataServices
                 return 0; 
             }
         }
+        public void UpdateImagePath(int id, string imagePath)
+        {
+            try
+            {
+                var product = _context.Products.FirstOrDefault(p => p.product_id == id);
+
+                if (product != null)
+                {
+                    product.image = imagePath;
+
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    MessageBox.Show("Product not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error updating image path: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
 
     }
 

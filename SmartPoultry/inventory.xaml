@@ -11,5 +11,6 @@
         <Button HorizontalAlignment="Left" Margin="1281,4,0,0" VerticalAlignment="Top" Height="62" Width="66" Click="OpenAddForm_Click">
             <Image Height="51" Width="50" Source="/addicon.png" Stretch="UniformToFill"/>
         </Button>
+        <WrapPanel x:Name="ProductListWPanel" HorizontalAlignment="Left" Height="666" Margin="8,77,0,0" VerticalAlignment="Top" Width="1350"/>
     </Grid>
 </UserControl>

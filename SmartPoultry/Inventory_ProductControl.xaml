@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="SmartPoultry.Inventory_ProductControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SmartPoultry"
+             mc:Ignorable="d" Height="269" Width="217" Background="Transparent" Margin="5 0 0 5">
+    <Grid>
+        <Border CornerRadius="5" BorderBrush="#FF66C265" BorderThickness="1" Background="White">
+            <Border CornerRadius="5" BorderBrush="#FFC9C6C6" BorderThickness="1" Margin="9,9,9,60">
+                <Image x:Name="Productimage"/>
+            </Border>
+        </Border>
+        <Label x:Name="Productname" Content="Product Name" HorizontalAlignment="Center" Height="29" Margin="0,211,0,0" VerticalAlignment="Top" Width="197" FontSize="15"/>
+        <Label Content="Stocks: " HorizontalAlignment="Left" Height="29" Margin="10,240,0,0" VerticalAlignment="Top" Width="98" FontSize="10"/>
+        <Label x:Name="Productstock" Content="Number " HorizontalAlignment="Left" Height="30" Margin="60,239,0,0" VerticalAlignment="Top" Width="147" FontSize="10" HorizontalContentAlignment="Right"/>
+    </Grid>
+</UserControl>

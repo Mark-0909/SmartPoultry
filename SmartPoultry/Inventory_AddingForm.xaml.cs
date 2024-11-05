@@ -11,21 +11,27 @@ using System.Diagnostics;
 using System.Xml.Linq;
 using SmartPoultry.DataServices;
 using SmartPoultry.DataAccess;
+using System.IO;
 
 namespace SmartPoultry
 {
     public partial class Inventory_AddingForm : Window
     {
+        //variables
         public MainWindow? mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
         public static string baseUnitValue = "";
         public static string? stocksvar;
         public bool baseUnit = false;
+        private string? selectedFilePath;
+
+        //lists
         public List<String> AnimalList = new List<String>();
         public List<String> ProductTypeList = new List<String>();
         public List<String> unitlist = new List<String>();
         public List<String> pricelist = new List<String>();
         public List<String> conversionlist = new List<String>();
 
+        //database
         private readonly ProductServices productService;
         private readonly ProductVariationServices productVariationService;
         public Inventory_AddingForm()
@@ -34,11 +40,12 @@ namespace SmartPoultry
             SetRoundedCorners();
             mainWindow.Opacity = 0.5;
 
+            //set mainwindow in dim mode
             stockunit.Visibility = Visibility.Collapsed;
             stocklisting.Visibility = Visibility.Collapsed;
-
             this.Closed += (s, e) => mainWindow.Opacity = 1.0;
 
+            //database
             var context = new AppDbContext();
             productService = new ProductServices(context);
             productVariationService = new ProductVariationServices(context);
@@ -169,41 +176,70 @@ namespace SmartPoultry
                 ProductNameTextBox.Foreground = Brushes.Gray;
             }
         }
-        private void SetRoundedCorners()
-        {
-            this.WindowStyle = WindowStyle.None;
-            this.AllowsTransparency = true;
-            this.Background = Brushes.Transparent;
-        }
+        
         private void CloseAddPopup_Click(object sender, RoutedEventArgs e)
         {
             ClosePopUp();
         }
+
+        //database - save product
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
             string animaltypelist = string.Join(",", AnimalList);
             string producttypelist = string.Join(",", ProductTypeList);
-
-            
             int stocks;
+
             if (!int.TryParse(stocklisting.Content.ToString(), out stocks))
             {
                 MessageBox.Show("Invalid stock value. Please enter a numeric value.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
 
-
-            int id = productService.Create(ProductNameTextBox.Text, animaltypelist, producttypelist, 1, 1, stocks, "////");
+            
+            int id = productService.Create(ProductNameTextBox.Text, animaltypelist, producttypelist, 1, 1, stocks, "");
 
             if (id == 0)
             {
-
+                MessageBox.Show("Failed to save product.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
-            else {
+            else
+            {
                 AddVariations(id);
+
+                
+                if (!string.IsNullOrEmpty(selectedFilePath))
+                {
+                    
+                    string destinationDirectory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Product_Images");
+
+                    // Create the directory if it doesn't exist
+                    if (!Directory.Exists(destinationDirectory))
+                    {
+                        Directory.CreateDirectory(destinationDirectory);
+                    }
+
+                    
+                    string destinationPath = System.IO.Path.Combine(destinationDirectory, $"{id}.jpg");
+
+                    try
+                    {
+                        
+                        File.Copy(selectedFilePath, destinationPath, overwrite: true);
+
+                        
+                        productService.UpdateImagePath(id, destinationPath);
+
+                        
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Failed to copy image: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
             }
-            
         }
+
 
         public void AddVariations(int id) 
         {
@@ -223,7 +259,8 @@ namespace SmartPoultry
                     }
 
                 }
-                MessageBox.Show("Sucess", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                
+                this.Close();
             }
             catch (Exception ex) {
                 MessageBox.Show($"Error creating product: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -255,10 +292,9 @@ namespace SmartPoultry
 
             if (openFileDialog.ShowDialog() == true)
             {
-                
-                string selectedFilePath = openFileDialog.FileName;
-                BitmapImage? bitmap = new BitmapImage(new Uri(selectedFilePath));
-                SelectedImage.Source = bitmap; 
+                selectedFilePath = openFileDialog.FileName;
+                BitmapImage bitmap = new BitmapImage(new Uri(selectedFilePath));
+                SelectedImage.Source = bitmap;
                 SelectedImage.Height = SelectImageBtn.Height;
                 SelectedImage.Width = SelectImageBtn.Width;
             }
@@ -453,7 +489,7 @@ namespace SmartPoultry
 
             if (button != null && border != null)
             {
-                // Set the styles for the Border and Button
+                
                 border.Background = new SolidColorBrush(Color.FromRgb(192, 228, 190));
                 border.BorderBrush = new SolidColorBrush(Color.FromRgb(102, 194, 101));
                 button.Background = new SolidColorBrush(Color.FromRgb(192, 228, 190));
@@ -502,7 +538,13 @@ namespace SmartPoultry
 
 
         }
+        private void SetRoundedCorners()
+        {
+            this.WindowStyle = WindowStyle.None;
+            this.AllowsTransparency = true;
+            this.Background = Brushes.Transparent;
+        }
 
-        
+
     }
 }

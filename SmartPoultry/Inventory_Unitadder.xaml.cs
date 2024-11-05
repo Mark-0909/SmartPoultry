@@ -24,6 +24,7 @@ namespace SmartPoultry
     public partial class Inventory_Unitadder : Window
     {
         public Inventory_AddingForm? inventoraddingWindow = Application.Current.Windows.OfType<Inventory_AddingForm>().FirstOrDefault();
+        
 
         public static String? actionDeclaration; // add or edit
         public static String? agenda; // base_unit or sub_unit
@@ -45,14 +46,16 @@ namespace SmartPoultry
             InitializeComponent();
             SetRoundedCorners();
             inventoraddingWindow.Opacity = 0.5;
-
-
             
+
+
+
             InitializeUnitAdder(mode, action, null, null, null, baseUnitValue, null, null, position);
 
             
 
             this.Closed += (s, e) => inventoraddingWindow.Opacity = 1.0;
+            
         }
 
         public Inventory_Unitadder(string mode, string action, string name, string price, string conversion, string baseUnitvalue, string stocks, inventoryAdd_variationscontrol control, int position)
