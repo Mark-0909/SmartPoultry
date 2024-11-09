@@ -12,6 +12,7 @@
   <ItemGroup>
     <None Remove="addicon.png" />
     <None Remove="Images\addbaseunit.png" />
+    <None Remove="Images\addorder.png" />
     <None Remove="Images\addvariant.png" />
     <None Remove="Images\clipicon.png" />
     <None Remove="Images\dashboardgreen.png" />
@@ -21,12 +22,15 @@
     <None Remove="Images\inventorygreen.png" />
     <None Remove="Images\inventorygrey.png" />
     <None Remove="Images\logo.png" />
+    <None Remove="Images\minusorder.png" />
     <None Remove="Images\organizationgreen.png" />
     <None Remove="Images\organizationgrey.png" />
     <None Remove="Images\recordsgreen.png" />
     <None Remove="Images\recordsgrey.png" />
+    <None Remove="Images\removeorder.png" />
     <None Remove="Images\suppliergreen.png" />
     <None Remove="Images\suppliergrey.png" />
+    <None Remove="removeorder.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -40,6 +44,7 @@
   <ItemGroup>
     <Resource Include="addicon.png" />
     <Resource Include="Images\addbaseunit.png" />
+    <Resource Include="Images\addorder.png" />
     <Resource Include="Images\addvariant.png" />
     <Resource Include="Images\clipicon.png" />
     <Resource Include="Images\dashboardgreen.png" />
@@ -49,12 +54,15 @@
     <Resource Include="Images\inventorygreen.png" />
     <Resource Include="Images\inventorygrey.png" />
     <Resource Include="Images\logo.png" />
+    <Resource Include="Images\minusorder.png" />
     <Resource Include="Images\organizationgreen.png" />
     <Resource Include="Images\organizationgrey.png" />
     <Resource Include="Images\recordsgreen.png" />
     <Resource Include="Images\recordsgrey.png" />
+    <Resource Include="Images\removeorder.png" />
     <Resource Include="Images\suppliergreen.png" />
     <Resource Include="Images\suppliergrey.png" />
+    <Resource Include="removeorder.png" />
   </ItemGroup>
 
   <ItemGroup>

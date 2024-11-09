@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
-             mc:Ignorable="d" Width="1104" Height="582" Background="#FFE3E3E3">
+             mc:Ignorable="d" Width="1104" Height="577" Background="#FFE3E3E3">
 
     <UserControl.Resources>
         <Style x:Key="NoHoverButton" TargetType="Button">
@@ -51,8 +51,8 @@
     <Grid>
 
 
-        <Border BorderThickness="1" HorizontalAlignment="Left" Height="41" Margin="611,8,0,0" VerticalAlignment="Top" Width="210" Background="White" CornerRadius="10">
-            <TextBox HorizontalAlignment="Left" TextWrapping="Wrap" Text="Search Product" VerticalAlignment="Top" Width="196" Height="32" Background="White" BorderBrush="White" TextAlignment="Justify" Padding="0,4,0,0" FontSize="14" MaxLines="1" RenderTransformOrigin="0.5,0.5" Margin="9,5,0,0">
+        <Border BorderThickness="1" HorizontalAlignment="Left" Height="41" Margin="563,8,0,0" VerticalAlignment="Top" Width="210" Background="White" CornerRadius="10">
+            <TextBox HorizontalAlignment="Center" TextWrapping="Wrap" Text="Search Product" VerticalAlignment="Top" Width="196" Height="32" Background="White" BorderBrush="White" TextAlignment="Justify" Padding="0,4,0,0" FontSize="14" MaxLines="1" RenderTransformOrigin="0.5,0.5" Margin="0,5,0,0">
                 <TextBox.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -64,21 +64,30 @@
             </TextBox>
         </Border>
 
-        <Border HorizontalAlignment="Left" Height="604" Margin="826,0,0,0" VerticalAlignment="Center" Width="300" 
-                Background="White" CornerRadius="10 0 0 0"/>
+        <Border HorizontalAlignment="Left" Height="604" Margin="778,0,0,0" VerticalAlignment="Center" Width="348" 
+                Background="White" CornerRadius="10 0 0 0">
+            <ScrollViewer Margin="0,83,22,99">
+                <WrapPanel x:Name="orderPanel"  Height="412" Width="298" Margin="0"/>
+            </ScrollViewer>
+        </Border>
         <Label Content="HOME" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Margin="10,4,0,0"/>
 
-        <Label Content="Orders" HorizontalAlignment="Left" Margin="832,4,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.128,0.014" FontSize="21"/>
-        <Rectangle HorizontalAlignment="Left" Height="5" Margin="826,44,0,0" VerticalAlignment="Top" Width="300" Fill="#FFE3E3E3"/>
+        <Label Content="Orders" HorizontalAlignment="Left" Margin="786,4,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.128,0.014" FontSize="21"/>
+        <Rectangle HorizontalAlignment="Left" Height="5" Margin="778,44,0,0" VerticalAlignment="Top" Width="348" Fill="#FFE3E3E3"/>
 
-        <Button Content="DROP" HorizontalAlignment="Left" Margin="826,526,0,0" VerticalAlignment="Top" Height="58" Width="139" Background="#FFF0A34A" BorderBrush="#FFF0A34A" FontSize="15" Foreground="White" FontWeight="Bold" Style="{StaticResource NoHoverButton}"/>
-        <Button Content="CHECKOUT" HorizontalAlignment="Left" Margin="965,526,0,0" VerticalAlignment="Top" Height="59" Width="151" Background="#FF89D467" BorderBrush="#FF89D467" Foreground="White" FontSize="15" FontWeight="Bold" Style="{StaticResource NoHoverButton}"/>
+        <Button Content="DROP" HorizontalAlignment="Left" Margin="778,528,0,0" VerticalAlignment="Top" Height="58" Width="160" Background="#FFF0A34A" BorderBrush="#FFF0A34A" FontSize="15" Foreground="White" FontWeight="Bold" Style="{StaticResource NoHoverButton}"/>
+        <Button Content="CHECKOUT" HorizontalAlignment="Left" Margin="938,528,0,0" VerticalAlignment="Top" Height="58" Width="170" Background="#FF89D467" BorderBrush="#FF89D467" Foreground="White" FontSize="15" FontWeight="Bold" Style="{StaticResource NoHoverButton}"/>
 
-        <Border HorizontalAlignment="Left" Height="83" Margin="10,56,0,0" VerticalAlignment="Top" Width="811" 
+        <Border HorizontalAlignment="Left" Height="83" Margin="10,56,0,0" VerticalAlignment="Top" Width="763" 
         Background="White" CornerRadius="10">
 
 
             <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="579*"/>
+                    <ColumnDefinition Width="8*"/>
+                    <ColumnDefinition Width="197*"/>
+                </Grid.ColumnDefinitions>
 
                 <!-- FOR ANIMAL TYPE NAV -->
 
@@ -173,14 +182,14 @@
 
                 <!-- FOR PRODUCT TYPE NAV -->
                 <Border x:Name="typeAllBorder" CornerRadius="10" BorderBrush="#FF66C265" BorderThickness="1" 
-                HorizontalAlignment="Left" Height="35" Margin="494,6,0,0" VerticalAlignment="Top" Width="52" 
+                HorizontalAlignment="Left" Height="35" Margin="446,6,0,0" VerticalAlignment="Top" Width="52" 
                 Background="#FFC0E4BE">
                     <Button x:Name="typeAllBtn" Click="TypeAllButton_Click" Content="All" Margin="9,5,9,5" Background="#FFC0E4BE" BorderBrush="#FFC0E4BE" 
                     FontSize="16" Foreground="#FF66C265" Style="{StaticResource NoHoverButton}"/>
                 </Border>
 
                 <Border x:Name="typeFeedsBorder" Height="34" Width="69" VerticalAlignment="Top" 
-                Margin="551,6,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+                Margin="504,7,0,0" HorizontalAlignment="Left" CornerRadius="10" 
                 BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
                     <Button x:Name="typeFeedsBtn" Click="FeedsButton_Click" Content="Feeds"  
                     FontSize="16" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
@@ -188,36 +197,41 @@
                 </Border>
 
                 <Border x:Name="typeMedicineBorder" Height="34" Width="90" VerticalAlignment="Top" 
-                    Margin="625,6,0,0" HorizontalAlignment="Left" CornerRadius="10" 
-                    BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
+                    Margin="577,6,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+                    BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White" Grid.ColumnSpan="3">
                     <Button x:Name="typeMedicineBtn" Click="MedicineButton_Click" Content="Medicine"  
                         FontSize="16" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                         Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
                 </Border>
 
                 <Border x:Name="typeVitaminsBorder" Height="34" Width="86" VerticalAlignment="Top" 
-                    Margin="720,6,0,0" HorizontalAlignment="Left" CornerRadius="10" 
-                    BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
+                    Margin="100,5,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+                    BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White" Grid.Column="2">
                     <Button x:Name="typeVitaminsBtn" Click="VitaminsButton_Click" Content="Vitamins"  
                         FontSize="16" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                         Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
                 </Border>
                 <Border x:Name="typeVaccinesBorder" Height="34" Width="90" VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="10" 
-                    BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White" Margin="603,45,0,0">
+                    BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White" Margin="555,44,0,0" Grid.ColumnSpan="3">
                     <Button x:Name="typeVaccinesBtn" Click="VaccinesButton_Click" Content="Vaccines"  
                         FontSize="16" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                         Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
                 </Border>
                 <Border x:Name="typeAccessoriesBorder" Height="34" Width="104" VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="10" 
-                    BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White" Margin="494,45,0,0">
+                    BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White" Margin="446,45,0,0">
                     <Button x:Name="typeAccessoriesBtn" Click="AccessoriesButton_Click" Content="Accessories"  
                         FontSize="16" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                         Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
                 </Border>
             </Grid>
         </Border>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,144,283,0">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,144,331,0">
             <WrapPanel x:Name="posPrdocutsPanel" HorizontalAlignment="Left" Height="438" VerticalAlignment="Top" Width="821" Margin="0,0,0,0"/>
         </ScrollViewer>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="794,49,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.128,0.014" FontSize="15"/>
+        <Label Content="Quantity" HorizontalAlignment="Left" Margin="897,49,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.128,0.014" FontSize="15"/>
+        <Label Content="Price" HorizontalAlignment="Left" Margin="1011,49,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.128,0.014" FontSize="15"/>
+        <Label Content="Total:" HorizontalAlignment="Left" Margin="788,497,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="totalPiceLabel"  Content="0" HorizontalAlignment="Left" Margin="1030,497,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Right" Width="69"/>
     </Grid>
 </UserControl>

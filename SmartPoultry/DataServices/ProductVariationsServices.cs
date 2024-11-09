@@ -14,6 +14,12 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+        public ProductVariations GetProductVariationById(int id)
+        {
+            var var_row = _context.ProductVariations.FirstOrDefault(p => p.id == id);
+            return var_row;
+        }
+
         public List<ProductVariations> GetAllProductVariations(int productId)
         {
             try

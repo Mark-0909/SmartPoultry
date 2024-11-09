@@ -39,7 +39,30 @@ namespace SmartPoultry
             var context = new AppDbContext();
             productServices = new ProductServices(context);
             productvariationsServices = new ProductVariationServices(context);
+            totalPiceLabel.Visibility = Visibility.Collapsed;
             displayProducts();
+        }
+
+        public void DisplayOrder(int id, string productname)
+        {
+            var productvar = productvariationsServices.GetProductVariationById(id);
+            string var = productvar.variant_type;
+            int price = productvar.price;
+
+            Home_OrdersControl orderControl = new Home_OrdersControl(var, price, productname, this);
+
+            orderPanel.Children.Add(orderControl);
+
+            DisplayTotalPrice(price);
+        }
+        public void DisplayTotalPrice(int toadd)
+        {
+            totalPiceLabel.Visibility = Visibility.Visible;
+            int initialPrice = Convert.ToInt32(totalPiceLabel.Content);
+            int finalprice = initialPrice + toadd;
+
+            totalPiceLabel.Content = finalprice;
+            
         }
 
         public void displayProducts()
@@ -59,7 +82,7 @@ namespace SmartPoultry
                 List<ProductVariations> var = productvariationsServices.GetAllProductVariations(id);
 
                
-                home_POSproduct productControl = new home_POSproduct(productname, var, imagepath);
+                home_POSproduct productControl = new home_POSproduct(productname, var, imagepath, this);
 
                 
                 posPrdocutsPanel.Children.Add(productControl);
