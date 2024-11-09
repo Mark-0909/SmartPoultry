@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Dashboard_checkout" Height="450" Width="601" WindowStyle="None">
     <Grid>
-        <Border BorderBrush="#FF2C6E5D" BorderThickness="4,37,4,40"/>
+        <Border BorderBrush="#FF2C6E5D" BorderThickness="1,37,1,1"/>
 
     </Grid>
 </Window>
