@@ -24,7 +24,9 @@ namespace SmartPoultry
         public home_POSproduct(string product_name, List<ProductVariations> var_list)
         {
             InitializeComponent();
-            //int buttonsize = vartypesPanel.Width;
+            int buttonSize = (int)vartypesPanel.Width;
+
+
         }
     }
 }
