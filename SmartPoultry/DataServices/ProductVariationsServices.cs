@@ -14,8 +14,30 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+        public List<ProductVariations> GetAllProductVariations(int productId)
+        {
+            try
+            {
+                var productVariations = _context.ProductVariations
+                                                 .Where(pv => pv.product_id == productId)
+                                                 .ToList();
+                if (!productVariations.Any())
+                {
+                    MessageBox.Show("No variations found for this product.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
 
-        public bool Create(int productid, string variantname, bool unittype, int price, int conversionrate)
+                return productVariations;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return new List<ProductVariations>();
+            }
+        }
+    
+
+
+    public bool Create(int productid, string variantname, bool unittype, int price, int conversionrate)
         {
             try
             {

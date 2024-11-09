@@ -15,11 +15,11 @@
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
-        <local:Supplier Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,92,0,0" VerticalAlignment="Top"/>
+        <local:Supplier x:Name="supplierControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,92,0,0" VerticalAlignment="Top"/>
 
 
 
-        <local:Organization Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top"/>
+        <local:Organization x:Name="organizationControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top"/>
 
 
 

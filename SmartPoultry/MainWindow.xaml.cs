@@ -32,10 +32,13 @@ namespace SmartPoultry
 
 
             //front usercontrol
+            Control[] controls = { dashboardControl, inventoryControl, recordsControl, organizationControl, supplierControl };
+
+            foreach (var control in controls)
+            {
+                Panel.SetZIndex(control, 0);
+            }
             Panel.SetZIndex(homeControl, 10);
-            Panel.SetZIndex(dashboardControl, 0);
-            Panel.SetZIndex(inventoryControl, 0);
-            Panel.SetZIndex(recordsControl, 0);
 
         }
         private void DashboardButton_Click(object sender, RoutedEventArgs e)
@@ -48,11 +51,13 @@ namespace SmartPoultry
             InactiveButton(organizationButton, "Images/organizationgrey.png", "organizationBorder", organizationIcon);
             InactiveButton(supplierButton, "Images/suppliergrey.png", "supplierBorder", supplierIcon);
 
-            //front usercontrol
-            Panel.SetZIndex(homeControl, 0);
+            Control[] controls = { homeControl, inventoryControl, recordsControl, organizationControl, supplierControl };
+
+            foreach (var control in controls)
+            {
+                Panel.SetZIndex(control, 0);
+            }
             Panel.SetZIndex(dashboardControl, 10);
-            Panel.SetZIndex(inventoryControl, 0);
-            Panel.SetZIndex(recordsControl, 0);
         }
         private void InventoryButton_Click(object sender, RoutedEventArgs e)
         {
@@ -65,10 +70,13 @@ namespace SmartPoultry
             InactiveButton(supplierButton, "Images/suppliergrey.png", "supplierBorder", supplierIcon);
 
             //front usercontrol
-            Panel.SetZIndex(homeControl, 0);
-            Panel.SetZIndex(dashboardControl, 0);
+            Control[] controls = { dashboardControl, homeControl, recordsControl, organizationControl, supplierControl };
+
+            foreach (var control in controls)
+            {
+                Panel.SetZIndex(control, 0);
+            }
             Panel.SetZIndex(inventoryControl, 10);
-            Panel.SetZIndex(recordsControl, 0);
         }
         private void RecordsButton_Click(object sender, RoutedEventArgs e)
         {
@@ -82,9 +90,12 @@ namespace SmartPoultry
 
 
             //front usercontrol
-            Panel.SetZIndex(homeControl, 0);
-            Panel.SetZIndex(dashboardControl, 0);
-            Panel.SetZIndex(inventoryControl, 0);
+            Control[] controls = { dashboardControl, inventoryControl, homeControl, organizationControl, supplierControl };
+
+            foreach (var control in controls)
+            {
+                Panel.SetZIndex(control, 0);
+            }
             Panel.SetZIndex(recordsControl, 10);
 
         }
@@ -96,6 +107,15 @@ namespace SmartPoultry
             InactiveButton(recordsButton, "Images/recordsgrey.png", "recordsBorder", recordsIcon);
             ActiveButton(organizationButton, "Images/organizationgreen.png", "organizationBorder", organizationIcon);
             InactiveButton(supplierButton, "Images/suppliergrey.png", "supplierBorder", supplierIcon);
+
+            //front usecontrol
+            Control[] controls = { dashboardControl, inventoryControl, recordsControl, homeControl, supplierControl };
+
+            foreach (var control in controls)
+            {
+                Panel.SetZIndex(control, 0);
+            }
+            Panel.SetZIndex(organizationControl, 10);
         }
 
         private void SupplierButton_Click(object sender, RoutedEventArgs e)
@@ -106,6 +126,15 @@ namespace SmartPoultry
             InactiveButton(recordsButton, "Images/recordsgrey.png", "recordsBorder", recordsIcon);
             InactiveButton(organizationButton, "Images/organizationgrey.png", "organizationBorder", organizationIcon);
             ActiveButton(supplierButton, "Images/suppliergreen.png", "supplierBorder", supplierIcon);
+
+            //front usecontrol
+            Control[] controls = { dashboardControl, inventoryControl, recordsControl, organizationControl, homeControl};
+
+            foreach (var control in controls)
+            {
+                Panel.SetZIndex(control, 0);
+            }
+            Panel.SetZIndex(supplierControl, 10);
         }
 
         private void ActiveButton(Button button, string imagesource, string buttonborder, Image icon)

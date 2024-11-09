@@ -5,9 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartPoultry"
         mc:Ignorable="d"
-        Title="Dashboard_checkout" Height="450" Width="601" WindowStyle="None">
+        Title="Dashboard_checkout" Height="450" Width="601" WindowStyle="None" Background="Transparent">
     <Grid>
-        <Border BorderBrush="#FF2C6E5D" BorderThickness="1,37,1,1"/>
+        <Border CornerRadius="10
+                "  BorderBrush="#FF2C6E5D" BorderThickness="1,37,1,1" Background="White"/>
 
     </Grid>
 </Window>

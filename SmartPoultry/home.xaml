@@ -216,5 +216,6 @@
                 </Border>
             </Grid>
         </Border>
+        <WrapPanel x:Name="posPrdocutsPanel" HorizontalAlignment="Left" Height="438" VerticalAlignment="Top" Width="821" Margin="0,144,0,0"/>
     </Grid>
 </UserControl>
