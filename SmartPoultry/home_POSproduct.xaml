@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
-             mc:Ignorable="d" 
              mc:Ignorable="d" Height="269" Width="217" Background="Transparent" Margin="5 0 0 5">
     <UserControl.Resources>
         <Style x:Key="NoHoverButton" TargetType="Button">
@@ -58,7 +57,7 @@
             <Border x:Name="animalAllBorder" CornerRadius="10" BorderBrush="#FF66C265" BorderThickness="1" 
                 HorizontalAlignment="Center" Height="41" VerticalAlignment="Center" Width="48" 
                 Background="#FFC0E4BE">
-                <Button x:Name="animalAllBtn" Click="AllButton_Click" Content="All" Margin="9,5,9,5" Background="#FFC0E4BE" BorderBrush="#FFC0E4BE" 
+                <Button x:Name="animalAllBtn"  Content="All" Margin="9,5,9,5" Background="#FFC0E4BE" BorderBrush="#FFC0E4BE" 
                     FontSize="16" Foreground="#FF66C265" Style="{StaticResource NoHoverButton}"/>
             </Border>
         </WrapPanel>
