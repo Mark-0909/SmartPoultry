@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SmartPoultry.DataServices;
+using SmartPoultry.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -13,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SmartPoultry.DataAccess;
+
 
 namespace SmartPoultry
 {
@@ -21,6 +25,8 @@ namespace SmartPoultry
     /// </summary>
     public partial class home : UserControl
     {
+        ProductServices productServices;
+        ProductVariationServices productvariationsServices;
 
         public static String[] buttonAnimalArray = { "animalAllBtn", "animalChickenBtn", "animalDogBtn", "animalCatBtn", "animalPigBtn", "animalDuckBtn", "animalCowBtn", "animalHorseBtn", "animalRabbitBtn", "animalBirdBtn", "animalFishBtn", "animalGuineaBtn" };
         public static String[] borderAnimalArray = { "animalAllBorder", "animalChickenBorder", "animalDogBorder", "animalCatBorder", "animalPigBorder", "animalDuckBorder", "animalCowBorder", "animalHorseBorder", "animalRabbitBorder", "animalBirdBorder", "animalFishBorder", "animalGuineaBorder" };
@@ -30,6 +36,34 @@ namespace SmartPoultry
         public home()
         {
             InitializeComponent();
+            var context = new AppDbContext();
+            productServices = new ProductServices(context);
+            productvariationsServices = new ProductVariationServices(context);
+            displayProducts();
+        }
+
+        public void displayProducts()
+        {
+            
+            List<Products> products = productServices.GetAllProducts();
+
+            
+            foreach (Products product in products)
+            {
+                
+                string productname = product.product_name;
+                int id = product.product_id;
+                string imagepath = product.image;
+
+                
+                List<ProductVariations> var = productvariationsServices.GetAllProductVariations(id);
+
+               
+                home_POSproduct productControl = new home_POSproduct(productname, var, imagepath);
+
+                
+                posPrdocutsPanel.Children.Add(productControl);
+            }
         }
 
         //Search function

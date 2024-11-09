@@ -47,20 +47,13 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <Border CornerRadius="10" BorderBrush="Black" BorderThickness="1" Background="White">
+        <Border CornerRadius="10" BorderBrush="#FF73CF6E" BorderThickness="2" Background="White">
             <Border CornerRadius="5" BorderBrush="#FFC9C6C6" BorderThickness="1" Margin="9,9,9,84">
                 <Image x:Name="Productimage"/>
             </Border>
         </Border>
         <Label x:Name="Productname" Content="Product Name" HorizontalAlignment="Center" Height="29" Margin="0,184,0,0" VerticalAlignment="Top" Width="197" FontSize="15"/>
-        <WrapPanel x:Name="vartypesPanel" HorizontalAlignment="Center" Height="41" Margin="0,218,0,0" VerticalAlignment="Center" Width="197">
-            <Border x:Name="animalAllBorder" CornerRadius="10" BorderBrush="#FF66C265" BorderThickness="1" 
-                HorizontalAlignment="Center" Height="41" VerticalAlignment="Center" Width="48" 
-                Background="#FFC0E4BE">
-                <Button x:Name="animalAllBtn"  Content="All" Margin="9,5,9,5" Background="#FFC0E4BE" BorderBrush="#FFC0E4BE" 
-                    FontSize="16" Foreground="#FF66C265" Style="{StaticResource NoHoverButton}"/>
-            </Border>
-        </WrapPanel>
+        <WrapPanel x:Name="vartypesPanel" HorizontalAlignment="Center" Height="41" Margin="0,217,0,0" VerticalAlignment="Top" Width="197"/>
 
     </Grid>
 </UserControl>
