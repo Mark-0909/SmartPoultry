@@ -66,7 +66,7 @@
 
         <Border HorizontalAlignment="Left" Height="604" Margin="778,0,0,0" VerticalAlignment="Center" Width="348" 
                 Background="White" CornerRadius="10 0 0 0">
-            <ScrollViewer Margin="0,83,22,99">
+            <ScrollViewer Margin="0,83,22,99" HorizontalAlignment="Right" Width="326">
                 <WrapPanel x:Name="orderPanel"  Height="412" Width="298" Margin="0"/>
             </ScrollViewer>
         </Border>
@@ -75,8 +75,8 @@
         <Label Content="Orders" HorizontalAlignment="Left" Margin="786,4,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.128,0.014" FontSize="21"/>
         <Rectangle HorizontalAlignment="Left" Height="5" Margin="778,44,0,0" VerticalAlignment="Top" Width="348" Fill="#FFE3E3E3"/>
 
-        <Button Content="DROP" HorizontalAlignment="Left" Margin="778,528,0,0" VerticalAlignment="Top" Height="58" Width="160" Background="#FFF0A34A" BorderBrush="#FFF0A34A" FontSize="15" Foreground="White" FontWeight="Bold" Style="{StaticResource NoHoverButton}"/>
-        <Button Content="CHECKOUT" HorizontalAlignment="Left" Margin="938,528,0,0" VerticalAlignment="Top" Height="58" Width="170" Background="#FF89D467" BorderBrush="#FF89D467" Foreground="White" FontSize="15" FontWeight="Bold" Style="{StaticResource NoHoverButton}"/>
+        <Button x:Name="DropOrderBtn" Click="DropOrderBtn_Click"  Content="DROP" HorizontalAlignment="Left" Margin="778,528,0,0" VerticalAlignment="Top" Height="58" Width="160" Background="#FFF0A34A" BorderBrush="#FFF0A34A" FontSize="15" Foreground="White" FontWeight="Bold" Style="{StaticResource NoHoverButton}"/>
+        <Button x:Name="CheckOutBtn" Click="CheckOutBtn_Click" Content="CHECKOUT" HorizontalAlignment="Left" Margin="938,528,0,0" VerticalAlignment="Top" Height="58" Width="170" Background="#FF89D467" BorderBrush="#FF89D467" Foreground="White" FontSize="15" FontWeight="Bold" Style="{StaticResource NoHoverButton}"/>
 
         <Border HorizontalAlignment="Left" Height="83" Margin="10,56,0,0" VerticalAlignment="Top" Width="763" 
         Background="White" CornerRadius="10">
@@ -230,8 +230,8 @@
         </ScrollViewer>
         <Label Content="Name" HorizontalAlignment="Left" Margin="794,49,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.128,0.014" FontSize="15"/>
         <Label Content="Quantity" HorizontalAlignment="Left" Margin="897,49,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.128,0.014" FontSize="15"/>
-        <Label Content="Price" HorizontalAlignment="Left" Margin="1011,49,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.128,0.014" FontSize="15"/>
+        <Label Content="Price" HorizontalAlignment="Left" Margin="1013,49,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.128,0.014" FontSize="15"/>
         <Label Content="Total:" HorizontalAlignment="Left" Margin="788,497,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="totalPiceLabel"  Content="0" HorizontalAlignment="Left" Margin="1030,497,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Right" Width="69"/>
+        <Label x:Name="totalPiceLabel"  Content="0" HorizontalAlignment="Left" Margin="1020,497,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Right" Width="69"/>
     </Grid>
 </UserControl>

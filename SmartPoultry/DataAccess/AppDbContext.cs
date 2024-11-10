@@ -9,6 +9,8 @@ namespace SmartPoultry.DataAccess
         public DbSet<Models.User> Users { get; set; }
         public DbSet<Models.Products> Products { get; set; }
         public DbSet<Models.ProductVariations> ProductVariations { get; set; }
+        
+        public DbSet<Models.SupplierList> SupplierLists { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

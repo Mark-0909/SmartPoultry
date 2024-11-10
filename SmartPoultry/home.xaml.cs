@@ -28,6 +28,11 @@ namespace SmartPoultry
         ProductServices productServices;
         ProductVariationServices productvariationsServices;
 
+        public List<string> Productidlist = new List<string>();
+        public List<string> QuantityList = new List<string>();
+        public List<string> VarSpecification = new List<string>();
+        public List<string> PriceList = new List<string>();
+
         public static String[] buttonAnimalArray = { "animalAllBtn", "animalChickenBtn", "animalDogBtn", "animalCatBtn", "animalPigBtn", "animalDuckBtn", "animalCowBtn", "animalHorseBtn", "animalRabbitBtn", "animalBirdBtn", "animalFishBtn", "animalGuineaBtn" };
         public static String[] borderAnimalArray = { "animalAllBorder", "animalChickenBorder", "animalDogBorder", "animalCatBorder", "animalPigBorder", "animalDuckBorder", "animalCowBorder", "animalHorseBorder", "animalRabbitBorder", "animalBirdBorder", "animalFishBorder", "animalGuineaBorder" };
 
@@ -42,19 +47,44 @@ namespace SmartPoultry
             totalPiceLabel.Visibility = Visibility.Collapsed;
             displayProducts();
         }
+        private void DropOrderBtn_Click(object sender, RoutedEventArgs e)
+        {
+            orderPanel.Children.Clear();
+            totalPiceLabel.Content = "0";
+            totalPiceLabel.Visibility = Visibility.Collapsed;
+        }
+
+        private void CheckOutBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        public void CheckOutList(string prodid, string quantity, string varspec, string price)
+        {
+            Productidlist.Add(prodid);
+            QuantityList.Add(quantity);
+            VarSpecification.Add(varspec);
+            PriceList.Add(price);
+        }
+        public void RemoverFromList(string prodid, string quantity, string varspec, string price)
+        {
+            
+        }
 
         public void DisplayOrder(int id, string productname)
         {
             var productvar = productvariationsServices.GetProductVariationById(id);
             string var = productvar.variant_type;
             int price = productvar.price;
+            int position = Productidlist.Count; 
 
-            Home_OrdersControl orderControl = new Home_OrdersControl(var, price, productname, this);
+            
+            Home_OrdersControl orderControl = new Home_OrdersControl(id, var, price, productname, this, position);
 
             orderPanel.Children.Add(orderControl);
 
             DisplayTotalPrice(price);
         }
+
         public void DisplayTotalPrice(int toadd)
         {
             totalPiceLabel.Visibility = Visibility.Visible;
@@ -415,5 +445,7 @@ namespace SmartPoultry
 
             
         }
+
+        
     }
 }

@@ -12,7 +12,7 @@
                 <Image Height="16" Width="14" Source="/Images/addorder.png" OpacityMask="Black"/>
             </Button>
         </Border>
-        <Label x:Name="productName" Content="Product Name" 
+        <Label x:Name="prodName" Content="Product Name" 
             HorizontalAlignment="Left" 
             VerticalAlignment="Center" 
             Height="46" 
