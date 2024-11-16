@@ -66,9 +66,17 @@
 
         <Border HorizontalAlignment="Left" Height="604" Margin="778,0,0,0" VerticalAlignment="Center" Width="348" 
                 Background="White" CornerRadius="10 0 0 0">
-            <ScrollViewer Margin="0,83,22,99" HorizontalAlignment="Right" Width="326">
-                <WrapPanel x:Name="orderPanel"  Height="412" Width="298" Margin="0"/>
+
+            <ScrollViewer x:Name="scroller" Margin="0,87,22,111" HorizontalAlignment="Right" Width="326"
+                VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" CanContentScroll="True">
+                <StackPanel x:Name="orderPanel" Margin="5,0,0,0">
+                    
+                </StackPanel>
             </ScrollViewer>
+
+
+
+
         </Border>
         <Label Content="HOME" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Margin="10,4,0,0"/>
 

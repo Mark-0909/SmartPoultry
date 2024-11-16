@@ -20,7 +20,7 @@ namespace SmartPoultry
     /// </summary>
     public partial class Inventory_ProductControl : UserControl
     {
-        public Inventory_ProductControl(string name, int stocks, string imagepath)
+        public Inventory_ProductControl(string name, decimal stocks, string imagepath)
         {
             InitializeComponent();
             Productname.Content = name;

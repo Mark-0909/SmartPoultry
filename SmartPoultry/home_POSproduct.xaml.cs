@@ -29,7 +29,7 @@ namespace SmartPoultry
                 
                 Border animalAllBorder = new Border
                 {
-                    Name = $"{variation.variant_type}Border",
+                    Name = $"thisBorder",
                     Margin = new Thickness(0, 0, 5, 0),
                     CornerRadius = new CornerRadius(10),
                     BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF66C265")),
@@ -44,7 +44,7 @@ namespace SmartPoultry
                 
                 Button animalAllBtn = new Button
                 {
-                    Name = $"{variation.variant_type}_{variation.id}",
+                    Name = $"thisButton",
                     Content = variation.variant_type,
                     Margin = new Thickness(9, 5, 9, 5),
                     Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFC0E4BE")),

@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Xml;
 
 namespace SmartPoultry
 {
@@ -11,7 +12,7 @@ namespace SmartPoultry
     public partial class Home_OrdersControl : UserControl
     {
        
-        public int pricevar;
+        public decimal pricevar;
         public int productId;
         public int positionList;
 
@@ -21,24 +22,30 @@ namespace SmartPoultry
        
         private int previousQuantity = 1;
 
-       
-        public Home_OrdersControl(int prodId, string variant, int price, string productName, home homeCtrl, int position)
+
+        public Home_OrdersControl(int prodId, string variant, decimal price, string productName, home homeCtrl, int position, string quantity)
         {
             InitializeComponent();
 
-          
             prodName.Content = productName;
             pricelabel.Content = price.ToString();
             varName.Content = variant;
-
-        
+            quantitylabel.Content = quantity;
             pricevar = price;
             productId = prodId;
             positionList = position;
             homeControl = homeCtrl;
+
+            
+            if (position % 2 != 0)
+            {
+                this.controlBorder.Background = new SolidColorBrush(Colors.White); 
+            }
         }
 
-     
+
+
+
         private void PlusBtn_Click(object sender, RoutedEventArgs e)
         {
             int initialQuantity = Convert.ToInt32(quantitylabel.Content);
@@ -46,12 +53,15 @@ namespace SmartPoultry
             quantitylabel.Content = initialQuantity.ToString();
 
            
-            int priceDifference = pricevar * (initialQuantity - previousQuantity);
+            decimal priceDifference = pricevar * (initialQuantity - previousQuantity);
             homeControl?.DisplayTotalPrice(priceDifference);
 
-           
+            homeControl?.EditQuantityPriceList(positionList, (pricevar * initialQuantity).ToString(), initialQuantity.ToString());
+
             pricelabel.Content = (pricevar * initialQuantity).ToString();
             previousQuantity = initialQuantity;
+
+            
         }
 
        
@@ -66,12 +76,15 @@ namespace SmartPoultry
                 quantitylabel.Content = initialQuantity.ToString();
 
                
-                int priceDifference = pricevar * (initialQuantity - previousQuantity);
+                decimal priceDifference = pricevar * (initialQuantity - previousQuantity);
                 homeControl?.DisplayTotalPrice(priceDifference);
 
-               
+                homeControl?.EditQuantityPriceList(positionList, (pricevar * initialQuantity).ToString(), initialQuantity.ToString());
+
                 pricelabel.Content = (pricevar * initialQuantity).ToString();
                 previousQuantity = initialQuantity;
+                
+
             }
         }
 
@@ -81,8 +94,9 @@ namespace SmartPoultry
             this.Visibility = Visibility.Collapsed; 
 
            
-            int totalItemPrice = pricevar * previousQuantity;
+            decimal totalItemPrice = pricevar * previousQuantity;
             homeControl?.DisplayTotalPrice(-totalItemPrice);
+            homeControl?.RemoverFromList(positionList);
         }
 
        

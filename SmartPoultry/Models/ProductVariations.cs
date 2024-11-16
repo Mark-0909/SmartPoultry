@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SmartPoultry.Models
 {
@@ -16,7 +17,8 @@ namespace SmartPoultry.Models
         public string? variant_type { get; set; }
         public bool isBaseUnit { get; set; }
 
-        public int price { get; set; }
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal price { get; set; }
 
         public int conversion_rate { get; set; }
     }

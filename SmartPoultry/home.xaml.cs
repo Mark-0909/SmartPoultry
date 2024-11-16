@@ -28,10 +28,11 @@ namespace SmartPoultry
         ProductServices productServices;
         ProductVariationServices productvariationsServices;
 
-        public List<string> Productidlist = new List<string>();
+        public List<string> Productvaridlist = new List<string>();
         public List<string> QuantityList = new List<string>();
         public List<string> VarSpecification = new List<string>();
         public List<string> PriceList = new List<string>();
+        public List<string> ProductnameList = new List<string>();
 
         public static String[] buttonAnimalArray = { "animalAllBtn", "animalChickenBtn", "animalDogBtn", "animalCatBtn", "animalPigBtn", "animalDuckBtn", "animalCowBtn", "animalHorseBtn", "animalRabbitBtn", "animalBirdBtn", "animalFishBtn", "animalGuineaBtn" };
         public static String[] borderAnimalArray = { "animalAllBorder", "animalChickenBorder", "animalDogBorder", "animalCatBorder", "animalPigBorder", "animalDuckBorder", "animalCowBorder", "animalHorseBorder", "animalRabbitBorder", "animalBirdBorder", "animalFishBorder", "animalGuineaBorder" };
@@ -56,45 +57,86 @@ namespace SmartPoultry
 
         private void CheckOutBtn_Click(object sender, RoutedEventArgs e)
         {
+            string productList = string.Join(", ", Productvaridlist);
+            string priceList = string.Join(", ", PriceList);
+            string varList = string.Join(", ", VarSpecification);
+            string quantityList = string.Join(", ", QuantityList);
+            string productNameList = string.Join(", ", ProductnameList);
 
+            string message = $"Product ID List: {productList}\n" +
+                             $"Price List: {priceList}\n" +
+                             $"VarSpecification List: {varList}\n" +
+                             $"Quantity List: {quantityList}\n" +
+                             $"Product Name List: {productNameList}";
+
+            MessageBox.Show(message);
         }
         public void CheckOutList(string prodid, string quantity, string varspec, string price)
         {
-            Productidlist.Add(prodid);
+            Productvaridlist.Add(prodid);
             QuantityList.Add(quantity);
             VarSpecification.Add(varspec);
             PriceList.Add(price);
         }
-        public void RemoverFromList(string prodid, string quantity, string varspec, string price)
+        public void RemoverFromList(int position)
         {
-            
+            Productvaridlist.RemoveAt(position);
+            PriceList.RemoveAt(position);
+            VarSpecification.RemoveAt(position);
+            QuantityList.RemoveAt(position);
+            ProductnameList.RemoveAt(position);
+
+            orderPanel.Children.Clear();
+
+            for (int i = 0; i < Productvaridlist.Count; i++)
+            {
+                int id = int.Parse(Productvaridlist[i]);
+                decimal price = decimal.Parse(PriceList[i]);
+                int quantity = int.Parse(QuantityList[i]);
+
+                Home_OrdersControl ordersControl = new Home_OrdersControl(id, VarSpecification[i], price, ProductnameList[i], this, i, quantity.ToString());
+                orderPanel.Children.Add(ordersControl);
+            }
+
         }
+
+
 
         public void DisplayOrder(int id, string productname)
         {
             var productvar = productvariationsServices.GetProductVariationById(id);
-            string var = productvar.variant_type;
-            int price = productvar.price;
-            int position = Productidlist.Count; 
-
+            string? var = productvar.variant_type;
+            decimal price = productvar.price;
+            int position = Productvaridlist.Count;
             
-            Home_OrdersControl orderControl = new Home_OrdersControl(id, var, price, productname, this, position);
+            ProductnameList.Add(productname);
+            Productvaridlist.Add(id.ToString());
+            QuantityList.Add("1");
+            VarSpecification.Add(var);
+            PriceList.Add(price.ToString());
+            
+            Home_OrdersControl orderControl = new Home_OrdersControl(id, var, price, productname, this, position, "1");
 
             orderPanel.Children.Add(orderControl);
+            scroller.ScrollToVerticalOffset(scroller.ExtentHeight);
 
             DisplayTotalPrice(price);
         }
 
-        public void DisplayTotalPrice(int toadd)
+        public void DisplayTotalPrice(decimal toadd)
         {
             totalPiceLabel.Visibility = Visibility.Visible;
-            int initialPrice = Convert.ToInt32(totalPiceLabel.Content);
-            int finalprice = initialPrice + toadd;
+            decimal initialPrice = Convert.ToDecimal(totalPiceLabel.Content); 
+            decimal finalprice = initialPrice + toadd;
 
-            totalPiceLabel.Content = finalprice;
-            
+            totalPiceLabel.Content = finalprice.ToString("F2"); 
         }
 
+        public void EditQuantityPriceList(int position, string price, string quantity)
+        {
+            PriceList[position] = price;
+            QuantityList[position] = quantity;
+        }
         public void displayProducts()
         {
             

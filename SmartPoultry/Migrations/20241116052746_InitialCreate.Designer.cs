@@ -10,8 +10,8 @@ using SmartPoultry.DataAccess;
 namespace SmartPoultry.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241110021115_SupplierList")]
-    partial class SupplierList
+    [Migration("20241116052746_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,8 +31,8 @@ namespace SmartPoultry.Migrations
                     b.Property<bool>("isBaseUnit")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("price")
-                        .HasColumnType("INTEGER");
+                    b.Property<decimal>("price")
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<int>("product_id")
                         .HasColumnType("INTEGER");
@@ -63,7 +63,6 @@ namespace SmartPoultry.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int>("employee_incharge")
-                        .HasMaxLength(100)
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("image")
@@ -86,8 +85,8 @@ namespace SmartPoultry.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("stocks")
-                        .HasColumnType("INTEGER");
+                    b.Property<decimal>("stocks")
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<int>("supplier_id")
                         .HasColumnType("INTEGER");
