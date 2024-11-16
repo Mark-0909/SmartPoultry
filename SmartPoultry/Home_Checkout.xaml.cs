@@ -19,7 +19,7 @@ namespace SmartPoultry
     /// </summary>
     public partial class Home_Checkout : Window
     {
-        public 
+        
         public Home_Checkout(string price)
         {
             InitializeComponent();
