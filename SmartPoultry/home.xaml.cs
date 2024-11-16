@@ -69,7 +69,17 @@ namespace SmartPoultry
                              $"Quantity List: {quantityList}\n" +
                              $"Product Name List: {productNameList}";
 
-            MessageBox.Show(message);
+            if (orderPanel.Children.Count > 0)
+            {
+                Home_Checkout checkout = new Home_Checkout(totalPiceLabel.Content.ToString());
+                checkout.Show();
+            }
+            else
+            {
+                MessageBox.Show("Empty order!");
+            }
+
+
         }
         public void CheckOutList(string prodid, string quantity, string varspec, string price)
         {
