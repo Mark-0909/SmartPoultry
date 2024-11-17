@@ -33,22 +33,22 @@
         <Label Content="Purchased Method:" HorizontalAlignment="Left" Height="32" Margin="28,224,0,0" VerticalAlignment="Top" Width="150" FontSize="16" FontWeight="Bold"/>
         <Button x:Name="CloseButton_Copy" Click="CloseWindow_Click" Content="Button" HorizontalAlignment="Left" Height="32" Margin="304,2,0,0" VerticalAlignment="Top" Width="58"/>
         <Border BorderBrush="#FF2C6E5D" CornerRadius="0 0 10 10" BorderThickness="1" HorizontalAlignment="Center" Height="38" VerticalAlignment="Top" Width="372" Background="#FF2C6E5D" Margin="0,318,0,0"/>
-        <Button x:Name="CloseButton_Copy1" Click="CloseWindow_Click" Content="CONFIRM" HorizontalAlignment="Center" Height="32" Margin="0,321,0,0" VerticalAlignment="Top" Width="360" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D" Foreground="White" FontWeight="Bold" FontSize="20"/>
+        <Button x:Name="ConfirmBtn" Click="Confirm_Click" Content="CONFIRM" HorizontalAlignment="Center" Height="32" Margin="0,321,0,0" VerticalAlignment="Top" Width="360" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D" Foreground="White" FontWeight="Bold" FontSize="20"/>
         
             <!-- Payment Method Group -->
-            
-            <RadioButton Content="Gcash" GroupName="PaymentMethod" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="121,144,0,0" VerticalAlignment="Top" FontSize="15" />
-            <RadioButton IsChecked="True" Content="Cash" GroupName="PaymentMethod" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="33,143,0,0" VerticalAlignment="Top" FontSize="15" />
+
+        <RadioButton Checked="GCashRadioButton_Checked" Content="Gcash" GroupName="PaymentMethod" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="121,144,0,0" VerticalAlignment="Top" FontSize="15" />
+        <RadioButton Checked="CashRadioButton_Checked" IsChecked="True" Content="Cash" GroupName="PaymentMethod" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="33,143,0,0" VerticalAlignment="Top" FontSize="15" />
 
             <!-- Payment Status Group -->
-            
-            <RadioButton IsChecked="True" Content="Paid" GroupName="PaymentStatus" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="33,200,0,0" VerticalAlignment="Top" FontSize="15" Checked="RadioButton_Checked_2" />
-            <RadioButton Content="Unpaid" GroupName="PaymentStatus" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="119,200,0,0" VerticalAlignment="Top" FontSize="15" Checked="RadioButton_Checked" />
+
+        <RadioButton Checked="PaidRadioButton_Checked" IsChecked="True" Content="Paid" GroupName="PaymentStatus" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="33,200,0,0" VerticalAlignment="Top" FontSize="15" />
+        <RadioButton Checked="UnpaidRadioButton_Checked" Content="Unpaid" GroupName="PaymentStatus" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="119,200,0,0" VerticalAlignment="Top" FontSize="15" />
 
             <!-- Purchase Type Group -->
-            
-            <RadioButton IsChecked="True" Content="Upfront" GroupName="PurchaseType" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="33,261,0,0" VerticalAlignment="Top" FontSize="15" Checked="RadioButton_Checked_1" />
-            <RadioButton Content="To Deliver" GroupName="PurchaseType" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="121,261,0,0" VerticalAlignment="Top" FontSize="15" />
+
+        <RadioButton Checked="UpfrontRadioButton_Checked" IsChecked="True" Content="Upfront" GroupName="PurchaseType" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="33,261,0,0" VerticalAlignment="Top" FontSize="15" />
+        <RadioButton Checked="ToDeliverRadioButton_Checked" Content="To Deliver" GroupName="PurchaseType" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="121,261,0,0" VerticalAlignment="Top" FontSize="15" />
         
 
     </Grid>

@@ -19,31 +19,62 @@ namespace SmartPoultry
     /// </summary>
     public partial class Home_Checkout : Window
     {
+        public MainWindow? mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
         
-        public Home_Checkout(string price)
+
+        public string paymentmethod;
+        public string status;
+        public string purchasemethod;
+        home homeController;
+        public Home_Checkout(string price, home homeControl)
         {
             InitializeComponent();
             totalPricelabel.Content = price;
+            homeController = homeControl;
         }
+
 
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-        private void RadioButton_Checked(object sender, RoutedEventArgs e)
-        {
+        
 
+        private void Confirm_Click(object sender, RoutedEventArgs e)
+        {
+            homeController.ConfirmOrder(paymentmethod, status, purchasemethod);
+            this.Close();
         }
 
-        private void RadioButton_Checked_1(object sender, RoutedEventArgs e)
+        private void CashRadioButton_Checked(object sender, RoutedEventArgs e)
         {
-
+            paymentmethod = "cash";
         }
 
-        private void RadioButton_Checked_2(object sender, RoutedEventArgs e)
+        private void GCashRadioButton_Checked(object sender, RoutedEventArgs e)
         {
+            paymentmethod = "gcash";
+        }
 
+        private void PaidRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            status = "paid";
+        }
+
+        private void UnpaidRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            status = "unpaid";
+        }
+
+        private void UpfrontRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            purchasemethod = "upfront";
+        }
+
+        private void ToDeliverRadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            purchasemethod = "to deliver";
         }
     }
 }

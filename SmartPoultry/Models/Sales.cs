@@ -24,10 +24,13 @@ namespace SmartPoultry.Models
         [MaxLength(255)]
         public string variation_list { get; set; }
         [MaxLength(100)]
+        public string payment_mode { get; set; }
+        [MaxLength(100)]
         public string status { get; set; }
+        [MaxLength(100)]
+        public string purchase_method { get; set; }
         [Column(TypeName = "decimal(10,2)")]
         public decimal total_price { get; set; }
-        public string payment_mode { get; set; }
         public int employee_incharge { get; set; }
 
     }

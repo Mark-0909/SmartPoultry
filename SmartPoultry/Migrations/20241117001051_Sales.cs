@@ -21,9 +21,10 @@ namespace SmartPoultry.Migrations
                     quantity_list = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     purchase_date = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     variation_list = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    payment_mode = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     status = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
+                    purchase_method = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     total_price = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
-                    payment_mode = table.Column<string>(type: "TEXT", nullable: false),
                     employee_incharge = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>

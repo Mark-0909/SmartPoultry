@@ -28,6 +28,7 @@
     <None Remove="Images\recordsgreen.png" />
     <None Remove="Images\recordsgrey.png" />
     <None Remove="Images\removeorder.png" />
+    <None Remove="Images\smartpoultrylogin.png" />
     <None Remove="Images\suppliergreen.png" />
     <None Remove="Images\suppliergrey.png" />
     <None Remove="removeorder.png" />
@@ -60,6 +61,7 @@
     <Resource Include="Images\recordsgreen.png" />
     <Resource Include="Images\recordsgrey.png" />
     <Resource Include="Images\removeorder.png" />
+    <Resource Include="Images\smartpoultrylogin.png" />
     <Resource Include="Images\suppliergreen.png" />
     <Resource Include="Images\suppliergrey.png" />
     <Resource Include="removeorder.png" />

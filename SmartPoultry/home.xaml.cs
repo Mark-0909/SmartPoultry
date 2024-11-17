@@ -25,6 +25,7 @@ namespace SmartPoultry
     /// </summary>
     public partial class home : UserControl
     {
+        SalesServices salesServices;
         ProductServices productServices;
         ProductVariationServices productvariationsServices;
 
@@ -45,6 +46,7 @@ namespace SmartPoultry
             var context = new AppDbContext();
             productServices = new ProductServices(context);
             productvariationsServices = new ProductVariationServices(context);
+            salesServices = new SalesServices(new AppDbContext());
             totalPiceLabel.Visibility = Visibility.Collapsed;
             displayProducts();
         }
@@ -55,23 +57,53 @@ namespace SmartPoultry
             totalPiceLabel.Visibility = Visibility.Collapsed;
         }
 
+        public void ConfirmOrder(string paymentMode, string status, string purchasemethod)
+        {
+            
+            string StringProductList = string.Join(",", Productvaridlist);
+            string StringPriceList = string.Join(",", PriceList);
+            string StringQuantityList = string.Join(",", QuantityList);
+            string StringVarSpecification = string.Join(",", VarSpecification);
+
+            
+            decimal totalPrice = decimal.Parse(totalPiceLabel.Content.ToString());
+
+            
+            bool addingSales = salesServices.Create(
+                StringProductList,
+                StringPriceList,
+                StringQuantityList,
+                StringVarSpecification,
+                paymentMode,
+                status,
+                totalPrice,
+                purchasemethod
+            );
+
+            if (addingSales)
+            {
+                MessageBox.Show("Order confirmed successfully!");
+                orderPanel.Children.Clear();
+                totalPiceLabel.Content = "0";
+                totalPiceLabel.Visibility= Visibility.Collapsed;
+                Productvaridlist.Clear();
+                PriceList.Clear();
+                QuantityList.Clear();
+                VarSpecification.Clear();
+                ProductnameList.Clear();
+            }
+            else
+            {
+                MessageBox.Show("Failed to confirm the order.");
+            }
+        }
+
+
         private void CheckOutBtn_Click(object sender, RoutedEventArgs e)
         {
-            string productList = string.Join(", ", Productvaridlist);
-            string priceList = string.Join(", ", PriceList);
-            string varList = string.Join(", ", VarSpecification);
-            string quantityList = string.Join(", ", QuantityList);
-            string productNameList = string.Join(", ", ProductnameList);
-
-            string message = $"Product ID List: {productList}\n" +
-                             $"Price List: {priceList}\n" +
-                             $"VarSpecification List: {varList}\n" +
-                             $"Quantity List: {quantityList}\n" +
-                             $"Product Name List: {productNameList}";
-
             if (orderPanel.Children.Count > 0)
             {
-                Home_Checkout checkout = new Home_Checkout(totalPiceLabel.Content.ToString());
+                Home_Checkout checkout = new Home_Checkout(totalPiceLabel.Content.ToString(), this);
                 checkout.Show();
             }
             else
@@ -109,8 +141,6 @@ namespace SmartPoultry
             }
 
         }
-
-
 
         public void DisplayOrder(int id, string productname)
         {
