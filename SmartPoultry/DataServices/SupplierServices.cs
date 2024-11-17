@@ -34,6 +34,7 @@ namespace SmartPoultry.DataServices
                 return true;
             }
             catch (Exception ex) {
+                MessageBox.Show($"{ex}");
                 return false;
             }
         }

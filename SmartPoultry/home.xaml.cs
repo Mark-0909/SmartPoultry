@@ -16,6 +16,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SmartPoultry.DataAccess;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.Diagnostics;
+using System.IO;
+
 
 
 namespace SmartPoultry
@@ -91,12 +96,52 @@ namespace SmartPoultry
                 QuantityList.Clear();
                 VarSpecification.Clear();
                 ProductnameList.Clear();
+
+                DisplayReceipt(paymentMode, purchasemethod, status);
             }
             else
             {
                 MessageBox.Show("Failed to confirm the order.");
             }
         }
+
+        public void DisplayReceipt(string customerName, string paymentMethod, string orderDetails)
+        {
+            using (MemoryStream memoryStream = new MemoryStream())
+            {
+                Document doc = new Document();
+                PdfWriter writer = PdfWriter.GetInstance(doc, memoryStream);
+                writer.CloseStream = false; 
+                doc.Open();
+
+                
+                doc.Add(new iTextSharp.text.Paragraph("Receipt"));
+                doc.Add(new iTextSharp.text.Paragraph($"Date: {DateTime.Now:yyyy-MM-dd HH:mm:ss}"));
+                doc.Add(new iTextSharp.text.Paragraph($"Customer Name: {customerName}"));
+                doc.Add(new iTextSharp.text.Paragraph($"Payment Method: {paymentMethod}"));
+                doc.Add(new iTextSharp.text.Paragraph("Order Details:"));
+                doc.Add(new iTextSharp.text.Paragraph(orderDetails));
+
+                doc.Close(); 
+                memoryStream.Position = 0; 
+
+                
+                string tempFilePath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}.pdf");
+                File.WriteAllBytes(tempFilePath, memoryStream.ToArray());
+
+                
+                Process.Start(new ProcessStartInfo(tempFilePath) { UseShellExecute = true });
+
+                
+                Task.Run(() =>
+                {
+                    Thread.Sleep(5000); 
+                    File.Delete(tempFilePath);
+                });
+            }
+        }
+
+
 
 
         private void CheckOutBtn_Click(object sender, RoutedEventArgs e)
