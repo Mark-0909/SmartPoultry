@@ -10,7 +10,7 @@ using SmartPoultry.DataAccess;
 namespace SmartPoultry.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241117001051_Sales")]
+    [Migration("20241118111139_Sales")]
     partial class Sales
     {
         /// <inheritdoc />
@@ -134,6 +134,10 @@ namespace SmartPoultry.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
+
+                    b.Property<long>("receipt_id")
+                        .HasMaxLength(9)
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("status")
                         .IsRequired()

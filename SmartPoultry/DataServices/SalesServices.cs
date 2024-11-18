@@ -1,6 +1,7 @@
 ﻿using SmartPoultry.DataAccess;
 using SmartPoultry.Models;
 using System;
+using System.Windows;
 
 namespace SmartPoultry.DataServices
 {
@@ -17,9 +18,10 @@ namespace SmartPoultry.DataServices
         {
             try
             {
-                
+                long refid = CreateReferenceNumber();
                 var newSales = new Sales()
                 {
+                    receipt_id = refid,
                     product_list = productList,
                     price_list = priceList,
                     quantity_list = quantityList,
@@ -45,5 +47,30 @@ namespace SmartPoultry.DataServices
                 return false;
             }
         }
+        public long CreateReferenceNumber()
+        {
+            try
+            {
+                string salesNumber = $"{DateTime.Now:yyMMdd}{new Random().Next(10000, 99999)}";
+
+                long convertsalesnumber = Convert.ToInt64(salesNumber);
+
+                bool isPresent = _context.Sales.Any(p => p.receipt_id == convertsalesnumber);
+
+                if (isPresent)
+                {
+                    return CreateReferenceNumber();
+                }
+
+                return convertsalesnumber;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Error while creating sales record: {e.Message}");
+                return 0;
+            }
+        }
+
+
     }
 }

@@ -8,6 +8,31 @@
              d:DesignHeight="577" d:DesignWidth="1104" Background="#FFE3E3E3" Width="1104" Height="577">
     <Grid>
         <Label Content="DASHBOARD" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Margin="10,4,0,0" Width="235"/>
-        
+        <Border CornerRadius="10" BorderBrush="#FF2C6E5D" BorderThickness="0" HorizontalAlignment="Left" Height="508" Margin="10,59,0,0" VerticalAlignment="Top" Width="341" Background="White">
+            <local:Dashboard_OrdersControl Margin="7,86,7,367"/>
+        </Border>
+        <Border CornerRadius="10" BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="244" Margin="361,59,0,0" VerticalAlignment="Top" Width="733" Background="White">
+            <Border CornerRadius="10 10 0 0" BorderThickness="1" HorizontalAlignment="Center" Height="36" VerticalAlignment="Top" Width="733" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
+                <Label Content="Charts" HorizontalAlignment="Left" Height="37" VerticalAlignment="Center" Width="140" Foreground="White" FontSize="20" Margin="9,0,0,0"/>
+            </Border>
+        </Border>
+        <Border CornerRadius="10" BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="254" Margin="732,313,0,0" VerticalAlignment="Top" Width="362" Background="White">
+            <Border CornerRadius="10 10 0 0" BorderThickness="1" HorizontalAlignment="Center" Height="36" VerticalAlignment="Top" Width="362" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
+                <Label Content="Pending Delivery" HorizontalAlignment="Left" Height="36" VerticalAlignment="Center" Width="171" Foreground="White" FontSize="20" Margin="9,0,0,0"/>
+            </Border>
+        </Border>
+        <Border CornerRadius="10" BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="254" Margin="361,313,0,0" VerticalAlignment="Top" Width="361" Background="White">
+            <Border CornerRadius="10 10 0 0" BorderThickness="1" HorizontalAlignment="Center" Height="36" VerticalAlignment="Top" Width="361" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
+                <Label Content="Scheduled Payments" HorizontalAlignment="Left" Height="36" VerticalAlignment="Center" Width="228" Foreground="White" FontSize="20" Margin="9,0,0,0"/>
+            </Border>
+        </Border>
+        <Border CornerRadius="10 10 0 0" BorderThickness="1" HorizontalAlignment="Left" Height="36" Margin="10,59,0,0" VerticalAlignment="Top" Width="341" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
+            <Label Content="Transaction" HorizontalAlignment="Left" Height="37" VerticalAlignment="Center" Width="140" Foreground="White" FontSize="20" Margin="9,0,0,0"/>
+        </Border>
+        <Label Content="Payment Method" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="117,106,0,0" VerticalAlignment="Top" Width="101"/>
+        <Label Content="Status" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="229,106,0,0" VerticalAlignment="Top" Width="53"/>
+        <Label Content="Total" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="287,106,0,0" VerticalAlignment="Top" Width="55"/>
+        <Label Content="ID" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="62,106,0,0" VerticalAlignment="Top" Width="35"/>
+
     </Grid>
 </UserControl>

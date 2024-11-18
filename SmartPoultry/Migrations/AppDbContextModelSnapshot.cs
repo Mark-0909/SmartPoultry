@@ -132,6 +132,10 @@ namespace SmartPoultry.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
 
+                    b.Property<long>("receipt_id")
+                        .HasMaxLength(9)
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("status")
                         .IsRequired()
                         .HasMaxLength(100)

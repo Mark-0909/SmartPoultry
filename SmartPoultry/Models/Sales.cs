@@ -13,6 +13,8 @@ namespace SmartPoultry.Models
     {
         [Key]
         public int id {  get; set; }
+        [MaxLength(9)]
+        public long receipt_id { get; set; }
         [MaxLength(255)]
         public string product_list { get; set; }
         [MaxLength(255)]

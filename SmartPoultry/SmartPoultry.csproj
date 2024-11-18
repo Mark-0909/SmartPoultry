@@ -17,6 +17,8 @@
     <None Remove="Images\clipicon.png" />
     <None Remove="Images\dashboardgreen.png" />
     <None Remove="Images\dashboardgrey.png" />
+    <None Remove="Images\dropdown.png" />
+    <None Remove="Images\dropup.png" />
     <None Remove="Images\homeicongreen.png" />
     <None Remove="Images\homeicongrey.png" />
     <None Remove="Images\inventorygreen.png" />
@@ -52,6 +54,8 @@
     <Resource Include="Images\clipicon.png" />
     <Resource Include="Images\dashboardgreen.png" />
     <Resource Include="Images\dashboardgrey.png" />
+    <Resource Include="Images\dropdown.png" />
+    <Resource Include="Images\dropup.png" />
     <Resource Include="Images\homeicongreen.png" />
     <Resource Include="Images\homeicongrey.png" />
     <Resource Include="Images\inventorygreen.png" />

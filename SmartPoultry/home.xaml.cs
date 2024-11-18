@@ -126,7 +126,7 @@ namespace SmartPoultry
                 memoryStream.Position = 0; 
 
                 
-                string tempFilePath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), $"{DateTime.Now:yyyy-MM-dd HH:mm:ss}.pdf");
+                string tempFilePath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), $"{DateTime.Now:yyyyMMddHHmmss}.pdf");
                 File.WriteAllBytes(tempFilePath, memoryStream.ToArray());
 
                 
