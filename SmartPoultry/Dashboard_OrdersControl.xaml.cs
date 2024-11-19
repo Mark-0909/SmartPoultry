@@ -20,9 +20,18 @@ namespace SmartPoultry
     /// </summary>
     public partial class Dashboard_OrdersControl : UserControl
     {
-        public Dashboard_OrdersControl()
+        public Dashboard_OrdersControl(string refid, string mode, string status, string price, int position)
         {
             InitializeComponent();
+            ReferenceIdlabel.Content = refid;
+            Modelabel.Content = mode;
+            Statuslabel.Content = status;
+            TotalpriceLabel.Content = price;
+
+            if (position == 1) {
+                thisBorder.Background = new SolidColorBrush(Colors.White);
+            }
+
         }
     }
 }

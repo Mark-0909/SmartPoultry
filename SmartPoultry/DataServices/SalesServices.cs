@@ -13,7 +13,19 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+        public List<Sales> GetSales()
+        {
+            try
+            {
+                string date = DateTime.Now.ToString("MM/dd/yyyy");
+                return _context.Sales.ToList();
+            }
+            catch (Exception e) {
 
+                MessageBox.Show("Error Fetching Sales: " + e);
+                return null;
+            }
+        }
         public bool Create(string productList, string priceList, string quantityList, string varList, string paymentMode, string status, decimal totalPrice, string purchaseMethod)
         {
             try

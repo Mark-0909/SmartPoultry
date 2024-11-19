@@ -5,16 +5,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
              mc:Ignorable="d" 
-             d:DesignHeight="55" d:DesignWidth="327" Width="327" Height="55" Background="Transparent">
+             d:DesignHeight="55" d:DesignWidth="327" Width="327" Height="55" Background="Transparent" Margin="7 0 0 7">
     <Grid>
-        <Border CornerRadius="10
+        <Border x:Name="thisBorder" CornerRadius="10
                 " BorderBrush="White" Background="#FFDBDBDB" BorderThickness="1" HorizontalAlignment="Center" Height="55" VerticalAlignment="Center" Width="327">
-            <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="000000000" HorizontalAlignment="Left" Height="55" Margin="38,0,0,0" VerticalAlignment="Center" Width="74" FontSize="13"/>
+            <Label x:Name="ReferenceIdlabel" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="00000000000" HorizontalAlignment="Left" Height="55" Margin="37,0,0,0" VerticalAlignment="Center" Width="83"/>
         </Border>
-        <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="GCash" HorizontalAlignment="Left" Height="55" Margin="116,0,0,0" VerticalAlignment="Center" Width="66" FontSize="13"/>
-        <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="Unpaid" HorizontalAlignment="Left" Height="55" Margin="187,0,0,0" VerticalAlignment="Center" Width="66" FontSize="13"/>
-        <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="P 000000" HorizontalAlignment="Left" Height="55" Margin="253,0,0,0" VerticalAlignment="Center" Width="66" FontSize="13"/>
-        <Button HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="27" Margin="8,0,0,0" Background="Transparent" BorderBrush="Transparent">
+        <Label x:Name="Modelabel" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="GCash" HorizontalAlignment="Left" Height="55" Margin="125,0,0,0" VerticalAlignment="Center" Width="57" FontSize="13"/>
+        <Label x:Name="Statuslabel" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="Unpaid" HorizontalAlignment="Left" Height="55" Margin="187,0,0,0" VerticalAlignment="Center" Width="66" FontSize="13"/>
+        <Label x:Name="TotalpriceLabel" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="P 000000" HorizontalAlignment="Left" Height="55" Margin="253,0,0,0" VerticalAlignment="Center" Width="66" FontSize="13"/>
+        <Button HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="27" Margin="5,0,0,0" Background="Transparent" BorderBrush="Transparent">
             <Image Height="17" Width="14" Source="/Images/dropdown.png"/>
         </Button>
     </Grid>
