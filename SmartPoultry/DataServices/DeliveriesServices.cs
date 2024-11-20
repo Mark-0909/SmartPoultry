@@ -1,0 +1,47 @@
+﻿using SmartPoultry.DataAccess;
+using SmartPoultry.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace SmartPoultry.DataServices
+{
+    public class DeliveriesServices
+    {
+        private readonly AppDbContext _context;
+        public DeliveriesServices(AppDbContext context)
+        {
+            _context = context;
+        }
+        public bool Create(long orderid, string name, string type, decimal price, string address, string status, string contact, DateTime deliverydate, string deliveryman, decimal charge)
+        {
+            try 
+            { 
+                var newDelivery = new Deliveries() { 
+                    order_id = orderid,
+                    name = name, 
+                    type = type,
+                    price = price,
+                    address = address,
+                    status = status,
+                    contact_no = contact,
+                    delivery_date = deliverydate,
+                    delivery_man = deliveryman,
+                    added_date =  DateTime.Now,
+                    charges = charge,
+                    employee_incharge = 1
+                };
+                _context.Deliveries.Add(newDelivery);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            
+        }
+    }
+}

@@ -20,16 +20,16 @@
         </Border>
         <TextBox x:Name="NameTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="30" Margin="0,89,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="412"/>
         <Label Content="Name: " HorizontalAlignment="Left" Height="30" Margin="10,59,0,0" VerticalAlignment="Top" Width="96"/>
-        <Label Content="Price: " HorizontalAlignment="Left" Height="30" Margin="10,124,0,0" VerticalAlignment="Top" Width="96"/>
+        <Label Content="Address:" HorizontalAlignment="Left" Height="30" Margin="10,124,0,0" VerticalAlignment="Top" Width="96"/>
         <TextBox x:Name="PriceTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="30" Margin="0,154,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="412"/>
         <Label Content="Type:" HorizontalAlignment="Left" Height="30" Margin="10,189,0,0" VerticalAlignment="Top" Width="96"/>
-        <RadioButton Checked="ToPay_IsChecked" IsChecked="True" GroupName="Type" VerticalContentAlignment="Center" Content="To Pay" HorizontalAlignment="Left" Height="21" Margin="10,219,0,0" VerticalAlignment="Top" Width="90"/>
-        <RadioButton Checked="ToReceive_IsChecked" GroupName="Type" VerticalContentAlignment="Center" Content="To Receive" HorizontalAlignment="Left" Height="21" Margin="106,219,0,0" VerticalAlignment="Top" Width="90"/>
+        <RadioButton  IsChecked="True" GroupName="Type" VerticalContentAlignment="Center" Content="To Pay" HorizontalAlignment="Left" Height="21" Margin="10,219,0,0" VerticalAlignment="Top" Width="90"/>
+        <RadioButton  GroupName="Type" VerticalContentAlignment="Center" Content="To Receive" HorizontalAlignment="Left" Height="21" Margin="106,219,0,0" VerticalAlignment="Top" Width="90"/>
         <Label Content="Due Date: " HorizontalAlignment="Left" Height="30" Margin="10,298,0,0" VerticalAlignment="Top" Width="96"/>
         <DatePicker x:Name="datePicker" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="25" Margin="10,328,0,0" VerticalAlignment="Top" Width="189" Loaded="DatePicker_Loaded"/>
         <Label Content="Payment Mode:" HorizontalAlignment="Left" Height="30" Margin="10,240,0,0" VerticalAlignment="Top" Width="96"/>
-        <RadioButton Checked="Cash_IsChecked" IsChecked="True" GroupName="Mode"  VerticalContentAlignment="Center" Content="Cash" HorizontalAlignment="Left" Height="21" Margin="10,270,0,0" VerticalAlignment="Top" Width="90"/>
-        <RadioButton Checked="GCash_IsChecked" GroupName="Mode" VerticalContentAlignment="Center" Content="GCash" HorizontalAlignment="Left" Height="21" Margin="106,270,0,0" VerticalAlignment="Top" Width="90"/>
+        <RadioButton  IsChecked="True" GroupName="Mode"  VerticalContentAlignment="Center" Content="Cash" HorizontalAlignment="Left" Height="21" Margin="10,270,0,0" VerticalAlignment="Top" Width="90"/>
+        <RadioButton  GroupName="Mode" VerticalContentAlignment="Center" Content="GCash" HorizontalAlignment="Left" Height="21" Margin="106,270,0,0" VerticalAlignment="Top" Width="90"/>
         <Label Content="Contacts:" HorizontalAlignment="Left" Height="30" Margin="10,358,0,0" VerticalAlignment="Top" Width="96"/>
         <TextBox x:Name="ContactsTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="30" Margin="0,388,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="412"/>
 

@@ -25,6 +25,7 @@ namespace SmartPoultry
     {
         readonly SalesServices salesServices;
         Add_FinancialLiabilities add_FinancialLiabilities;
+        Add_Delivery Add_Delivery;
         public dashboard()
         {
             InitializeComponent();
@@ -65,7 +66,8 @@ namespace SmartPoultry
 
         private void AddDelivery_Click(object sender, RoutedEventArgs e)
         {
-
+            Add_Delivery = new Add_Delivery();
+            Add_Delivery.ShowDialog();
         }
     }
 }

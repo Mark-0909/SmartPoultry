@@ -12,6 +12,8 @@ namespace SmartPoultry.DataAccess
         
         public DbSet<Models.SupplierList> SupplierLists { get; set; }
         public DbSet<Models.Sales> Sales { get; set; }
+        
+        public DbSet<Models.Deliveries> Deliveries { get; set; }
 
         public DbSet<Models.FinancialLiabilities> FinancialLiabilities { get; set; }
 
