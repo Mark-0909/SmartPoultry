@@ -48,24 +48,7 @@ namespace SmartPoultry.Migrations
                     table.PrimaryKey("PK_ProductVariations", x => x.id);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "SupplierLists",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Name = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    Contact = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Location = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    Products = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    Added_date = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Status = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    employee_incharge = table.Column<int>(type: "INTEGER", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_SupplierLists", x => x.Id);
-                });
+            
 
             migrationBuilder.CreateTable(
                 name: "Users",
@@ -94,8 +77,7 @@ namespace SmartPoultry.Migrations
             migrationBuilder.DropTable(
                 name: "ProductVariations");
 
-            migrationBuilder.DropTable(
-                name: "SupplierLists");
+            
 
             migrationBuilder.DropTable(
                 name: "Users");
