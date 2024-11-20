@@ -38,6 +38,12 @@
         <ComboBox HorizontalAlignment="Left" Height="20" Margin="1011,67,0,0" VerticalAlignment="Top" Width="77"/>
         <ComboBox HorizontalAlignment="Left" Height="20" Margin="638,321,0,0" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.508,0.582"/>
         <ComboBox HorizontalAlignment="Left" Height="20" Margin="1011,321,0,0" VerticalAlignment="Top" Width="77"/>
+        <Button Click="AddFinancialLiabilities_Click" HorizontalAlignment="Left" Height="26" Margin="605,318,0,0" VerticalAlignment="Top" Width="28" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
+            <Image Height="17" Width="18" Source="/addicon.png"/>
+        </Button>
+        <Button Click="AddDelivery_Click" HorizontalAlignment="Left" Height="26" Margin="978,318,0,0" VerticalAlignment="Top" Width="28" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
+            <Image Height="17" Width="18" Source="/addicon.png"/>
+        </Button>
 
     </Grid>
 </UserControl>

@@ -149,7 +149,7 @@ namespace SmartPoultry
             if (orderPanel.Children.Count > 0)
             {
                 Home_Checkout checkout = new Home_Checkout(totalPiceLabel.Content.ToString(), this);
-                checkout.Show();
+                checkout.ShowDialog();
             }
             else
             {

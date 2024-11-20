@@ -11,10 +11,12 @@
 
   <ItemGroup>
     <None Remove="addicon.png" />
+    <None Remove="close.png" />
     <None Remove="Images\addbaseunit.png" />
     <None Remove="Images\addorder.png" />
     <None Remove="Images\addvariant.png" />
     <None Remove="Images\clipicon.png" />
+    <None Remove="Images\close.png" />
     <None Remove="Images\dashboardgreen.png" />
     <None Remove="Images\dashboardgrey.png" />
     <None Remove="Images\dropdown.png" />
@@ -33,7 +35,6 @@
     <None Remove="Images\smartpoultrylogin.png" />
     <None Remove="Images\suppliergreen.png" />
     <None Remove="Images\suppliergrey.png" />
-    <None Remove="removeorder.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,10 +49,12 @@
 
   <ItemGroup>
     <Resource Include="addicon.png" />
+    <Resource Include="close.png" />
     <Resource Include="Images\addbaseunit.png" />
     <Resource Include="Images\addorder.png" />
     <Resource Include="Images\addvariant.png" />
     <Resource Include="Images\clipicon.png" />
+    <Resource Include="Images\close.png" />
     <Resource Include="Images\dashboardgreen.png" />
     <Resource Include="Images\dashboardgrey.png" />
     <Resource Include="Images\dropdown.png" />
@@ -70,7 +73,6 @@
     <Resource Include="Images\smartpoultrylogin.png" />
     <Resource Include="Images\suppliergreen.png" />
     <Resource Include="Images\suppliergrey.png" />
-    <Resource Include="removeorder.png" />
   </ItemGroup>
 
   <ItemGroup>

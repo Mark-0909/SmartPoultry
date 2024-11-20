@@ -23,7 +23,8 @@ namespace SmartPoultry
     /// </summary>
     public partial class dashboard : UserControl
     {
-        SalesServices salesServices;
+        readonly SalesServices salesServices;
+        Add_FinancialLiabilities add_FinancialLiabilities;
         public dashboard()
         {
             InitializeComponent();
@@ -40,22 +41,31 @@ namespace SmartPoultry
                 string mode = sales.payment_mode.ToString();
                 string status = sales.status.ToString();
                 string price = sales.total_price.ToString();
-
+                Dashboard_OrdersControl control;
                 if (evenodd == 0)
                 {
-                    Dashboard_OrdersControl control = new Dashboard_OrdersControl(refid, mode, status, price, 0);
+                    control = new Dashboard_OrdersControl(refid, mode, status, price, 0);
                     evenodd = 1;
-                    OrderListPanel.Children.Add(control);
                 }
                 else {
-                    Dashboard_OrdersControl control = new Dashboard_OrdersControl(refid, mode, status, price, 1);
+                    control = new Dashboard_OrdersControl(refid, mode, status, price, 1);
                     evenodd = 0;
-                    OrderListPanel.Children.Add(control);
+                    
                 }
+                OrderListPanel.Children.Add(control);
 
-                
-                
+
             }
+        }
+        private void AddFinancialLiabilities_Click(object sender, RoutedEventArgs e)
+        {
+            add_FinancialLiabilities = new Add_FinancialLiabilities();
+            add_FinancialLiabilities.ShowDialog();
+        }
+
+        private void AddDelivery_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

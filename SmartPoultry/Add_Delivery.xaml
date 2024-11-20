@@ -1,0 +1,37 @@
+﻿<Window x:Class="SmartPoultry.Add_Delivery"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SmartPoultry"
+        mc:Ignorable="d"
+        Title="Add_Delivery" Height="480" Width="432" WindowStartupLocation="CenterScreen" Background="Transparent" WindowState="Minimized" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True">
+    <Grid>
+        <Border CornerRadius="10" BorderBrush="#FF2C6E5D" Background="White" BorderThickness="1">
+            <Border CornerRadius="10 10 0 0" BorderBrush="#FF2C6E5D" BorderThickness="1" HorizontalAlignment="Center" Height="38" Margin="0,-1,0,0" VerticalAlignment="Top" Width="432" Background="#FF2C6E5D">
+                <Button Click="Close_Click" HorizontalAlignment="Left" Height="27" Margin="394,0,0,0" VerticalAlignment="Center" Width="31" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
+                    <Image Height="24" Width="19" Source="/close.png"/>
+                </Button>
+            </Border>
+        </Border>
+        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="ADD DELIVERY" HorizontalAlignment="Center" Height="35" VerticalAlignment="Top" Width="220" FontSize="20" Foreground="White" FontWeight="Bold"/>
+        <Border CornerRadius="0 0 10 10" BorderBrush="#FF2C6E5D" BorderThickness="1" HorizontalAlignment="Center" Height="32" Margin="0,448,0,0" VerticalAlignment="Top" Width="432" Background="#FF2C6E5D">
+            <Button Content="CONFIRM" HorizontalAlignment="Center" Height="27" VerticalAlignment="Center" Width="412" BorderBrush="#FF2C6E5D" Background="#FF2C6E5D" FontSize="15" Click="ConfirmButton_Click" Foreground="White" FontWeight="Bold"/>
+        </Border>
+        <TextBox x:Name="NameTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="30" Margin="0,89,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="412"/>
+        <Label Content="Name: " HorizontalAlignment="Left" Height="30" Margin="10,59,0,0" VerticalAlignment="Top" Width="96"/>
+        <Label Content="Price: " HorizontalAlignment="Left" Height="30" Margin="10,124,0,0" VerticalAlignment="Top" Width="96"/>
+        <TextBox x:Name="PriceTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="30" Margin="0,154,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="412"/>
+        <Label Content="Type:" HorizontalAlignment="Left" Height="30" Margin="10,189,0,0" VerticalAlignment="Top" Width="96"/>
+        <RadioButton Checked="ToPay_IsChecked" IsChecked="True" GroupName="Type" VerticalContentAlignment="Center" Content="To Pay" HorizontalAlignment="Left" Height="21" Margin="10,219,0,0" VerticalAlignment="Top" Width="90"/>
+        <RadioButton Checked="ToReceive_IsChecked" GroupName="Type" VerticalContentAlignment="Center" Content="To Receive" HorizontalAlignment="Left" Height="21" Margin="106,219,0,0" VerticalAlignment="Top" Width="90"/>
+        <Label Content="Due Date: " HorizontalAlignment="Left" Height="30" Margin="10,298,0,0" VerticalAlignment="Top" Width="96"/>
+        <DatePicker x:Name="datePicker" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="25" Margin="10,328,0,0" VerticalAlignment="Top" Width="189" Loaded="DatePicker_Loaded"/>
+        <Label Content="Payment Mode:" HorizontalAlignment="Left" Height="30" Margin="10,240,0,0" VerticalAlignment="Top" Width="96"/>
+        <RadioButton Checked="Cash_IsChecked" IsChecked="True" GroupName="Mode"  VerticalContentAlignment="Center" Content="Cash" HorizontalAlignment="Left" Height="21" Margin="10,270,0,0" VerticalAlignment="Top" Width="90"/>
+        <RadioButton Checked="GCash_IsChecked" GroupName="Mode" VerticalContentAlignment="Center" Content="GCash" HorizontalAlignment="Left" Height="21" Margin="106,270,0,0" VerticalAlignment="Top" Width="90"/>
+        <Label Content="Contacts:" HorizontalAlignment="Left" Height="30" Margin="10,358,0,0" VerticalAlignment="Top" Width="96"/>
+        <TextBox x:Name="ContactsTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="30" Margin="0,388,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="412"/>
+
+    </Grid>
+</Window>
