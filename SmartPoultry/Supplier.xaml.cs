@@ -24,5 +24,20 @@ namespace SmartPoultry
         {
             InitializeComponent();
         }
+
+        private void AddSupplier_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EditSupplier_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void DeleteSupplier_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
