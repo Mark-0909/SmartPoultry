@@ -25,7 +25,7 @@ namespace SmartPoultry
         public string paymentmethod;
         public string status;
         public string purchasemethod;
-        home homeController;
+        readonly home homeController;
         public Home_Checkout(string price, home homeControl)
         {
             InitializeComponent();

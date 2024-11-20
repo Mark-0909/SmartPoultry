@@ -30,9 +30,9 @@ namespace SmartPoultry
     /// </summary>
     public partial class home : UserControl
     {
-        SalesServices salesServices;
-        ProductServices productServices;
-        ProductVariationServices productvariationsServices;
+        readonly SalesServices salesServices;
+        readonly ProductServices productServices;
+        readonly ProductVariationServices productvariationsServices;
 
         public List<string> Productvaridlist = new List<string>();
         public List<string> QuantityList = new List<string>();
@@ -53,7 +53,7 @@ namespace SmartPoultry
             productvariationsServices = new ProductVariationServices(context);
             salesServices = new SalesServices(new AppDbContext());
             totalPiceLabel.Visibility = Visibility.Collapsed;
-            displayProducts();
+            DisplayProducts();
         }
         private void DropOrderBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -105,7 +105,7 @@ namespace SmartPoultry
             }
         }
 
-        public void DisplayReceipt(string customerName, string paymentMethod, string orderDetails)
+        public static void DisplayReceipt(string customerName, string paymentMethod, string orderDetails)
         {
             using (MemoryStream memoryStream = new MemoryStream())
             {
@@ -222,7 +222,7 @@ namespace SmartPoultry
             PriceList[position] = price;
             QuantityList[position] = quantity;
         }
-        public void displayProducts()
+        public void DisplayProducts()
         {
             
             List<Products> products = productServices.GetAllProducts();
