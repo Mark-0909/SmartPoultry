@@ -35,6 +35,9 @@
         <Label Content="Status" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="229,106,0,0" VerticalAlignment="Top" Width="53"/>
         <Label Content="Total" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="287,106,0,0" VerticalAlignment="Top" Width="55"/>
         <Label Content="ID" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="62,106,0,0" VerticalAlignment="Top" Width="35"/>
+        <ComboBox HorizontalAlignment="Left" Height="20" Margin="1011,67,0,0" VerticalAlignment="Top" Width="77"/>
+        <ComboBox HorizontalAlignment="Left" Height="20" Margin="638,321,0,0" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.508,0.582"/>
+        <ComboBox HorizontalAlignment="Left" Height="20" Margin="1011,321,0,0" VerticalAlignment="Top" Width="77"/>
 
     </Grid>
 </UserControl>
