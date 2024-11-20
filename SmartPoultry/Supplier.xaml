@@ -32,15 +32,15 @@
                 <TextBlock Text="Supplier Information" FontSize="20" FontWeight="Bold" Margin="0,0,0,10"/>
 
                 <TextBlock Text="Name:" FontWeight="Bold"/>
-                <TextBox x:Name="SupplierName" IsReadOnly="True" Margin="0,2,0,8"/>
+                <TextBox x:Name="SupplierName" IsReadOnly="False" Margin="0,2,0,8"/>
                 <TextBlock Text="Contact Person:" FontWeight="Bold"/>
-                <TextBox x:Name="ContactPerson" IsReadOnly="True" Margin="0,2,0,8"/>
+                <TextBox x:Name="ContactPerson" IsReadOnly="False" Margin="0,2,0,8"/>
                 <TextBlock Text="Phone:" FontWeight="Bold"/>
-                <TextBox x:Name="Phone" IsReadOnly="True" Margin="0,2,0,8"/>
+                <TextBox x:Name="Phone" IsReadOnly="False" Margin="0,2,0,8"/>
                 <TextBlock Text="Email:" FontWeight="Bold"/>
-                <TextBox x:Name="Email" IsReadOnly="True" Margin="0,2,0,8"/>
+                <TextBox x:Name="Email" IsReadOnly="False" Margin="0,2,0,8"/>
                 <TextBlock Text="Address:" FontWeight="Bold"/>
-                <TextBox x:Name="Address" IsReadOnly="True" Margin="0,2,0,8"/>
+                <TextBox x:Name="Address" IsReadOnly="False" Margin="0,2,0,8"/>
 
                 <!-- Supplier Action Buttons -->
 

@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SmartPoultry.DataAccess;
+using SmartPoultry.DataServices;
 
 namespace SmartPoultry
 {
@@ -20,14 +22,23 @@ namespace SmartPoultry
     /// </summary>
     public partial class Supplier : UserControl
     {
+        SupplierServices SupplierServices;
         public Supplier()
         {
             InitializeComponent();
+            AppDbContext context = new AppDbContext();
+            SupplierServices = new SupplierServices(context);
         }
 
         private void AddSupplier_Click(object sender, RoutedEventArgs e)
         {
+            string name = SupplierName.Text;
+            string contactperson = ContactPerson.Text;
+            string phone = Phone.Text;
+            string email = Email.Text;
+            string address = Address.Text;
 
+            SupplierServices.Create(name,contactperson, phone, email, address);
         }
 
         private void EditSupplier_Click(object sender, RoutedEventArgs e)

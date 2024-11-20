@@ -15,13 +15,14 @@ namespace SmartPoultry.DataServices
         public SupplierServices(AppDbContext context) { 
             _context = context;
         }
-        public bool Create(string name, string contact, string location, string productlist)
+        public bool Create(string name, string contactperson, string contact, string location, string productlist)
         {
             try
             {
                 var newSupplier = new SupplierList()
                 {
                     Name = name,
+                    Contact_Person = contactperson,
                     Contact = contact,
                     Location = location,
                     Products = productlist,
@@ -31,6 +32,7 @@ namespace SmartPoultry.DataServices
 
                 };
                 _context.SupplierLists.Add(newSupplier);
+                _context.SaveChanges();
                 return true;
             }
             catch (Exception ex) {
