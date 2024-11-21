@@ -21,13 +21,10 @@
             </Grid.ColumnDefinitions>
 
             <!-- Supplier List Panel -->
-            <Border Grid.Column="0" Background="#FFF" Margin="0,0,10,0">
+            <Border Grid.Column="0" Background="#FFF" Margin="0,0,10,85">
                 <Label Content="Name" RenderTransformOrigin="0.425,0.393" Margin="10,10,157,312"/>
             </Border>
 
-            <!-- Supplier Details Panel -->
-            <StackPanel Grid.Column="1" Background="#FFF"  
-                    >
                 <!-- Supplier Information Section -->
                 <TextBlock Text="Supplier Information" FontSize="20" FontWeight="Bold" Margin="0,0,0,10"/>
 
@@ -54,10 +51,9 @@
                         <DataGridTextColumn Header="Total" Binding="{Binding Total}" Width="*"/>
                     </DataGrid.Columns>
                 </DataGrid>
-                <local:inventory/>
-            </StackPanel>
+            
         </Grid>
-        <Label Content="Category" HorizontalAlignment="Left" Margin="160,65,0,0" VerticalAlignment="Top"/>
+        <Label Content="Contact Person" HorizontalAlignment="Left" Margin="83,59,0,0" VerticalAlignment="Top"/>
         <Border BorderBrush="#FF66C265" BorderThickness="1" Margin="266,304,430,122" CornerRadius="5
                 " Background="#FFC0E4BE">
             <Button Content="Add Supplier" Click="AddSupplier_Click" Background="#00000000" BorderBrush="#00000000" Foreground="#FF66C265" Margin="3,3,-1,-1"/>
@@ -68,5 +64,6 @@
         <Border BorderBrush="#FF66C265" BorderThickness="1" Margin="512,304,178,122" CornerRadius="5" Background="#FFC0E4BE">
             <Button Content="Delete Supplier" Click="DeleteSupplier_Click" Background="#00000000" BorderBrush="#00000000" Foreground="#FF66C265" Margin="4,1,4,1"/>
         </Border>
+        <Label Content="Contact Information" HorizontalAlignment="Left" Margin="197,59,0,0" VerticalAlignment="Top"/>
     </Grid>
 </UserControl>
