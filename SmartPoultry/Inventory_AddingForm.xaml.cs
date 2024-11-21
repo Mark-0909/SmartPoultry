@@ -12,6 +12,7 @@ using System.Xml.Linq;
 using SmartPoultry.DataServices;
 using SmartPoultry.DataAccess;
 using System.IO;
+using SmartPoultry.Models;
 
 namespace SmartPoultry
 {
@@ -50,7 +51,12 @@ namespace SmartPoultry
             productService = new ProductServices(context);
             productVariationService = new ProductVariationServices(context);
         }
+        public Inventory_AddingForm(Products product) {
 
+            InitializeComponent();
+            ProductNameTextBox.Text = product.product_name;
+
+        }
 
         public void UpdateBaseValueForAllInstances(string name, string price, string conversion, string stocks, string newBaseValue, int position)
         {
@@ -96,12 +102,6 @@ namespace SmartPoultry
             unitsWPanel.Children.Add(addUnitBtn);
         }
 
-
-
-
-
-
-
         public void AddUnit(string name, string price, string conversion, string stocks, string type, int position)
         {
             
@@ -139,9 +139,6 @@ namespace SmartPoultry
             
             
             }
-            
-
-            
         }
 
         public void AddUnitPopup_Click(object sender, RoutedEventArgs s)

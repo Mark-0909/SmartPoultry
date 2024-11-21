@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
-             mc:Ignorable="d" Height="269" Width="217" Background="Transparent" Margin="5 0 0 5">
+             mc:Ignorable="d" Height="269" Width="217" Background="Transparent" Margin="5 0 0 5" MouseLeftButtonDown="UserControl_MouseLeftButtonDown">
     <Grid>
         <Border CornerRadius="5" BorderBrush="#FF66C265" BorderThickness="1" Background="White">
             <Border CornerRadius="5" BorderBrush="#FFC9C6C6" BorderThickness="1" Margin="9,9,9,60">

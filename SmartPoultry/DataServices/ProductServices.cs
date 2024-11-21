@@ -17,6 +17,27 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+        public Products FetchProduct(int id)
+        {
+            try
+            {
+                var product = _context.Products.FirstOrDefault(p => p.product_id == id);
+
+                if (product == null)
+                    throw new Exception("Product not found"); 
+
+                return product;
+            }
+            catch (Exception ex)
+            {
+                string message = ex.Message;
+                MessageBox.Show("Error:" + ex);
+                return null; 
+            }
+        }
+
+
+
         public List<Products> GetAllProducts()
         {
             try

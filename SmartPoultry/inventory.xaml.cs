@@ -42,6 +42,7 @@ namespace SmartPoultry
             {
                
                 Inventory_ProductControl productControl = new Inventory_ProductControl(
+                    product.product_id,
                     product.product_name,
                     product.stocks,
                     product.image 

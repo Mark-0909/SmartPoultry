@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SmartPoultry.DataAccess;
+using SmartPoultry.DataServices;
+using SmartPoultry.Models;
 
 namespace SmartPoultry
 {
@@ -20,13 +23,32 @@ namespace SmartPoultry
     /// </summary>
     public partial class Inventory_ProductControl : UserControl
     {
-        public Inventory_ProductControl(string name, decimal stocks, string imagepath)
+        Inventory_AddingForm viewproduct;
+        ProductServices productservices;
+        int id;
+        public Inventory_ProductControl(int productid, string name, decimal stocks, string imagepath)
         {
             InitializeComponent();
             Productname.Content = name;
             Productstock.Content = stocks.ToString();
             BitmapImage bitmap = new BitmapImage(new Uri(imagepath, UriKind.RelativeOrAbsolute));
             Productimage.Source = bitmap;
+
+            AppDbContext context = new AppDbContext();
+            productservices = new ProductServices(context);
+            id = productid;
+        }
+
+        private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Products product = productservices.FetchProduct(id);
+
+            viewproduct = new Inventory_AddingForm(product);
+
+            viewproduct.ShowDialog();
+
+            
+            
         }
     }
 }
