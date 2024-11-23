@@ -112,43 +112,96 @@ namespace SmartPoultry
         {
             try
             {
-                // Fetch sales data
+                
                 Sales sales = salesServices.GetSales(salesid);
                 ProductServices product = new ProductServices(context);
 
+                
+                List<string> itemid = sales.product_list.Split(',').ToList();
+                List<string> pricelist = sales.price_list.Split(',').ToList();
+                List<string> quantitylist = sales.quantity_list.Split(',').ToList();
+                List<string> varlist = sales.variation_list.Split(",").ToList();
+
+                List<string> itemnames = new List<string>();
+                List<string> originalprice = new List<string>();
+                List<string> totalPrices = new List<string>();
+
+                float heightcalculation = 42 + (3 * itemid.Count);
+
                 using (MemoryStream memoryStream = new MemoryStream())
                 {
-                    Document doc = new Document();
+                    
+                    float width = 30f * 2.83465f; 
+                    float height = heightcalculation * 2.83465f;
+                    iTextSharp.text.Rectangle pageSize = new iTextSharp.text.Rectangle(width, height); 
+
+                    
+                    Document doc = new Document(pageSize, 3f, 3f, 3f, 3f); 
                     PdfWriter writer = PdfWriter.GetInstance(doc, memoryStream);
-                    writer.CloseStream = false; // Avoid auto-closing the stream
+                    writer.CloseStream = false;
+
+
                     doc.Open();
+                    Font font = new Font(Font.FontFamily.HELVETICA, 3f, Font.NORMAL);
+                    Font font2 = new Font(Font.FontFamily.HELVETICA, 2f, Font.NORMAL);
+                    Font font3 = new Font(Font.FontFamily.HELVETICA, 4f, Font.BOLD);
 
-                    // Split and process sales data
-                    List<string> itemid = sales.product_list.Split(',').ToList();
-                    List<string> pricelist = sales.price_list.Split(',').ToList();
-                    List<string> quantitylist = sales.quantity_list.Split(',').ToList();
-                    List<string> varlist = sales.variation_list.Split(",").ToList();
 
-                    List<string> itemnames = new List<string>();
-                    List<string> originalprice = new List<string>();
-                    List<string> totalPrices = new List<string>();
+         
+                    var statusParagraph = new iTextSharp.text.Paragraph($"{sales.status.ToUpper()}", font3);
+                    statusParagraph.Alignment = Element.ALIGN_RIGHT; 
+                    doc.Add(statusParagraph);
+                    
+                    
+
+                    
+                    string logoPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images", "blacklogo.png");
+                    string textPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images", "blacktext.png");
+
+                    
+                    if (File.Exists(logoPath))
+                    {
+                        iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(logoPath);
+                        logo.ScaleToFit(40f, 15f); 
+                        logo.Alignment = Element.ALIGN_CENTER; 
+                        doc.Add(logo); 
+                    }
+                    if (File.Exists(textPath))
+                    {
+                        iTextSharp.text.Image text = iTextSharp.text.Image.GetInstance(textPath);
+                        text.ScaleToFit(40f, 15f); 
+                        text.Alignment = Element.ALIGN_CENTER; 
+                        doc.Add(text); 
+                    }
+                    
+                    var addressParagraph = new iTextSharp.text.Paragraph($"Palo Alto, Calamba, Laguna Philippines", font2);
+                    addressParagraph.Alignment = Element.ALIGN_CENTER; 
+                    doc.Add(addressParagraph);
+
+                    
+                    var phoneParagraph = new iTextSharp.text.Paragraph($"+63 1234567890", font2);
+                    phoneParagraph.Alignment = Element.ALIGN_CENTER;
+                    doc.Add(phoneParagraph);
+
+                    
+                    var emailParagraph = new iTextSharp.text.Paragraph($"gabmigspoultrysupplies@gmail.com", font2);
+                    emailParagraph.Alignment = Element.ALIGN_CENTER; 
+                    doc.Add(emailParagraph);
 
                     for (int i = 0; i < itemid.Count; i++)
                     {
                         try
                         {
-                            // Get product name and calculate original price
                             int id = int.Parse(itemid[i]);
                             string itemname = product.FetchProduct(id).product_name;
                             itemnames.Add($"({varlist[i]}) {itemname}");
 
-                            // Calculate individual price and total price
                             int quantity = int.Parse(quantitylist[i]);
                             int totalPrice = int.Parse(pricelist[i]);
                             int initialPrice = totalPrice / quantity;
 
-                            originalprice.Add($"{initialPrice}.00");
-                            totalPrices.Add($"{totalPrice}.00");
+                            originalprice.Add($"{initialPrice:N2}");
+                            totalPrices.Add($"{totalPrice:N2}");
                         }
                         catch (Exception e)
                         {
@@ -156,34 +209,101 @@ namespace SmartPoultry
                         }
                     }
 
-                    // Create formatted lists for the PDF
+                    
                     string formattedItemList = string.Join("\n", itemnames);
                     string formattedQuantity = string.Join("\n", quantitylist);
                     string formattedOrigPrice = string.Join("\n", originalprice);
                     string formattedTotalPrice = string.Join("\n", totalPrices);
 
-                    // Add content to the document
-                    doc.Add(new iTextSharp.text.Paragraph("Receipt Details"));
-                    doc.Add(new iTextSharp.text.Paragraph($"Receipt ID: {sales.receipt_id}"));
-                    doc.Add(new iTextSharp.text.Paragraph($"Date: {DateTime.Now:yyyy-MM-dd HH:mm:ss}"));
-                    doc.Add(new iTextSharp.text.Paragraph($"Total Amount: {sales.total_price:C}"));
+                   
+                    doc.Add(new iTextSharp.text.Paragraph("-------------------------------------------------------------------------------", font));
 
-                    doc.Add(new iTextSharp.text.Paragraph("\nQTY:"));
-                    doc.Add(new iTextSharp.text.Paragraph(formattedQuantity));
+                    doc.Add(new iTextSharp.text.Paragraph($"Receipt ID: {sales.receipt_id}", font));
+                    doc.Add(new iTextSharp.text.Paragraph($"Cashier: ", font));
+                    doc.Add(new iTextSharp.text.Paragraph($"Payment Mode: {sales.payment_mode.ToUpper()}", font));
 
-                    doc.Add(new iTextSharp.text.Paragraph("\nItems:"));
-                    doc.Add(new iTextSharp.text.Paragraph(formattedItemList));
+                    doc.Add(new iTextSharp.text.Paragraph("-------------------------------------------------------------------------------", font));
+                    
+                    PdfPTable table = new PdfPTable(4); 
+                    table.WidthPercentage = 100; 
 
-                    doc.Add(new iTextSharp.text.Paragraph("\nOriginal Prices:"));
-                    doc.Add(new iTextSharp.text.Paragraph(formattedOrigPrice));
+                    
+                    float[] widths = new float[] { 1f, 3f, 2f, 2f }; 
+                    table.SetWidths(widths);
 
-                    doc.Add(new iTextSharp.text.Paragraph("\nTotal Prices:"));
-                    doc.Add(new iTextSharp.text.Paragraph(formattedTotalPrice));
+                    // Add headers
+                    table.AddCell(new PdfPCell(new Phrase("Qty", font)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
+                    table.AddCell(new PdfPCell(new Phrase("Items", font)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
+                    table.AddCell(new PdfPCell(new Phrase("Price", font)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
+                    table.AddCell(new PdfPCell(new Phrase("Total", font)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
 
-                    // Finalize and save the document
+                    // Add data rows
+                    for (int i = 0; i < itemnames.Count; i++)
+                    {
+                        table.AddCell(new PdfPCell(new Phrase(quantitylist[i], font)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
+                        table.AddCell(new PdfPCell(new Phrase(itemnames[i], font)) { HorizontalAlignment = Element.ALIGN_LEFT, Border = 0 });
+                        table.AddCell(new PdfPCell(new Phrase(originalprice[i], font)) { HorizontalAlignment = Element.ALIGN_RIGHT, Border = 0 });
+                        table.AddCell(new PdfPCell(new Phrase(totalPrices[i], font)) { HorizontalAlignment = Element.ALIGN_RIGHT, Border = 0 });
+                    }
+
+                    
+                    doc.Add(table);
+
+                    
+                    PdfPTable totalTable = new PdfPTable(2);
+                    totalTable.WidthPercentage = 100; 
+
+                    
+                    float[] columnWidths = { 3f, 1f }; 
+                    totalTable.SetWidths(columnWidths);
+
+                    
+                    PdfPCell labelCell = new PdfPCell(new Phrase("TOTAL:", font));
+                    labelCell.Border = 0; 
+                    labelCell.HorizontalAlignment = Element.ALIGN_LEFT; 
+                    totalTable.AddCell(labelCell);
+
+                    
+                    PdfPCell valueCell = new PdfPCell(new Phrase($"{sales.total_price:N2}", font));
+                    valueCell.Border = 0; 
+                    valueCell.HorizontalAlignment = Element.ALIGN_RIGHT; 
+                    totalTable.AddCell(valueCell);
+
+                    
+                    
+                    doc.Add(totalTable);
+
+                    doc.Add(new iTextSharp.text.Paragraph($"Date: {DateTime.Now:yyyy-MM-dd}", font));
+                    doc.Add(new iTextSharp.text.Paragraph($"Purchase Method: {sales.purchase_method.ToUpper()}", font));
+
+                    doc.Add(new iTextSharp.text.Paragraph("-------------------------------------------------------------------------------", font));
+
+                    var thanksParagraph2 = new iTextSharp.text.Paragraph($"Thank you! Please come again!", font2);
+                    thanksParagraph2.Alignment = Element.ALIGN_CENTER; 
+                    doc.Add(thanksParagraph2);
+
+                    var storeParagraph2 = new iTextSharp.text.Paragraph($"GabMig's SmartPoultry", font2);
+                    storeParagraph2.Alignment = Element.ALIGN_CENTER; 
+                    doc.Add(storeParagraph2);
+
+                    var addressParagraph2 = new iTextSharp.text.Paragraph($"Palo Alto, Calamba, Laguna Philippines", font2);
+                    addressParagraph2.Alignment = Element.ALIGN_CENTER; 
+                    doc.Add(addressParagraph2);
+
+                    
+                    var phoneParagraph2 = new iTextSharp.text.Paragraph($"+63 1234567890", font2);
+                    phoneParagraph2.Alignment = Element.ALIGN_CENTER; 
+                    doc.Add(phoneParagraph2);
+
+                    
+                    var emailParagraph2 = new iTextSharp.text.Paragraph($"gabmigspoultrysupplies@gmail.com", font2);
+                    emailParagraph2.Alignment = Element.ALIGN_CENTER; 
+                    doc.Add(emailParagraph2);
+                    
                     doc.Close();
                     memoryStream.Position = 0;
 
+                    // Save the PDF to a temporary file
                     string tempFilePath = System.IO.Path.Combine(
                         System.IO.Path.GetTempPath(),
                         $"{DateTime.Now:yyyyMMddHHmmss}.pdf"
@@ -209,6 +329,11 @@ namespace SmartPoultry
                 Console.WriteLine($"Error generating receipt: {e.Message}");
             }
         }
+
+
+
+
+
 
 
 

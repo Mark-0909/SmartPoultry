@@ -14,6 +14,8 @@
     <None Remove="Images\addbaseunit.png" />
     <None Remove="Images\addorder.png" />
     <None Remove="Images\addvariant.png" />
+    <None Remove="Images\blacklogo.png" />
+    <None Remove="Images\blacktext.png" />
     <None Remove="Images\clipicon.png" />
     <None Remove="Images\close.png" />
     <None Remove="Images\dashboardgreen.png" />
@@ -51,6 +53,8 @@
     <Resource Include="Images\addbaseunit.png" />
     <Resource Include="Images\addorder.png" />
     <Resource Include="Images\addvariant.png" />
+    <Resource Include="Images\blacklogo.png" />
+    <Resource Include="Images\blacktext.png" />
     <Resource Include="Images\clipicon.png" />
     <Resource Include="Images\close.png" />
     <Resource Include="Images\dashboardgreen.png" />
