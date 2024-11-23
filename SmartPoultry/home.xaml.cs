@@ -30,6 +30,7 @@ namespace SmartPoultry
     /// </summary>
     public partial class home : UserControl
     {
+        public MainWindow? mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
         public SalesServices salesServices;
         public ProductServices productServices;
         public ProductVariationServices productvariationsServices;
@@ -103,7 +104,7 @@ namespace SmartPoultry
                 VarSpecification.Clear();
                 ProductnameList.Clear();
 
-                DisplayReceipt(addingSales, salesServices, context);
+                DisplayReceipt(addingSales, salesServices, context, mainWindow);
             }
             else
             {
@@ -113,7 +114,7 @@ namespace SmartPoultry
 
 
 
-        public static void DisplayReceipt(int salesid, SalesServices salesServices, AppDbContext context)
+        public static void DisplayReceipt(int salesid, SalesServices salesServices, AppDbContext context, MainWindow window)
         {
             try
             {
@@ -281,8 +282,9 @@ namespace SmartPoultry
 
                     // Open the PDF in the default viewer
                     Process.Start(new ProcessStartInfo(tempFilePath) { UseShellExecute = true });
+                    window.DynamicAddOrder();
 
-                    // Clean up the temporary file after 5 seconds
+
                     Task.Run(() =>
                     {
                         Thread.Sleep(5000);
@@ -291,7 +293,9 @@ namespace SmartPoultry
                             File.Delete(tempFilePath);
                         }
                     });
+                    
                 }
+                
             }
             catch (Exception e)
             {

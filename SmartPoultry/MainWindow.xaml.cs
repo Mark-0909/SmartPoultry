@@ -20,6 +20,10 @@ namespace SmartPoultry
         {
             InitializeComponent();
         }
+        public void DynamicAddOrder()
+        {
+            dashboardControl.DynamicOrderDisplay();
+        }
         public void DynamicReload()
         {
             homeControl.DynamicReload();

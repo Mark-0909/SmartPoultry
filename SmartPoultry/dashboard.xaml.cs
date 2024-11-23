@@ -33,6 +33,11 @@ namespace SmartPoultry
             salesServices = new SalesServices(context);
             DisplaySales();
         }
+        public void DynamicOrderDisplay()
+        {
+            OrderListPanel.Children.Clear();
+            DisplaySales();
+        }
         public void DisplaySales() {
             int evenodd = 0;
             List<Sales> salesList = salesServices.GetSales();

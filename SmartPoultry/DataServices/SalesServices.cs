@@ -20,7 +20,8 @@ namespace SmartPoultry.DataServices
                 string today = DateTime.Now.ToString("MM/dd/yyyy");
 
                 return _context.Sales
-                    .Where(p => p.purchase_date.StartsWith(today))
+                    .Where(p => p.purchase_date.StartsWith(today)) // Filter by today's date
+                    .OrderByDescending(p => p.purchase_date)       // Sort by newest first
                     .ToList();
             }
             catch (Exception e)
@@ -29,6 +30,7 @@ namespace SmartPoultry.DataServices
                 return null;
             }
         }
+
 
         public Sales GetSales(int id)
         {
