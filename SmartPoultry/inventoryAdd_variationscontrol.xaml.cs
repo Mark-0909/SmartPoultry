@@ -71,7 +71,7 @@ namespace SmartPoultry
             priceLabel.Content = price;
             conversionLabel.Content = conversion;
 
-            inventoraddingWindow.UpdateBaseValueForAllInstances(name, price, conversion, stocks, baseunit, position);
+            inventoraddingWindow.UpdateBaseValueForAllInstances(name, price, conversion, stocks, position);
 
 
 
