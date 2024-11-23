@@ -43,7 +43,7 @@ namespace SmartPoultry.DataServices
     
 
 
-    public bool Create(int productid, string variantname, bool unittype, int price, int conversionrate)
+    public bool Create(int productid, string variantname, bool unittype, decimal price, int conversionrate)
         {
             try
             {

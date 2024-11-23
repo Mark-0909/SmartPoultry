@@ -17,15 +17,15 @@
             VerticalAlignment="Center" 
             Height="46" 
             Width="87" 
-            Margin="6,0,0,0" 
+            Margin="3,0,0,0" 
             HorizontalContentAlignment="Center" 
             VerticalContentAlignment="Center"/>
         <Label x:Name="pricelabel" Content="Price" 
             HorizontalAlignment="Left" 
             VerticalAlignment="Center" 
             Height="46" 
-            Width="56" 
-            Margin="230,0,0,0" 
+            Width="63" 
+            Margin="228,0,0,0" 
             HorizontalContentAlignment="Center" 
             VerticalContentAlignment="Center" FontSize="13"/>
         <Label x:Name="quantitylabel"  Content="1" 
@@ -38,8 +38,8 @@
         <Button x:Name="MinusBtn" Click="MinusBtn_Click" HorizontalAlignment="Left" Height="18" Margin="110,0,0,0" VerticalAlignment="Center" Width="18" Background="Transparent" BorderBrush="Transparent">
             <Image Height="15" Width="14" Source="/Images/minusorder.png"/>
         </Button>
-        <Button x:Name="RemoveBtn" Click="RemoveBtn_Click" HorizontalAlignment="Left" Height="18" Margin="287,0,0,0" VerticalAlignment="Center" Width="18" Background="Transparent" BorderBrush="Transparent">
-            <Image Height="15" Width="14" Source="/removeorder.png"/>
+        <Button x:Name="RemoveBtn" Click="RemoveBtn_Click" HorizontalAlignment="Left" Height="18" Margin="291,0,0,0" VerticalAlignment="Center" Width="18" Background="Transparent" BorderBrush="Transparent">
+            <Image Height="15" Width="14" Source="/Images/removeorder.png"/>
         </Button>
         <Label x:Name="varName" Content="var" 
             HorizontalAlignment="Left" 
@@ -54,7 +54,7 @@
             VerticalAlignment="Center" 
             Height="46" 
             Width="18" 
-            Margin="212,0,0,0" 
+            Margin="210,0,0,0" 
             HorizontalContentAlignment="Center" 
             VerticalContentAlignment="Center" FontSize="13"/>
     </Grid>

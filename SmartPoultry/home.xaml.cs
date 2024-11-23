@@ -112,15 +112,22 @@ namespace SmartPoultry
         {
             try
             {
-                
                 Sales sales = salesServices.GetSales(salesid);
-                ProductServices product = new ProductServices(context);
+                ProductServices productServices = new ProductServices(context);
+                ProductVariationServices productVariationServices = new ProductVariationServices(context);
 
-                
+                // Split and validate input lists
                 List<string> itemid = sales.product_list.Split(',').ToList();
                 List<string> pricelist = sales.price_list.Split(',').ToList();
                 List<string> quantitylist = sales.quantity_list.Split(',').ToList();
-                List<string> varlist = sales.variation_list.Split(",").ToList();
+                List<string> varlist = sales.variation_list.Split(',').ToList();
+
+                // Ensure all lists are the same size
+                int itemCount = Math.Min(Math.Min(itemid.Count, pricelist.Count), Math.Min(quantitylist.Count, varlist.Count));
+                itemid = itemid.Take(itemCount).ToList();
+                pricelist = pricelist.Take(itemCount).ToList();
+                quantitylist = quantitylist.Take(itemCount).ToList();
+                varlist = varlist.Take(itemCount).ToList();
 
                 List<string> itemnames = new List<string>();
                 List<string> originalprice = new List<string>();
@@ -130,114 +137,86 @@ namespace SmartPoultry
 
                 using (MemoryStream memoryStream = new MemoryStream())
                 {
-                    
-                    float width = 30f * 2.83465f; 
+                    float width = 30f * 2.83465f;
                     float height = heightcalculation * 2.83465f;
-                    iTextSharp.text.Rectangle pageSize = new iTextSharp.text.Rectangle(width, height); 
+                    iTextSharp.text.Rectangle pageSize = new iTextSharp.text.Rectangle(width, height);
 
-                    
-                    Document doc = new Document(pageSize, 3f, 3f, 3f, 3f); 
+                    Document doc = new Document(pageSize, 3f, 3f, 3f, 3f);
                     PdfWriter writer = PdfWriter.GetInstance(doc, memoryStream);
                     writer.CloseStream = false;
-
 
                     doc.Open();
                     Font font = new Font(Font.FontFamily.HELVETICA, 3f, Font.NORMAL);
                     Font font2 = new Font(Font.FontFamily.HELVETICA, 2f, Font.NORMAL);
                     Font font3 = new Font(Font.FontFamily.HELVETICA, 4f, Font.BOLD);
 
+                    // Receipt header
+                    doc.Add(new iTextSharp.text.Paragraph($"{sales.status.ToUpper()}", font3) { Alignment = Element.ALIGN_RIGHT });
 
-         
-                    var statusParagraph = new iTextSharp.text.Paragraph($"{sales.status.ToUpper()}", font3);
-                    statusParagraph.Alignment = Element.ALIGN_RIGHT; 
-                    doc.Add(statusParagraph);
-                    
-                    
-
-                    
                     string logoPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images", "blacklogo.png");
                     string textPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images", "blacktext.png");
 
-                    
                     if (File.Exists(logoPath))
                     {
                         iTextSharp.text.Image logo = iTextSharp.text.Image.GetInstance(logoPath);
-                        logo.ScaleToFit(40f, 15f); 
-                        logo.Alignment = Element.ALIGN_CENTER; 
-                        doc.Add(logo); 
+                        logo.ScaleToFit(40f, 15f);
+                        logo.Alignment = Element.ALIGN_CENTER;
+                        doc.Add(logo);
                     }
                     if (File.Exists(textPath))
                     {
                         iTextSharp.text.Image text = iTextSharp.text.Image.GetInstance(textPath);
-                        text.ScaleToFit(40f, 15f); 
-                        text.Alignment = Element.ALIGN_CENTER; 
-                        doc.Add(text); 
+                        text.ScaleToFit(40f, 15f);
+                        text.Alignment = Element.ALIGN_CENTER;
+                        doc.Add(text);
                     }
-                    
-                    var addressParagraph = new iTextSharp.text.Paragraph($"Palo Alto, Calamba, Laguna Philippines", font2);
-                    addressParagraph.Alignment = Element.ALIGN_CENTER; 
-                    doc.Add(addressParagraph);
 
-                    
-                    var phoneParagraph = new iTextSharp.text.Paragraph($"+63 1234567890", font2);
-                    phoneParagraph.Alignment = Element.ALIGN_CENTER;
-                    doc.Add(phoneParagraph);
+                    doc.Add(new iTextSharp.text.Paragraph($"Palo Alto, Calamba, Laguna Philippines", font2) { Alignment = Element.ALIGN_CENTER });
+                    doc.Add(new iTextSharp.text.Paragraph($"+63 1234567890", font2) { Alignment = Element.ALIGN_CENTER });
+                    doc.Add(new iTextSharp.text.Paragraph($"gabmigspoultrysupplies@gmail.com", font2) { Alignment = Element.ALIGN_CENTER });
+                    doc.Add(new iTextSharp.text.Paragraph("-------------------------------------------------------------------------------", font));
 
-                    
-                    var emailParagraph = new iTextSharp.text.Paragraph($"gabmigspoultrysupplies@gmail.com", font2);
-                    emailParagraph.Alignment = Element.ALIGN_CENTER; 
-                    doc.Add(emailParagraph);
-
+                    doc.Add(new iTextSharp.text.Paragraph($"Order ID: {sales.receipt_id}", font));
+                    doc.Add(new iTextSharp.text.Paragraph($"Cashier: ", font));
+                    doc.Add(new iTextSharp.text.Paragraph($"Payment Mode: {sales.payment_mode.ToUpper()}", font));
+                    doc.Add(new iTextSharp.text.Paragraph("-------------------------------------------------------------------------------", font));
+                    // Generate receipt items
                     for (int i = 0; i < itemid.Count; i++)
                     {
                         try
                         {
+                            
                             int id = int.Parse(itemid[i]);
-                            string itemname = product.FetchProduct(id).product_name;
-                            itemnames.Add($"({varlist[i]}) {itemname}");
+                            ProductVariations prodvar = productVariationServices.GetProductVariationById(id);
+                            Products prod = productServices.FetchProduct(prodvar.product_id);
 
-                            int quantity = int.Parse(quantitylist[i]);
-                            int totalPrice = int.Parse(pricelist[i]);
-                            int initialPrice = totalPrice / quantity;
+                            itemnames.Add($"({varlist[i]}) {prod.product_name}");
+                            decimal quantity = decimal.Parse(quantitylist[i]);
+                            decimal totalPrice = decimal.Parse(pricelist[i]);
+                            decimal initialPrice = totalPrice / quantity;
 
                             originalprice.Add($"{initialPrice:N2}");
                             totalPrices.Add($"{totalPrice:N2}");
                         }
-                        catch (Exception e)
+                        catch (Exception ex)
                         {
-                            Console.WriteLine($"Error processing item ID {itemid[i]}: {e.Message}");
+                            Console.WriteLine($"Error processing item ID {itemid[i]}: {ex.Message}");
                         }
                     }
 
-                    
-                    string formattedItemList = string.Join("\n", itemnames);
-                    string formattedQuantity = string.Join("\n", quantitylist);
-                    string formattedOrigPrice = string.Join("\n", originalprice);
-                    string formattedTotalPrice = string.Join("\n", totalPrices);
 
-                   
-                    doc.Add(new iTextSharp.text.Paragraph("-------------------------------------------------------------------------------", font));
 
-                    doc.Add(new iTextSharp.text.Paragraph($"Receipt ID: {sales.receipt_id}", font));
-                    doc.Add(new iTextSharp.text.Paragraph($"Cashier: ", font));
-                    doc.Add(new iTextSharp.text.Paragraph($"Payment Mode: {sales.payment_mode.ToUpper()}", font));
+                    // Table headers
+                    PdfPTable table = new PdfPTable(4);
+                    table.WidthPercentage = 100;
+                    table.SetWidths(new float[] { 1f, 3f, 2f, 2f });
 
-                    doc.Add(new iTextSharp.text.Paragraph("-------------------------------------------------------------------------------", font));
-                    
-                    PdfPTable table = new PdfPTable(4); 
-                    table.WidthPercentage = 100; 
-
-                    
-                    float[] widths = new float[] { 1f, 3f, 2f, 2f }; 
-                    table.SetWidths(widths);
-
-                    // Add headers
                     table.AddCell(new PdfPCell(new Phrase("Qty", font)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
                     table.AddCell(new PdfPCell(new Phrase("Items", font)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
                     table.AddCell(new PdfPCell(new Phrase("Price", font)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
                     table.AddCell(new PdfPCell(new Phrase("Total", font)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
 
-                    // Add data rows
+                    // Add rows to the table
                     for (int i = 0; i < itemnames.Count; i++)
                     {
                         table.AddCell(new PdfPCell(new Phrase(quantitylist[i], font)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
@@ -246,31 +225,16 @@ namespace SmartPoultry
                         table.AddCell(new PdfPCell(new Phrase(totalPrices[i], font)) { HorizontalAlignment = Element.ALIGN_RIGHT, Border = 0 });
                     }
 
-                    
                     doc.Add(table);
 
-                    
+                    // Total price
                     PdfPTable totalTable = new PdfPTable(2);
-                    totalTable.WidthPercentage = 100; 
+                    totalTable.WidthPercentage = 100;
+                    totalTable.SetWidths(new float[] { 3f, 1f });
 
-                    
-                    float[] columnWidths = { 3f, 1f }; 
-                    totalTable.SetWidths(columnWidths);
+                    totalTable.AddCell(new PdfPCell(new Phrase("TOTAL:", font)) { Border = 0, HorizontalAlignment = Element.ALIGN_LEFT });
+                    totalTable.AddCell(new PdfPCell(new Phrase($"{sales.total_price:N2}", font)) { Border = 0, HorizontalAlignment = Element.ALIGN_RIGHT });
 
-                    
-                    PdfPCell labelCell = new PdfPCell(new Phrase("TOTAL:", font));
-                    labelCell.Border = 0; 
-                    labelCell.HorizontalAlignment = Element.ALIGN_LEFT; 
-                    totalTable.AddCell(labelCell);
-
-                    
-                    PdfPCell valueCell = new PdfPCell(new Phrase($"{sales.total_price:N2}", font));
-                    valueCell.Border = 0; 
-                    valueCell.HorizontalAlignment = Element.ALIGN_RIGHT; 
-                    totalTable.AddCell(valueCell);
-
-                    
-                    
                     doc.Add(totalTable);
 
                     doc.Add(new iTextSharp.text.Paragraph($"Date: {DateTime.Now:yyyy-MM-dd}", font));
@@ -279,27 +243,27 @@ namespace SmartPoultry
                     doc.Add(new iTextSharp.text.Paragraph("-------------------------------------------------------------------------------", font));
 
                     var thanksParagraph2 = new iTextSharp.text.Paragraph($"Thank you! Please come again!", font2);
-                    thanksParagraph2.Alignment = Element.ALIGN_CENTER; 
+                    thanksParagraph2.Alignment = Element.ALIGN_CENTER;
                     doc.Add(thanksParagraph2);
 
                     var storeParagraph2 = new iTextSharp.text.Paragraph($"GabMig's SmartPoultry", font2);
-                    storeParagraph2.Alignment = Element.ALIGN_CENTER; 
+                    storeParagraph2.Alignment = Element.ALIGN_CENTER;
                     doc.Add(storeParagraph2);
 
                     var addressParagraph2 = new iTextSharp.text.Paragraph($"Palo Alto, Calamba, Laguna Philippines", font2);
-                    addressParagraph2.Alignment = Element.ALIGN_CENTER; 
+                    addressParagraph2.Alignment = Element.ALIGN_CENTER;
                     doc.Add(addressParagraph2);
 
-                    
+
                     var phoneParagraph2 = new iTextSharp.text.Paragraph($"+63 1234567890", font2);
-                    phoneParagraph2.Alignment = Element.ALIGN_CENTER; 
+                    phoneParagraph2.Alignment = Element.ALIGN_CENTER;
                     doc.Add(phoneParagraph2);
 
-                    
+
                     var emailParagraph2 = new iTextSharp.text.Paragraph($"gabmigspoultrysupplies@gmail.com", font2);
-                    emailParagraph2.Alignment = Element.ALIGN_CENTER; 
+                    emailParagraph2.Alignment = Element.ALIGN_CENTER;
                     doc.Add(emailParagraph2);
-                    
+
                     doc.Close();
                     memoryStream.Position = 0;
 
@@ -326,15 +290,9 @@ namespace SmartPoultry
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Error generating receipt: {e.Message}");
+                MessageBox.Show($"Error generating receipt: {e.Message}");
             }
         }
-
-
-
-
-
-
 
 
 
@@ -410,7 +368,7 @@ namespace SmartPoultry
             decimal initialPrice = Convert.ToDecimal(totalPiceLabel.Content); 
             decimal finalprice = initialPrice + toadd;
 
-            totalPiceLabel.Content = finalprice.ToString("F2"); 
+            totalPiceLabel.Content = finalprice.ToString("N2"); 
         }
 
         public void EditQuantityPriceList(int position, string price, string quantity)

@@ -184,9 +184,9 @@ namespace SmartPoultry
         {
             string animaltypelist = string.Join(",", AnimalList);
             string producttypelist = string.Join(",", ProductTypeList);
-            int stocks;
+            decimal stocks;
 
-            if (!int.TryParse(stocklisting.Content.ToString(), out stocks))
+            if (!decimal.TryParse(stocklisting.Content.ToString(), out stocks))
             {
                 MessageBox.Show("Invalid stock value. Please enter a numeric value.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
@@ -244,7 +244,7 @@ namespace SmartPoultry
             {
                 for (int i = 0; i < unitlist.Count; i++)
                 {
-                    int price = Convert.ToInt32(pricelist[i]);
+                    decimal price = Convert.ToDecimal(pricelist[i]);
                     int conversion = Convert.ToInt32(conversionlist[i]);
                     if (i == 0)
                     {

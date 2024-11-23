@@ -28,7 +28,7 @@ namespace SmartPoultry
             InitializeComponent();
 
             prodName.Content = productName;
-            pricelabel.Content = price.ToString();
+            pricelabel.Content = price.ToString("N2");
             varName.Content = variant;
             quantitylabel.Content = quantity;
             pricevar = price;

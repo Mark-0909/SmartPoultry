@@ -24,17 +24,17 @@ namespace SmartPoultry.DataServices
                 var product = _context.Products.FirstOrDefault(p => p.product_id == id);
 
                 if (product == null)
-                    throw new Exception("Product not found"); 
+                    throw new Exception($"Product with ID {id} not found");
 
                 return product;
             }
             catch (Exception ex)
             {
-                string message = ex.Message;
-                MessageBox.Show("Error:" + ex);
-                return null; 
+                MessageBox.Show($"Error fetching product: {ex.Message}");
+                throw; // Let the exception propagate for better debugging.
             }
         }
+
 
 
 
@@ -51,7 +51,7 @@ namespace SmartPoultry.DataServices
             }
         }
 
-        public int Create(string product_name, string animal_type, string product_type, int employee_incharge, int supplierId, int stocks, string image)
+        public int Create(string product_name, string animal_type, string product_type, int employee_incharge, int supplierId, decimal stocks, string image)
         {
             try
             {
