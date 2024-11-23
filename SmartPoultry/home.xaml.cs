@@ -36,6 +36,8 @@ namespace SmartPoultry
         public ProductVariationServices productvariationsServices;
         public AppDbContext context = new AppDbContext();
 
+        home_POSproduct productControl;
+
         public List<string> Productvaridlist = new List<string>();
         public List<string> QuantityList = new List<string>();
         public List<string> VarSpecification = new List<string>();
@@ -402,7 +404,7 @@ namespace SmartPoultry
                 List<ProductVariations> var = productvariationsServices.GetAllProductVariations(id);
 
                
-                home_POSproduct productControl = new home_POSproduct(productname, var, imagepath, this);
+                productControl = new home_POSproduct(productname, var, imagepath, this);
 
                 
                 posPrdocutsPanel.Children.Add(productControl);

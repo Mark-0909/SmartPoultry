@@ -58,7 +58,7 @@ namespace SmartPoultry
 
         }
 
-        public void UpdateBaseValueForAllInstances(string name, string price, string conversion, string stocks, string newBaseValue, int position)
+        public void UpdateBaseValueForAllInstances(string name, string price, string conversion, string stocks, int position)
         {
 
             unitsWPanel.Children.Clear();
