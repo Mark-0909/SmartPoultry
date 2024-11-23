@@ -30,8 +30,21 @@ namespace SmartPoultry.DataServices
             }
         }
 
+        public Sales GetSales(int id)
+        {
+            try
+            {
+                return _context.Sales.FirstOrDefault(p => p.id == id);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error fetching sales record: {e.Message}");
+                return null; 
+            }
+        }
 
-        public bool Create(string productList, string priceList, string quantityList, string varList, string paymentMode, string status, decimal totalPrice, string purchaseMethod)
+
+        public int Create(string productList, string priceList, string quantityList, string varList, string paymentMode, string status, decimal totalPrice, string purchaseMethod)
         {
             try
             {
@@ -55,13 +68,13 @@ namespace SmartPoultry.DataServices
                 _context.Sales.Add(newSales);
                 _context.SaveChanges();
 
-                return true;
+                return newSales.id;
             }
             catch (Exception e)
             {
                 
                 Console.WriteLine($"Error in SalesServices.Create: {e.Message}");
-                return false;
+                return -1;
             }
         }
         public long CreateReferenceNumber()

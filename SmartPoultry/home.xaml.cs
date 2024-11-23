@@ -30,9 +30,10 @@ namespace SmartPoultry
     /// </summary>
     public partial class home : UserControl
     {
-        readonly SalesServices salesServices;
-        readonly ProductServices productServices;
-        readonly ProductVariationServices productvariationsServices;
+        public SalesServices salesServices;
+        public ProductServices productServices;
+        public ProductVariationServices productvariationsServices;
+        public AppDbContext context = new AppDbContext();
 
         public List<string> Productvaridlist = new List<string>();
         public List<string> QuantityList = new List<string>();
@@ -48,10 +49,10 @@ namespace SmartPoultry
         public home()
         {
             InitializeComponent();
-            var context = new AppDbContext();
+            
             productServices = new ProductServices(context);
             productvariationsServices = new ProductVariationServices(context);
-            salesServices = new SalesServices(new AppDbContext());
+            salesServices = new SalesServices(context);
             totalPiceLabel.Visibility = Visibility.Collapsed;
             DisplayProducts();
         }
@@ -74,7 +75,7 @@ namespace SmartPoultry
             decimal totalPrice = decimal.Parse(totalPiceLabel.Content.ToString());
 
             
-            bool addingSales = salesServices.Create(
+            int addingSales = salesServices.Create(
                 StringProductList,
                 StringPriceList,
                 StringQuantityList,
@@ -85,7 +86,7 @@ namespace SmartPoultry
                 purchasemethod
             );
 
-            if (addingSales)
+            if (addingSales != -1)
             {
                 MessageBox.Show("Order confirmed successfully!");
                 orderPanel.Children.Clear();
@@ -97,7 +98,7 @@ namespace SmartPoultry
                 VarSpecification.Clear();
                 ProductnameList.Clear();
 
-                DisplayReceipt(paymentMode, purchasemethod, status);
+                DisplayReceipt(addingSales, salesServices, context);
             }
             else
             {
@@ -105,41 +106,111 @@ namespace SmartPoultry
             }
         }
 
-        public static void DisplayReceipt(string customerName, string paymentMethod, string orderDetails)
+
+
+        public static void DisplayReceipt(int salesid, SalesServices salesServices, AppDbContext context)
         {
-            using (MemoryStream memoryStream = new MemoryStream())
+            try
             {
-                Document doc = new Document();
-                PdfWriter writer = PdfWriter.GetInstance(doc, memoryStream);
-                writer.CloseStream = false; 
-                doc.Open();
+                // Fetch sales data
+                Sales sales = salesServices.GetSales(salesid);
+                ProductServices product = new ProductServices(context);
 
-                
-                doc.Add(new iTextSharp.text.Paragraph("Receipt"));
-                doc.Add(new iTextSharp.text.Paragraph($"Date: {DateTime.Now:yyyy-MM-dd HH:mm:ss}"));
-                doc.Add(new iTextSharp.text.Paragraph($"Customer Name: {customerName}"));
-                doc.Add(new iTextSharp.text.Paragraph($"Payment Method: {paymentMethod}"));
-                doc.Add(new iTextSharp.text.Paragraph("Order Details:"));
-                doc.Add(new iTextSharp.text.Paragraph(orderDetails));
-
-                doc.Close(); 
-                memoryStream.Position = 0; 
-
-                
-                string tempFilePath = System.IO.Path.Combine(System.IO.Path.GetTempPath(), $"{DateTime.Now:yyyyMMddHHmmss}.pdf");
-                File.WriteAllBytes(tempFilePath, memoryStream.ToArray());
-
-                
-                Process.Start(new ProcessStartInfo(tempFilePath) { UseShellExecute = true });
-
-                
-                Task.Run(() =>
+                using (MemoryStream memoryStream = new MemoryStream())
                 {
-                    Thread.Sleep(5000); 
-                    File.Delete(tempFilePath);
-                });
+                    Document doc = new Document();
+                    PdfWriter writer = PdfWriter.GetInstance(doc, memoryStream);
+                    writer.CloseStream = false; // Avoid auto-closing the stream
+                    doc.Open();
+
+                    // Split and process sales data
+                    List<string> itemid = sales.product_list.Split(',').ToList();
+                    List<string> pricelist = sales.price_list.Split(',').ToList();
+                    List<string> quantitylist = sales.quantity_list.Split(',').ToList();
+                    List<string> varlist = sales.variation_list.Split(",").ToList();
+
+                    List<string> itemnames = new List<string>();
+                    List<string> originalprice = new List<string>();
+                    List<string> totalPrices = new List<string>();
+
+                    for (int i = 0; i < itemid.Count; i++)
+                    {
+                        try
+                        {
+                            // Get product name and calculate original price
+                            int id = int.Parse(itemid[i]);
+                            string itemname = product.FetchProduct(id).product_name;
+                            itemnames.Add($"({varlist[i]}) {itemname}");
+
+                            // Calculate individual price and total price
+                            int quantity = int.Parse(quantitylist[i]);
+                            int totalPrice = int.Parse(pricelist[i]);
+                            int initialPrice = totalPrice / quantity;
+
+                            originalprice.Add($"{initialPrice}.00");
+                            totalPrices.Add($"{totalPrice}.00");
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine($"Error processing item ID {itemid[i]}: {e.Message}");
+                        }
+                    }
+
+                    // Create formatted lists for the PDF
+                    string formattedItemList = string.Join("\n", itemnames);
+                    string formattedQuantity = string.Join("\n", quantitylist);
+                    string formattedOrigPrice = string.Join("\n", originalprice);
+                    string formattedTotalPrice = string.Join("\n", totalPrices);
+
+                    // Add content to the document
+                    doc.Add(new iTextSharp.text.Paragraph("Receipt Details"));
+                    doc.Add(new iTextSharp.text.Paragraph($"Receipt ID: {sales.receipt_id}"));
+                    doc.Add(new iTextSharp.text.Paragraph($"Date: {DateTime.Now:yyyy-MM-dd HH:mm:ss}"));
+                    doc.Add(new iTextSharp.text.Paragraph($"Total Amount: {sales.total_price:C}"));
+
+                    doc.Add(new iTextSharp.text.Paragraph("\nQTY:"));
+                    doc.Add(new iTextSharp.text.Paragraph(formattedQuantity));
+
+                    doc.Add(new iTextSharp.text.Paragraph("\nItems:"));
+                    doc.Add(new iTextSharp.text.Paragraph(formattedItemList));
+
+                    doc.Add(new iTextSharp.text.Paragraph("\nOriginal Prices:"));
+                    doc.Add(new iTextSharp.text.Paragraph(formattedOrigPrice));
+
+                    doc.Add(new iTextSharp.text.Paragraph("\nTotal Prices:"));
+                    doc.Add(new iTextSharp.text.Paragraph(formattedTotalPrice));
+
+                    // Finalize and save the document
+                    doc.Close();
+                    memoryStream.Position = 0;
+
+                    string tempFilePath = System.IO.Path.Combine(
+                        System.IO.Path.GetTempPath(),
+                        $"{DateTime.Now:yyyyMMddHHmmss}.pdf"
+                    );
+                    File.WriteAllBytes(tempFilePath, memoryStream.ToArray());
+
+                    // Open the PDF in the default viewer
+                    Process.Start(new ProcessStartInfo(tempFilePath) { UseShellExecute = true });
+
+                    // Clean up the temporary file after 5 seconds
+                    Task.Run(() =>
+                    {
+                        Thread.Sleep(5000);
+                        if (File.Exists(tempFilePath))
+                        {
+                            File.Delete(tempFilePath);
+                        }
+                    });
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error generating receipt: {e.Message}");
             }
         }
+
+
 
 
 
