@@ -56,6 +56,11 @@ namespace SmartPoultry
             totalPiceLabel.Visibility = Visibility.Collapsed;
             DisplayProducts();
         }
+        public void DynamicReload()
+        {
+            posPrdocutsPanel.Children.Clear();
+            DisplayProducts();
+        }
         private void DropOrderBtn_Click(object sender, RoutedEventArgs e)
         {
             orderPanel.Children.Clear();

@@ -256,6 +256,7 @@ namespace SmartPoultry
                     }
 
                 }
+                mainWindow.DynamicReload();
                 
                 this.Close();
             }

@@ -20,6 +20,12 @@ namespace SmartPoultry
         {
             InitializeComponent();
         }
+        public void DynamicReload()
+        {
+            homeControl.DynamicReload();
+            inventoryControl.DynamicReload();
+        }
+        
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
             //active inactive buttons

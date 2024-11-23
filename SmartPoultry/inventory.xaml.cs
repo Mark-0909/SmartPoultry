@@ -32,6 +32,11 @@ namespace SmartPoultry
 
             LoadProducts();
         }
+        public void DynamicReload()
+        {
+            ProductListWPanel.Children.Clear();
+            LoadProducts();
+        }
         private void LoadProducts()
         {
             
