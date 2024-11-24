@@ -192,7 +192,7 @@
 
         <Border CornerRadius="10" BorderBrush="#FFDDDDDD" BorderThickness="1" Margin="252,209,27,466" Background="White" Height="46">
 
-            <ComboBox Margin="9,5,9,5" Background="Transparent" BorderBrush="Transparent">
+            <ComboBox x:Name="SupplierCBox"  Margin="9,5,9,5" Background="Transparent" BorderBrush="Transparent">
                 <ComboBox.Style>
                     <Style TargetType="ComboBox">
                         <Setter Property="Template">

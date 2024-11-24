@@ -33,12 +33,15 @@ namespace SmartPoultry
         public List<String> conversionlist = new List<String>();
 
         //database
+        public AppDbContext context;
         private readonly ProductServices productService;
         private readonly ProductVariationServices productVariationService;
+        readonly SupplierServices supplierServices;
         public Inventory_AddingForm()
         {
             InitializeComponent();
             SetRoundedCorners();
+            
             mainWindow.Opacity = 0.5;
 
             //set mainwindow in dim mode
@@ -46,17 +49,61 @@ namespace SmartPoultry
             stocklisting.Visibility = Visibility.Collapsed;
             this.Closed += (s, e) => mainWindow.Opacity = 1.0;
 
-            //database
-            var context = new AppDbContext();
+            context = new AppDbContext();
             productService = new ProductServices(context);
             productVariationService = new ProductVariationServices(context);
-        }
-        public Inventory_AddingForm(Products product) {
+            supplierServices = new SupplierServices(context);
 
+            
+            PopulateSupplierList();
+            SupplierCBox.SelectedItem = "-- Select a Supplier --";
+        }
+
+
+        public Inventory_AddingForm(Products product)
+        {
             InitializeComponent();
+
+            context = new AppDbContext();
+            productService = new ProductServices(context);
+            productVariationService = new ProductVariationServices(context);
+            supplierServices = new SupplierServices(context);
+
+            PopulateSupplierList();
+
+            // Set product name in the TextBox
             ProductNameTextBox.Text = product.product_name;
 
+
+            
+            var supplier = supplierServices.FindSupplier(product.supplier_id);
+            if (supplier != null)
+            {
+                SupplierCBox.SelectedItem = supplier.Name.ToString(); 
+            }
+            else
+            {
+                MessageBox.Show("Supplier not found for the given ID.");
+            }
         }
+
+        public void PopulateSupplierList()
+        {
+            
+            SupplierCBox.Items.Clear();
+
+            SupplierCBox.Items.Add("-- Select a Supplier --");
+
+
+            List <SupplierList> suppliers = supplierServices.ListSuppliers();
+
+            foreach (var supplier in suppliers)
+            {
+                SupplierCBox.Items.Add(supplier.Name); 
+            }
+        }
+
+
 
         public void UpdateBaseValueForAllInstances(string name, string price, string conversion, string stocks, int position)
         {

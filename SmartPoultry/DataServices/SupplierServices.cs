@@ -15,6 +15,34 @@ namespace SmartPoultry.DataServices
         public SupplierServices(AppDbContext context) { 
             _context = context;
         }
+        public List<SupplierList> ListSuppliers()
+        {
+            try
+            {
+                return _context.SupplierLists.ToList();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error fetching suppliers: " + ex.Message);
+                return new List<SupplierList>(); 
+            }
+        }
+        public SupplierList FindSupplier(int id)
+        {
+            try
+            {
+                return _context.SupplierLists.FirstOrDefault(p => p.Id == id);
+            }
+            catch (Exception ex)
+            {
+                // Log exception for debugging (example: log to a file or console)
+                Console.WriteLine("Error finding supplier: " + ex.Message);
+                return null;
+            }
+
+
+        }
+
         public bool Create(string name, string contactperson, string contact, string location, string productlist)
         {
             try
