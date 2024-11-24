@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
              mc:Ignorable="d" 
-             d:DesignHeight="40" d:DesignWidth="341" Width="341" Height="40" Background="Transparent">
+             d:DesignHeight="40" d:DesignWidth="341" Width="341" Height="40" Background="Transparent" Margin="0 0 0 5">
     <Grid>
-        <Border CornerRadius="5" BorderBrush="#FFDDDDDD" BorderThickness="1" Background="#FFDDDDDD">
+        <Border x:Name="thisBorder" CornerRadius="5" BorderBrush="#FFDBDBDB" BorderThickness="1" Background="#FFDBDBDB">
             <Button HorizontalAlignment="Left" Height="20" Margin="299,0,0,0" VerticalAlignment="Center" Width="31">
                 <Image Height="17" Width="19"/>
             </Button>

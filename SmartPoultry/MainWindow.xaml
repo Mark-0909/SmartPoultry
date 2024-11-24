@@ -256,7 +256,7 @@
             </Button.Template>
             <Image x:Name="supplierIcon" Height="59" Width="59" Source="/Images/suppliergrey.png"/>
         </Button>
-        <Button Grid.Column="2" HorizontalAlignment="Left" Height="44" Margin="291,27,0,0" VerticalAlignment="Top" Width="48" Background="Transparent" BorderBrush="Transparent">
+        <Button x:Name="LogoutBtn" Click="LogoutBtn_Clicked" Grid.Column="2" HorizontalAlignment="Left" Height="44" Margin="291,27,0,0" VerticalAlignment="Top" Width="48" Background="Transparent" BorderBrush="Transparent">
             <Image Height="38" Width="45" Source="/logouticon.png"/>
         </Button>
 

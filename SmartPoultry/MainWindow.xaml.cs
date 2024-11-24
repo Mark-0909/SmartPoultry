@@ -179,6 +179,9 @@ namespace SmartPoultry
             icon.Source = new BitmapImage(new Uri(imagesource, UriKind.RelativeOrAbsolute));
         }
 
-        
+        private void LogoutBtn_Clicked(object sender, RoutedEventArgs e)
+        {
+            
+        }
     }
 }

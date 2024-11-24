@@ -26,6 +26,10 @@ namespace SmartPoultry
             Namelabel.Content = name;
             DueDateLabel.Content = duedate;
             AmountLabel.Content = amount;
+            if (evenodd == 1)
+            {
+                this.thisBorder.Background = new SolidColorBrush(Colors.White);
+            }
         }
     }
 }

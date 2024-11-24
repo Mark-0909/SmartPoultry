@@ -27,7 +27,10 @@ namespace SmartPoultry
             Datelabel.Content = date;
             StatusLabel.Content = status;
 
-
+            if (evenodd == 1)
+            {
+                this.thisBorder.Background = new SolidColorBrush(Colors.White);
+            }
         }
     }
 }
