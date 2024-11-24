@@ -17,7 +17,7 @@ namespace SmartPoultry.DataServices
             _context = context;
         }
         public List<FinancialLiabilities> GetList() { 
-            List<FinancialLiabilities> financialLiabilities = _context.FinancialLiabilities.Where(p => p.status != "paid").OrderByDescending(p => p.due_date).ToList();
+            List<FinancialLiabilities> financialLiabilities = _context.FinancialLiabilities.Where(p => p.status != "paid").OrderBy(p => p.due_date).ToList();
             return financialLiabilities;
         }
         public bool Create(string name, long orderid, decimal amount, string type, string mode, DateTime duedate, string contacts)

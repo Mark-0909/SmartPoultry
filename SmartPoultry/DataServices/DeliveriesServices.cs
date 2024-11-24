@@ -16,8 +16,9 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+        
         public List<Deliveries> GetList() {
-            List<Deliveries> list = _context.Deliveries.Where(p => p.delivery_status != "delivered").OrderByDescending(p => p.delivery_date).ToList();
+            List<Deliveries> list = _context.Deliveries.Where(p => p.delivery_status != "delivered").OrderBy(p => p.delivery_date).ToList();
             return list;
         }
         public bool Create(long orderid, string name, string type, decimal price, string address, string status, string contact, DateTime deliverydate, string deliveryman, decimal charge)

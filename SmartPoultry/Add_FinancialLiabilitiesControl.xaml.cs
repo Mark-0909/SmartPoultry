@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace SmartPoultry
 {
@@ -26,9 +27,24 @@ namespace SmartPoultry
             Namelabel.Content = name;
             DueDateLabel.Content = duedate;
             AmountLabel.Content = amount;
+
+            DateTime yellowdate = DateTime.Now.AddDays(1);
+
+            string red = DateTime.Now.ToString("MM-dd-yyyy");
+            string yellow = yellowdate.ToString("MM-dd-yyyy");
+
+
+            if (duedate == red)
+            {
+                thisBorder1.BorderBrush = new SolidColorBrush(Colors.Red);
+            }
+            else if (duedate == yellow)
+            {
+                thisBorder1.BorderBrush = new SolidColorBrush(Colors.Yellow);
+            }
             if (evenodd == 1)
             {
-                this.thisBorder.Background = new SolidColorBrush(Colors.White);
+                this.thisBorder1.Background = new SolidColorBrush(Colors.White);
             }
         }
     }

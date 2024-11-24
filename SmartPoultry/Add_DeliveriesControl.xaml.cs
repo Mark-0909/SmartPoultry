@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmartPoultry.Migrations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -26,6 +27,21 @@ namespace SmartPoultry
             NameLabel.Content = name;
             Datelabel.Content = date;
             StatusLabel.Content = status;
+
+            DateTime yellowdate = DateTime.Now.AddDays(1);
+
+            string red = DateTime.Now.ToString("MM-dd-yyyy");
+            string yellow = yellowdate.ToString("MM-dd-yyyy");
+
+
+            if (date == red)
+            {
+                thisBorder.BorderBrush = new SolidColorBrush(Colors.Red);
+            }
+            else if (date == yellow) {
+                thisBorder.BorderBrush = new SolidColorBrush(Colors.Yellow);
+            }
+            
 
             if (evenodd == 1)
             {

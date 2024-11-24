@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="341" Width="341" Height="40" Background="Transparent" Margin="0 0 0 5">
     <Grid>
-        <Border CornerRadius="5" BorderBrush="#FFF8F8F8" BorderThickness="1" Background="#FFDBDBDB">
+        <Border x:Name="thisBorder1" CornerRadius="5" BorderBrush="#FFF8F8F8" BorderThickness="1" Background="#FFDBDBDB">
             <Button HorizontalAlignment="Left" Height="20" Margin="299,0,0,0" VerticalAlignment="Center" Width="31">
                 <Image Height="17" Width="19"/>
             </Button>
