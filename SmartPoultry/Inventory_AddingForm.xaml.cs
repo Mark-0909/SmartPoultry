@@ -24,6 +24,7 @@ namespace SmartPoultry
         public static string? stocksvar;
         public bool baseUnit = false;
         private string? selectedFilePath;
+        public bool isEditing = false;
 
         //lists
         public List<String> AnimalList = new List<String>();
@@ -41,6 +42,8 @@ namespace SmartPoultry
         {
             InitializeComponent();
             SetRoundedCorners();
+            editBtn.Visibility = Visibility.Collapsed;
+            phaseoutBtn.Visibility = Visibility.Collapsed;
             
             mainWindow.Opacity = 0.5;
 
@@ -57,12 +60,15 @@ namespace SmartPoultry
             
             PopulateSupplierList();
             SupplierCBox.SelectedItem = "-- Select a Supplier --";
+            windowName.Content = "ADD PRODUCT";
         }
 
 
         public Inventory_AddingForm(Products product)
         {
             InitializeComponent();
+            windowName.Content = "PRODUCT DETAILS";
+            isEditing = true;
 
             context = new AppDbContext();
             productService = new ProductServices(context);
@@ -71,10 +77,16 @@ namespace SmartPoultry
 
             PopulateSupplierList();
 
-            // Set product name in the TextBox
+            SelectedImage.Height = SelectImageBtn.Height;
+            SelectedImage.Width = SelectImageBtn.Width;
+            BitmapImage bitmap = new BitmapImage(new Uri(product.image, UriKind.RelativeOrAbsolute));
+            SelectedImage.Source = bitmap;
+            stocklisting.Content = product.stocks.ToString();
+
+            stockunit.Content = productVariationService.GetBaseUnit(product.product_id);
+
+            
             ProductNameTextBox.Text = product.product_name;
-
-
             
             var supplier = supplierServices.FindSupplier(product.supplier_id);
             if (supplier != null)
@@ -86,6 +98,7 @@ namespace SmartPoultry
                 MessageBox.Show("Supplier not found for the given ID.");
             }
         }
+
 
         public void PopulateSupplierList()
         {
@@ -229,59 +242,67 @@ namespace SmartPoultry
         //database - save product
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            string animaltypelist = string.Join(",", AnimalList);
-            string producttypelist = string.Join(",", ProductTypeList);
-            decimal stocks;
-
-            if (!decimal.TryParse(stocklisting.Content.ToString(), out stocks))
+            if (!isEditing)
             {
-                MessageBox.Show("Invalid stock value. Please enter a numeric value.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
+                string animaltypelist = string.Join(",", AnimalList);
+                string producttypelist = string.Join(",", ProductTypeList);
+                decimal stocks;
 
-            
-            int id = productService.Create(ProductNameTextBox.Text, animaltypelist, producttypelist, 1, 1, stocks, "");
-
-            if (id == 0)
-            {
-                MessageBox.Show("Failed to save product.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            else
-            {
-                AddVariations(id);
-
-                
-                if (!string.IsNullOrEmpty(selectedFilePath))
+                if (!decimal.TryParse(stocklisting.Content.ToString(), out stocks))
                 {
-                    
-                    string destinationDirectory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Product_Images");
+                    MessageBox.Show("Invalid stock value. Please enter a numeric value.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
 
-                    // Create the directory if it doesn't exist
-                    if (!Directory.Exists(destinationDirectory))
+
+                int id = productService.Create(ProductNameTextBox.Text, animaltypelist, producttypelist, 1, 1, stocks, "");
+
+                if (id == 0)
+                {
+                    MessageBox.Show("Failed to save product.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                else
+                {
+                    AddVariations(id);
+
+
+                    if (!string.IsNullOrEmpty(selectedFilePath))
                     {
-                        Directory.CreateDirectory(destinationDirectory);
-                    }
 
-                    
-                    string destinationPath = System.IO.Path.Combine(destinationDirectory, $"{id}.jpg");
+                        string destinationDirectory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Product_Images");
 
-                    try
-                    {
-                        
-                        File.Copy(selectedFilePath, destinationPath, overwrite: true);
+                        // Create the directory if it doesn't exist
+                        if (!Directory.Exists(destinationDirectory))
+                        {
+                            Directory.CreateDirectory(destinationDirectory);
+                        }
 
-                        
-                        productService.UpdateImagePath(id, destinationPath);
 
-                        
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Failed to copy image: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        string destinationPath = System.IO.Path.Combine(destinationDirectory, $"{id}.jpg");
+
+                        try
+                        {
+
+                            File.Copy(selectedFilePath, destinationPath, overwrite: true);
+
+
+                            productService.UpdateImagePath(id, destinationPath);
+
+
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Failed to copy image: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                     }
                 }
             }
+            else 
+            {
+                MessageBox.Show("SUbmit for edit.");
+            }
+            
         }
 
 
@@ -590,6 +611,9 @@ namespace SmartPoultry
             this.Background = Brushes.Transparent;
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
     }
 }
