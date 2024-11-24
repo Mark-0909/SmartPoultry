@@ -10,6 +10,9 @@ namespace SmartPoultry.Models
         public int Id { get; set;}
         [MaxLength(255)]
         public string name { get; set;}
+
+        public long order_id { get; set;}
+
         [Column(TypeName = "decimal(10,2)")]
         public decimal amount { get; set;}
         [MaxLength(100)]

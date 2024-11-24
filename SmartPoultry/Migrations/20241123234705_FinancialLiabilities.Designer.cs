@@ -11,8 +11,8 @@ using SmartPoultry.DataAccess;
 namespace SmartPoultry.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241120101334_Deliveries")]
-    partial class Deliveries
+    [Migration("20241123234705_FinancialLiabilities")]
+    partial class FinancialLiabilities
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -106,6 +106,9 @@ namespace SmartPoultry.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
+
+                    b.Property<long>("order_id")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("payment_mode")
                         .IsRequired()
@@ -280,6 +283,11 @@ namespace SmartPoultry.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Contact")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Contact_Person")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");

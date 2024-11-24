@@ -11,14 +11,78 @@ using SmartPoultry.DataAccess;
 namespace SmartPoultry.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20241120013247_FinancialLiabilities")]
-    partial class FinancialLiabilities
+    [Migration("20241124001125_Deliveries")]
+    partial class Deliveries
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
+
+            modelBuilder.Entity("SmartPoultry.Models.Deliveries", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("added_date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("address")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("charges")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<string>("contact_no")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime>("delivery_date")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("delivery_man")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("delivery_status")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<int>("employee_incharge")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("name")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("TEXT");
+
+                    b.Property<long>("order_id")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("payment_status")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("price")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<string>("type")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Deliveries");
+                });
 
             modelBuilder.Entity("SmartPoultry.Models.FinancialLiabilities", b =>
                 {
@@ -47,6 +111,9 @@ namespace SmartPoultry.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
+
+                    b.Property<long>("order_id")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("payment_mode")
                         .IsRequired()
@@ -221,6 +288,11 @@ namespace SmartPoultry.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Contact")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Contact_Person")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");

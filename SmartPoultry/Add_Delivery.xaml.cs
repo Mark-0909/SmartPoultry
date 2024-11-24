@@ -22,12 +22,13 @@ namespace SmartPoultry
         public Add_Delivery()
         {
             InitializeComponent();
+            datePicker.SelectedDate = DateTime.Now;
             OrderIdTextBox.IsEnabled = false;
             toDeliverRadio.IsEnabled = false;
             toReceiveRadio.IsChecked = true;
             deliveriesServices = new DeliveriesServices(context);
-            
         }
+
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {

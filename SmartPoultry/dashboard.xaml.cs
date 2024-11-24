@@ -24,6 +24,7 @@ namespace SmartPoultry
     public partial class dashboard : UserControl
     {
         readonly SalesServices salesServices;
+        readonly FinancialLiabilitiesServices financialLiabilities;
         Add_FinancialLiabilities add_FinancialLiabilities;
         Add_Delivery Add_Delivery;
         public dashboard()
@@ -31,12 +32,28 @@ namespace SmartPoultry
             InitializeComponent();
             var context = new AppDbContext();
             salesServices = new SalesServices(context);
+            financialLiabilities = new FinancialLiabilitiesServices(context);
             DisplaySales();
+            DisplayFinancialLiabilities();
         }
         public void DynamicOrderDisplay()
         {
             OrderListPanel.Children.Clear();
             DisplaySales();
+        }
+        public void DisplayFinancialLiabilities()
+        {
+            int evenodd = 0;
+            List<FinancialLiabilities> finance = financialLiabilities.GetList();
+            
+            foreach (FinancialLiabilities list in finance) { 
+                int id = list.Id;
+                string name = list.name;
+                string duedate = list.due_date.ToString("MM-dd-yyyy");
+                string amount = list.amount.ToString("N2");
+                Add_FinancialLiabilitiesControl control = new Add_FinancialLiabilitiesControl(id, name, duedate, amount);
+                FinancilaLiabilitiesPanel.Children.Add(control);
+            }
         }
         public void DisplaySales() {
             int evenodd = 0;

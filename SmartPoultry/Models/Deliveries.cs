@@ -23,7 +23,9 @@ namespace SmartPoultry.Models
         [MaxLength(255)]
         public string address { get; set; }
         [MaxLength(100)]
-        public string status { get; set; }
+        public string payment_status { get; set; }
+        [MaxLength(100)]
+        public string delivery_status { get; set; }
         [MaxLength(100)]
         public string contact_no { get; set; }
         public DateTime added_date { get; set; }

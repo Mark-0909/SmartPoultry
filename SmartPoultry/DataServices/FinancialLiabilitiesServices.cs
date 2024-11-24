@@ -16,14 +16,18 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
-
-        public bool Create(string name, decimal amount, string type, string mode, DateTime duedate, string contacts)
+        public List<FinancialLiabilities> GetList() { 
+            List<FinancialLiabilities> financialLiabilities = _context.FinancialLiabilities.Where(p => p.status != "paid").OrderByDescending(p => p.due_date).ToList();
+            return financialLiabilities;
+        }
+        public bool Create(string name, long orderid, decimal amount, string type, string mode, DateTime duedate, string contacts)
         {
             try
             {
                 var newSched = new FinancialLiabilities
                 {
                     name = name,
+                    order_id = orderid,
                     amount = amount,
                     type = type,
                     status = "Unpaid",

@@ -47,6 +47,11 @@ namespace SmartPoultry.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("delivery_status")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("TEXT");
+
                     b.Property<int>("employee_incharge")
                         .HasColumnType("INTEGER");
 
@@ -58,13 +63,13 @@ namespace SmartPoultry.Migrations
                     b.Property<long>("order_id")
                         .HasColumnType("INTEGER");
 
-                    b.Property<decimal>("price")
-                        .HasColumnType("decimal(10,2)");
-
-                    b.Property<string>("status")
+                    b.Property<string>("payment_status")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("TEXT");
+
+                    b.Property<decimal>("price")
+                        .HasColumnType("decimal(10,2)");
 
                     b.Property<string>("type")
                         .IsRequired()
@@ -103,6 +108,9 @@ namespace SmartPoultry.Migrations
                         .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("TEXT");
+
+                    b.Property<long>("order_id")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("payment_mode")
                         .IsRequired()

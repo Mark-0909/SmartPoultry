@@ -19,18 +19,19 @@ namespace SmartPoultry.DataServices
         public bool Create(long orderid, string name, string type, decimal price, string address, string status, string contact, DateTime deliverydate, string deliveryman, decimal charge)
         {
             try 
-            { 
-                var newDelivery = new Deliveries() { 
+            {
+                var newDelivery = new Deliveries() {
                     order_id = orderid,
-                    name = name, 
+                    name = name,
                     type = type,
                     price = price,
                     address = address,
-                    status = status,
+                    payment_status = status,
+                    delivery_status = "pending",
                     contact_no = contact,
                     delivery_date = deliverydate,
                     delivery_man = deliveryman,
-                    added_date =  DateTime.Now,
+                    added_date = DateTime.Now,
                     charges = charge,
                     employee_incharge = 1
                 };

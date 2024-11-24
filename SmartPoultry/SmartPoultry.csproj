@@ -10,7 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="close.png" />
     <None Remove="Images\addbaseunit.png" />
     <None Remove="Images\addorder.png" />
     <None Remove="Images\addvariant.png" />
@@ -49,7 +48,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="close.png" />
     <Resource Include="Images\addbaseunit.png" />
     <Resource Include="Images\addorder.png" />
     <Resource Include="Images\addvariant.png" />

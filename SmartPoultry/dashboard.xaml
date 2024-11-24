@@ -39,11 +39,24 @@
         <ComboBox HorizontalAlignment="Left" Height="20" Margin="638,321,0,0" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.508,0.582"/>
         <ComboBox HorizontalAlignment="Left" Height="20" Margin="1011,321,0,0" VerticalAlignment="Top" Width="77"/>
         <Button Click="AddFinancialLiabilities_Click" HorizontalAlignment="Left" Height="26" Margin="605,318,0,0" VerticalAlignment="Top" Width="28" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
-            <Image Height="17" Width="18" Source="/addicon.png"/>
+            <Image Height="17" Width="18" Source="/Images/addicon.png"/>
         </Button>
         <Button Click="AddDelivery_Click" HorizontalAlignment="Left" Height="26" Margin="978,318,0,0" VerticalAlignment="Top" Width="28" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
-            <Image Height="17" Width="18" Source="/addicon.png"/>
+            <Image Height="17" Width="18" Source="/Images/addicon.png"/>
         </Button>
+        <Label Content="Name" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="403,349,0,0" VerticalAlignment="Top" Width="52"/>
+        <Label Content="Due Date" HorizontalContentAlignment="Center" HorizontalAlignment="Center" Height="27" Margin="0,349,0,0" VerticalAlignment="Top" Width="64"/>
+        <Label Content="Amount" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="619,349,0,0" VerticalAlignment="Top" Width="68"/>
+        <Label Content="Date" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="852,349,0,0" VerticalAlignment="Top" Width="94"/>
+        <Label Content="Status" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="946,349,0,0" VerticalAlignment="Top" Width="92"/>
+        <Label Content="Name" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="755,349,0,0" VerticalAlignment="Top" Width="74"/>
+        <ScrollViewer  HorizontalAlignment="Left" Height="191" Margin="361,376,0,0" VerticalAlignment="Top" Width="361" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+            <WrapPanel x:Name="FinancilaLiabilitiesPanel"  Height="193" Width="344"/>
+        </ScrollViewer>
+        <ScrollViewer x:Name="DeliveriesPanel"  HorizontalAlignment="Left" Height="193" Margin="732,374,0,0" VerticalAlignment="Top" Width="362" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+            <WrapPanel Height="194" Width="348"/>
+        </ScrollViewer>
+
 
     </Grid>
 </UserControl>
