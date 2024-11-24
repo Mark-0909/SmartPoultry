@@ -29,6 +29,8 @@ namespace SmartPoultry
         readonly DeliveriesServices deliveryServices;
         Add_FinancialLiabilities add_FinancialLiabilities;
         Add_Delivery Add_Delivery;
+
+
         public dashboard()
         {
             InitializeComponent();
@@ -44,6 +46,17 @@ namespace SmartPoultry
         {
             OrderListPanel.Children.Clear();
             DisplaySales();
+        }
+
+        public void DynamicReloadDeliveries()
+        {
+            DeliveriesPanel1.Children.Clear();
+            DisplayDeliveries();
+        }
+        public void DynamicReloadFinancialLiabilities()
+        {
+            FinancilaLiabilitiesPanel.Children.Clear();
+            DisplayFinancialLiabilities();
         }
         public void DisplayDeliveries()
         {

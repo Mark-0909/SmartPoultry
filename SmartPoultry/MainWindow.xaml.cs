@@ -20,6 +20,14 @@ namespace SmartPoultry
         {
             InitializeComponent();
         }
+        public void DynamicAddDeliveries()
+        {
+            dashboardControl.DynamicReloadDeliveries();
+        }
+        public void DynamicAddFinance()
+        {
+            dashboardControl.DynamicReloadFinancialLiabilities();
+        }
         public void DynamicAddOrder()
         {
             dashboardControl.DynamicOrderDisplay();

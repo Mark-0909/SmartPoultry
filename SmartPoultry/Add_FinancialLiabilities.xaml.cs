@@ -26,6 +26,8 @@ namespace SmartPoultry
         public string mode;
         public string type;
         public long orderid;
+
+        public MainWindow? mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
         public Add_FinancialLiabilities()
         {
             InitializeComponent();
@@ -75,6 +77,7 @@ namespace SmartPoultry
                 MessageBox.Show("Not Created");
             }
             MessageBox.Show("Success");
+            mainWindow.DynamicAddFinance();
             this.Close();
         }
     }

@@ -14,6 +14,8 @@ namespace SmartPoultry
         DeliveriesServices deliveriesServices;
         public AppDbContext context = new AppDbContext();
 
+        public MainWindow? mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
+
         public long orderId = 0;
         public string type;
         public string mode;
@@ -65,6 +67,7 @@ namespace SmartPoultry
             if (added)
             {
                 MessageBox.Show("Successful!");
+                mainWindow.DynamicAddDeliveries();
                 this.Close();
             }
             else {
