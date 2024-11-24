@@ -28,9 +28,7 @@ namespace SmartPoultry
             CreateProductImagesFolder();
             var context = new AppDbContext();
 
-            context.Database.EnsureCreated();
-                
-            
+            context.Database.EnsureCreated();            
         }
         private void CreateProductImagesFolder()
         {
@@ -54,17 +52,9 @@ namespace SmartPoultry
 
            
             this.Close();
-
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
 
-        }
 
-        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
-        {
-
-        }
     }
 }

@@ -36,6 +36,7 @@
     <None Remove="Images\smartpoultrylogin.png" />
     <None Remove="Images\suppliergreen.png" />
     <None Remove="Images\suppliergrey.png" />
+    <None Remove="LOGIN DESIGN.png" />
     <None Remove="logouticon.png" />
   </ItemGroup>
 
@@ -76,6 +77,7 @@
     <Resource Include="Images\smartpoultrylogin.png" />
     <Resource Include="Images\suppliergreen.png" />
     <Resource Include="Images\suppliergrey.png" />
+    <Resource Include="LOGIN DESIGN.png" />
     <Resource Include="logouticon.png" />
   </ItemGroup>
 
