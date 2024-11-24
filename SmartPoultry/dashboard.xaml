@@ -53,8 +53,8 @@
         <ScrollViewer  HorizontalAlignment="Left" Height="191" Margin="361,376,0,0" VerticalAlignment="Top" Width="361" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
             <WrapPanel x:Name="FinancilaLiabilitiesPanel"  Height="193" Width="344"/>
         </ScrollViewer>
-        <ScrollViewer x:Name="DeliveriesPanel"  HorizontalAlignment="Left" Height="193" Margin="732,374,0,0" VerticalAlignment="Top" Width="362" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
-            <WrapPanel Height="194" Width="348"/>
+        <ScrollViewer   HorizontalAlignment="Left" Height="193" Margin="732,374,0,0" VerticalAlignment="Top" Width="362" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+            <WrapPanel x:Name="DeliveriesPanel1"  Height="194" Width="348"/>
         </ScrollViewer>
 
 

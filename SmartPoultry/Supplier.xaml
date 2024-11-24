@@ -31,7 +31,7 @@
 
                     <Label Content="Name" FontWeight="Bold" FontSize="16" Grid.Column="0"/>
                     <Label Content="Supplier Information" FontWeight="Bold" FontSize="16" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-                    <ListBox Name="SupplierListBox" ItemTemplate="{StaticResource SupplierControlTemplate}" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                    <ListBox Name="SupplierListBox" HorizontalAlignment="Stretch" VerticalAlignment="Top">
                     </ListBox>
                 </Grid>
             </Border>

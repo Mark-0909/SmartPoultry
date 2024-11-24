@@ -20,9 +20,14 @@ namespace SmartPoultry
     /// </summary>
     public partial class Add_DeliveriesControl : UserControl
     {
-        public Add_DeliveriesControl()
+        public Add_DeliveriesControl(int id, string name, string date, string status, int evenodd)
         {
             InitializeComponent();
+            NameLabel.Content = name;
+            Datelabel.Content = date;
+            StatusLabel.Content = status;
+
+
         }
     }
 }

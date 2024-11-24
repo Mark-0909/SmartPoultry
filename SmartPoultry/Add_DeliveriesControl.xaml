@@ -12,9 +12,9 @@
                 <Image Height="17" Width="19"/>
             </Button>
         </Border>
-        <Label Content="Label" HorizontalAlignment="Left" Height="32" Margin="10,0,0,0" VerticalAlignment="Center" Width="93"/>
-        <Label Content="Label" HorizontalAlignment="Left" Height="31" Margin="108,0,0,0" VerticalAlignment="Center" Width="93"/>
-        <Label Content="Label" HorizontalAlignment="Left" Height="31" Margin="201,0,0,0" VerticalAlignment="Center" Width="93"/>
+        <Label x:Name="NameLabel" Content="Label" HorizontalAlignment="Left" Height="32" Margin="10,0,0,0" VerticalAlignment="Center" Width="93"/>
+        <Label x:Name="Datelabel" Content="Label" HorizontalAlignment="Left" Height="31" Margin="108,0,0,0" VerticalAlignment="Center" Width="93"/>
+        <Label x:Name="StatusLabel" Content="Label" HorizontalAlignment="Left" Height="31" Margin="201,0,0,0" VerticalAlignment="Center" Width="93"/>
 
     </Grid>
 </UserControl>

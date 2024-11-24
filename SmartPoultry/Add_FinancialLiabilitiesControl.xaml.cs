@@ -20,7 +20,7 @@ namespace SmartPoultry
     /// </summary>
     public partial class Add_FinancialLiabilitiesControl : UserControl
     {
-        public Add_FinancialLiabilitiesControl(int id, string name, string duedate, string amount)
+        public Add_FinancialLiabilitiesControl(int id, string name, string duedate, string amount, int evenodd)
         {
             InitializeComponent();
             Namelabel.Content = name;
