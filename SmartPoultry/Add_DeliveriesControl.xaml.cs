@@ -28,25 +28,38 @@ namespace SmartPoultry
             Datelabel.Content = date;
             StatusLabel.Content = status;
 
-            DateTime yellowdate = DateTime.Now.AddDays(1);
+            DateTime dateValue;
+            bool isValidDate = DateTime.TryParse(date, out dateValue);
 
-            string red = DateTime.Now.ToString("MM-dd-yyyy");
-            string yellow = yellowdate.ToString("MM-dd-yyyy");
-
-
-            if (date == red)
+            if (isValidDate)
             {
-                thisBorder.BorderBrush = new SolidColorBrush(Colors.Red);
+                DateTime today = DateTime.Now.Date;
+                DateTime yellowDate = today.AddDays(1);
+
+                if (dateValue.Date <= today) 
+                {
+                    thisBorder.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF3A8A8")); // Red
+
+                }
+                else if (dateValue.Date == yellowDate) 
+                {
+                    thisBorder.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFE9EEAF")); // yellow
+                }
             }
-            else if (date == yellow) {
-                thisBorder.BorderBrush = new SolidColorBrush(Colors.Yellow);
+            else
+            {
+                thisBorder.BorderBrush = new SolidColorBrush(Colors.Gray); 
             }
-            
 
             if (evenodd == 1)
             {
-                this.thisBorder.Background = new SolidColorBrush(Colors.White);
+                thisBorder.Background = new SolidColorBrush(Colors.White);
+            }
+            else
+            {
+                thisBorder.Background = new SolidColorBrush(Colors.LightGray);
             }
         }
+
     }
 }

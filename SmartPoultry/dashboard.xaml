@@ -51,10 +51,10 @@
         <Label Content="Status" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="946,349,0,0" VerticalAlignment="Top" Width="92"/>
         <Label Content="Name" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="755,349,0,0" VerticalAlignment="Top" Width="74"/>
         <ScrollViewer  HorizontalAlignment="Left" Height="191" Margin="361,376,0,0" VerticalAlignment="Top" Width="361" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
-            <WrapPanel x:Name="FinancilaLiabilitiesPanel"  Height="193" Width="344"/>
+            <WrapPanel x:Name="FinancilaLiabilitiesPanel"  Width="344" />
         </ScrollViewer>
         <ScrollViewer   HorizontalAlignment="Left" Height="193" Margin="732,374,0,0" VerticalAlignment="Top" Width="362" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
-            <WrapPanel x:Name="DeliveriesPanel1"  Height="194" Width="348"/>
+            <WrapPanel x:Name="DeliveriesPanel1"   Width="348"/>
         </ScrollViewer>
 
 
