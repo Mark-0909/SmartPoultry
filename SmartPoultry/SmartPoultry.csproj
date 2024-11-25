@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="blacklogo.png" />
+    <None Remove="blacktext.png" />
+    <None Remove="exiticon.png" />
+    <None Remove="greenlogo.png" />
     <None Remove="Images\addbaseunit.png" />
     <None Remove="Images\addorder.png" />
     <None Remove="Images\addvariant.png" />
@@ -36,7 +40,9 @@
     <None Remove="Images\smartpoultrylogin.png" />
     <None Remove="Images\suppliergreen.png" />
     <None Remove="Images\suppliergrey.png" />
+    <None Remove="LOGIN DESIGN.png" />
     <None Remove="logouticon.png" />
+    <None Remove="qrcode.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -50,6 +56,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="blacklogo.png" />
+    <Resource Include="blacktext.png" />
+    <Resource Include="exiticon.png" />
+    <Resource Include="greenlogo.png" />
     <Resource Include="Images\addbaseunit.png" />
     <Resource Include="Images\addorder.png" />
     <Resource Include="Images\addvariant.png" />
@@ -76,7 +86,9 @@
     <Resource Include="Images\smartpoultrylogin.png" />
     <Resource Include="Images\suppliergreen.png" />
     <Resource Include="Images\suppliergrey.png" />
+    <Resource Include="LOGIN DESIGN.png" />
     <Resource Include="logouticon.png" />
+    <Resource Include="qrcode.png" />
   </ItemGroup>
 
   <ItemGroup>

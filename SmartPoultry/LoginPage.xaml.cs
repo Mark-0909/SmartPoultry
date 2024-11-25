@@ -28,9 +28,7 @@ namespace SmartPoultry
             CreateProductImagesFolder();
             var context = new AppDbContext();
 
-            context.Database.EnsureCreated();
-                
-            
+            context.Database.EnsureCreated();            
         }
         private void CreateProductImagesFolder()
         {
@@ -54,17 +52,29 @@ namespace SmartPoultry
 
            
             this.Close();
-
         }
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
+            // Display a confirmation message box
+            MessageBoxResult result = MessageBox.Show(
+                "Are you sure you want to close this?",
+                "Closed",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question);
 
+            // Check the user's response
+            if (result == MessageBoxResult.Yes)
+            {
+                // Log out logic here
+                // For example, closing the current window or navigating to a login page
+                Application.Current.Shutdown(); // This will close the application
+            }
+            else
+            {
+                // Optionally handle the case where the user clicked No (e.g., do nothing)
+            }
         }
 
-        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
-        {
-
-        }
     }
 }
