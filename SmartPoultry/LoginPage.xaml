@@ -15,10 +15,10 @@
                 <ImageBrush ImageSource="/LOGIN DESIGN.png"/>
             </Button.Background>
         </Button>
-        <TextBox HorizontalAlignment="Left" Height="25" Margin="381,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="200"/>
-        <TextBox HorizontalAlignment="Left" Height="25" Margin="381,277,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200"/>
-        <Label Content="Username" HorizontalAlignment="Left" Height="30" Margin="381,175,0,0" VerticalAlignment="Top" Width="100"/>
-        <Label Content="Password" HorizontalAlignment="Left" Height="30" Margin="381,242,0,0" VerticalAlignment="Top" Width="100"/>
+        <TextBox HorizontalAlignment="Left" Height="25" Margin="381,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="200" FontSize="14"/>
+        <TextBox HorizontalAlignment="Left" Height="25" Margin="381,277,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" FontSize="14"/>
+        <Label Content="Username" HorizontalAlignment="Left" Height="30" Margin="381,178,0,0" VerticalAlignment="Top" Width="100"/>
+        <Label Content="Password" HorizontalAlignment="Left" Height="30" Margin="381,247,0,0" VerticalAlignment="Top" Width="100"/>
         <Image HorizontalAlignment="Left" Height="60" Margin="530,90,0,0" VerticalAlignment="Top" Width="60" Source="/qrcode.png"/>
         <Image HorizontalAlignment="Left" Height="70" Margin="381,91,0,0" VerticalAlignment="Top" Width="70" Source="/blacklogo.png"/>
         <Image HorizontalAlignment="Left" Height="129" Margin="99,99,0,0" VerticalAlignment="Top" Width="156" Source="/blacklogo.png"/>
