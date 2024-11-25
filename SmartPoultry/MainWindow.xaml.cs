@@ -181,7 +181,14 @@ namespace SmartPoultry
 
         private void LogoutBtn_Clicked(object sender, RoutedEventArgs e)
         {
-            
+            var result = MessageBox.Show("Are you sure you want to log out?", "Confirm Logout", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+               
+                LoginPage loginWindow = new LoginPage();
+                loginWindow.Show();
+                this.Close();
+            }
         }
     }
 }

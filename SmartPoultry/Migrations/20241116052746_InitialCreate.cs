@@ -50,22 +50,7 @@ namespace SmartPoultry.Migrations
 
             
 
-            migrationBuilder.CreateTable(
-                name: "Users",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "INTEGER", nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Username = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    Password = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    ContactNo = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    Role = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    Status = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Users", x => x.Id);
-                });
+            
         }
 
         /// <inheritdoc />
@@ -77,10 +62,6 @@ namespace SmartPoultry.Migrations
             migrationBuilder.DropTable(
                 name: "ProductVariations");
 
-            
-
-            migrationBuilder.DropTable(
-                name: "Users");
         }
     }
 }

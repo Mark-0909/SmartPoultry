@@ -29,6 +29,7 @@
     <None Remove="Images\homeicongrey.png" />
     <None Remove="Images\inventorygreen.png" />
     <None Remove="Images\inventorygrey.png" />
+    <None Remove="Images\loginbg.png" />
     <None Remove="Images\logo.png" />
     <None Remove="Images\logouticon.png" />
     <None Remove="Images\minusorder.png" />
@@ -75,6 +76,7 @@
     <Resource Include="Images\homeicongrey.png" />
     <Resource Include="Images\inventorygreen.png" />
     <Resource Include="Images\inventorygrey.png" />
+    <Resource Include="Images\loginbg.png" />
     <Resource Include="Images\logo.png" />
     <Resource Include="Images\logouticon.png" />
     <Resource Include="Images\minusorder.png" />

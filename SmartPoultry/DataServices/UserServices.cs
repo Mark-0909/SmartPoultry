@@ -2,6 +2,8 @@
 using SmartPoultry.Models;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace SmartPoultry.DataServices
 {
@@ -14,34 +16,74 @@ namespace SmartPoultry.DataServices
             _context = context;
         }
 
-        public IEnumerable<User> GetAllUsers()
+        public bool LoginVerification(string username, string password)
         {
-            return _context.Users.ToList();
-        }
+            User user = _context.Users.FirstOrDefault(p => p.Username == username);
 
-        public User GetUserById(int userId)
-        {
-            return _context.Users.Find(userId);
-        }
-        public void AddUser(User user)
-        {
-            _context.Users.Add(user);
-            _context.SaveChanges();
-        }
-
-        public void UpdateUser(User user)
-        {
-            _context.Users.Update(user);
-            _context.SaveChanges();
-        }
-        public void DeleteUser(int userId)
-        {
-            var user = _context.Users.Find(userId);
-            if (user != null)
+            if (user == null)
             {
-                _context.Users.Remove(user);
-                _context.SaveChanges();
+                return false;
+            }
+            string hashvalpass = HashValue(password);
+
+            if (user.Password != hashvalpass)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        public bool IsThereAdmin()
+        {
+            try 
+            { 
+                bool isPresent = _context.Users.Any(p => p.Role == "admin");
+                return isPresent;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                return false;
             }
         }
+        public bool CreateAccount(string username, string password, string q1, string q2, string q3, string role)
+        {
+            try
+            {
+                var user = new User()
+                {
+                    Username = username,
+                    Password = HashValue(password),
+                    Q1 = HashValue(q1),  
+                    Q2 = HashValue(q2),
+                    Q3 = HashValue(q3),
+                    Role = role,
+                    Status = "active"
+                };
+
+                
+                _context.Users.Add(user);
+                _context.SaveChanges();
+
+                return true;  
+            }
+            catch (Exception ex)
+            {
+                
+                Console.WriteLine($"An error occurred while creating the account: {ex.Message}");
+                return false;  
+            }
+        }
+
+        private string HashValue(string input)
+        {
+            using (var sha256 = SHA256.Create())
+            {
+                var hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(input));
+                return Convert.ToBase64String(hashedBytes);
+            }
+        }
+
     }
 }

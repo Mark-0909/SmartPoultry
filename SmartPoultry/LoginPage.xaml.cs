@@ -1,4 +1,5 @@
 ﻿using SmartPoultry.DataAccess;
+using SmartPoultry.DataServices;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace SmartPoultry
 {
     /// <summary>
@@ -21,15 +23,52 @@ namespace SmartPoultry
     /// </summary>
     public partial class LoginPage : Window
     {
+        //database
+        public AppDbContext context = new AppDbContext();
+        UserServices userServices;
 
         public LoginPage()
         {
             InitializeComponent();
             CreateProductImagesFolder();
             var context = new AppDbContext();
-
-            context.Database.EnsureCreated();            
+            context.Database.EnsureCreated();
+            userServices = new UserServices(context);
+            Initialization();
+            
         }
+
+
+        public void Initialization()
+        {
+            
+            bool isPresent = userServices.IsThereAdmin();
+
+            if (isPresent)
+            {
+                createAccountControl.Visibility = Visibility.Hidden;
+                loginControl.Visibility = Visibility.Visible;
+                forgotControl.Visibility = Visibility.Hidden;
+
+                Panel.SetZIndex(createAccountControl, 0);
+                Panel.SetZIndex(loginControl, 1);
+                Panel.SetZIndex(forgotControl, 0);
+
+            }
+            else
+            {
+                createAccountControl.Visibility = Visibility.Visible;
+                loginControl.Visibility = Visibility.Hidden;
+                forgotControl.Visibility = Visibility.Hidden;
+
+                Panel.SetZIndex(createAccountControl, 1);
+                Panel.SetZIndex(loginControl, 0);
+                Panel.SetZIndex(forgotControl, 0);
+
+            }
+        }
+
+
         private void CreateProductImagesFolder()
         {
             
@@ -43,38 +82,13 @@ namespace SmartPoultry
             }
         }
 
-
-        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        public void SuccessLogin()
         {
-            MainWindow mainWindow = new MainWindow();
-            Application.Current.MainWindow = mainWindow;
-            mainWindow.Show();
-
-           
             this.Close();
         }
+        
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            // Display a confirmation message box
-            MessageBoxResult result = MessageBox.Show(
-                "Are you sure you want to close this?",
-                "Closed",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Question);
-
-            // Check the user's response
-            if (result == MessageBoxResult.Yes)
-            {
-                // Log out logic here
-                // For example, closing the current window or navigating to a login page
-                Application.Current.Shutdown(); // This will close the application
-            }
-            else
-            {
-                // Optionally handle the case where the user clicked No (e.g., do nothing)
-            }
-        }
+        
 
     }
 }

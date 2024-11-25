@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace SmartPoultry.Models
 {
@@ -14,12 +16,18 @@ namespace SmartPoultry.Models
         public string Password { get; set; }
 
         [MaxLength(255)]
-        public string ContactNo { get; set; }
+        public string Q1 { get; set; }
+        [MaxLength(255)]
+        public string Q2 { get; set; }
+        [MaxLength(255)]
+        public string Q3 { get; set; }
 
         [MaxLength(100)]
         public string Role { get; set; }
 
         [MaxLength(100)]
         public string Status { get; set; }
+
+        
     }
 }
