@@ -28,24 +28,40 @@ namespace SmartPoultry
             DueDateLabel.Content = duedate;
             AmountLabel.Content = amount;
 
-            DateTime yellowdate = DateTime.Now.AddDays(1);
+            DateTime dueDateValue;
+            bool isValidDate = DateTime.TryParse(duedate, out dueDateValue);
 
-            string red = DateTime.Now.ToString("MM-dd-yyyy");
-            string yellow = yellowdate.ToString("MM-dd-yyyy");
-
-
-            if (duedate == red)
+            if (isValidDate)
             {
-                thisBorder1.BorderBrush = new SolidColorBrush(Colors.Red);
+                
+                DateTime today = DateTime.Now.Date;
+                DateTime yellowDate = today.AddDays(1);
+
+                
+                if (dueDateValue.Date <= today) 
+                {
+                    thisBorder1.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF3A8A8")); // Red
+                }
+                else if (dueDateValue.Date == yellowDate)
+                {
+                    thisBorder1.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFE9EEAF")); // yellow
+                }
             }
-            else if (duedate == yellow)
+            else
             {
-                thisBorder1.BorderBrush = new SolidColorBrush(Colors.Yellow);
+                thisBorder1.BorderBrush = new SolidColorBrush(Colors.Gray); 
             }
+
             if (evenodd == 1)
             {
-                this.thisBorder1.Background = new SolidColorBrush(Colors.White);
+                thisBorder1.Background = new SolidColorBrush(Colors.White);
+            }
+            else
+            {
+                thisBorder1.Background = new SolidColorBrush(Colors.LightGray); 
             }
         }
+
+
     }
 }
