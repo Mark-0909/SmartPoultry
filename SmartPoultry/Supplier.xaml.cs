@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SmartPoultry.DataAccess;
 using SmartPoultry.DataServices;
+using SmartPoultry.Models;
 
 namespace SmartPoultry
 {
@@ -28,6 +29,7 @@ namespace SmartPoultry
             InitializeComponent();
             AppDbContext context = new AppDbContext();
             SupplierServices = new SupplierServices(context);
+            RetrieveSupplierList(SupplierServices);
         }
 
         private void AddSupplier_Click(object sender, RoutedEventArgs e)
@@ -38,7 +40,12 @@ namespace SmartPoultry
             string email = Email.Text;
             string address = Address.Text;
 
-            SupplierServices.Create(name,contactperson, phone, email, address);
+            bool success = SupplierServices.Create(name,contactperson, phone, email, address);
+
+            if (success)
+            {
+
+            }
         }
 
         private void EditSupplier_Click(object sender, RoutedEventArgs e)
@@ -49,6 +56,19 @@ namespace SmartPoultry
         private void DeleteSupplier_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        public void RetrieveSupplierList(SupplierServices supplierServices)
+        {
+            
+                List<SupplierList> supplierLists = supplierServices.ListSuppliers();
+            
+            foreach (SupplierList list in supplierLists)
+            {
+                Supplier_SupplierControl control = new Supplier_SupplierControl(list.Name, list.Contact_Person, list.Contact);
+                SupplierListPanel.Children.Add(control);
+            }
+           
         }
     }
 }

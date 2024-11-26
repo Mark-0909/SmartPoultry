@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,9 +21,14 @@ namespace SmartPoultry
     /// </summary>
     public partial class Supplier_SupplierControl : UserControl
     {
-        public Supplier_SupplierControl()
+        public Supplier_SupplierControl(string name, string contactperson, string contact)
         {
+
             InitializeComponent();
+
+            Name.Content = name;
+            ContactPerson.Content = contactperson;
+            ContactInfo.Content = contact;
         }
     }
 }

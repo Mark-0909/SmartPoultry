@@ -7,12 +7,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Width="1104" Height="582" Background="#FFE3E3E3">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="11*"/>
+            <RowDefinition Height="439*"/>
+        </Grid.RowDefinitions>
         <!-- Header Label -->
         <Label Content="SUPPLIER" HorizontalAlignment="Left" VerticalAlignment="Top"
-               FontSize="30" FontWeight="Bold" Margin="10,4,0,0"/>
+               FontSize="30" FontWeight="Bold" Margin="10,4,0,0" Grid.RowSpan="2"/>
 
         <!-- Main Layout Grid -->
-        <Grid Margin="10,50,10,10">
+        <Grid Margin="10,39,10,10" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <!-- Supplier List Column (Larger) -->
                 <ColumnDefinition Width="2*"/>
@@ -22,37 +26,31 @@
 
             <!-- Supplier List Panel -->
             <Border Grid.Column="0" Background="#FFF" Margin="0,0,10,0" Padding="10">
-                <Grid>
-                    <!-- Name and Supplier Information Labels -->
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    
-                    <Label Content="Name" FontWeight="Bold" FontSize="16" Grid.Column="0"/>
-                    <Label Content="Supplier Information" FontWeight="Bold" FontSize="16" Grid.Column="1" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-                </Grid>
+                <ScrollViewer HorizontalAlignment="Center" Height="354" Margin="0,26,0,0" VerticalAlignment="Top" Width="510" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
+                    <WrapPanel x:Name="SupplierListPanel" Width="510"/>
+                </ScrollViewer>
+
             </Border>
 
             <!-- Supplier Information Section -->
             <StackPanel Grid.Column="1" Margin="10">
                 <TextBlock Text="Supplier Information" FontSize="20" FontWeight="Bold" Margin="0,0,0,10"/>
-                
+
                 <TextBlock Text="Name:" FontWeight="Bold"/>
                 <TextBox x:Name="SupplierName" Margin="0,2,0,8"/>
-                
+
                 <TextBlock Text="Contact Person:" FontWeight="Bold"/>
                 <TextBox x:Name="ContactPerson" Margin="0,2,0,8"/>
-                
+
                 <TextBlock Text="Phone:" FontWeight="Bold"/>
                 <TextBox x:Name="Phone" Margin="0,2,0,8"/>
-                
+
                 <TextBlock Text="Email:" FontWeight="Bold"/>
                 <TextBox x:Name="Email" Margin="0,2,0,8"/>
-                
+
                 <TextBlock Text="Address:" FontWeight="Bold"/>
                 <TextBox x:Name="Address" Margin="0,2,0,8"/>
-                
+
                 <!-- Supplier Action Buttons -->
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                     <Button Content="Add Supplier" Click="AddSupplier_Click" Background="#FF66C265" Margin="0,0,10,0"/>
@@ -72,6 +70,9 @@
                 </DataGrid>
             </StackPanel>
         </Grid>
+        <Label HorizontalContentAlignment="Center" Content="NAME" HorizontalAlignment="Left" Height="32" Margin="14,44,0,0" VerticalAlignment="Top" Width="138" Grid.Row="1"/>
+        <Label HorizontalContentAlignment="Center" Content="CONTACT PERSON" HorizontalAlignment="Left" Height="28" Margin="199,44,0,0" VerticalAlignment="Top" Width="144" Grid.Row="1"/>
+        <Label HorizontalContentAlignment="Center" Content="CONTACT INFO" HorizontalAlignment="Left" Height="28" Margin="377,44,0,0" VerticalAlignment="Top" Width="144" Grid.Row="1"/>
     </Grid>
 </UserControl>
 

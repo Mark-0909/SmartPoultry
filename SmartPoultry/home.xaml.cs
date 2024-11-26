@@ -149,14 +149,14 @@ namespace SmartPoultry
                     float height = heightcalculation * 2.83465f;
                     iTextSharp.text.Rectangle pageSize = new iTextSharp.text.Rectangle(width, height);
 
-                    Document doc = new Document(pageSize, 3f, 3f, 3f, 3f);
+                    Document doc = new Document(pageSize, 0f, 0f, 0f, 0f);
                     PdfWriter writer = PdfWriter.GetInstance(doc, memoryStream);
                     writer.CloseStream = false;
 
                     doc.Open();
-                    Font font = new Font(Font.FontFamily.HELVETICA, 3f, Font.NORMAL);
-                    Font font2 = new Font(Font.FontFamily.HELVETICA, 2f, Font.NORMAL);
-                    Font font3 = new Font(Font.FontFamily.HELVETICA, 4f, Font.BOLD);
+                    Font font = new Font(Font.FontFamily.HELVETICA, 4f, Font.NORMAL);
+                    Font font2 = new Font(Font.FontFamily.HELVETICA, 3f, Font.NORMAL);
+                    Font font3 = new Font(Font.FontFamily.HELVETICA, 5f, Font.BOLD);
 
                     // Receipt header
                     doc.Add(new iTextSharp.text.Paragraph($"{sales.status.ToUpper()}", font3) { Alignment = Element.ALIGN_RIGHT });

@@ -40,5 +40,9 @@ namespace SmartPoultry.DataServices
                 return false;
             }
         }
+        public List<SupplierList> ListSuppliers()
+        {
+            return _context.SupplierLists.ToList();
+        }
     }
 }
