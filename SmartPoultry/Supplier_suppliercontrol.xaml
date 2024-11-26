@@ -7,30 +7,11 @@
              mc:Ignorable="d" 
              d:DesignHeight="100" d:DesignWidth="600" Width="600" Height="97">
     <Grid>
-        <Border CornerRadius="10" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Stretch" VerticalAlignment="Center" Background="White">
-            <!-- Grid to arrange the information from left to right -->
-            <Grid Margin="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <!-- Name -->
-                    <ColumnDefinition Width="*"/>
-                    <!-- Contact Person -->
-                    <ColumnDefinition Width="*"/>
-                    <!-- Phone -->
-                    <ColumnDefinition Width="*"/>
-                    <!-- Email -->
-                    <ColumnDefinition Width="*"/>
-                    <!-- Address -->
-                </Grid.ColumnDefinitions>
-
-                <!-- Supplier Data Binding (Change these to bind actual supplier data) -->
-                <TextBlock Text="{Binding SupplierName}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0"/>
-                <TextBlock Text="{Binding ContactPerson}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1"/>
-                <TextBlock Text="{Binding Phone}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="2"/>
-                <TextBlock Text="{Binding Email}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="3"/>
-                <TextBlock Text="{Binding Address}" VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="4"/>
-            </Grid>
+        <Border CornerRadius="10" BorderBrush="Black" BorderThickness="1" VerticalAlignment="Center" Background="White" Height="57">
+            <Label x:Name="ContactInfo"  Content="CONTACT INFO" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="458,0,0,0" Width="99"/>
         </Border>
+        <Label x:Name="Name" Content="NAME" HorizontalAlignment="Left" Margin="32,0,0,0" VerticalAlignment="Center" Width="59"/>
+        <Label x:Name="ContactPerson" Content="CONTACT PERSON" HorizontalAlignment="Center" VerticalAlignment="Center" Width="161"/>
     </Grid>
 </UserControl>
 
