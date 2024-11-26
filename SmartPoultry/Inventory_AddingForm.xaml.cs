@@ -24,6 +24,7 @@ namespace SmartPoultry
         public static string? stocksvar;
         public bool baseUnit = false;
         private string? selectedFilePath;
+        public bool isEditing = false;
 
         //lists
         public List<String> AnimalList = new List<String>();
@@ -33,12 +34,17 @@ namespace SmartPoultry
         public List<String> conversionlist = new List<String>();
 
         //database
+        public AppDbContext context;
         private readonly ProductServices productService;
         private readonly ProductVariationServices productVariationService;
+        readonly SupplierServices supplierServices;
         public Inventory_AddingForm()
         {
             InitializeComponent();
             SetRoundedCorners();
+            editBtn.Visibility = Visibility.Collapsed;
+            phaseoutBtn.Visibility = Visibility.Collapsed;
+            
             mainWindow.Opacity = 0.5;
 
             //set mainwindow in dim mode
@@ -46,17 +52,71 @@ namespace SmartPoultry
             stocklisting.Visibility = Visibility.Collapsed;
             this.Closed += (s, e) => mainWindow.Opacity = 1.0;
 
-            //database
-            var context = new AppDbContext();
+            context = new AppDbContext();
             productService = new ProductServices(context);
             productVariationService = new ProductVariationServices(context);
-        }
-        public Inventory_AddingForm(Products product) {
+            supplierServices = new SupplierServices(context);
 
+            
+            PopulateSupplierList();
+            SupplierCBox.SelectedItem = "-- Select a Supplier --";
+            windowName.Content = "ADD PRODUCT";
+        }
+
+
+        public Inventory_AddingForm(Products product)
+        {
             InitializeComponent();
-            ProductNameTextBox.Text = product.product_name;
+            windowName.Content = "PRODUCT DETAILS";
+            isEditing = true;
 
+            context = new AppDbContext();
+            productService = new ProductServices(context);
+            productVariationService = new ProductVariationServices(context);
+            supplierServices = new SupplierServices(context);
+
+            PopulateSupplierList();
+
+            SelectedImage.Height = SelectImageBtn.Height;
+            SelectedImage.Width = SelectImageBtn.Width;
+            BitmapImage bitmap = new BitmapImage(new Uri(product.image, UriKind.RelativeOrAbsolute));
+            SelectedImage.Source = bitmap;
+            stocklisting.Content = product.stocks.ToString();
+
+            stockunit.Content = productVariationService.GetBaseUnit(product.product_id);
+
+            
+            ProductNameTextBox.Text = product.product_name;
+            
+            var supplier = supplierServices.FindSupplier(product.supplier_id);
+            if (supplier != null)
+            {
+                SupplierCBox.SelectedItem = supplier.Name.ToString(); 
+            }
+            else
+            {
+                MessageBox.Show("Supplier not found for the given ID.");
+            }
         }
+
+
+        public void PopulateSupplierList()
+        {
+            
+            SupplierCBox.Items.Clear();
+
+            SupplierCBox.Items.Add("-- Select a Supplier --");
+
+
+            List <SupplierList> suppliers = supplierServices.ListSuppliers();
+
+            foreach (var supplier in suppliers)
+            {
+                SupplierCBox.Items.Add(supplier.Name); 
+            }
+        }
+
+
 
         public void UpdateBaseValueForAllInstances(string name, string price, string conversion, string stocks, int position)
         {
@@ -182,59 +242,67 @@ namespace SmartPoultry
         //database - save product
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            string animaltypelist = string.Join(",", AnimalList);
-            string producttypelist = string.Join(",", ProductTypeList);
-            decimal stocks;
-
-            if (!decimal.TryParse(stocklisting.Content.ToString(), out stocks))
+            if (!isEditing)
             {
-                MessageBox.Show("Invalid stock value. Please enter a numeric value.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
+                string animaltypelist = string.Join(",", AnimalList);
+                string producttypelist = string.Join(",", ProductTypeList);
+                decimal stocks;
 
-            
-            int id = productService.Create(ProductNameTextBox.Text, animaltypelist, producttypelist, 1, 1, stocks, "");
-
-            if (id == 0)
-            {
-                MessageBox.Show("Failed to save product.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            else
-            {
-                AddVariations(id);
-
-                
-                if (!string.IsNullOrEmpty(selectedFilePath))
+                if (!decimal.TryParse(stocklisting.Content.ToString(), out stocks))
                 {
-                    
-                    string destinationDirectory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Product_Images");
+                    MessageBox.Show("Invalid stock value. Please enter a numeric value.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
 
-                    // Create the directory if it doesn't exist
-                    if (!Directory.Exists(destinationDirectory))
+
+                int id = productService.Create(ProductNameTextBox.Text, animaltypelist, producttypelist, 1, 1, stocks, "");
+
+                if (id == 0)
+                {
+                    MessageBox.Show("Failed to save product.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                else
+                {
+                    AddVariations(id);
+
+
+                    if (!string.IsNullOrEmpty(selectedFilePath))
                     {
-                        Directory.CreateDirectory(destinationDirectory);
-                    }
 
-                    
-                    string destinationPath = System.IO.Path.Combine(destinationDirectory, $"{id}.jpg");
+                        string destinationDirectory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Product_Images");
 
-                    try
-                    {
-                        
-                        File.Copy(selectedFilePath, destinationPath, overwrite: true);
+                        // Create the directory if it doesn't exist
+                        if (!Directory.Exists(destinationDirectory))
+                        {
+                            Directory.CreateDirectory(destinationDirectory);
+                        }
 
-                        
-                        productService.UpdateImagePath(id, destinationPath);
 
-                        
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Failed to copy image: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        string destinationPath = System.IO.Path.Combine(destinationDirectory, $"{id}.jpg");
+
+                        try
+                        {
+
+                            File.Copy(selectedFilePath, destinationPath, overwrite: true);
+
+
+                            productService.UpdateImagePath(id, destinationPath);
+
+
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Failed to copy image: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        }
                     }
                 }
             }
+            else 
+            {
+                MessageBox.Show("SUbmit for edit.");
+            }
+            
         }
 
 
@@ -543,6 +611,9 @@ namespace SmartPoultry
             this.Background = Brushes.Transparent;
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
 
+        }
     }
 }

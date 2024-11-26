@@ -1,4 +1,5 @@
 ﻿using SmartPoultry.DataAccess;
+using SmartPoultry.DataServices;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+
 namespace SmartPoultry
 {
     /// <summary>
@@ -21,17 +23,52 @@ namespace SmartPoultry
     /// </summary>
     public partial class LoginPage : Window
     {
+        //database
+        public AppDbContext context = new AppDbContext();
+        UserServices userServices;
 
         public LoginPage()
         {
             InitializeComponent();
             CreateProductImagesFolder();
             var context = new AppDbContext();
-
             context.Database.EnsureCreated();
-                
+            userServices = new UserServices(context);
+            Initialization();
             
         }
+
+
+        public void Initialization()
+        {
+            
+            bool isPresent = userServices.IsThereAdmin();
+
+            if (isPresent)
+            {
+                createAccountControl.Visibility = Visibility.Hidden;
+                loginControl.Visibility = Visibility.Visible;
+                forgotControl.Visibility = Visibility.Hidden;
+
+                Panel.SetZIndex(createAccountControl, 0);
+                Panel.SetZIndex(loginControl, 1);
+                Panel.SetZIndex(forgotControl, 0);
+
+            }
+            else
+            {
+                createAccountControl.Visibility = Visibility.Visible;
+                loginControl.Visibility = Visibility.Hidden;
+                forgotControl.Visibility = Visibility.Hidden;
+
+                Panel.SetZIndex(createAccountControl, 1);
+                Panel.SetZIndex(loginControl, 0);
+                Panel.SetZIndex(forgotControl, 0);
+
+            }
+        }
+
+
         private void CreateProductImagesFolder()
         {
             
@@ -45,26 +82,13 @@ namespace SmartPoultry
             }
         }
 
-
-        private void LoginButton_Click(object sender, RoutedEventArgs e)
+        public void SuccessLogin()
         {
-            MainWindow mainWindow = new MainWindow();
-            Application.Current.MainWindow = mainWindow;
-            mainWindow.Show();
-
-           
             this.Close();
-
         }
+        
 
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
+        
 
-        }
-
-        private void TextBox_TextChanged_1(object sender, TextChangedEventArgs e)
-        {
-
-        }
     }
 }

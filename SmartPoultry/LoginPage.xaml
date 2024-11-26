@@ -5,16 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartPoultry"
         mc:Ignorable="d"
-        Title="LoginPage" Height="363" Width="423" WindowStartupLocation="CenterScreen">
-    <Grid>
-        <Button x:Name="LoginBtn" Content="LOGIN" HorizontalAlignment="Center" Margin="0,223,0,0" VerticalAlignment="Top" Height="73" Width="160" Click="LoginButton_Click" BorderBrush="White">
-            <Button.Effect>
-                <DropShadowEffect/>
-            </Button.Effect>
-        </Button>
-        <Image Margin="132,29,131,208" Source="/Images/smartpoultrylogin.png" Stretch="Fill"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,156,0,0" VerticalAlignment="Top" Width="160" TextChanged="TextBox_TextChanged" Text="Username"/>
-        <TextBox HorizontalAlignment="Center" Margin="0,191,0,0" TextWrapping="Wrap" Text="Password" VerticalAlignment="Top" Width="160" TextChanged="TextBox_TextChanged_1"/>
+        Title="LoginPage" Height="652" Width="942" WindowStartupLocation="CenterScreen">
+    <Grid Background="#FFC9C9C9">
+        <Image HorizontalAlignment="Left" Height="254" Margin="134,95,0,0" VerticalAlignment="Top" Width="268" Source="/Images/smartpoultrylogin.png"/>
+        <local:Login_CreateAccount x:Name="createAccountControl" HorizontalAlignment="Left" Margin="526,19,0,0" VerticalAlignment="Top"/>
+        <local:Login_ForgotPassword x:Name="forgotControl" HorizontalAlignment="Left" Margin="526,42,0,0" VerticalAlignment="Top"/>
+        <local:Login_LoginControl x:Name="loginControl" HorizontalAlignment="Left" Margin="526,123,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

@@ -14,6 +14,17 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+        public string GetBaseUnit(int id)
+        {
+            var variation = _context.ProductVariations
+                                    .FirstOrDefault(p => p.product_id == id && p.isBaseUnit);
+            if (variation == null)
+            {
+                return "Base unit not found"; 
+            }
+            return variation.variant_type.ToString();
+        }
+
         public ProductVariations GetProductVariationById(int id)
         {
             var var_row = _context.ProductVariations.FirstOrDefault(p => p.id == id);

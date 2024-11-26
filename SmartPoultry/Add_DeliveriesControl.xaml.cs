@@ -1,0 +1,65 @@
+﻿using SmartPoultry.Migrations;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+
+namespace SmartPoultry
+{
+    /// <summary>
+    /// Interaction logic for Add_DeliveriesControl.xaml
+    /// </summary>
+    public partial class Add_DeliveriesControl : UserControl
+    {
+        public Add_DeliveriesControl(int id, string name, string date, string status, int evenodd)
+        {
+            InitializeComponent();
+            NameLabel.Content = name;
+            Datelabel.Content = date;
+            StatusLabel.Content = status;
+
+            DateTime dateValue;
+            bool isValidDate = DateTime.TryParse(date, out dateValue);
+
+            if (isValidDate)
+            {
+                DateTime today = DateTime.Now.Date;
+                DateTime yellowDate = today.AddDays(1);
+
+                if (dateValue.Date <= today) 
+                {
+                    thisBorder.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF3A8A8")); // Red
+
+                }
+                else if (dateValue.Date == yellowDate) 
+                {
+                    thisBorder.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFE9EEAF")); // yellow
+                }
+            }
+            else
+            {
+                thisBorder.BorderBrush = new SolidColorBrush(Colors.Gray); 
+            }
+
+            if (evenodd == 1)
+            {
+                thisBorder.Background = new SolidColorBrush(Colors.White);
+            }
+            else
+            {
+                thisBorder.Background = new SolidColorBrush(Colors.LightGray);
+            }
+        }
+
+    }
+}

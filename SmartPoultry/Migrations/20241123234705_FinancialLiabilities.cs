@@ -18,6 +18,7 @@ namespace SmartPoultry.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     name = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    order_id = table.Column<long>(type: "INTEGER", nullable: false),
                     amount = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     type = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     status = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),

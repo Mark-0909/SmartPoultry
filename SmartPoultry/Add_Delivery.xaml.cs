@@ -14,6 +14,8 @@ namespace SmartPoultry
         DeliveriesServices deliveriesServices;
         public AppDbContext context = new AppDbContext();
 
+        public MainWindow? mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
+
         public long orderId = 0;
         public string type;
         public string mode;
@@ -22,12 +24,13 @@ namespace SmartPoultry
         public Add_Delivery()
         {
             InitializeComponent();
+            datePicker.SelectedDate = DateTime.Now;
             OrderIdTextBox.IsEnabled = false;
             toDeliverRadio.IsEnabled = false;
             toReceiveRadio.IsChecked = true;
             deliveriesServices = new DeliveriesServices(context);
-            
         }
+
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
@@ -64,6 +67,7 @@ namespace SmartPoultry
             if (added)
             {
                 MessageBox.Show("Successful!");
+                mainWindow.DynamicAddDeliveries();
                 this.Close();
             }
             else {

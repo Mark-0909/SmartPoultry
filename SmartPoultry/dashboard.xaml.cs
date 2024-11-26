@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.VisualBasic;
 using SmartPoultry.DataAccess;
 using SmartPoultry.DataServices;
 using SmartPoultry.Models;
@@ -24,19 +25,87 @@ namespace SmartPoultry
     public partial class dashboard : UserControl
     {
         readonly SalesServices salesServices;
+        readonly FinancialLiabilitiesServices financialLiabilities;
+        readonly DeliveriesServices deliveryServices;
         Add_FinancialLiabilities add_FinancialLiabilities;
         Add_Delivery Add_Delivery;
+
+
         public dashboard()
         {
             InitializeComponent();
             var context = new AppDbContext();
             salesServices = new SalesServices(context);
+            financialLiabilities = new FinancialLiabilitiesServices(context);
+            deliveryServices = new DeliveriesServices(context);
             DisplaySales();
+            DisplayFinancialLiabilities();
+            DisplayDeliveries();
         }
         public void DynamicOrderDisplay()
         {
             OrderListPanel.Children.Clear();
             DisplaySales();
+        }
+
+        public void DynamicReloadDeliveries()
+        {
+            DeliveriesPanel1.Children.Clear();
+            DisplayDeliveries();
+        }
+        public void DynamicReloadFinancialLiabilities()
+        {
+            FinancilaLiabilitiesPanel.Children.Clear();
+            DisplayFinancialLiabilities();
+        }
+        public void DisplayDeliveries()
+        {
+            int evenodd = 0;
+            List<Deliveries> deliveries = deliveryServices.GetList();
+
+            foreach (Deliveries deliver in deliveries) {
+                int id = deliver.Id;
+                string name = deliver.name;
+                string date = deliver.delivery_date.ToString("MM-dd-yyyy");
+                string status = deliver.delivery_status;
+
+                Add_DeliveriesControl control;
+                if (evenodd == 0)
+                {
+                    control = new Add_DeliveriesControl(id, name, date, status, 0);
+                    evenodd = 1;
+                }
+                else
+                {
+                    control = new Add_DeliveriesControl(id, name, date, status, 1);
+                    evenodd = 0;
+                }
+                DeliveriesPanel1.Children.Add(control);
+            }
+        }
+        public void DisplayFinancialLiabilities()
+        {
+            int evenodd = 0;
+            List<FinancialLiabilities> finance = financialLiabilities.GetList();
+            
+            foreach (FinancialLiabilities list in finance) { 
+                int id = list.Id;
+                string name = list.name;
+                string duedate = list.due_date.ToString("MM-dd-yyyy");
+                string amount = list.amount.ToString("N2");
+                Add_FinancialLiabilitiesControl control;
+                if (evenodd == 0)
+                {
+                    control = new Add_FinancialLiabilitiesControl(id, name, duedate, amount, 0);
+                    evenodd = 1;
+                }
+                else {
+                    control = new Add_FinancialLiabilitiesControl(id, name, duedate, amount, 1);
+                    evenodd = 0;
+                }
+                
+                FinancilaLiabilitiesPanel.Children.Add(control);
+            }
         }
         public void DisplaySales() {
             int evenodd = 0;

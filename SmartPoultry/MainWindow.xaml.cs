@@ -20,6 +20,14 @@ namespace SmartPoultry
         {
             InitializeComponent();
         }
+        public void DynamicAddDeliveries()
+        {
+            dashboardControl.DynamicReloadDeliveries();
+        }
+        public void DynamicAddFinance()
+        {
+            dashboardControl.DynamicReloadFinancialLiabilities();
+        }
         public void DynamicAddOrder()
         {
             dashboardControl.DynamicOrderDisplay();
@@ -171,6 +179,16 @@ namespace SmartPoultry
             icon.Source = new BitmapImage(new Uri(imagesource, UriKind.RelativeOrAbsolute));
         }
 
-        
+        private void LogoutBtn_Clicked(object sender, RoutedEventArgs e)
+        {
+            var result = MessageBox.Show("Are you sure you want to log out?", "Confirm Logout", MessageBoxButton.YesNo);
+            if (result == MessageBoxResult.Yes)
+            {
+               
+                LoginPage loginWindow = new LoginPage();
+                loginWindow.Show();
+                this.Close();
+            }
+        }
     }
 }

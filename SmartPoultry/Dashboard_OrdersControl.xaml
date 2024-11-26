@@ -8,7 +8,7 @@
              d:DesignHeight="55" d:DesignWidth="327" Width="327" Height="55" Background="Transparent" Margin="7 0 0 7">
     <Grid>
         <Border x:Name="thisBorder" CornerRadius="10
-                " BorderBrush="White" Background="#FFDBDBDB" BorderThickness="1" HorizontalAlignment="Center" Height="55" VerticalAlignment="Center" Width="327">
+                " BorderBrush="#FFF8F8F8" Background="#FFDBDBDB" BorderThickness="1" HorizontalAlignment="Center" Height="55" VerticalAlignment="Center" Width="327">
             <Label x:Name="ReferenceIdlabel" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="00000000000" HorizontalAlignment="Left" Height="55" Margin="37,0,0,0" VerticalAlignment="Center" Width="83"/>
         </Border>
         <Label x:Name="Modelabel" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="GCash" HorizontalAlignment="Left" Height="55" Margin="125,0,0,0" VerticalAlignment="Center" Width="57" FontSize="13"/>

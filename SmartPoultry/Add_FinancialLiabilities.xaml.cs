@@ -25,12 +25,17 @@ namespace SmartPoultry
         FinancialLiabilitiesServices financialLiabilitiesServices;
         public string mode;
         public string type;
+        public long orderid;
+
+        public MainWindow? mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
         public Add_FinancialLiabilities()
         {
             InitializeComponent();
             AppDbContext context = new AppDbContext();
             financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
-            datePicker.SelectedDate = DateTime.Now;
+            datePicker.SelectedDate = DateTime.Now.AddDays(14);
+            OrderIDTextBox.IsEnabled = false;
+            orderid = 0;
         }
         public void DatePicker_Loaded(object sender, RoutedEventArgs e)
         {
@@ -47,7 +52,7 @@ namespace SmartPoultry
 
         private void ToReceive_IsChecked(object sender, RoutedEventArgs e)
         {
-            type = "To Receieve";
+            type = "To Receive";
         }
 
         private void Cash_IsChecked(object sender, RoutedEventArgs e)
@@ -67,11 +72,12 @@ namespace SmartPoultry
             DateTime dueDate = DateTime.Parse(datePicker.Text);
             string contacts = ContactsTextBox.Text;
 
-            bool createNewSched = financialLiabilitiesServices.Create(name, price, type, mode, dueDate, contacts);
+            bool createNewSched = financialLiabilitiesServices.Create(name, orderid, price, type, mode, dueDate, contacts);
             if (!createNewSched) {
                 MessageBox.Show("Not Created");
             }
             MessageBox.Show("Success");
+            mainWindow.DynamicAddFinance();
             this.Close();
         }
     }

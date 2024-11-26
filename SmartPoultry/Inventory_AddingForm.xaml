@@ -53,9 +53,9 @@
                 <Button Content="Button" Margin="534,9,9,9" Click="CloseAddPopup_Click"/>
             </Border>
         </Border>
-        <Label Content="ADD PRODUCT" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" Width="180" Height="41" Foreground="White" FontStretch="SemiExpanded" Margin="0,-5,0,0"/>
+        <Label x:Name="windowName" HorizontalContentAlignment="Center"  Content="ADD PRODUCT" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" Width="262" Height="41" Foreground="White" FontStretch="SemiExpanded" Margin="0,-5,0,0"/>
         <Border CornerRadius="10" BorderThickness="1" Margin="32,70,396,445" Background="White" BorderBrush="#FFD8D8D8">
-            <Button Style="{StaticResource NoHoverButton}" x:Name="SelectImageBtn" Click="SelectImage_Click" Margin="9,9,9,9" Background="White" BorderBrush="#FFE4E1E1">
+            <Button  Style="{StaticResource NoHoverButton}" x:Name="SelectImageBtn" Click="SelectImage_Click" Margin="9,9,9,9" Background="White" BorderBrush="#FFE4E1E1">
                 <Image x:Name="SelectedImage" Height="72" Width="70" Source="/Images/clipicon.png"/>
             </Button>
         </Border>
@@ -192,7 +192,7 @@
 
         <Border CornerRadius="10" BorderBrush="#FFDDDDDD" BorderThickness="1" Margin="252,209,27,466" Background="White" Height="46">
 
-            <ComboBox Margin="9,5,9,5" Background="Transparent" BorderBrush="Transparent">
+            <ComboBox x:Name="SupplierCBox"  Margin="9,5,9,5" Background="Transparent" BorderBrush="Transparent">
                 <ComboBox.Style>
                     <Style TargetType="ComboBox">
                         <Setter Property="Template">
@@ -334,6 +334,8 @@
         <Label Content="Stocks: " HorizontalAlignment="Left" Margin="20,636,0,0" VerticalAlignment="Top" FontSize="15"/>
         <Label x:Name="stocklisting" Content="stocks " HorizontalAlignment="Left" Margin="111,636,0,0" VerticalAlignment="Top" FontSize="15"/>
         <Label x:Name="stockunit" Content="stocks " HorizontalAlignment="Left" Margin="175,636,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Button x:Name="editBtn"  Content="edit" HorizontalAlignment="Left" Height="30" Margin="474,654,0,0" VerticalAlignment="Top" Width="66"/>
+        <Button x:Name="phaseoutBtn"  Content="phaseout" HorizontalAlignment="Left" Height="30" Margin="546,651,0,0" VerticalAlignment="Top" Width="68" Click="Button_Click"/>
 
 
 
