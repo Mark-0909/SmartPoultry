@@ -75,5 +75,52 @@ namespace SmartPoultry
         {
             loginWindow.ChangeControl("forgot");
         }
+
+        private void UserName_GotFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(usernameTB, "Enter Username...", true);
+        }
+        private void UserName_LostFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(usernameTB, "Enter Username...", false);
+        }
+        public void HandleTextBoxPlaceholder(TextBox tb, string placeholder, bool isFocused)
+        {
+            if (isFocused) 
+            {
+                if (tb.Text == placeholder)
+                {
+                    tb.Text = string.Empty;
+                    tb.Foreground = Brushes.Black; 
+                }
+            }
+            else // When the TextBox loses focus
+            {
+                if (string.IsNullOrWhiteSpace(tb.Text))
+                {
+                    tb.Text = placeholder;
+                    tb.Foreground = Brushes.Gray; 
+                }
+            }
+        }
+
+        public void PassOverTB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            passwordoverTB.Visibility = Visibility.Hidden;
+            passwordTB.Focus();
+        }
+
+        public void PassTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(passwordTB.Password))
+            {
+                passwordoverTB.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                passwordoverTB.Visibility = Visibility.Hidden;
+            }
+        }
+
     }
 }
