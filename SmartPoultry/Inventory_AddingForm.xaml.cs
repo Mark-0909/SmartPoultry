@@ -284,7 +284,7 @@ namespace SmartPoultry
 
                         string destinationDirectory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Product_Images");
 
-                        // Create the directory if it doesn't exist
+                        // Create the directory if it doesnt exist
                         if (!Directory.Exists(destinationDirectory))
                         {
                             Directory.CreateDirectory(destinationDirectory);
@@ -301,7 +301,7 @@ namespace SmartPoultry
 
                             productService.UpdateImagePath(id, destinationPath);
 
-
+                            mainWindow.DynamicReload();
                         }
                         catch (Exception ex)
                         {
@@ -336,7 +336,7 @@ namespace SmartPoultry
                     }
 
                 }
-                mainWindow.DynamicReload();
+                
                 
                 this.Close();
             }

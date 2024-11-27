@@ -40,6 +40,22 @@ namespace SmartPoultry
             string username = usernameTB.Text;
             string password = passwordTB.Password;
 
+            if (string.IsNullOrWhiteSpace(username) || username == "Enter Username...")
+            {
+                MessageBox.Show("Please enter a username.");
+                return;
+            }
+            else if (string.IsNullOrWhiteSpace(password))
+            {
+                MessageBox.Show("Please enter a password.");
+                return;
+            }
+            else if (username == "Enter Username..." && string.IsNullOrWhiteSpace(password))
+            {
+                MessageBox.Show("Form is empty.");
+                return;
+            }
+
             try
             {
                 bool isVerified = userServices.LoginVerification(username, password);

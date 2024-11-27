@@ -5,21 +5,6 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
              mc:Ignorable="d" Width="390" Height="318">
-    <UserControl.Resources>
-        <!-- Custom Style for TextBox -->
-        <Style x:Key="NoFocusBorderTextBox" TargetType="TextBox">
-            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-            <Setter Property="BorderBrush" Value="Gray" />
-            <Setter Property="BorderThickness" Value="1" />
-            <Setter Property="Padding" Value="5" />
-            <Style.Triggers>
-                <!-- Remove border on focus -->
-                <Trigger Property="IsFocused" Value="True">
-                    <Setter Property="BorderBrush" Value="Transparent" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </UserControl.Resources>
     <Grid>
         <Border CornerRadius="10" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Height="318" VerticalAlignment="Center" Width="390" Background="#FF9AB989"/>
         <Button HorizontalContentAlignment="Left" Content="Create Account" HorizontalAlignment="Left" Height="19" Margin="53,212,0,0" VerticalAlignment="Top" Width="100" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Click="CreateAccount_Clicked"/>
