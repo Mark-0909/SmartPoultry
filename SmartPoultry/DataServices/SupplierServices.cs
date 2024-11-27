@@ -15,6 +15,18 @@ namespace SmartPoultry.DataServices
         public SupplierServices(AppDbContext context) { 
             _context = context;
         }
+        public int FindSupplierByName(string name)
+        {
+            try
+            {
+                int supplierId = _context.SupplierLists.Take(1).FirstOrDefault(p => p.Name == name).Id;
+                return supplierId;
+            }
+            catch (Exception ex) { 
+                return -1;
+            }
+            
+        }
         public List<SupplierList> ListSuppliers()
         {
             try

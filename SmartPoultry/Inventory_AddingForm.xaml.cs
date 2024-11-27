@@ -257,8 +257,8 @@ namespace SmartPoultry
                     return;
                 }
 
-
-                int id = productService.Create(ProductNameTextBox.Text, animaltypelist, producttypelist, 1, 1, stocks, "");
+                int supplierid = supplierServices.FindSupplierByName(SupplierCBox.Text);
+                int id = productService.Create(ProductNameTextBox.Text, animaltypelist, producttypelist, 1, supplierid, stocks, "");
 
                 if (id == 0)
                 {
