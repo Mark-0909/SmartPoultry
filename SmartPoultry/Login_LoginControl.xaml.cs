@@ -66,10 +66,14 @@ namespace SmartPoultry
             }
         }
 
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void CreateAccount_Clicked(object sender, RoutedEventArgs e)
         {
+            loginWindow.ChangeControl("create");
+        }
 
+        private void ForgotPass_Clicked(object sender, RoutedEventArgs e)
+        {
+            loginWindow.ChangeControl("forgot");
         }
     }
 }

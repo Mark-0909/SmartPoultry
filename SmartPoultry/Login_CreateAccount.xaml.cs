@@ -29,7 +29,10 @@ namespace SmartPoultry
             InitializeComponent();
             userServices = new UserServices(context);
         }
-
+        public void Changelabel()
+        {
+            Controllabel.Content = "CREATE ACCOUNT";
+        }
         private void Submit_Clicked(object sender, RoutedEventArgs e)
         {
             string role = "admin";

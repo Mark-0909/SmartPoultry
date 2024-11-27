@@ -7,8 +7,8 @@
              mc:Ignorable="d" Width="390" Height="318">
     <Grid>
         <Border CornerRadius="10" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Height="318" VerticalAlignment="Center" Width="390" Background="#FF9AB989"/>
-        <Button HorizontalContentAlignment="Left" Content="Create Account" HorizontalAlignment="Left" Height="19" Margin="53,212,0,0" VerticalAlignment="Top" Width="100" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold"/>
-        <Button HorizontalContentAlignment="Right" Content="Forgot Password?" HorizontalAlignment="Left" Height="19" Margin="225,212,0,0" VerticalAlignment="Top" Width="111" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Click="Button_Click"/>
+        <Button HorizontalContentAlignment="Left" Content="Create Account" HorizontalAlignment="Left" Height="19" Margin="53,212,0,0" VerticalAlignment="Top" Width="100" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Click="CreateAccount_Clicked"/>
+        <Button HorizontalContentAlignment="Right" Content="Forgot Password?" HorizontalAlignment="Left" Height="19" Margin="225,212,0,0" VerticalAlignment="Top" Width="111" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Click="ForgotPass_Clicked"/>
         <Label Content="Username: " HorizontalAlignment="Left" Height="26" Margin="54,80,0,0" VerticalAlignment="Top" Width="132" FontSize="15"/>
         <Label Content="Password: " HorizontalAlignment="Left" Height="26" Margin="54,149,0,0" VerticalAlignment="Top" Width="144" FontSize="15"/>
         <Button Click="Submit_Clicked" x:Name="SubmitBtn" Content="LOGIN" HorizontalAlignment="Center" Height="34" Margin="0,249,0,0" VerticalAlignment="Top" Width="282" FontWeight="Bold"/>

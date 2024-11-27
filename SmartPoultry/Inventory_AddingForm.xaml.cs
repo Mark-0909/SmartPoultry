@@ -58,7 +58,7 @@ namespace SmartPoultry
             supplierServices = new SupplierServices(context);
 
             
-            PopulateSupplierList();
+            PopulateSupplierList("add");
             SupplierCBox.SelectedItem = "-- Select a Supplier --";
             windowName.Content = "ADD PRODUCT";
         }
@@ -75,7 +75,7 @@ namespace SmartPoultry
             productVariationService = new ProductVariationServices(context);
             supplierServices = new SupplierServices(context);
 
-            PopulateSupplierList();
+            PopulateSupplierList("edit");
 
             SelectedImage.Height = SelectImageBtn.Height;
             SelectedImage.Width = SelectImageBtn.Width;
@@ -100,14 +100,15 @@ namespace SmartPoultry
         }
 
 
-        public void PopulateSupplierList()
+        public void PopulateSupplierList(string mode)
         {
             
             SupplierCBox.Items.Clear();
 
-            SupplierCBox.Items.Add("-- Select a Supplier --");
-
-
+            if (mode != "edit")
+            {
+                SupplierCBox.Items.Add("-- Select a Supplier --");
+            }
             List <SupplierList> suppliers = supplierServices.ListSuppliers();
 
             foreach (var supplier in suppliers)

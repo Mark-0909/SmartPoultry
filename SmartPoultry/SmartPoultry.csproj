@@ -15,6 +15,7 @@
     <None Remove="exiticon.png" />
     <None Remove="greenlogo.png" />
     <None Remove="Images\addbaseunit.png" />
+    <None Remove="Images\addicon.png" />
     <None Remove="Images\addorder.png" />
     <None Remove="Images\addvariant.png" />
     <None Remove="Images\blacklogo.png" />
@@ -62,6 +63,7 @@
     <Resource Include="exiticon.png" />
     <Resource Include="greenlogo.png" />
     <Resource Include="Images\addbaseunit.png" />
+    <Resource Include="Images\addicon.png" />
     <Resource Include="Images\addorder.png" />
     <Resource Include="Images\addvariant.png" />
     <Resource Include="Images\blacklogo.png" />
