@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
              mc:Ignorable="d" 
-             d:DesignHeight="747" d:DesignWidth="1357" Background="#FFE3E3E3" Width="1357" Height="747">
+             d:DesignHeight="577" d:DesignWidth="1104" Background="#FFE3E3E3" Width="1104" Height="577">
     <Grid>
         <Label Content="RECORDS" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Margin="10,4,0,0"/>
     </Grid>

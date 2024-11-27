@@ -15,7 +15,21 @@
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
-        <local:Supplier x:Name="supplierControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,92,0,0" VerticalAlignment="Top"/>
+        <local:dashboard x:Name="dashboardControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Width="1123" Height="603"/>
+
+
+
+
+
+
+        <local:home x:Name="homeControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123"/>
+
+
+
+
+
+
+        <local:Supplier x:Name="supplierControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,92,0,0" VerticalAlignment="Top" Height="598" Width="1113"/>
 
 
 
@@ -31,20 +45,6 @@
 
 
         <local:inventory x:Name="inventoryControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123"/>
-
-
-
-
-
-
-        <local:dashboard x:Name="dashboardControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Width="1123" Height="603"/>
-
-
-
-
-
-
-        <local:home x:Name="homeControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123"/>
 
 
 
@@ -257,7 +257,7 @@
             <Image x:Name="supplierIcon" Height="59" Width="59" Source="/Images/suppliergrey.png"/>
         </Button>
         <Button x:Name="LogoutBtn" Click="LogoutBtn_Clicked" Grid.Column="2" HorizontalAlignment="Left" Height="44" Margin="291,27,0,0" VerticalAlignment="Top" Width="48" Background="Transparent" BorderBrush="Transparent">
-            <Image Height="38" Width="45" Source="/Images/logouticon.png"/>
+            <Image Height="38" Width="45" Source="/logouticon.png"/>
         </Button>
 
 

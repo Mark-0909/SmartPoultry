@@ -13,6 +13,7 @@ using SmartPoultry.DataServices;
 using SmartPoultry.DataAccess;
 using System.IO;
 using SmartPoultry.Models;
+using static SmartPoultry.App;
 
 namespace SmartPoultry
 {
@@ -40,6 +41,7 @@ namespace SmartPoultry
         private readonly ProductServices productService;
         private readonly ProductVariationServices productVariationService;
         readonly SupplierServices supplierServices;
+        readonly UserServices userServices;
         public Inventory_AddingForm()
         {
             InitializeComponent();
@@ -58,6 +60,7 @@ namespace SmartPoultry
             productService = new ProductServices(context);
             productVariationService = new ProductVariationServices(context);
             supplierServices = new SupplierServices(context);
+            userServices = new UserServices(context);
 
             
             PopulateSupplierList("add");
@@ -258,7 +261,13 @@ namespace SmartPoultry
                 }
 
                 int supplierid = supplierServices.FindSupplierByName(SupplierCBox.Text);
-                int id = productService.Create(ProductNameTextBox.Text, animaltypelist, producttypelist, 1, supplierid, stocks, "");
+                int employeeId = UserContext.CurrentUserId;
+
+
+
+
+
+                int id = productService.Create(ProductNameTextBox.Text, animaltypelist, producttypelist, employeeId, supplierid, stocks, "");
 
                 if (id == 0)
                 {

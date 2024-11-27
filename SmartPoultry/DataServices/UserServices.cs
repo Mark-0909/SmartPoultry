@@ -4,17 +4,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
+using static SmartPoultry.App;
 
 namespace SmartPoultry.DataServices
 {
     public class UserServices
     {
         private readonly AppDbContext _context;
+        private App app;
+        
 
         public UserServices(AppDbContext context)
         {
             _context = context;
         }
+        public int getUserID()
+        {
+            return 1;
+        } 
 
         public bool LoginVerification(string username, string password)
         {
@@ -31,7 +38,8 @@ namespace SmartPoultry.DataServices
                 return false;
             }
 
-            return true;
+            UserContext.CurrentUserId = user.Id;
+            return true;        
         }
 
         public bool IsThereAdmin()
