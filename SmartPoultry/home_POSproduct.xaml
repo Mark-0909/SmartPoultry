@@ -47,7 +47,7 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <Border CornerRadius="10" BorderBrush="#FF73CF6E" BorderThickness="2" Background="White">
+        <Border CornerRadius="10" BorderBrush="#FFA4A4A4" BorderThickness="2" Background="White">
             <Border CornerRadius="5" BorderBrush="#FFC9C6C6" BorderThickness="1" Margin="9,9,9,84">
                 <Image x:Name="Productimage"/>
             </Border>

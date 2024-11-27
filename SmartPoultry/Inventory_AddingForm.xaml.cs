@@ -19,7 +19,9 @@ namespace SmartPoultry
     public partial class Inventory_AddingForm : Window
     {
         //variables
-        public MainWindow? mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
+        MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+
+
         public static string baseUnitValue = "";
         public static string? stocksvar;
         public bool baseUnit = false;

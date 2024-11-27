@@ -30,7 +30,8 @@ namespace SmartPoultry
     /// </summary>
     public partial class home : UserControl
     {
-        public MainWindow? mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
+        
+
         public SalesServices salesServices;
         public ProductServices productServices;
         public ProductVariationServices productvariationsServices;
@@ -106,7 +107,18 @@ namespace SmartPoultry
                 VarSpecification.Clear();
                 ProductnameList.Clear();
 
-                DisplayReceipt(addingSales, salesServices, context, mainWindow);
+                DisplayReceipt(addingSales, salesServices, context);
+
+                MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
+
+                if (mainWindow != null)
+                {
+                    mainWindow.DynamicAddOrder();
+                }
+                else
+                {
+                    MessageBox.Show("Unable to access the MainWindow.");
+                }
             }
             else
             {
@@ -116,7 +128,7 @@ namespace SmartPoultry
 
 
 
-        public static void DisplayReceipt(int salesid, SalesServices salesServices, AppDbContext context, MainWindow window)
+        public static void DisplayReceipt(int salesid, SalesServices salesServices, AppDbContext context)
         {
             try
             {
@@ -139,7 +151,7 @@ namespace SmartPoultry
                 List<string> originalprice = new List<string>();
                 List<string> totalPrices = new List<string>();
 
-                float heightcalculation = 57 + (3 * itemid.Count);
+                float heightcalculation = 59 + (3 * itemid.Count);
 
                 using (MemoryStream memoryStream = new MemoryStream())
                 {
@@ -147,7 +159,7 @@ namespace SmartPoultry
                     float height = heightcalculation * 2.83465f;
                     iTextSharp.text.Rectangle pageSize = new iTextSharp.text.Rectangle(width, height);
 
-                    Document doc = new Document(pageSize, 3f, 3f, 3f, 3f);
+                    Document doc = new Document(pageSize, 5f, 5f, 5f, 5f);
                     PdfWriter writer = PdfWriter.GetInstance(doc, memoryStream);
                     writer.CloseStream = false;
 
@@ -181,12 +193,12 @@ namespace SmartPoultry
                     doc.Add(new iTextSharp.text.Paragraph($"Palo Alto, Calamba, Laguna Philippines", font2) { Alignment = Element.ALIGN_CENTER });
                     doc.Add(new iTextSharp.text.Paragraph($"+63 1234567890", font2) { Alignment = Element.ALIGN_CENTER });
                     doc.Add(new iTextSharp.text.Paragraph($"gabmigspoultrysupplies@gmail.com", font2) { Alignment = Element.ALIGN_CENTER });
-                    doc.Add(new iTextSharp.text.Paragraph("-----------------------------------------------------------", font));
+                    doc.Add(new iTextSharp.text.Paragraph("--------------------------------------------------------", font));
 
                     doc.Add(new iTextSharp.text.Paragraph($"Order ID: {sales.receipt_id}", font));
                     doc.Add(new iTextSharp.text.Paragraph($"Cashier: ", font));
                     doc.Add(new iTextSharp.text.Paragraph($"Payment Mode: {sales.payment_mode.ToUpper()}", font));
-                    doc.Add(new iTextSharp.text.Paragraph("-----------------------------------------------------------", font));
+                    doc.Add(new iTextSharp.text.Paragraph("--------------------------------------------------------", font));
                     // Generate receipt items
                     for (int i = 0; i < itemid.Count; i++)
                     {
@@ -248,7 +260,7 @@ namespace SmartPoultry
                     doc.Add(new iTextSharp.text.Paragraph($"Date: {DateTime.Now:yyyy-MM-dd}", font));
                     doc.Add(new iTextSharp.text.Paragraph($"Purchase Method: {sales.purchase_method.ToUpper()}", font));
 
-                    doc.Add(new iTextSharp.text.Paragraph("-----------------------------------------------------------", font));
+                    doc.Add(new iTextSharp.text.Paragraph("--------------------------------------------------------", font));
 
                     var thanksParagraph2 = new iTextSharp.text.Paragraph($"Thank you! Please come again!", font2);
                     thanksParagraph2.Alignment = Element.ALIGN_CENTER;
@@ -297,8 +309,8 @@ namespace SmartPoultry
                     });
                     
                 }
-                window.DynamicAddOrder();
                 
+
             }
             catch (Exception e)
             {
