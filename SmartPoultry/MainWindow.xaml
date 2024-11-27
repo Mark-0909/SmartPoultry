@@ -15,25 +15,17 @@
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
-        <local:dashboard x:Name="dashboardControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Width="1123" Height="603"/>
-
-
-
-
-
-
-        <local:home x:Name="homeControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123"/>
-
-
-
-
-
-
         <local:Supplier x:Name="supplierControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,92,0,0" VerticalAlignment="Top" Height="598" Width="1113"/>
 
 
 
-        <local:Organization x:Name="organizationControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top"/>
+
+
+
+        <local:Organization x:Name="organizationControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123"/>
+
+
+
 
 
 
@@ -45,6 +37,20 @@
 
 
         <local:inventory x:Name="inventoryControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123"/>
+
+
+
+
+
+
+        <local:dashboard x:Name="dashboardControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Width="1123" Height="603"/>
+
+
+
+
+
+
+        <local:home x:Name="homeControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123"/>
 
 
 
