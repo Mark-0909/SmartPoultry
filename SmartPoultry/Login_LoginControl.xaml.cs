@@ -94,7 +94,7 @@ namespace SmartPoultry
 
         private void UserName_GotFocus(object sender, RoutedEventArgs e)
         {
-            HandleTextBoxPlaceholder(usernameTB, "Enter Username...", true);
+            HandleTextBoxPlaceholder(usernameTB, usernameTB.Text.ToString(), true);
         }
         private void UserName_LostFocus(object sender, RoutedEventArgs e)
         {

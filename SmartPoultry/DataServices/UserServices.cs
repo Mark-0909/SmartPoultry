@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
 using static SmartPoultry.App;
+using iTextSharp.text.pdf.parser.clipper;
 
 namespace SmartPoultry.DataServices
 {
@@ -18,10 +19,51 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
-        public int getUserID()
+
+        public bool UpdatePassword(string username, string password)
         {
-            return 1;
-        } 
+            User user = _context.Users.FirstOrDefault(p => p.Username == username);
+            if (user == null) 
+            {
+                return false;
+            }
+
+            string hashnewpass = HashValue(password);
+            user.Password = hashnewpass; 
+            _context.SaveChanges(); 
+            return true;
+        }
+
+        public bool ForgotPassVerification(string username, int question, string answer)
+        {
+            User user = _context.Users.FirstOrDefault(p => p.Username == username);
+            if (user == null)
+            {
+                return false; 
+            }
+
+            string hashanswer = HashValue(answer);
+
+            switch (question)
+            {
+                case 1:
+                    if (hashanswer != user.Q1) return false;
+                    break;
+                case 2:
+                    if (hashanswer != user.Q2) return false;
+                    break;
+                case 3:
+                    if (hashanswer != user.Q3) return false;
+                    break;
+                default:
+                    return false; 
+            }
+
+            return true;
+        }
+
+
+
 
         public bool LoginVerification(string username, string password)
         {
