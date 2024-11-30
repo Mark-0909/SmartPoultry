@@ -26,7 +26,7 @@ namespace SmartPoultry
         public AppDbContext context = new AppDbContext();
         public int randomindex;
         string[] questions = {"First Pet's Name?","Favorite Color?","Favorite Book or Movie?"};
-
+        public LoginPage? loginWindow = Application.Current.Windows.OfType<LoginPage>().FirstOrDefault();
         public Login_ForgotPassword()
         {
             InitializeComponent();
@@ -164,7 +164,7 @@ namespace SmartPoultry
 
         private void ChangeControl_Click(object sender, RoutedEventArgs e)
         {
-
+            loginWindow.ChangeControl("login");
         }
     }
 }

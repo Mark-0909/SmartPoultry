@@ -36,6 +36,7 @@ namespace SmartPoultry
         }
         private void Submit_Clicked(object sender, RoutedEventArgs e)
         {
+            
             string role = "admin";
             if (userServices.IsThereAdmin())
             {

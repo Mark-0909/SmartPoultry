@@ -6,15 +6,15 @@
              xmlns:local="clr-namespace:SmartPoultry"
              mc:Ignorable="d" Width="390" Height="318">
     <Grid>
-        <Border CornerRadius="10" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Height="318" VerticalAlignment="Center" Width="390" Background="#FF9AB989"/>
-        <Button HorizontalContentAlignment="Left" Content="Create Account" HorizontalAlignment="Left" Height="19" Margin="53,212,0,0" VerticalAlignment="Top" Width="100" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Click="CreateAccount_Clicked"/>
-        <Button HorizontalContentAlignment="Right" Content="Forgot Password?" HorizontalAlignment="Left" Height="19" Margin="225,212,0,0" VerticalAlignment="Top" Width="111" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Click="ForgotPass_Clicked"/>
-        <Label Content="Username: " HorizontalAlignment="Left" Height="26" Margin="54,80,0,0" VerticalAlignment="Top" Width="132" FontSize="15"/>
-        <Label Content="Password: " HorizontalAlignment="Left" Height="26" Margin="54,149,0,0" VerticalAlignment="Top" Width="144" FontSize="15"/>
-        <Button Click="Submit_Clicked" x:Name="SubmitBtn" Content="LOGIN" HorizontalAlignment="Center" Height="34" Margin="0,249,0,0" VerticalAlignment="Top" Width="282" FontWeight="Bold"/>
-        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="LOGIN" HorizontalAlignment="Center" Height="43" Margin="0,10,0,0" VerticalAlignment="Top" Width="390" FontSize="30" FontWeight="Bold"/>
-        <Border CornerRadius="5                 " BorderBrush="DarkGray" BorderThickness="1" HorizontalAlignment="Center" Height="33" Margin="0,111,0,0" VerticalAlignment="Top" Width="282" Background="White">
-            <TextBox x:Name="usernameTB" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="25" TextWrapping="Wrap" Text="Enter Username..." VerticalAlignment="Center" Width="268" Padding="1" Background="Transparent" BorderBrush="Transparent" FontSize="14" GotFocus="UserName_GotFocus" LostFocus="UserName_LostFocus" Foreground="Gray" >
+        <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Center" Height="318" VerticalAlignment="Center" Width="390" Background="White"/>
+        <Button HorizontalContentAlignment="Left" Content="Create Account" HorizontalAlignment="Left" Height="19" Margin="31,218,0,0" VerticalAlignment="Top" Width="100" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Click="CreateAccount_Clicked" Foreground="#FF5C5C5C"/>
+        <Button HorizontalContentAlignment="Right" Content="Forgot Password?" HorizontalAlignment="Left" Height="19" Margin="243,218,0,0" VerticalAlignment="Top" Width="111" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Click="ForgotPass_Clicked" Foreground="#FF5C5C5C"/>
+        <Label Content="Username: " HorizontalAlignment="Left" Height="26" Margin="34,80,0,0" VerticalAlignment="Top" Width="132" FontSize="15" Foreground="#FF5C5C5C"/>
+        <Label Content="Password: " HorizontalAlignment="Left" Height="26" Margin="34,149,0,0" VerticalAlignment="Top" Width="144" FontSize="15" Foreground="#FF5C5C5C"/>
+        <Button Click="Submit_Clicked" x:Name="SubmitBtn" Content="LOGIN" HorizontalAlignment="Center" Height="34" Margin="0,255,0,0" VerticalAlignment="Top" Width="282" FontWeight="Bold" Background="#FF7BC977" BorderBrush="#FF7BC977" Foreground="White"/>
+        <Label HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Content="LOGIN" HorizontalAlignment="Left" Height="43" Margin="31,11,0,0" VerticalAlignment="Top" Width="356" FontSize="30" FontWeight="Bold" Foreground="Black"/>
+        <Border CornerRadius="5                 " BorderBrush="DarkGray" BorderThickness="1" HorizontalAlignment="Center" Height="33" Margin="0,111,0,0" VerticalAlignment="Top" Width="328" Background="White">
+            <TextBox x:Name="usernameTB" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="25" TextWrapping="Wrap" Text="Enter Username..." VerticalAlignment="Center" Width="308" Padding="1" Background="Transparent" BorderBrush="Transparent" FontSize="14" GotFocus="UserName_GotFocus" LostFocus="UserName_LostFocus" Foreground="Gray" >
                 <TextBox.Style>
                     <Style TargetType="TextBox">
                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -30,7 +30,7 @@
                 </TextBox.Style>
             </TextBox>
         </Border>
-        <Border CornerRadius="5                 " BorderBrush="DarkGray" BorderThickness="1" HorizontalAlignment="Center" Height="33" Margin="0,180,0,0" VerticalAlignment="Top" Width="282" Background="White">
+        <Border CornerRadius="5                 " BorderBrush="DarkGray" BorderThickness="1" HorizontalAlignment="Left" Height="33" Margin="31,180,0,0" VerticalAlignment="Top" Width="323" Background="White">
             <PasswordBox x:Name="passwordTB" HorizontalAlignment="Right" Height="25" VerticalAlignment="Center" Width="270" Background="Transparent" BorderBrush="Transparent" VerticalContentAlignment="Center" Padding="1" Margin="0,0,5,0" LostFocus="PassTB_LostFocus">
                 <PasswordBox.Style>
                     <Style TargetType="PasswordBox">
@@ -47,7 +47,7 @@
                 </PasswordBox.Style>
             </PasswordBox>
         </Border>
-        <TextBox x:Name="passwordoverTB" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="25" TextWrapping="Wrap" Text="Enter Password..." VerticalAlignment="Top" Width="268" Padding="1" Background="Transparent" BorderBrush="Transparent" FontSize="14" Foreground="Gray" Margin="0,184,0,0" GotFocus="PassOverTB_GotFocus">
+        <TextBox x:Name="passwordoverTB" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" Text="Enter Password..." VerticalAlignment="Top" Width="305" Padding="1" Background="Transparent" BorderBrush="Transparent" FontSize="14" Foreground="Gray" Margin="40,184,0,0" GotFocus="PassOverTB_GotFocus">
             <TextBox.Style>
                 <Style TargetType="TextBox">
                     <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -62,6 +62,7 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
+        <Rectangle HorizontalAlignment="Left" Height="3" Margin="43,59,0,0" Stroke="#FF7BC977" VerticalAlignment="Top" Width="76" Fill="#FF7BC977"/>
 
     </Grid>
 </UserControl>
