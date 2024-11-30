@@ -85,6 +85,8 @@ namespace SmartPoultry
                 createNewPassTB.IsEnabled = true;
                 confirmNewPassTB.IsEnabled = true;
                 ChangePassBtn.IsEnabled = true;
+                confirmNewPassOverTB.IsEnabled = true;
+                CreateNewPassOverTB.IsEnabled = true;
             }
             else
             {
@@ -92,7 +94,38 @@ namespace SmartPoultry
                 return;
             }
         }
-
+        private void CreateOverTB_GotFocused(object sender, RoutedEventArgs e)
+        {
+            CreateNewPassOverTB.Visibility = Visibility.Hidden;
+            createNewPassTB.Focus();
+        }
+        private void ConfirmOverTB_GotFocused(object sender, RoutedEventArgs e)
+        {
+            confirmNewPassOverTB.Visibility= Visibility.Hidden;
+            confirmNewPassTB.Focus();
+        }
+        private void CreateNewPass_LostFocused(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(createNewPassTB.Password))
+            {
+                CreateNewPassOverTB.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                CreateNewPassOverTB.Visibility = Visibility.Hidden;
+            }
+        }
+        private void ConfirmNewPass_LostFocused(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(confirmNewPassTB.Password))
+            {
+                confirmNewPassOverTB.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                confirmNewPassOverTB.Visibility = Visibility.Hidden;
+            }
+        }
         private void UsernameTB_GotFocused(object sender, RoutedEventArgs e)
         {
             HandleTextBoxPlaceholder(usernameTB, "Username...", true);

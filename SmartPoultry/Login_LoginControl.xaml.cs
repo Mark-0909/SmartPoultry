@@ -94,7 +94,7 @@ namespace SmartPoultry
 
         private void UserName_GotFocus(object sender, RoutedEventArgs e)
         {
-            HandleTextBoxPlaceholder(usernameTB, usernameTB.Text.ToString(), true);
+            HandleTextBoxPlaceholder(usernameTB, "Enter Username...", true);
         }
         private void UserName_LostFocus(object sender, RoutedEventArgs e)
         {
@@ -102,12 +102,12 @@ namespace SmartPoultry
         }
         public void HandleTextBoxPlaceholder(TextBox tb, string placeholder, bool isFocused)
         {
-            if (isFocused) 
+            if (isFocused)
             {
                 if (tb.Text == placeholder)
                 {
                     tb.Text = string.Empty;
-                    tb.Foreground = Brushes.Black; 
+                    tb.Foreground = Brushes.Black;
                 }
             }
             else // When the TextBox loses focus
@@ -115,7 +115,7 @@ namespace SmartPoultry
                 if (string.IsNullOrWhiteSpace(tb.Text))
                 {
                     tb.Text = placeholder;
-                    tb.Foreground = Brushes.Gray; 
+                    tb.Foreground = Brushes.Gray;
                 }
             }
         }

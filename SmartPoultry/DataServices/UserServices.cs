@@ -12,7 +12,7 @@ namespace SmartPoultry.DataServices
     public class UserServices
     {
         private readonly AppDbContext _context;
-        private App app;
+        
         
 
         public UserServices(AppDbContext context)
