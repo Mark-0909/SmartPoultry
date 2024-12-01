@@ -36,6 +36,10 @@ namespace SmartPoultry
         }
         private void Submit_Clicked(object sender, RoutedEventArgs e)
         {
+            if (usernameTB.Text == "Username..." || string.IsNullOrWhiteSpace(passwordTB.Password) || string.IsNullOrWhiteSpace(confirmpassTB.Password) || q1TB.Text == "Pet's name..." || q2TB.Text == "Favorite color..." || q3TB.Text == "Book or movie...") {
+                MessageBox.Show("Please complete all the necessary field.");
+                return;
+            }
             
             string role = "admin";
             if (userServices.IsThereAdmin())
@@ -56,7 +60,31 @@ namespace SmartPoultry
             string q2 = q2TB.Text;
             string q3 = q3TB.Text;
 
-            userServices.CreateAccount(username, password, q1, q2, q3, role);
+            bool issuccess = userServices.CreateAccount(username, password, q1, q2, q3, role);
+            if (!issuccess) {
+                MessageBox.Show("Create account unsuccessful.");
+                return;
+            }
+            MessageBox.Show("Account creation complete.");
+            ClearTextBoxes();
+        }
+
+        public void ClearTextBoxes() 
+        {
+            usernameTB.Text = "Username...";
+            usernameTB.Foreground = Brushes.Gray;
+            passwordTB.Clear();
+            createpassoverTB.Visibility = Visibility.Visible;
+            confirmpassTB.Clear();
+            confirmpassoverTB.Visibility = Visibility.Visible;
+            q1TB.Text = "Pet's name...";
+            q1TB.Foreground = Brushes.Gray;
+            q2TB.Text = "Favorite color...";
+            q2TB.Foreground = Brushes.Gray;
+            q3TB.Text = "Book or movie...";
+            q3TB.Foreground = Brushes.Gray;
+
+            loginWindow.ChangeControl("login");
         }
 
         private void UsernameTb_GotFocused(object sender, RoutedEventArgs e)
@@ -125,7 +153,7 @@ namespace SmartPoultry
         private void CreatePass_GotFocused(object sender, RoutedEventArgs e)
         {
             createpassoverTB.Visibility = Visibility.Hidden;
-            createpassoverTB.Focus();
+            passwordTB.Focus();
         }
         public void HandleTextBoxPlaceholder(TextBox tb, string placeholder, bool isFocused)
         {
@@ -149,6 +177,7 @@ namespace SmartPoultry
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
+            ClearTextBoxes();
             loginWindow.ChangeControl("login");
         }
     }
