@@ -5,13 +5,54 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
              mc:Ignorable="d" Width="390" Height="318">
+    <UserControl.Resources>
+        <Style x:Key="NoHoverButton" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                        BorderBrush="{TemplateBinding BorderBrush}" 
+                        BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <!-- Animation for the button itself when hovered -->
+                                            <DoubleAnimation 
+                                        Storyboard.TargetProperty="Opacity" 
+                                        To=".7" Duration="0:0:0.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+
+                                            <DoubleAnimation 
+                                        Storyboard.TargetProperty="Opacity" 
+                                        To="1.0" Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Center" Height="318" VerticalAlignment="Center" Width="390" Background="White"/>
-        <Button HorizontalContentAlignment="Left" Content="Create Account" HorizontalAlignment="Left" Height="19" Margin="31,218,0,0" VerticalAlignment="Top" Width="100" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Click="CreateAccount_Clicked" Foreground="#FF5C5C5C"/>
-        <Button HorizontalContentAlignment="Right" Content="Forgot Password?" HorizontalAlignment="Left" Height="19" Margin="243,218,0,0" VerticalAlignment="Top" Width="111" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Click="ForgotPass_Clicked" Foreground="#FF5C5C5C"/>
+        <Button HorizontalContentAlignment="Left" Content="Create Account" HorizontalAlignment="Left" Height="19" Margin="31,218,0,0" VerticalAlignment="Top" Width="100" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Click="CreateAccount_Clicked" Foreground="#FF5C5C5C" Style="{StaticResource NoHoverButton}"/>
+        <Button HorizontalContentAlignment="Right" Content="Forgot Password?" HorizontalAlignment="Left" Height="19" Margin="243,218,0,0" VerticalAlignment="Top" Width="111" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Click="ForgotPass_Clicked" Foreground="#FF5C5C5C" Style="{StaticResource NoHoverButton}"/>
         <Label Content="Username: " HorizontalAlignment="Left" Height="26" Margin="34,80,0,0" VerticalAlignment="Top" Width="132" FontSize="15" Foreground="#FF5C5C5C"/>
         <Label Content="Password: " HorizontalAlignment="Left" Height="26" Margin="34,149,0,0" VerticalAlignment="Top" Width="144" FontSize="15" Foreground="#FF5C5C5C"/>
-        <Button Click="Submit_Clicked" x:Name="SubmitBtn" Content="LOGIN" HorizontalAlignment="Center" Height="34" Margin="0,255,0,0" VerticalAlignment="Top" Width="282" FontWeight="Bold" Background="#FF7BC977" BorderBrush="#FF7BC977" Foreground="White"/>
+        <Button Click="Submit_Clicked" x:Name="SubmitBtn" Content="LOGIN" HorizontalAlignment="Center" Height="34" Margin="0,255,0,0" VerticalAlignment="Top" Width="282" FontWeight="Bold" Background="#FF7BC977" BorderBrush="#FF7BC977" Foreground="White" Style="{StaticResource NoHoverButton}"/>
         <Label HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Content="LOGIN" HorizontalAlignment="Left" Height="43" Margin="31,11,0,0" VerticalAlignment="Top" Width="356" FontSize="30" FontWeight="Bold" Foreground="Black"/>
         <Border CornerRadius="5                 " BorderBrush="DarkGray" BorderThickness="1" HorizontalAlignment="Center" Height="33" Margin="0,111,0,0" VerticalAlignment="Top" Width="328" Background="White">
             <TextBox x:Name="usernameTB" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="25" TextWrapping="Wrap" Text="Enter Username..." VerticalAlignment="Center" Width="308" Padding="1" Background="Transparent" BorderBrush="Transparent" FontSize="14" GotFocus="UserName_GotFocus" LostFocus="UserName_LostFocus" Foreground="Gray" >

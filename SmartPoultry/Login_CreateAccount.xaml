@@ -5,6 +5,47 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
              mc:Ignorable="d" Width="390" Height="526">
+    <UserControl.Resources>
+        <Style x:Key="NoHoverButton" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <!-- Animation for the button itself when hovered -->
+                                            <DoubleAnimation 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            To=".7" Duration="0:0:0.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+
+                                            <DoubleAnimation 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            To="1.0" Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Border  BorderBrush="White" BorderThickness="1" HorizontalAlignment="Center" Height="526" VerticalAlignment="Center" Width="390" Background="White">
             <Rectangle HorizontalAlignment="Left" Height="3" Margin="14,45,0,0" Stroke="#FF7BC977" VerticalAlignment="Top" Width="213" Fill="#FF7BC977"/>
@@ -29,7 +70,7 @@
         </Border>
         <Label Content="Create Username: " HorizontalAlignment="Left" Height="26" Margin="33,56,0,0" VerticalAlignment="Top" Width="132" FontSize="15" Foreground="#FF5C5C5C"/>
         <Label Content="Create Password: " HorizontalAlignment="Left" Height="26" Margin="33,125,0,0" VerticalAlignment="Top" Width="144" FontSize="15" Foreground="#FF5C5C5C"/>
-        <Button Click="Submit_Clicked" x:Name="SubmitBtn" Content="CREATE ACCOUNT" HorizontalAlignment="Left" Height="34" Margin="56,475,0,0" VerticalAlignment="Top" Width="282" FontWeight="Bold" Background="#FF7BC977" Foreground="White" BorderBrush="#FF7BC977"/>
+        <Button Click="Submit_Clicked" x:Name="SubmitBtn" Content="CREATE ACCOUNT" HorizontalAlignment="Left" Margin="56,475,0,17" Width="282" FontWeight="Bold" Background="#FF7BC977" Foreground="White" BorderBrush="#FF7BC977" Style="{StaticResource NoHoverButton}"/>
         <Label Content="Confirm Password: " HorizontalAlignment="Left" Height="26" Margin="33,194,0,0" VerticalAlignment="Top" Width="149" FontSize="15" Foreground="#FF5C5C5C"/>
         <Label Content="First Pet's Name:" HorizontalAlignment="Left" Height="26" Margin="32,263,0,0" VerticalAlignment="Top" Width="118" FontSize="15" Foreground="#FF5C5C5C"/>
         <Label Content="Favorite Color:" HorizontalAlignment="Left" Height="26" Margin="33,332,0,0" VerticalAlignment="Top" Width="118" FontSize="15" Foreground="#FF5C5C5C"/>
@@ -157,6 +198,6 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <Button Content="Login" HorizontalAlignment="Left" BorderBrush="Transparent" Height="25" Margin="138,505,0,0" VerticalAlignment="Top" Width="118" Click="LoginButton_Click" Background="Transparent" FontWeight="Bold" Foreground="#FF5C5C5C" FontSize="13"/>
+        <Button Content="Login" HorizontalAlignment="Left" BorderBrush="Transparent" Height="25" Margin="138,505,0,0" VerticalAlignment="Top" Width="118" Click="LoginButton_Click" Background="Transparent" FontWeight="Bold" Foreground="#FF5C5C5C" FontSize="13" Style="{StaticResource NoHoverButton}"/>
     </Grid>
 </UserControl>

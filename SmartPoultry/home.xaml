@@ -70,7 +70,7 @@
             <ScrollViewer x:Name="scroller" Margin="0,87,22,111" HorizontalAlignment="Right" Width="326"
                 VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" CanContentScroll="True">
                 <StackPanel x:Name="orderPanel" Margin="5,0,0,0">
-                    
+
                 </StackPanel>
             </ScrollViewer>
 
@@ -233,8 +233,8 @@
                 </Border>
             </Grid>
         </Border>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,144,331,0">
-            <WrapPanel x:Name="posPrdocutsPanel" HorizontalAlignment="Left" Height="438" VerticalAlignment="Top" Width="821" Margin="0,0,0,0"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,144,345,20">
+            <WrapPanel x:Name="posPrdocutsPanel" Width="760" Margin="0,0,0,0"/>
         </ScrollViewer>
         <Label Content="Name" HorizontalAlignment="Left" Margin="794,49,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.128,0.014" FontSize="15"/>
         <Label Content="Quantity" HorizontalAlignment="Left" Margin="897,49,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.128,0.014" FontSize="15"/>
