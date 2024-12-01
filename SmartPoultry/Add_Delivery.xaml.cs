@@ -14,14 +14,14 @@ namespace SmartPoultry
         DeliveriesServices deliveriesServices;
         public AppDbContext context = new AppDbContext();
 
-        public MainWindow? mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
+        public MainWindow mainWindow { get; set; }
 
         public long orderId = 0;
         public string type;
         public string mode;
         public string status;
 
-        public Add_Delivery()
+        public Add_Delivery(MainWindow window)
         {
             InitializeComponent();
             datePicker.SelectedDate = DateTime.Now;
@@ -29,6 +29,8 @@ namespace SmartPoultry
             toDeliverRadio.IsEnabled = false;
             toReceiveRadio.IsChecked = true;
             deliveriesServices = new DeliveriesServices(context);
+            
+            mainWindow = window;
         }
 
 
@@ -67,7 +69,16 @@ namespace SmartPoultry
             if (added)
             {
                 MessageBox.Show("Successful!");
-                mainWindow.DynamicAddDeliveries();
+                
+
+                if (mainWindow != null)
+                {
+                    mainWindow.DynamicAddDeliveries();
+                }
+                else
+                {
+                    MessageBox.Show("Unable to access the MainWindow.");
+                }
                 this.Close();
             }
             else {

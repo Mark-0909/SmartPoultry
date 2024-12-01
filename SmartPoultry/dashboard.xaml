@@ -10,7 +10,7 @@
         <Label Content="DASHBOARD" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Margin="10,4,0,0" Width="235"/>
         <Border CornerRadius="10" BorderBrush="#FF2C6E5D" BorderThickness="0" HorizontalAlignment="Left" Height="508" Margin="10,59,0,0" VerticalAlignment="Top" Width="341" Background="White">
             <ScrollViewer x:Name="OrdersList" HorizontalAlignment="Center" Height="424" Margin="0,84,0,0" VerticalAlignment="Top" Width="341" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden" HorizontalContentAlignment="Center">
-                <WrapPanel x:Name="OrderListPanel" Height="424" Width="341"/>
+                <WrapPanel x:Name="OrderListPanel" Width="341"/>
             </ScrollViewer>
         </Border>
         <Border CornerRadius="10" BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="244" Margin="361,59,0,0" VerticalAlignment="Top" Width="733" Background="White">

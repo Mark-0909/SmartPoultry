@@ -32,13 +32,13 @@ namespace SmartPoultry
                     Name = $"thisBorder",
                     Margin = new Thickness(0, 0, 5, 0),
                     CornerRadius = new CornerRadius(10),
-                    BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF66C265")),
+                    BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2C6E5D")),
                     BorderThickness = new Thickness(1),
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
                     Width = buttonSize,
                     Height = vartypesPanel.Height,
-                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFC0E4BE"))
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2C6E5D"))
                 };
 
                 
@@ -47,10 +47,10 @@ namespace SmartPoultry
                     Name = $"thisButton",
                     Content = variation.variant_type,
                     Margin = new Thickness(9, 5, 9, 5),
-                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFC0E4BE")),
-                    BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFC0E4BE")),
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2C6E5D")),
+                    BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2C6E5D")),
                     FontSize = 16,
-                    Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF66C265")),
+                    Foreground = new SolidColorBrush(Colors.White),
                     Style = (Style)FindResource("NoHoverButton")
                 };
 

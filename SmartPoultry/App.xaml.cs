@@ -9,6 +9,11 @@ namespace SmartPoultry
     /// </summary>
     public partial class App : Application
     {
-    }
+        
+        public static class UserContext
+        {
+            public static int CurrentUserId { get; set; } = -1; 
+        }
 
+    }
 }

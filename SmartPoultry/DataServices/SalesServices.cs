@@ -17,11 +17,20 @@ namespace SmartPoultry.DataServices
         {
             try
             {
-                string today = DateTime.Now.ToString("MM/dd/yyyy");
+                DateTime today = DateTime.Today;
+
+                DateTime tomorrow = today.AddDays(1);
 
                 return _context.Sales
-                    .Where(p => p.purchase_date.StartsWith(today)) // Filter by today's date
-                    .OrderByDescending(p => p.purchase_date)       // Sort by newest first
+                    .AsEnumerable()
+                    .Where(p =>
+                    {
+                        DateTime purchaseDate;
+                        bool isValidDate = DateTime.TryParse(p.purchase_date, out purchaseDate);
+
+                        return isValidDate && purchaseDate >= today && purchaseDate < tomorrow;
+                    })
+                    .OrderByDescending(p => DateTime.Parse(p.purchase_date))
                     .ToList();
             }
             catch (Exception e)
@@ -30,6 +39,8 @@ namespace SmartPoultry.DataServices
                 return null;
             }
         }
+
+
 
 
         public Sales GetSales(int id)

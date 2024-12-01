@@ -5,12 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartPoultry"
         mc:Ignorable="d"
-        Title="LoginPage" Height="652" Width="942" WindowStartupLocation="CenterScreen">
+        Title="LoginPage" Height="652" Width="942" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid Background="#FFC9C9C9">
-        <Image HorizontalAlignment="Left" Height="254" Margin="134,95,0,0" VerticalAlignment="Top" Width="268" Source="/Images/smartpoultrylogin.png"/>
-        <local:Login_CreateAccount x:Name="createAccountControl" HorizontalAlignment="Left" Margin="526,19,0,0" VerticalAlignment="Top"/>
-        <local:Login_ForgotPassword x:Name="forgotControl" HorizontalAlignment="Left" Margin="526,42,0,0" VerticalAlignment="Top"/>
-        <local:Login_LoginControl x:Name="loginControl" HorizontalAlignment="Left" Margin="526,123,0,0" VerticalAlignment="Top"/>
+        <Rectangle HorizontalAlignment="Left" Height="636" Stroke="White" VerticalAlignment="Center" Width="471" Margin="471,0,0,0" Fill="White"/>
+        <local:Login_CreateAccount x:Name="createAccountControl" HorizontalAlignment="Left" Margin="512,0,0,0" VerticalAlignment="Center"/>
+        <local:Login_ForgotPassword x:Name="forgotControl" HorizontalAlignment="Left" Margin="512,0,0,0" VerticalAlignment="Center"/>
+        <local:Login_LoginControl x:Name="loginControl" HorizontalAlignment="Left" Margin="512,0,0,0" VerticalAlignment="Center"/>
+        <Rectangle HorizontalAlignment="Left" 
+           Height="658" 
+           Stroke="White" 
+           VerticalAlignment="Center" 
+           Width="484" 
+           Margin="-13,0,0,0">
+            <Rectangle.Fill>
+                <ImageBrush ImageSource="Images/loginslogan.png" />
+            </Rectangle.Fill>
+        </Rectangle>
+
 
     </Grid>
 </Window>

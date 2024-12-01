@@ -15,11 +15,17 @@
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
-        <local:Supplier x:Name="supplierControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,92,0,0" VerticalAlignment="Top"/>
+        <local:Supplier x:Name="supplierControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,92,0,0" VerticalAlignment="Top" Height="598" Width="1113"/>
 
 
 
-        <local:Organization x:Name="organizationControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top"/>
+
+
+
+        <local:Organization x:Name="organizationControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123"/>
+
+
+
 
 
 
@@ -45,12 +51,6 @@
 
 
         <local:home x:Name="homeControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123"/>
-
-
-
-
-
-
         <StackPanel HorizontalAlignment="Left" Height="892" Margin="0,92,0,0" VerticalAlignment="Top" Width="101" Background="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}" Grid.ColumnSpan="2"/>
         <Rectangle HorizontalAlignment="Center" Height="92" VerticalAlignment="Top" Width="1229" Fill="#FFF4F7FC" Grid.Column="1" Grid.ColumnSpan="2"/>
         <Rectangle HorizontalAlignment="Left" Height="608" Margin="0,92,0,0" VerticalAlignment="Top" Width="92" Fill="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}" Grid.ColumnSpan="2"/>
@@ -257,7 +257,7 @@
             <Image x:Name="supplierIcon" Height="59" Width="59" Source="/Images/suppliergrey.png"/>
         </Button>
         <Button x:Name="LogoutBtn" Click="LogoutBtn_Clicked" Grid.Column="2" HorizontalAlignment="Left" Height="44" Margin="291,27,0,0" VerticalAlignment="Top" Width="48" Background="Transparent" BorderBrush="Transparent">
-            <Image Height="38" Width="45" Source="/logouticon.png"/>
+            <Image Height="38" Width="45" Source="/Images/logouticon.png"/>
         </Button>
 
 

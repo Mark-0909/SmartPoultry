@@ -186,6 +186,7 @@ namespace SmartPoultry
             {
                
                 LoginPage loginWindow = new LoginPage();
+                Application.Current.MainWindow = loginWindow;
                 loginWindow.Show();
                 this.Close();
             }

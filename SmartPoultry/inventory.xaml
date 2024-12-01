@@ -5,12 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
              mc:Ignorable="d" 
-             d:DesignHeight="747" d:DesignWidth="1357" Background="#FFE3E3E3" Width="1357" Height="747">
+             d:DesignHeight="577" d:DesignWidth="1104" Background="#FFE3E3E3" Width="1104" Height="577">
     <Grid>
         <Label Content="INVENTORY" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Margin="10,4,0,0"/>
-        <Button HorizontalAlignment="Left" Margin="768,4,0,0" VerticalAlignment="Top" Height="62" Width="66" Click="OpenAddForm_Click">
-            <Image Height="51" Width="50" Source="/addicon.png" Stretch="UniformToFill"/>
+        <Button HorizontalAlignment="Left" Margin="1048,4,0,0" VerticalAlignment="Top" Height="37" Width="32" Click="OpenAddForm_Click">
+            <Image Height="30" Width="27" Source="/addicon.png" Stretch="UniformToFill"/>
         </Button>
-        <WrapPanel x:Name="ProductListWPanel" HorizontalAlignment="Left" Height="666" Margin="8,77,0,0" VerticalAlignment="Top" Width="1350"/>
+        <ScrollViewer HorizontalAlignment="Center" Height="523" Margin="0,54,0,0" VerticalAlignment="Top" HorizontalScrollBarVisibility="Disabled" Width="1084">
+            <WrapPanel x:Name="ProductListWPanel" Width="1076"/>
+        </ScrollViewer>
     </Grid>
 </UserControl>

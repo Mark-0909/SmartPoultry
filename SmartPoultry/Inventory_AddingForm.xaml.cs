@@ -13,13 +13,16 @@ using SmartPoultry.DataServices;
 using SmartPoultry.DataAccess;
 using System.IO;
 using SmartPoultry.Models;
+using static SmartPoultry.App;
 
 namespace SmartPoultry
 {
     public partial class Inventory_AddingForm : Window
     {
         //variables
-        public MainWindow? mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
+        MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+
+
         public static string baseUnitValue = "";
         public static string? stocksvar;
         public bool baseUnit = false;
@@ -38,6 +41,7 @@ namespace SmartPoultry
         private readonly ProductServices productService;
         private readonly ProductVariationServices productVariationService;
         readonly SupplierServices supplierServices;
+        readonly UserServices userServices;
         public Inventory_AddingForm()
         {
             InitializeComponent();
@@ -56,9 +60,10 @@ namespace SmartPoultry
             productService = new ProductServices(context);
             productVariationService = new ProductVariationServices(context);
             supplierServices = new SupplierServices(context);
+            userServices = new UserServices(context);
 
             
-            PopulateSupplierList();
+            PopulateSupplierList("add");
             SupplierCBox.SelectedItem = "-- Select a Supplier --";
             windowName.Content = "ADD PRODUCT";
         }
@@ -75,7 +80,7 @@ namespace SmartPoultry
             productVariationService = new ProductVariationServices(context);
             supplierServices = new SupplierServices(context);
 
-            PopulateSupplierList();
+            PopulateSupplierList("edit");
 
             SelectedImage.Height = SelectImageBtn.Height;
             SelectedImage.Width = SelectImageBtn.Width;
@@ -100,14 +105,15 @@ namespace SmartPoultry
         }
 
 
-        public void PopulateSupplierList()
+        public void PopulateSupplierList(string mode)
         {
             
             SupplierCBox.Items.Clear();
 
-            SupplierCBox.Items.Add("-- Select a Supplier --");
-
-
+            if (mode != "edit")
+            {
+                SupplierCBox.Items.Add("-- Select a Supplier --");
+            }
             List <SupplierList> suppliers = supplierServices.ListSuppliers();
 
             foreach (var supplier in suppliers)
@@ -254,8 +260,14 @@ namespace SmartPoultry
                     return;
                 }
 
+                int supplierid = supplierServices.FindSupplierByName(SupplierCBox.Text);
+                int employeeId = UserContext.CurrentUserId;
 
-                int id = productService.Create(ProductNameTextBox.Text, animaltypelist, producttypelist, 1, 1, stocks, "");
+
+
+
+
+                int id = productService.Create(ProductNameTextBox.Text, animaltypelist, producttypelist, employeeId, supplierid, stocks, "");
 
                 if (id == 0)
                 {
@@ -272,7 +284,7 @@ namespace SmartPoultry
 
                         string destinationDirectory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Product_Images");
 
-                        // Create the directory if it doesn't exist
+                        // Create the directory if it doesnt exist
                         if (!Directory.Exists(destinationDirectory))
                         {
                             Directory.CreateDirectory(destinationDirectory);
@@ -289,7 +301,7 @@ namespace SmartPoultry
 
                             productService.UpdateImagePath(id, destinationPath);
 
-
+                            mainWindow.DynamicReload();
                         }
                         catch (Exception ex)
                         {
@@ -324,7 +336,7 @@ namespace SmartPoultry
                     }
 
                 }
-                mainWindow.DynamicReload();
+                
                 
                 this.Close();
             }

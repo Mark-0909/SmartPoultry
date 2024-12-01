@@ -27,8 +27,8 @@ namespace SmartPoultry
         public string type;
         public long orderid;
 
-        public MainWindow? mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
-        public Add_FinancialLiabilities()
+        MainWindow mainWindow { get; set; }
+        public Add_FinancialLiabilities(MainWindow window)
         {
             InitializeComponent();
             AppDbContext context = new AppDbContext();
@@ -36,6 +36,8 @@ namespace SmartPoultry
             datePicker.SelectedDate = DateTime.Now.AddDays(14);
             OrderIDTextBox.IsEnabled = false;
             orderid = 0;
+
+            mainWindow = window;
         }
         public void DatePicker_Loaded(object sender, RoutedEventArgs e)
         {
@@ -77,7 +79,15 @@ namespace SmartPoultry
                 MessageBox.Show("Not Created");
             }
             MessageBox.Show("Success");
-            mainWindow.DynamicAddFinance();
+
+            if (mainWindow != null)
+            {
+                mainWindow.DynamicAddFinance();
+            }
+            else
+            {
+                MessageBox.Show("Unable to access the MainWindow.");
+            }
             this.Close();
         }
     }

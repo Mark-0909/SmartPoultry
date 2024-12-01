@@ -134,14 +134,34 @@ namespace SmartPoultry
         }
         private void AddFinancialLiabilities_Click(object sender, RoutedEventArgs e)
         {
-            add_FinancialLiabilities = new Add_FinancialLiabilities();
-            add_FinancialLiabilities.ShowDialog();
+            MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
+
+            if (mainWindow != null)
+            {
+                add_FinancialLiabilities = new Add_FinancialLiabilities(mainWindow);
+                add_FinancialLiabilities.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Unable to access the MainWindow.");
+            }
         }
 
         private void AddDelivery_Click(object sender, RoutedEventArgs e)
         {
-            Add_Delivery = new Add_Delivery();
-            Add_Delivery.ShowDialog();
+            MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
+
+            if (mainWindow != null)
+            {
+                Add_Delivery = new Add_Delivery(mainWindow);
+                Add_Delivery.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("Unable to access the MainWindow.");
+            }
+            
+            
         }
     }
 }

@@ -30,7 +30,8 @@ namespace SmartPoultry
     /// </summary>
     public partial class home : UserControl
     {
-        public MainWindow? mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
+        
+
         public SalesServices salesServices;
         public ProductServices productServices;
         public ProductVariationServices productvariationsServices;
@@ -106,7 +107,18 @@ namespace SmartPoultry
                 VarSpecification.Clear();
                 ProductnameList.Clear();
 
-                DisplayReceipt(addingSales, salesServices, context, mainWindow);
+                DisplayReceipt(addingSales, salesServices, context);
+
+                MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
+
+                if (mainWindow != null)
+                {
+                    mainWindow.DynamicAddOrder();
+                }
+                else
+                {
+                    MessageBox.Show("Unable to access the MainWindow.");
+                }
             }
             else
             {
@@ -116,21 +128,19 @@ namespace SmartPoultry
 
 
 
-        public static void DisplayReceipt(int salesid, SalesServices salesServices, AppDbContext context, MainWindow window)
+        public static void DisplayReceipt(int salesid, SalesServices salesServices, AppDbContext context)
         {
             try
             {
                 Sales sales = salesServices.GetSales(salesid);
                 ProductServices productServices = new ProductServices(context);
                 ProductVariationServices productVariationServices = new ProductVariationServices(context);
-
-                // Split and validate input lists
+                
                 List<string> itemid = sales.product_list.Split(',').ToList();
                 List<string> pricelist = sales.price_list.Split(',').ToList();
                 List<string> quantitylist = sales.quantity_list.Split(',').ToList();
                 List<string> varlist = sales.variation_list.Split(',').ToList();
 
-                // Ensure all lists are the same size
                 int itemCount = Math.Min(Math.Min(itemid.Count, pricelist.Count), Math.Min(quantitylist.Count, varlist.Count));
                 itemid = itemid.Take(itemCount).ToList();
                 pricelist = pricelist.Take(itemCount).ToList();
@@ -141,7 +151,7 @@ namespace SmartPoultry
                 List<string> originalprice = new List<string>();
                 List<string> totalPrices = new List<string>();
 
-                float heightcalculation = 42 + (3 * itemid.Count);
+                float heightcalculation = 59 + (3 * itemid.Count);
 
                 using (MemoryStream memoryStream = new MemoryStream())
                 {
@@ -149,7 +159,7 @@ namespace SmartPoultry
                     float height = heightcalculation * 2.83465f;
                     iTextSharp.text.Rectangle pageSize = new iTextSharp.text.Rectangle(width, height);
 
-                    Document doc = new Document(pageSize, 0f, 0f, 0f, 0f);
+                    Document doc = new Document(pageSize, 5f, 5f, 5f, 5f);
                     PdfWriter writer = PdfWriter.GetInstance(doc, memoryStream);
                     writer.CloseStream = false;
 
@@ -157,7 +167,8 @@ namespace SmartPoultry
                     Font font = new Font(Font.FontFamily.HELVETICA, 4f, Font.NORMAL);
                     Font font2 = new Font(Font.FontFamily.HELVETICA, 3f, Font.NORMAL);
                     Font font3 = new Font(Font.FontFamily.HELVETICA, 5f, Font.BOLD);
-
+                    Font font4 = new Font(Font.FontFamily.HELVETICA, 3.3f, Font.NORMAL);
+                    Font font5 = new Font(Font.FontFamily.HELVETICA, 5f, Font.BOLD);
                     // Receipt header
                     doc.Add(new iTextSharp.text.Paragraph($"{sales.status.ToUpper()}", font3) { Alignment = Element.ALIGN_RIGHT });
 
@@ -182,12 +193,12 @@ namespace SmartPoultry
                     doc.Add(new iTextSharp.text.Paragraph($"Palo Alto, Calamba, Laguna Philippines", font2) { Alignment = Element.ALIGN_CENTER });
                     doc.Add(new iTextSharp.text.Paragraph($"+63 1234567890", font2) { Alignment = Element.ALIGN_CENTER });
                     doc.Add(new iTextSharp.text.Paragraph($"gabmigspoultrysupplies@gmail.com", font2) { Alignment = Element.ALIGN_CENTER });
-                    doc.Add(new iTextSharp.text.Paragraph("-------------------------------------------------------------------------------", font));
+                    doc.Add(new iTextSharp.text.Paragraph("--------------------------------------------------------", font));
 
                     doc.Add(new iTextSharp.text.Paragraph($"Order ID: {sales.receipt_id}", font));
                     doc.Add(new iTextSharp.text.Paragraph($"Cashier: ", font));
                     doc.Add(new iTextSharp.text.Paragraph($"Payment Mode: {sales.payment_mode.ToUpper()}", font));
-                    doc.Add(new iTextSharp.text.Paragraph("-------------------------------------------------------------------------------", font));
+                    doc.Add(new iTextSharp.text.Paragraph("--------------------------------------------------------", font));
                     // Generate receipt items
                     for (int i = 0; i < itemid.Count; i++)
                     {
@@ -217,9 +228,9 @@ namespace SmartPoultry
                     // Table headers
                     PdfPTable table = new PdfPTable(4);
                     table.WidthPercentage = 100;
-                    table.SetWidths(new float[] { 1f, 3f, 2f, 2f });
+                    table.SetWidths(new float[] { 1f, 2.8f, 2f, 2.8f });
 
-                    table.AddCell(new PdfPCell(new Phrase("Qty", font)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
+                    table.AddCell(new PdfPCell(new Phrase("Qty", font4)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
                     table.AddCell(new PdfPCell(new Phrase("Items", font)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
                     table.AddCell(new PdfPCell(new Phrase("Price", font)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
                     table.AddCell(new PdfPCell(new Phrase("Total", font)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
@@ -238,17 +249,18 @@ namespace SmartPoultry
                     // Total price
                     PdfPTable totalTable = new PdfPTable(2);
                     totalTable.WidthPercentage = 100;
-                    totalTable.SetWidths(new float[] { 3f, 1f });
+                    totalTable.SetWidths(new float[] { 3f, 3f });
 
-                    totalTable.AddCell(new PdfPCell(new Phrase("TOTAL:", font)) { Border = 0, HorizontalAlignment = Element.ALIGN_LEFT });
-                    totalTable.AddCell(new PdfPCell(new Phrase($"{sales.total_price:N2}", font)) { Border = 0, HorizontalAlignment = Element.ALIGN_RIGHT });
-
+                    totalTable.AddCell(new PdfPCell(new Phrase("TOTAL:", font5)) { Border = 0, HorizontalAlignment = Element.ALIGN_LEFT });
+                    totalTable.AddCell(new PdfPCell(new Phrase($"{sales.total_price:N2}", font5)) { Border = 0, HorizontalAlignment = Element.ALIGN_RIGHT });
+                    doc.Add(new iTextSharp.text.Paragraph(" ", font4));
                     doc.Add(totalTable);
 
+                    doc.Add(new iTextSharp.text.Paragraph(" ", font4));
                     doc.Add(new iTextSharp.text.Paragraph($"Date: {DateTime.Now:yyyy-MM-dd}", font));
                     doc.Add(new iTextSharp.text.Paragraph($"Purchase Method: {sales.purchase_method.ToUpper()}", font));
 
-                    doc.Add(new iTextSharp.text.Paragraph("-------------------------------------------------------------------------------", font));
+                    doc.Add(new iTextSharp.text.Paragraph("--------------------------------------------------------", font));
 
                     var thanksParagraph2 = new iTextSharp.text.Paragraph($"Thank you! Please come again!", font2);
                     thanksParagraph2.Alignment = Element.ALIGN_CENTER;
@@ -284,7 +296,7 @@ namespace SmartPoultry
 
                     // Open the PDF in the default viewer
                     Process.Start(new ProcessStartInfo(tempFilePath) { UseShellExecute = true });
-                    window.DynamicAddOrder();
+                    
 
 
                     Task.Run(() =>
@@ -298,6 +310,7 @@ namespace SmartPoultry
                     
                 }
                 
+
             }
             catch (Exception e)
             {

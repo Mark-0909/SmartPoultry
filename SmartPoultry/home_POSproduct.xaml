@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
-             mc:Ignorable="d" Height="269" Width="217" Background="Transparent" Margin="5 0 0 5">
+             mc:Ignorable="d" Height="302" Width="245" Background="Transparent" Margin="5 0 0 5">
     <UserControl.Resources>
         <Style x:Key="NoHoverButton" TargetType="Button">
             <Setter Property="Background" Value="White"/>
@@ -47,13 +47,13 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <Border CornerRadius="10" BorderBrush="#FF73CF6E" BorderThickness="2" Background="White">
+        <Border CornerRadius="10" BorderBrush="#FFA4A4A4" BorderThickness="2" Background="White" Width="245">
             <Border CornerRadius="5" BorderBrush="#FFC9C6C6" BorderThickness="1" Margin="9,9,9,84">
                 <Image x:Name="Productimage"/>
             </Border>
         </Border>
-        <Label x:Name="Productname" Content="Product Name" HorizontalAlignment="Center" Height="29" Margin="0,184,0,0" VerticalAlignment="Top" Width="197" FontSize="15"/>
-        <WrapPanel x:Name="vartypesPanel" HorizontalAlignment="Center" Height="41" Margin="0,217,0,0" VerticalAlignment="Top" Width="197"/>
+        <Label x:Name="Productname" Content="Product Name" HorizontalAlignment="Left" Height="29" Margin="10,218,0,0" VerticalAlignment="Top" Width="197" FontSize="15"/>
+        <WrapPanel x:Name="vartypesPanel" HorizontalAlignment="Center" Height="41" Margin="0,252,0,0" VerticalAlignment="Top" Width="229"/>
 
     </Grid>
 </UserControl>

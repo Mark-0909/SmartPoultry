@@ -40,6 +40,22 @@ namespace SmartPoultry
             string username = usernameTB.Text;
             string password = passwordTB.Password;
 
+            if (string.IsNullOrWhiteSpace(username) || username == "Enter Username...")
+            {
+                MessageBox.Show("Please enter a username.");
+                return;
+            }
+            else if (string.IsNullOrWhiteSpace(password))
+            {
+                MessageBox.Show("Please enter a password.");
+                return;
+            }
+            else if (username == "Enter Username..." && string.IsNullOrWhiteSpace(password))
+            {
+                MessageBox.Show("Form is empty.");
+                return;
+            }
+
             try
             {
                 bool isVerified = userServices.LoginVerification(username, password);
@@ -66,10 +82,61 @@ namespace SmartPoultry
             }
         }
 
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void CreateAccount_Clicked(object sender, RoutedEventArgs e)
         {
-
+            loginWindow.ChangeControl("create");
         }
+
+        private void ForgotPass_Clicked(object sender, RoutedEventArgs e)
+        {
+            loginWindow.ChangeControl("forgot");
+        }
+
+        private void UserName_GotFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(usernameTB, "Enter Username...", true);
+        }
+        private void UserName_LostFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(usernameTB, "Enter Username...", false);
+        }
+        public void HandleTextBoxPlaceholder(TextBox tb, string placeholder, bool isFocused)
+        {
+            if (isFocused)
+            {
+                if (tb.Text == placeholder)
+                {
+                    tb.Text = string.Empty;
+                    tb.Foreground = Brushes.Black;
+                }
+            }
+            else // When the TextBox loses focus
+            {
+                if (string.IsNullOrWhiteSpace(tb.Text))
+                {
+                    tb.Text = placeholder;
+                    tb.Foreground = Brushes.Gray;
+                }
+            }
+        }
+
+        public void PassOverTB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            passwordoverTB.Visibility = Visibility.Hidden;
+            passwordTB.Focus();
+        }
+
+        public void PassTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(passwordTB.Password))
+            {
+                passwordoverTB.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                passwordoverTB.Visibility = Visibility.Hidden;
+            }
+        }
+
     }
 }

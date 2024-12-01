@@ -10,7 +10,7 @@
         <Border CornerRadius="10" BorderBrush="#FF2C6E5D" Background="White" BorderThickness="1">
             <Border CornerRadius="10 10 0 0" BorderBrush="#FF2C6E5D" BorderThickness="1" HorizontalAlignment="Center" Height="38" Margin="0,-1,0,0" VerticalAlignment="Top" Width="432" Background="#FF2C6E5D">
                 <Button Click="Close_Click" HorizontalAlignment="Left" Height="27" Margin="394,0,0,0" VerticalAlignment="Center" Width="31" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
-                    <Image Height="24" Width="19" Source="/close.png"/>
+                    <Image Height="24" Width="19" Source="/Images/close.png"/>
                 </Button>
             </Border>
         </Border>

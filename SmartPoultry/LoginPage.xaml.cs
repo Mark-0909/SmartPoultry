@@ -87,6 +87,40 @@ namespace SmartPoultry
             this.Close();
         }
         
+        public void ChangeControl(string control)
+        {
+            if(control == "create")
+            {
+                createAccountControl.Visibility = Visibility.Visible;
+                loginControl.Visibility = Visibility.Hidden;
+                forgotControl.Visibility = Visibility.Hidden;
+
+                createAccountControl.Changelabel();
+                Panel.SetZIndex(createAccountControl, 1);
+                Panel.SetZIndex(loginControl, 0);
+                Panel.SetZIndex(forgotControl, 0);
+            }
+            else if(control == "forgot")
+            {
+                createAccountControl.Visibility = Visibility.Hidden;
+                loginControl.Visibility = Visibility.Hidden;
+                forgotControl.Visibility = Visibility.Visible;
+
+                Panel.SetZIndex(createAccountControl, 0);
+                Panel.SetZIndex(loginControl, 0);
+                Panel.SetZIndex(forgotControl, 1);
+            }
+            else
+            {
+                createAccountControl.Visibility = Visibility.Hidden;
+                loginControl.Visibility = Visibility.Visible;
+                forgotControl.Visibility = Visibility.Hidden;
+
+                Panel.SetZIndex(createAccountControl, 0);
+                Panel.SetZIndex(loginControl, 1);
+                Panel.SetZIndex(forgotControl, 0);
+            }
+        }
 
         
 
