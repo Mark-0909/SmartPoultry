@@ -60,6 +60,8 @@ namespace SmartPoultry
                 }
 
                 MessageBox.Show("Password changed successfully.");
+                ClearTextBoxes();
+
             }
             catch (Exception ex)
             {
@@ -67,7 +69,7 @@ namespace SmartPoultry
             }
         }
 
-
+       
         private void Verify_Clicked(object sender, RoutedEventArgs e)
         {
             string username = usernameTB.Text;
@@ -126,6 +128,29 @@ namespace SmartPoultry
                 confirmNewPassOverTB.Visibility = Visibility.Hidden;
             }
         }
+
+        public void ClearTextBoxes()
+        {
+            usernameTB.Text = "Username...";
+            usernameTB.Foreground = Brushes.Gray;
+            QuestionTB.Text = "Your answer...";
+            QuestionTB.Foreground = Brushes.Gray;
+            
+            createNewPassTB.Clear();
+            CreateNewPassOverTB.Visibility = Visibility.Visible;
+
+            confirmNewPassTB.Clear();
+            confirmNewPassOverTB.Visibility = Visibility.Visible;
+
+            createNewPassTB.IsEnabled = false;
+            CreateNewPassOverTB.IsEnabled = false;
+            confirmNewPassTB.IsEnabled = false;
+            confirmNewPassOverTB.IsEnabled = false;
+
+            loginWindow.ChangeControl("login");
+
+
+        }
         private void UsernameTB_GotFocused(object sender, RoutedEventArgs e)
         {
             HandleTextBoxPlaceholder(usernameTB, "Username...", true);
@@ -164,6 +189,7 @@ namespace SmartPoultry
 
         private void ChangeControl_Click(object sender, RoutedEventArgs e)
         {
+            ClearTextBoxes();
             loginWindow.ChangeControl("login");
         }
     }

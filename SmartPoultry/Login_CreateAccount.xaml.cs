@@ -40,7 +40,16 @@ namespace SmartPoultry
                 MessageBox.Show("Please complete all the necessary field.");
                 return;
             }
-            
+
+            bool isUsernamePresent = userServices.IsUserNamePresent(usernameTB.Text);
+
+            if (isUsernamePresent) {
+                MessageBox.Show("Username is not available. Create a new one.");
+                usernameTB.Text = "Username...";
+                usernameTB.Foreground = Brushes.Gray;
+                return;
+            }
+
             string role = "admin";
             if (userServices.IsThereAdmin())
             {

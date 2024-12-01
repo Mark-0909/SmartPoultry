@@ -97,6 +97,20 @@ namespace SmartPoultry.DataServices
                 return false;
             }
         }
+        public bool IsUserNamePresent(string username)
+        {
+            try
+            {
+                bool isPresent = _context.Users.Any(p => p.Username == username);
+
+                return isPresent;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+                return false;
+            }
+        }
         public bool CreateAccount(string username, string password, string q1, string q2, string q3, string role)
         {
             try

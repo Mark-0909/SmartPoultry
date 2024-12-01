@@ -31,7 +31,7 @@
             </TextBox>
         </Border>
         <Border CornerRadius="5                 " BorderBrush="DarkGray" BorderThickness="1" HorizontalAlignment="Left" Height="33" Margin="31,180,0,0" VerticalAlignment="Top" Width="323" Background="White">
-            <PasswordBox x:Name="passwordTB" HorizontalAlignment="Right" Height="25" VerticalAlignment="Center" Width="270" Background="Transparent" BorderBrush="Transparent" VerticalContentAlignment="Center" Padding="1" Margin="0,0,5,0" LostFocus="PassTB_LostFocus">
+            <PasswordBox x:Name="passwordTB" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="307" Background="Transparent" BorderBrush="Transparent" VerticalContentAlignment="Center" Padding="1" Margin="9,0,0,0" LostFocus="PassTB_LostFocus">
                 <PasswordBox.Style>
                     <Style TargetType="PasswordBox">
                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>

@@ -10,7 +10,21 @@
             <Rectangle HorizontalAlignment="Left" Height="3" Margin="14,45,0,0" Stroke="#FF7BC977" VerticalAlignment="Top" Width="213" Fill="#FF7BC977"/>
         </Border>
         <Border CornerRadius="5                 " BorderBrush="DarkGray" BorderThickness="1" HorizontalAlignment="Left" Height="33" Margin="33,156,0,0" VerticalAlignment="Top" Width="328" Background="White">
-            <PasswordBox x:Name="passwordTB" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="312" Background="Transparent" BorderBrush="Transparent" VerticalContentAlignment="Center" Padding="1" LostFocus="PassTB_LostFocus" Margin="9,0,0,0"/>
+            <PasswordBox x:Name="passwordTB" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="312" Background="Transparent" BorderBrush="Transparent" VerticalContentAlignment="Center" Padding="1" LostFocus="PassTB_LostFocus" Margin="9,0,0,0">
+                <PasswordBox.Style>
+                    <Style TargetType="PasswordBox">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="SelectionBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </PasswordBox.Style>
+            </PasswordBox>
 
         </Border>
         <Label Content="Create Username: " HorizontalAlignment="Left" Height="26" Margin="33,56,0,0" VerticalAlignment="Top" Width="132" FontSize="15" Foreground="#FF5C5C5C"/>
@@ -22,28 +36,127 @@
         <Label Content="Favorite book or movie:" HorizontalAlignment="Left" Height="26" Margin="32,401,0,0" VerticalAlignment="Top" Width="172" FontSize="15" Foreground="#FF5C5C5C"/>
         <Label x:Name="Controllabel" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Content="CREATE ADMIN ACCOUNT" HorizontalAlignment="Left" Height="43" Margin="2,0,0,0" VerticalAlignment="Top" Width="390" FontSize="30" FontWeight="Bold" Foreground="Black"/>
         <Border CornerRadius="5                 " BorderBrush="DarkGray" BorderThickness="1" HorizontalAlignment="Left" Height="33" Margin="33,87,0,0" VerticalAlignment="Top" Width="328" Background="White">
-            <TextBox x:Name="usernameTB" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="25" TextWrapping="Wrap" Text="Username..." VerticalAlignment="Center" Width="308" Padding="1" Background="Transparent" BorderBrush="Transparent" FontSize="14" Foreground="Gray" GotFocus="UsernameTb_GotFocused" LostFocus="UsernameTb_LostFocused"/>
+            <TextBox x:Name="usernameTB" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="25" TextWrapping="Wrap" Text="Username..." VerticalAlignment="Center" Width="308" Padding="1" Background="Transparent" BorderBrush="Transparent" FontSize="14" Foreground="Gray" GotFocus="UsernameTb_GotFocused" LostFocus="UsernameTb_LostFocused">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="SelectionBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+
 
         </Border>
         <Border CornerRadius="5                 " BorderBrush="DarkGray" BorderThickness="1" HorizontalAlignment="Left" Height="33" Margin="32,294,0,0" VerticalAlignment="Top" Width="329" Background="White">
 
-            <TextBox x:Name="q1TB" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="25" TextWrapping="Wrap" Text="Pet's name..." VerticalAlignment="Top" Width="308" Padding="1" Background="Transparent" BorderBrush="Transparent" FontSize="14" Foreground="Gray" GotFocus="Q1Tb_GotFocused" LostFocus="Q1Tb_LostFocused" Margin="0,2,0,0"/>
+            <TextBox x:Name="q1TB" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="25" TextWrapping="Wrap" Text="Pet's name..." VerticalAlignment="Top" Width="308" Padding="1" Background="Transparent" BorderBrush="Transparent" FontSize="14" Foreground="Gray" GotFocus="Q1Tb_GotFocused" LostFocus="Q1Tb_LostFocused" Margin="0,2,0,0">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="SelectionBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
         </Border>
         <Border CornerRadius="5                 " BorderBrush="DarkGray" BorderThickness="1" HorizontalAlignment="Left" Height="33" Margin="33,225,0,0" VerticalAlignment="Top" Width="328" Background="White">
-            <PasswordBox x:Name="confirmpassTB" HorizontalAlignment="Center" Height="25" VerticalAlignment="Center" Width="308" Background="Transparent" BorderBrush="Transparent" VerticalContentAlignment="Center" Padding="1" LostFocus="ConfirmPassTB_LostFocused"/>
+            <PasswordBox x:Name="confirmpassTB" HorizontalAlignment="Center" Height="25" VerticalAlignment="Center" Width="308" Background="Transparent" BorderBrush="Transparent" VerticalContentAlignment="Center" Padding="1" LostFocus="ConfirmPassTB_LostFocused">
+                <PasswordBox.Style>
+                    <Style TargetType="PasswordBox">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="SelectionBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </PasswordBox.Style>
+            </PasswordBox>
 
         </Border>
         <Border CornerRadius="5                 " BorderBrush="DarkGray" BorderThickness="1" HorizontalAlignment="Left" Height="33" Margin="32,363,0,0" VerticalAlignment="Top" Width="329" Background="White">
 
 
-            <TextBox x:Name="q2TB" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="25" TextWrapping="Wrap" Text="Favorite color..." VerticalAlignment="Center" Width="308" Padding="1" Background="Transparent" BorderBrush="Transparent" FontSize="14" Foreground="Gray" GotFocus="Q2Tb_GotFocused" LostFocus="Q2Tb_LostFocused"/>
+            <TextBox x:Name="q2TB" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="25" TextWrapping="Wrap" Text="Favorite color..." VerticalAlignment="Center" Width="308" Padding="1" Background="Transparent" BorderBrush="Transparent" FontSize="14" Foreground="Gray" GotFocus="Q2Tb_GotFocused" LostFocus="Q2Tb_LostFocused">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="SelectionBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
         </Border>
         <Border CornerRadius="5                 " BorderBrush="DarkGray" BorderThickness="1" HorizontalAlignment="Left" Height="33" Margin="33,432,0,0" VerticalAlignment="Top" Width="328" Background="White">
 
-            <TextBox x:Name="q3TB" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="25" TextWrapping="Wrap" Text="Book or movie..." VerticalAlignment="Center" Width="308" Padding="1" Background="Transparent" BorderBrush="Transparent" FontSize="14" Foreground="Gray" GotFocus="Q3Tb_GotFocused" LostFocus="Q3Tb_LostFocused"/>
+            <TextBox x:Name="q3TB" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="25" TextWrapping="Wrap" Text="Book or movie..." VerticalAlignment="Center" Width="308" Padding="1" Background="Transparent" BorderBrush="Transparent" FontSize="14" Foreground="Gray" GotFocus="Q3Tb_GotFocused" LostFocus="Q3Tb_LostFocused">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="SelectionBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
         </Border>
-        <TextBox x:Name="createpassoverTB" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" Text="Password..." VerticalAlignment="Top" Width="314" Padding="1" Background="Transparent" BorderBrush="Transparent" FontSize="14" Foreground="Gray" GotFocus="CreatePass_GotFocused" Margin="40,160,0,0"/>
-        <TextBox x:Name="confirmpassoverTB" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" Text="Confirm password..." VerticalAlignment="Top" Width="314" Padding="1" Background="Transparent" BorderBrush="Transparent" FontSize="14" Foreground="Gray" GotFocus="ConfirmOverPass_GotFocused" Margin="40,229,0,0"/>
+        <TextBox x:Name="createpassoverTB" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" Text="Password..." VerticalAlignment="Top" Width="314" Padding="1" Background="Transparent" BorderBrush="Transparent" FontSize="14" Foreground="Gray" GotFocus="CreatePass_GotFocused" Margin="40,160,0,0">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="SelectionBrush" Value="Transparent"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+        <TextBox x:Name="confirmpassoverTB" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" Text="Confirm password..." VerticalAlignment="Top" Width="314" Padding="1" Background="Transparent" BorderBrush="Transparent" FontSize="14" Foreground="Gray" GotFocus="ConfirmOverPass_GotFocused" Margin="40,229,0,0">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="SelectionBrush" Value="Transparent"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
         <Button Content="Login" HorizontalAlignment="Left" BorderBrush="Transparent" Height="25" Margin="138,505,0,0" VerticalAlignment="Top" Width="118" Click="LoginButton_Click" Background="Transparent" FontWeight="Bold" Foreground="#FF5C5C5C" FontSize="13"/>
     </Grid>
 </UserControl>
