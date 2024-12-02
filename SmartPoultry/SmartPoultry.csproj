@@ -24,6 +24,7 @@
     <None Remove="Images\dropup.png" />
     <None Remove="Images\homeicongreen.png" />
     <None Remove="Images\homeicongrey.png" />
+    <None Remove="Images\infoicon.png" />
     <None Remove="Images\inventorygreen.png" />
     <None Remove="Images\inventorygrey.png" />
     <None Remove="Images\loginbg.png" />
@@ -66,6 +67,7 @@
     <Resource Include="Images\dropup.png" />
     <Resource Include="Images\homeicongreen.png" />
     <Resource Include="Images\homeicongrey.png" />
+    <Resource Include="Images\infoicon.png" />
     <Resource Include="Images\inventorygreen.png" />
     <Resource Include="Images\inventorygrey.png" />
     <Resource Include="Images\loginbg.png" />
