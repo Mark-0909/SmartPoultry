@@ -35,8 +35,8 @@ namespace SmartPoultry
         public int positionlist;
 
         public Inventory_AddingForm? inventoraddingWindow = Application.Current.Windows.OfType<Inventory_AddingForm>().FirstOrDefault();
-
-        public inventoryAdd_variationscontrol(string unitname, string price, string conversion, string type, string stocks, string basevalue, int position)
+        public Inventory_AddingForm addingform { get; set; }
+        public inventoryAdd_variationscontrol(string unitname, string price, string conversion, string type, string stocks, string basevalue, int position, Inventory_AddingForm form)
         {
             InitializeComponent();
             nameBtn.Content = unitname;
@@ -51,16 +51,20 @@ namespace SmartPoultry
             basevaluevar = basevalue;
 
             positionlist = position;
+
+            addingform = form;
         }
         private void NameBtn_Click(object sender, RoutedEventArgs e)
         {
             if (typevar == "base")
             {
-                Inventory_Unitadder popup = new Inventory_Unitadder("base_unit", "edit", namevar, pricevar, conversionvar, basevaluevar, stocksvar, this, positionlist);
+                Inventory_Unitadder popup = new Inventory_Unitadder("base_unit", "edit", namevar, pricevar, conversionvar, basevaluevar, stocksvar, this, positionlist, addingform);
+                addingform.ActiveOverlay(true);
                 popup.ShowDialog();
             }
             else {
-                Inventory_Unitadder popup = new Inventory_Unitadder("sub_unit", "edit", namevar, pricevar, conversionvar, basevaluevar, stocksvar, this, positionlist);
+                Inventory_Unitadder popup = new Inventory_Unitadder("sub_unit", "edit", namevar, pricevar, conversionvar, basevaluevar, stocksvar, this, positionlist, addingform);
+                addingform.ActiveOverlay(true);
                 popup.ShowDialog();
             }
         }

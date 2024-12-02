@@ -38,44 +38,33 @@ namespace SmartPoultry
 
         public static inventoryAdd_variationscontrol? unitcontrol;
 
+        public Inventory_AddingForm inventoryAddForm { get; set; }
 
 
-
-        public Inventory_Unitadder(String mode, String baseUnitValue, String action, int position)
+        public Inventory_Unitadder(String mode, String baseUnitValue, String action, int position, Inventory_AddingForm form)
         {
             InitializeComponent();
             SetRoundedCorners();
-            inventoraddingWindow.Opacity = 0.5;
-            
+           
+            InitializeUnitAdder(mode, action, null, null, null, baseUnitValue, null, null, position, form);
 
-
-
-            InitializeUnitAdder(mode, action, null, null, null, baseUnitValue, null, null, position);
-
-            
-
-            this.Closed += (s, e) => inventoraddingWindow.Opacity = 1.0;
-            
         }
 
-        public Inventory_Unitadder(string mode, string action, string name, string price, string conversion, string baseUnitvalue, string stocks, inventoryAdd_variationscontrol control, int position)
+        public Inventory_Unitadder(string mode, string action, string name, string price, string conversion, string baseUnitvalue, string stocks, inventoryAdd_variationscontrol control, int position, Inventory_AddingForm form)
         {
             InitializeComponent();
             SetRoundedCorners();
-            inventoraddingWindow.Opacity = 0.5;
 
             
-            InitializeUnitAdder(mode, action, name, price, conversion, baseUnitvalue, stocks, control, position);
+            InitializeUnitAdder(mode, action, name, price, conversion, baseUnitvalue, stocks, control, position, form);
 
             
-
-            this.Closed += (s, e) => inventoraddingWindow.Opacity = 1.0;
         }
 
         // combined methods
-        private void InitializeUnitAdder(string? mode, string? action, string? name, string? price, string? conversion, string? baseUnitvalue, string? stocks, inventoryAdd_variationscontrol control, int position)
+        private void InitializeUnitAdder(string? mode, string? action, string? name, string? price, string? conversion, string? baseUnitvalue, string? stocks, inventoryAdd_variationscontrol control, int position, Inventory_AddingForm form)
         {
-            
+            inventoryAddForm = form;
             actionDeclaration = action; 
             agenda = mode;
 
@@ -138,20 +127,29 @@ namespace SmartPoultry
 
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
+            if (conversionTextbox.IsVisible && unitLabelTextbox.Text == "Unit..." || priceTextBox.Text == "Price..." || conversionTextbox.Text == "Conversion")
+            {
+                MessageBox.Show("Incomplete Details.");
+                return;
+            } else if (!conversionTextbox.IsVisible && unitLabelTextbox.Text == "Unit..." || priceTextBox.Text == "Price..." || stocksTextBox.Text == "Stocks...")
+            {
+                MessageBox.Show("Incomplete Details.");
+                return;
+            }
             if (actionDeclaration == "add")
             {
                 if (agenda == "base_unit")
                 {
                     inventoraddingWindow.AddUnit(unitLabelTextbox.Text, priceTextBox.Text, "1", stocksTextBox.Text, "base", positionlist);
                     this.Close();
-                    
-                    
+                    inventoryAddForm.ActiveOverlay(false);
+
                 }
                 else
                 {
                     inventoraddingWindow.AddUnit(unitLabelTextbox.Text, priceTextBox.Text, conversionTextbox.Text, null, "sub", positionlist);
                     this.Close();
-                    
+                    inventoryAddForm.ActiveOverlay(false);
                 }
             }
             else 
@@ -160,16 +158,16 @@ namespace SmartPoultry
                 {
                     unitcontrol.EditUnit(unitLabelTextbox.Text, priceTextBox.Text, "1", stocksTextBox.Text, baseunit, positionlist);
                     this.Close();
-                    
-                    
+                    inventoryAddForm.ActiveOverlay(false);
+
                 }
                 else
                 {
                     unitcontrol.EditUnit(unitLabelTextbox.Text, priceTextBox.Text, conversionTextbox.Text, null, baseunit, positionlist);
 
                     this.Close();
-                    
-                    
+                    inventoryAddForm.ActiveOverlay(false);
+
                 }
             }
 
@@ -184,8 +182,124 @@ namespace SmartPoultry
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            inventoryAddForm.ActiveOverlay(false);
         }
-        
+
+        private void UnitLabelTB_GotFocused(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(unitLabelTextbox, "Unit...", true);
+        }
+        private void UnitLabelTB_LostFocused(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(unitLabelTextbox, "Unit...", false);
+        }
+        private void PriceTB_GotFocused(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(priceTextBox, "Price...", true);
+        }
+
+        private void PriceTB_LostFocused(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(priceTextBox, "Price...", false);
+        }
+
+        private void StocksTB_GotFocused(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(stocksTextBox, "Stocks...", true);
+        }
+
+        private void StocksTB_LostFocused(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(stocksTextBox, "Stocks...", false);
+        }
+
+        private void ConversionTB_GotFocused(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(conversionTextbox, "Conversion...", true);
+        }
+
+        private void ConversionTB_LostFocused(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(conversionTextbox, "Conversion...", false);
+        }
+
+        private void StocksTB_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (stocksTextBox.IsFocused) // Only filter when the user is typing
+            {
+                HandleNumericInput(stocksTextBox, false);
+            }
+        }
+
+        private void PriceTB_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (priceTextBox.IsFocused) // Only filter when the user is typing
+            {
+                HandleNumericInput(priceTextBox, true);
+            }
+        }
+
+        private void ConversionTB_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (conversionTextbox.IsFocused) // Only filter when the user is typing
+            {
+                HandleNumericInput(conversionTextbox, false);
+            }
+        }
+
+
+        private void HandleNumericInput(TextBox textBox, bool allowDecimal)
+        {
+            if (textBox == null || string.IsNullOrEmpty(textBox.Text)) return;
+
+            string input = textBox.Text;
+
+            // Filter input based on whether decimals are allowed
+            string filteredInput = allowDecimal
+                ? new string(input.Where(c => char.IsDigit(c) || c == '.').ToArray())
+                : new string(input.Where(char.IsDigit).ToArray());
+
+            // Allow only one decimal point
+            if (allowDecimal)
+            {
+                int firstDecimalIndex = filteredInput.IndexOf('.');
+                if (firstDecimalIndex != -1)
+                {
+                    filteredInput = filteredInput.Substring(0, firstDecimalIndex + 1) +
+                                    filteredInput.Substring(firstDecimalIndex + 1).Replace(".", "");
+                }
+            }
+
+            // Update the TextBox only if input has changed
+            if (input != filteredInput)
+            {
+                textBox.Text = filteredInput;
+                textBox.CaretIndex = filteredInput.Length;
+            }
+        }
+
+
+
+
+        public void HandleTextBoxPlaceholder(TextBox tb, string placeholder, bool isFocused)
+        {
+            if (isFocused)
+            {
+                if (tb.Text == placeholder)
+                {
+                    tb.Text = string.Empty;
+                    tb.Foreground = Brushes.Black;
+                }
+            }
+            else // When the TextBox loses focus
+            {
+                if (string.IsNullOrWhiteSpace(tb.Text))
+                {
+                    tb.Text = placeholder;
+                    tb.Foreground = Brushes.Gray;
+                }
+            }
+        }
 
     }
 }

@@ -48,7 +48,7 @@ namespace SmartPoultry
             SetRoundedCorners();
             editBtn.Visibility = Visibility.Collapsed;
             phaseoutBtn.Visibility = Visibility.Collapsed;
-            
+            AddingFormOverlay.Visibility = Visibility.Hidden;
             
 
             //set mainwindow in dim mode
@@ -68,12 +68,12 @@ namespace SmartPoultry
             windowName.Content = "ADD PRODUCT";
         }
 
-
         public Inventory_AddingForm(Products product)
         {
             InitializeComponent();
             windowName.Content = "PRODUCT DETAILS";
             isEditing = true;
+            AddingFormOverlay.Visibility = Visibility.Hidden;
 
             context = new AppDbContext();
             productService = new ProductServices(context);
@@ -104,7 +104,19 @@ namespace SmartPoultry
             }
         }
 
-
+        public void ActiveOverlay(bool isActive)
+        {
+            if (isActive == true)
+            {
+                AddingFormOverlay.Visibility = Visibility.Visible;
+                Panel.SetZIndex(AddingFormOverlay, 99);
+            }
+            else
+            {
+                AddingFormOverlay.Visibility = Visibility.Hidden;
+                Panel.SetZIndex(AddingFormOverlay, 0);
+            }
+        }
         public void PopulateSupplierList(string mode)
         {
             
@@ -154,7 +166,7 @@ namespace SmartPoultry
                     type = "base";
                 }
 
-                inventoryAdd_variationscontrol? control = new inventoryAdd_variationscontrol(unitlist[i], pricelist[i], conversionlist[i], type, stockupdate, unitlist[0], i)
+                inventoryAdd_variationscontrol? control = new inventoryAdd_variationscontrol(unitlist[i], pricelist[i], conversionlist[i], type, stockupdate, unitlist[0], i, this)
                 {
                     Height = 166,
                     Width = 60,
@@ -179,11 +191,11 @@ namespace SmartPoultry
             }
           
 
-            inventoryAdd_variationscontrol? control = new inventoryAdd_variationscontrol(name, price, conversion, type, stocks, baseUnitValue, position)
+            inventoryAdd_variationscontrol? control = new inventoryAdd_variationscontrol(name, price, conversion, type, stocks, baseUnitValue, position, this)
             {
                 Height = 166,
                 Width = 60,
-                VerticalAlignment = VerticalAlignment.Center // Ensure correct syntax and property name
+                VerticalAlignment = VerticalAlignment.Center
             };
 
             unitsWPanel.Children.Remove(addUnitBtn);
@@ -212,11 +224,13 @@ namespace SmartPoultry
             int position = unitlist.Count;
             if (!baseUnit)
             {
-                Inventory_Unitadder? popup = new Inventory_Unitadder("base_unit", baseUnitValue, "add", position);
+                Inventory_Unitadder? popup = new Inventory_Unitadder("base_unit", baseUnitValue, "add", position, this);
+                ActiveOverlay(true);
                 popup.ShowDialog();
             }
             else {
-                Inventory_Unitadder? popup = new Inventory_Unitadder("sub_unit", baseUnitValue, "add", position);
+                Inventory_Unitadder? popup = new Inventory_Unitadder("sub_unit", baseUnitValue, "add", position, this);
+                ActiveOverlay(true);
                 popup.ShowDialog();
             }
             
@@ -285,7 +299,6 @@ namespace SmartPoultry
 
                         string destinationDirectory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Product_Images");
 
-                        // Create the directory if it doesnt exist
                         if (!Directory.Exists(destinationDirectory))
                         {
                             Directory.CreateDirectory(destinationDirectory);
