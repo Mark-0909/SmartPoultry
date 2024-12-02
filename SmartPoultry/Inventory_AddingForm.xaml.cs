@@ -28,6 +28,7 @@ namespace SmartPoultry
         public bool baseUnit = false;
         private string? selectedFilePath;
         public bool isEditing = false;
+        public ImageSource imagePath;
 
         //lists
         public List<String> AnimalList = new List<String>();
@@ -74,6 +75,7 @@ namespace SmartPoultry
             windowName.Content = "PRODUCT DETAILS";
             isEditing = true;
             AddingFormOverlay.Visibility = Visibility.Hidden;
+            imagePath = SelectedImage.Source;
 
             context = new AppDbContext();
             productService = new ProductServices(context);
@@ -254,6 +256,10 @@ namespace SmartPoultry
         //database - save product
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
+            if (imagePath == SelectedImage.Source || ProductNameTextBox.Text == "Enter text here..." || unitsWPanel.Children.Count == 1 || AnimalList.Count == 0 || ProductTypeList.Count == 0 || SupplierCBox.Text == "-- Select a Supplier --") {
+                MessageBox.Show("Incomplete Details.");
+                return;
+            }
             if (!isEditing)
             {
                 string animaltypelist = string.Join(",", AnimalList);
