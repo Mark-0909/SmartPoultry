@@ -136,5 +136,10 @@ namespace SmartPoultry
         {
             status = "Nnpaid";
         }
+
+        private void ContactsTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

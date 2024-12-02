@@ -13,6 +13,22 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+
+        public Sales GetSales(long id)
+        {
+            try
+            {
+                Sales sales = _context.Sales.FirstOrDefault(p => p.receipt_id == id);
+                return sales;
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show(ex.Message);
+                return null;
+            }
+            
+
+        }
         public List<Sales> GetSales()
         {
             try

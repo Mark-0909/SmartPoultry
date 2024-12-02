@@ -48,8 +48,8 @@
     </UserControl.Resources>
     <Grid>
         <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Center" Height="318" VerticalAlignment="Center" Width="390" Background="White"/>
-        <Button HorizontalContentAlignment="Left" Content="Create Account" HorizontalAlignment="Left" Height="19" Margin="31,218,0,0" VerticalAlignment="Top" Width="100" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Click="CreateAccount_Clicked" Foreground="#FF5C5C5C" Style="{StaticResource NoHoverButton}"/>
-        <Button HorizontalContentAlignment="Right" Content="Forgot Password?" HorizontalAlignment="Left" Height="19" Margin="243,218,0,0" VerticalAlignment="Top" Width="111" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Click="ForgotPass_Clicked" Foreground="#FF5C5C5C" Style="{StaticResource NoHoverButton}"/>
+        <Button HorizontalContentAlignment="Left" Content="Create Account" HorizontalAlignment="Left" Height="19" Margin="31,218,0,0" VerticalAlignment="Top" Width="88" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Click="CreateAccount_Clicked" Foreground="#FF5C5C5C" Style="{StaticResource NoHoverButton}"/>
+        <Button HorizontalContentAlignment="Right" Content="Forgot Password?" HorizontalAlignment="Left" Height="19" Margin="257,218,0,0" VerticalAlignment="Top" Width="102" Background="Transparent" BorderBrush="Transparent" FontWeight="Bold" Click="ForgotPass_Clicked" Foreground="#FF5C5C5C" Style="{StaticResource NoHoverButton}"/>
         <Label Content="Username: " HorizontalAlignment="Left" Height="26" Margin="34,80,0,0" VerticalAlignment="Top" Width="132" FontSize="15" Foreground="#FF5C5C5C"/>
         <Label Content="Password: " HorizontalAlignment="Left" Height="26" Margin="34,149,0,0" VerticalAlignment="Top" Width="144" FontSize="15" Foreground="#FF5C5C5C"/>
         <Button Click="Submit_Clicked" x:Name="SubmitBtn" Content="LOGIN" HorizontalAlignment="Center" Height="34" Margin="0,255,0,0" VerticalAlignment="Top" Width="282" FontWeight="Bold" Background="#FF7BC977" BorderBrush="#FF7BC977" Foreground="White" Style="{StaticResource NoHoverButton}"/>
@@ -71,8 +71,8 @@
                 </TextBox.Style>
             </TextBox>
         </Border>
-        <Border CornerRadius="5                 " BorderBrush="DarkGray" BorderThickness="1" HorizontalAlignment="Left" Height="33" Margin="31,180,0,0" VerticalAlignment="Top" Width="323" Background="White">
-            <PasswordBox x:Name="passwordTB" HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="307" Background="Transparent" BorderBrush="Transparent" VerticalContentAlignment="Center" Padding="1" Margin="9,0,0,0" LostFocus="PassTB_LostFocus">
+        <Border CornerRadius="5                 " BorderBrush="DarkGray" BorderThickness="1" HorizontalAlignment="Center" Height="33" Margin="0,180,0,0" VerticalAlignment="Top" Width="328" Background="White">
+            <PasswordBox x:Name="passwordTB" HorizontalAlignment="Center" Height="25" VerticalAlignment="Center" Width="308" Background="Transparent" BorderBrush="Transparent" VerticalContentAlignment="Center" Padding="1" LostFocus="PassTB_LostFocus">
                 <PasswordBox.Style>
                     <Style TargetType="PasswordBox">
                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>

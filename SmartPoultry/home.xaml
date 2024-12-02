@@ -239,7 +239,7 @@
         <Label Content="Name" HorizontalAlignment="Left" Margin="794,49,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.128,0.014" FontSize="15"/>
         <Label Content="Quantity" HorizontalAlignment="Left" Margin="897,49,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.128,0.014" FontSize="15"/>
         <Label Content="Price" HorizontalAlignment="Left" Margin="1013,49,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.128,0.014" FontSize="15"/>
-        <Label Content="Total:" HorizontalAlignment="Left" Margin="788,497,0,0" VerticalAlignment="Top"/>
-        <Label x:Name="totalPiceLabel"  Content="0" HorizontalAlignment="Left" Margin="1020,497,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Right" Width="69"/>
+        <Label Content="Total:" HorizontalAlignment="Left" Margin="787,497,0,0" VerticalAlignment="Top" FontSize="15" FontWeight="Bold"/>
+        <Label x:Name="totalPiceLabel"  Content="0" HorizontalAlignment="Left" Margin="1027,498,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Right" Width="69" FontSize="15" FontWeight="Bold"/>
     </Grid>
 </UserControl>
