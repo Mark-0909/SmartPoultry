@@ -30,6 +30,7 @@ namespace SmartPoultry
         Add_FinancialLiabilities add_FinancialLiabilities;
         Add_Delivery Add_Delivery;
 
+        
 
         public dashboard()
         {
@@ -76,8 +77,6 @@ namespace SmartPoultry
             }
             
             
-
-            // Clear the panel and display filtered results
             if (FinancilaLiabilitiesPanel != null)
             {
                 FinancilaLiabilitiesPanel.Children.Clear();
@@ -205,7 +204,9 @@ namespace SmartPoultry
             if (mainWindow != null)
             {
                 add_FinancialLiabilities = new Add_FinancialLiabilities(mainWindow);
+                mainWindow.ActiveOverlay(true);
                 add_FinancialLiabilities.ShowDialog();
+                
             }
             else
             {
@@ -220,6 +221,7 @@ namespace SmartPoultry
             if (mainWindow != null)
             {
                 Add_Delivery = new Add_Delivery(mainWindow);
+                mainWindow.ActiveOverlay(true);
                 Add_Delivery.ShowDialog();
             }
             else

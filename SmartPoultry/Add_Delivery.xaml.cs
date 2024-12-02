@@ -91,6 +91,7 @@ namespace SmartPoultry
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            mainWindow.ActiveOverlay(false);
         }
 
         private void DatePicker_Loaded(object sender, RoutedEventArgs e)

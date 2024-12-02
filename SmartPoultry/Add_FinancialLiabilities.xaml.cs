@@ -46,6 +46,7 @@ namespace SmartPoultry
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            mainWindow.ActiveOverlay(false);
         }
         private void ToPay_IsChecked(object sender, RoutedEventArgs e)
         {
@@ -89,6 +90,7 @@ namespace SmartPoultry
                 MessageBox.Show("Unable to access the MainWindow.");
             }
             this.Close();
+            mainWindow.ActiveOverlay(false);
         }
     }
 }

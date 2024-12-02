@@ -84,7 +84,7 @@
         <Rectangle HorizontalAlignment="Left" Height="5" Margin="778,44,0,0" VerticalAlignment="Top" Width="348" Fill="#FFE3E3E3"/>
 
         <Button x:Name="DropOrderBtn" Click="DropOrderBtn_Click"  Content="DROP" HorizontalAlignment="Left" Margin="778,528,0,0" VerticalAlignment="Top" Height="58" Width="160" Background="#FFF0A34A" BorderBrush="#FFF0A34A" FontSize="15" Foreground="White" FontWeight="Bold" Style="{StaticResource NoHoverButton}"/>
-        <Button x:Name="CheckOutBtn" Click="CheckOutBtn_Click" Content="CHECKOUT" HorizontalAlignment="Left" Margin="938,528,0,0" VerticalAlignment="Top" Height="58" Width="170" Background="#FF89D467" BorderBrush="#FF89D467" Foreground="White" FontSize="15" FontWeight="Bold" Style="{StaticResource NoHoverButton}"/>
+        <Button x:Name="CheckOutBtn" Click="CheckOutBtn_Click" Content="CHECKOUT" Margin="938,528,-4,0" VerticalAlignment="Top" Height="58" Background="#FF89D467" BorderBrush="#FF89D467" Foreground="White" FontSize="15" FontWeight="Bold" Style="{StaticResource NoHoverButton}"/>
 
         <Border HorizontalAlignment="Left" Height="83" Margin="10,56,0,0" VerticalAlignment="Top" Width="763" 
         Background="White" CornerRadius="10">

@@ -49,12 +49,12 @@ namespace SmartPoultry
             editBtn.Visibility = Visibility.Collapsed;
             phaseoutBtn.Visibility = Visibility.Collapsed;
             
-            mainWindow.Opacity = 0.5;
+            
 
             //set mainwindow in dim mode
             stockunit.Visibility = Visibility.Collapsed;
             stocklisting.Visibility = Visibility.Collapsed;
-            this.Closed += (s, e) => mainWindow.Opacity = 1.0;
+
 
             context = new AppDbContext();
             productService = new ProductServices(context);
@@ -243,6 +243,7 @@ namespace SmartPoultry
         private void CloseAddPopup_Click(object sender, RoutedEventArgs e)
         {
             ClosePopUp();
+            mainWindow.ActiveOverlay(false);
         }
 
         //database - save product
@@ -302,6 +303,7 @@ namespace SmartPoultry
                             productService.UpdateImagePath(id, destinationPath);
 
                             mainWindow.DynamicReload();
+                            mainWindow.ActiveOverlay(false);
                         }
                         catch (Exception ex)
                         {
@@ -312,7 +314,7 @@ namespace SmartPoultry
             }
             else 
             {
-                MessageBox.Show("SUbmit for edit.");
+                MessageBox.Show("Submit for edit.");
             }
             
         }

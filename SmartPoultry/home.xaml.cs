@@ -114,6 +114,7 @@ namespace SmartPoultry
                 if (mainWindow != null)
                 {
                     mainWindow.DynamicAddOrder();
+                    mainWindow.ActiveOverlay(false);
                 }
                 else
                 {
@@ -326,8 +327,20 @@ namespace SmartPoultry
         {
             if (orderPanel.Children.Count > 0)
             {
-                Home_Checkout checkout = new Home_Checkout(totalPiceLabel.Content.ToString(), this);
+                MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
+                Home_Checkout checkout = new Home_Checkout(totalPiceLabel.Content.ToString(), this, mainWindow);
+                
+
+                if (mainWindow != null)
+                {
+                    mainWindow.ActiveOverlay(true);
+                }
+                else
+                {
+                    MessageBox.Show("Unable to access the MainWindow.");
+                }
                 checkout.ShowDialog();
+                
             }
             else
             {

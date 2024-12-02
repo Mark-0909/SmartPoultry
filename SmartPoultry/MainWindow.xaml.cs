@@ -19,7 +19,24 @@ namespace SmartPoultry
         public MainWindow()
         {
             InitializeComponent();
+            MainWindowOverlay.Visibility = Visibility.Hidden;
         }
+
+        public void ActiveOverlay(bool isActive)
+        {
+            if (isActive)
+            {
+                MainWindowOverlay.Visibility = Visibility.Visible;
+
+                Panel.SetZIndex(MainWindowOverlay, 99);
+            }
+            else
+            {
+                MainWindowOverlay.Visibility = Visibility.Collapsed;
+                Panel.SetZIndex(MainWindowOverlay, 0);
+            }
+        }
+
         public void DynamicAddDeliveries()
         {
             dashboardControl.DynamicReloadDeliveries();

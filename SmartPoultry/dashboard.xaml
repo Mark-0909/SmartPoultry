@@ -45,7 +45,7 @@
             <ComboBoxItem>To Receive</ComboBoxItem>
         </ComboBox>
         <Button Click="AddFinancialLiabilities_Click" HorizontalAlignment="Left" Height="26" Margin="605,318,0,0" VerticalAlignment="Top" Width="28" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
-            <Image Height="17" Width="18" Source="/Images/addicon.png"/>
+            <Image Height="17" Width="18" Source="/Images/addicon.png" RenderTransformOrigin="0.528,0.5"/>
         </Button>
         <Button Click="AddDelivery_Click" HorizontalAlignment="Left" Height="26" Margin="978,318,0,0" VerticalAlignment="Top" Width="28" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
             <Image Height="17" Width="18" Source="/Images/addicon.png"/>
