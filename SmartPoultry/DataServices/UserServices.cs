@@ -19,6 +19,11 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+        public User GetUser(int id)
+        {
+            User user = _context.Users.FirstOrDefault(p => p.Id == id);
+            return user;
+        }
 
         public bool UpdatePassword(string username, string password)
         {

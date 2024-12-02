@@ -20,6 +20,7 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Diagnostics;
 using System.IO;
+using static SmartPoultry.App;
 
 
 
@@ -34,6 +35,7 @@ namespace SmartPoultry
 
         public SalesServices salesServices;
         public ProductServices productServices;
+        public UserServices userServices;
         public ProductVariationServices productvariationsServices;
         public AppDbContext context = new AppDbContext();
 
@@ -57,6 +59,7 @@ namespace SmartPoultry
             productServices = new ProductServices(context);
             productvariationsServices = new ProductVariationServices(context);
             salesServices = new SalesServices(context);
+            userServices = new UserServices(context);
             totalPiceLabel.Visibility = Visibility.Collapsed;
             DisplayProducts();
         }
@@ -136,7 +139,11 @@ namespace SmartPoultry
                 Sales sales = salesServices.GetSales(salesid);
                 ProductServices productServices = new ProductServices(context);
                 ProductVariationServices productVariationServices = new ProductVariationServices(context);
-                
+                UserServices userServices = new UserServices(context);
+
+                int employeeId = UserContext.CurrentUserId;
+                string employeename = userServices.GetUser(employeeId).Username;
+
                 List<string> itemid = sales.product_list.Split(',').ToList();
                 List<string> pricelist = sales.price_list.Split(',').ToList();
                 List<string> quantitylist = sales.quantity_list.Split(',').ToList();
@@ -197,7 +204,7 @@ namespace SmartPoultry
                     doc.Add(new iTextSharp.text.Paragraph("--------------------------------------------------------", font));
 
                     doc.Add(new iTextSharp.text.Paragraph($"Order ID: {sales.receipt_id}", font));
-                    doc.Add(new iTextSharp.text.Paragraph($"Cashier: ", font));
+                    doc.Add(new iTextSharp.text.Paragraph($"Cashier: {employeename}", font));
                     doc.Add(new iTextSharp.text.Paragraph($"Payment Mode: {sales.payment_mode.ToUpper()}", font));
                     doc.Add(new iTextSharp.text.Paragraph("--------------------------------------------------------", font));
                     // Generate receipt items
