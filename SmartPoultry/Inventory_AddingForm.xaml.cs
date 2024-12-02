@@ -237,21 +237,12 @@ namespace SmartPoultry
         }
         private void ProductName_GotFocus(object sender, RoutedEventArgs e)
         {
-            
-            if (ProductNameTextBox.Text == "Enter text here...")
-            {
-                ProductNameTextBox.Text = "";
-                ProductNameTextBox.Foreground = Brushes.Black;
-            }
+            HandleTextBoxPlaceholder(ProductNameTextBox, "Enter text here...", true);
         }
         private void ProductName_LostFocus(object sender, RoutedEventArgs e)
         {
-            
-            if (string.IsNullOrWhiteSpace(ProductNameTextBox.Text))
-            {
-                ProductNameTextBox.Text = "Enter text here...";
-                ProductNameTextBox.Foreground = Brushes.Gray;
-            }
+
+            HandleTextBoxPlaceholder(ProductNameTextBox, "Enter text here...", false);
         }
         
         private void CloseAddPopup_Click(object sender, RoutedEventArgs e)
@@ -363,6 +354,26 @@ namespace SmartPoultry
         }
 
 
+
+        public void HandleTextBoxPlaceholder(TextBox tb, string placeholder, bool isFocused)
+        {
+            if (isFocused)
+            {
+                if (tb.Text == placeholder)
+                {
+                    tb.Text = string.Empty;
+                    tb.Foreground = Brushes.Black;
+                }
+            }
+            else // When the TextBox loses focus
+            {
+                if (string.IsNullOrWhiteSpace(tb.Text))
+                {
+                    tb.Text = placeholder;
+                    tb.Foreground = Brushes.Gray;
+                }
+            }
+        }
 
         public void ClosePopUp()
         {
