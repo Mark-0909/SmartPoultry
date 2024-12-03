@@ -26,15 +26,15 @@
 
             <!-- Supplier List Panel -->
             <Border Grid.Column="0" Background="#FFF" Margin="0,0,10,0" Padding="10">
-                <ScrollViewer HorizontalAlignment="Center" Height="354" Margin="0,26,0,0" VerticalAlignment="Top" Width="510" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
-                    <WrapPanel x:Name="SupplierListPanel" Width="510"/>
+                <ScrollViewer HorizontalAlignment="Center" Height="354" Margin="0,26,0,0" VerticalAlignment="Top" Width="650" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                    <WrapPanel x:Name="SupplierListPanel"/>
                 </ScrollViewer>
 
             </Border>
 
             <!-- Supplier Information Section -->
             <StackPanel Grid.Column="1" Margin="10">
-                <TextBlock Text="Supplier Information" FontSize="20" FontWeight="Bold" Margin="0,0,0,10"/>
+                <TextBlock Text="Add a Supplier" FontSize="20" FontWeight="Bold" Margin="0,0,0,10"/>
 
                 <TextBlock Text="Name:" FontWeight="Bold"/>
                 <TextBox x:Name="SupplierName" Margin="0,2,0,8"/>
@@ -53,9 +53,7 @@
 
                 <!-- Supplier Action Buttons -->
                 <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
-                    <Button Content="Add Supplier" Click="AddSupplier_Click" Background="#FF66C265" Margin="0,0,10,0"/>
-                    <Button Content="Edit Supplier" Click="EditSupplier_Click" Background="#FF66C265" Margin="0,0,10,0"/>
-                    <Button Content="Delete Supplier" Click="DeleteSupplier_Click" Background="#FF66C265"/>
+                    <Button Content="Add Supplier" Click="AddSupplier_Click" Background="#FF66C265" Margin="140,0,10,0"/>
                 </StackPanel>
 
                 <!-- Order History Section -->
@@ -70,7 +68,7 @@
                 </DataGrid>
             </StackPanel>
         </Grid>
-        <Label HorizontalContentAlignment="Center" Content="NAME" HorizontalAlignment="Left" Height="32" Margin="14,44,0,0" VerticalAlignment="Top" Width="138" Grid.Row="1"/>
+        <Label HorizontalContentAlignment="Center" Content="NAME" HorizontalAlignment="Left" Height="32" Margin="34,44,0,0" VerticalAlignment="Top" Width="138" Grid.Row="1"/>
         <Label HorizontalContentAlignment="Center" Content="CONTACT PERSON" HorizontalAlignment="Left" Height="28" Margin="199,44,0,0" VerticalAlignment="Top" Width="144" Grid.Row="1"/>
         <Label HorizontalContentAlignment="Center" Content="CONTACT INFO" HorizontalAlignment="Left" Height="28" Margin="377,44,0,0" VerticalAlignment="Top" Width="144" Grid.Row="1"/>
     </Grid>

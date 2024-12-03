@@ -23,6 +23,7 @@ namespace SmartPoultry
     /// </summary>
     public partial class Supplier : UserControl
     {
+        private SupplierList _selectedSupplier;
         SupplierServices SupplierServices;
         public Supplier()
         {
@@ -44,18 +45,22 @@ namespace SmartPoultry
 
             if (success)
             {
-
+                RetrieveSupplierList(SupplierServices); //this will refresh the list after adding
             }
         }
 
         private void EditSupplier_Click(object sender, RoutedEventArgs e)
         {
-
+            string name = SupplierName.Text;
+            string contactperson = ContactPerson.Text;
+            string phone = Phone.Text;
+            string email = Email.Text;
+            string address = Address.Text;
         }
 
         private void DeleteSupplier_Click(object sender, RoutedEventArgs e)
         {
-
+            string name = SupplierName.Text;
         }
 
         public void RetrieveSupplierList(SupplierServices supplierServices)
@@ -65,10 +70,23 @@ namespace SmartPoultry
             
             foreach (SupplierList list in supplierLists)
             {
-                Supplier_SupplierControl control = new Supplier_SupplierControl(list.Name, list.Contact_Person, list.Contact);
+                Supplier_SupplierControl control = new Supplier_SupplierControl(list);
                 SupplierListPanel.Children.Add(control);
+
+                control.SupplierClicked += Supplier_SupplierControl_SupplierClicked;
             }
-           
+        }
+
+        public void Supplier_SupplierControl_SupplierClicked(SupplierList supplier)
+        {
+
+
+            // Populate the form with the selected supplier's data
+            SupplierName.Text = supplier.Name;
+            ContactPerson.Text = supplier.Contact_Person;
+            Phone.Text = supplier.Contact;
+            Email.Text = supplier.Contact;
+            Address.Text = supplier.Location;
         }
     }
 }

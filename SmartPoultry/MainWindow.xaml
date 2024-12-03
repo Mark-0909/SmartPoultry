@@ -15,42 +15,42 @@
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
-        <local:Supplier x:Name="supplierControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,92,0,0" VerticalAlignment="Top" Height="598" Width="1113"/>
+        <local:Supplier x:Name="supplierControl" Visibility ="Collapsed" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,92,0,0" VerticalAlignment="Top" Height="598" Width="1113"/>
 
 
 
 
 
 
-        <local:Organization x:Name="organizationControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123"/>
+        <local:Organization x:Name="organizationControl" Visibility ="Collapsed" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123"/>
 
 
 
 
 
 
-        <local:records x:Name="recordsControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1126"/>
+        <local:records x:Name="recordsControl" Visibility ="Collapsed" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1126"/>
 
 
 
 
 
 
-        <local:inventory x:Name="inventoryControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123"/>
+        <local:inventory x:Name="inventoryControl" Visibility ="Collapsed" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123"/>
 
 
 
 
 
 
-        <local:dashboard x:Name="dashboardControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Width="1123" Height="603"/>
+        <local:dashboard x:Name="dashboardControl" Visibility ="Collapsed" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Width="1123" Height="603"/>
 
 
 
 
 
 
-        <local:home x:Name="homeControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123"/>
+        <local:home x:Name="homeControl" Visibility ="Visible" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123"/>
         <StackPanel HorizontalAlignment="Left" Height="892" Margin="0,92,0,0" VerticalAlignment="Top" Width="101" Background="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}" Grid.ColumnSpan="2"/>
         <Rectangle HorizontalAlignment="Center" Height="92" VerticalAlignment="Top" Width="1229" Fill="#FFF4F7FC" Grid.Column="1" Grid.ColumnSpan="2"/>
         <Rectangle HorizontalAlignment="Left" Height="608" Margin="0,92,0,0" VerticalAlignment="Top" Width="92" Fill="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}" Grid.ColumnSpan="2"/>
