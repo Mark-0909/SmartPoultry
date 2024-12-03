@@ -12,10 +12,9 @@
             <Button Content="Sales" HorizontalAlignment="Left" Height="60" Margin="-1,-1,0,0" VerticalAlignment="Top" Width="375" FontSize="25" Background="#FF2C6E5D" Foreground="White"/>
         </Border>
         <TextBox HorizontalAlignment="Left" Height="43" Margin="784,19,0,0" TextWrapping="Wrap" Text="Search record" VerticalAlignment="Top" Width="292" TextChanged="TextBox_TextChanged" FontSize="16" VerticalContentAlignment="Center" SelectionOpacity="2" Opacity="0.4"/>
-        <Button Content="" HorizontalAlignment="Left" Height="43" Margin="1033,19,0,0" VerticalAlignment="Top" Width="43">
-            <Button.Background>
-                <ImageBrush ImageSource="/2946467-200.png"/>
-            </Button.Background>
+        <Button HorizontalAlignment="Left" Height="43" Margin="1033,19,0,0" VerticalAlignment="Top" Width="43">
+            <Image Height="38" Width="33" Source="/Images/2946467-200.png"/>
+
         </Button>
         <Button Content="Inventory" HorizontalAlignment="Center" Height="59" VerticalAlignment="Top" Width="351" Margin="0,77,0,0" FontSize="25" Background="#FFC0E4BE" Foreground="#FF077C5E"/>
         <Button Content="Logs" HorizontalAlignment="Left" Height="59" Margin="707,77,0,0" VerticalAlignment="Top" Width="393" FontSize="25" Background="#FFC0E4BE" Foreground="#FF077C5E"/>

@@ -71,16 +71,16 @@ namespace SmartPoultry
             {
                 MessageBox.Show("Successful!");
                 
-
+                this.Close();
                 if (mainWindow != null)
                 {
                     mainWindow.DynamicAddDeliveries();
+                    mainWindow.ActiveOverlay(false);
                 }
                 else
                 {
                     MessageBox.Show("Unable to access the MainWindow.");
                 }
-                this.Close();
             }
             else {
                 MessageBox.Show("Unsuccessful!");

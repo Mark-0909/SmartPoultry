@@ -205,8 +205,7 @@ namespace SmartPoultry
             {
                 add_FinancialLiabilities = new Add_FinancialLiabilities(mainWindow);
                 mainWindow.ActiveOverlay(true);
-                add_FinancialLiabilities.ShowDialog();
-                
+                add_FinancialLiabilities.ShowDialog();       
             }
             else
             {
