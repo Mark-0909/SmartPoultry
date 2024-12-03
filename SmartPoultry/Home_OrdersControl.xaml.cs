@@ -58,7 +58,7 @@ namespace SmartPoultry
 
             homeControl?.EditQuantityPriceList(positionList, (pricevar * initialQuantity).ToString(), initialQuantity.ToString());
 
-            pricelabel.Content = (pricevar * initialQuantity).ToString();
+            pricelabel.Content = (pricevar * initialQuantity).ToString("N2");
             previousQuantity = initialQuantity;
 
             
@@ -81,7 +81,7 @@ namespace SmartPoultry
 
                 homeControl?.EditQuantityPriceList(positionList, (pricevar * initialQuantity).ToString(), initialQuantity.ToString());
 
-                pricelabel.Content = (pricevar * initialQuantity).ToString();
+                pricelabel.Content = (pricevar * initialQuantity).ToString("N2");
                 previousQuantity = initialQuantity;
                 
 

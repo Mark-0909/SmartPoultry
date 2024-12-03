@@ -3,6 +3,7 @@ using SmartPoultry.DataServices;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace SmartPoultry
 {
@@ -91,6 +92,7 @@ namespace SmartPoultry
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            mainWindow.ActiveOverlay(false);
         }
 
         private void DatePicker_Loaded(object sender, RoutedEventArgs e)
@@ -135,6 +137,120 @@ namespace SmartPoultry
         private void UnpaidRadio_IsChecked(object sender, RoutedEventArgs e)
         {
             status = "Nnpaid";
+        }
+
+        private void ContactsTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void NameTB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(NameTextBox, "Name...", true);
+        }
+        private void NameTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(NameTextBox, "Name...", false);
+        }
+        private void OrderTB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(OrderIdTextBox, "Order ID...", true);
+        }
+        private void OrderTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(OrderIdTextBox, "Order ID...", false);
+        }
+        private void AddressTB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(AddressTextBox, "Address...", true);
+        }
+        private void AddressTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(AddressTextBox, "Address...", false);
+        }
+        private void PriceTB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(PriceTextBox, "Price...", true);
+        }
+        private void PriceTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(PriceTextBox, "Price...", false);
+        }
+        private void DeliveryManTB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(DeliveryManTextBox, "Delivery Man...", true);
+        }
+        private void DeliveryManTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(DeliveryManTextBox, "Delivery Man...", false);
+        }
+        private void ChargeTB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(ChargeTextBox, "Charge fee...", true);
+        }
+        private void ChargeTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(ChargeTextBox, "Charge fee...", false);
+        }
+        private void ContactsTB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(ContactsTextBox, "Contact...", true);
+        }
+        private void ContactsTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(ContactsTextBox, "Contact...", false);
+        }
+        private void HandleNumericInput(TextBox textBox, bool allowDecimal)
+        {
+            if (textBox == null || string.IsNullOrEmpty(textBox.Text)) return;
+
+            string input = textBox.Text;
+
+            // Filter input based on whether decimals are allowed
+            string filteredInput = allowDecimal
+                ? new string(input.Where(c => char.IsDigit(c) || c == '.').ToArray())
+                : new string(input.Where(char.IsDigit).ToArray());
+
+            // Allow only one decimal point
+            if (allowDecimal)
+            {
+                int firstDecimalIndex = filteredInput.IndexOf('.');
+                if (firstDecimalIndex != -1)
+                {
+                    filteredInput = filteredInput.Substring(0, firstDecimalIndex + 1) +
+                                    filteredInput.Substring(firstDecimalIndex + 1).Replace(".", "");
+                }
+            }
+
+            // Update the TextBox only if input has changed
+            if (input != filteredInput)
+            {
+                textBox.Text = filteredInput;
+                textBox.CaretIndex = filteredInput.Length;
+            }
+        }
+
+
+
+
+        public void HandleTextBoxPlaceholder(TextBox tb, string placeholder, bool isFocused)
+        {
+            if (isFocused)
+            {
+                if (tb.Text == placeholder)
+                {
+                    tb.Text = string.Empty;
+                    tb.Foreground = Brushes.Black;
+                }
+            }
+            else // When the TextBox loses focus
+            {
+                if (string.IsNullOrWhiteSpace(tb.Text))
+                {
+                    tb.Text = placeholder;
+                    tb.Foreground = Brushes.Gray;
+                }
+            }
         }
     }
 }

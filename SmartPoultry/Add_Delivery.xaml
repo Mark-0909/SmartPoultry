@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartPoultry"
         mc:Ignorable="d"
-        Title="Add_Delivery" Height="480" Width="432" WindowStartupLocation="CenterScreen" Background="Transparent" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True">
+        Title="Add_Delivery" Height="505" Width="432" WindowStartupLocation="CenterScreen" Background="Transparent" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True">
     <Grid>
         <Border CornerRadius="10" BorderBrush="#FF2C6E5D" Background="White" BorderThickness="1">
             <Border CornerRadius="10 10 0 0" BorderBrush="#FF2C6E5D" BorderThickness="1" HorizontalAlignment="Center" Height="38" Margin="0,-1,0,0" VerticalAlignment="Top" Width="432" Background="#FF2C6E5D">
@@ -15,34 +15,195 @@
             </Border>
         </Border>
         <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="ADD DELIVERY" HorizontalAlignment="Center" Height="35" VerticalAlignment="Top" Width="220" FontSize="20" Foreground="White" FontWeight="Bold"/>
-        <Border CornerRadius="0 0 10 10" BorderBrush="#FF2C6E5D" BorderThickness="1" HorizontalAlignment="Center" Height="32" Margin="0,448,0,0" VerticalAlignment="Top" Width="432" Background="#FF2C6E5D">
+        <Border CornerRadius="0 0 10 10" BorderBrush="#FF2C6E5D" BorderThickness="1" HorizontalAlignment="Center" Height="32" Margin="0,473,0,0" VerticalAlignment="Top" Width="432" Background="#FF2C6E5D">
             <Button Content="CONFIRM" HorizontalAlignment="Center" Height="27" VerticalAlignment="Center" Width="412" BorderBrush="#FF2C6E5D" Background="#FF2C6E5D" FontSize="15" Click="ConfirmButton_Click" Foreground="White" FontWeight="Bold"/>
         </Border>
-        <TextBox x:Name="NameTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="25" Margin="8,68,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="412"/>
         <Label Content="Name: " HorizontalAlignment="Left" Height="30" Margin="8,45,0,0" VerticalAlignment="Top" Width="96"/>
         <Label Content="Address:" HorizontalAlignment="Left" Height="26" Margin="8,142,0,0" VerticalAlignment="Top" Width="83"/>
-        <TextBox x:Name="AddressTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" Margin="8,168,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="412"/>
         <Label Content="Type:" HorizontalAlignment="Left" Height="30" Margin="16,196,0,0" VerticalAlignment="Top" Width="96"/>
         <RadioButton x:Name="toDeliverRadio" Checked="ToDeliver_IsChecked"  IsChecked="True" GroupName="Type" VerticalContentAlignment="Center" Content="To Deliver" HorizontalAlignment="Left" Height="21" Margin="16,226,0,0" VerticalAlignment="Top" Width="90"/>
         <RadioButton x:Name="toReceiveRadio" Checked="ToReceive_IsChecked"  GroupName="Type" VerticalContentAlignment="Center" Content="To Receive" HorizontalAlignment="Left" Height="21" Margin="111,226,0,0" VerticalAlignment="Top" Width="90"/>
         <Label Content="Delivery Date: " HorizontalAlignment="Left" Height="30" Margin="10,313,0,0" VerticalAlignment="Top" Width="96"/>
-        <DatePicker x:Name="datePicker" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="25" Margin="10,348,0,0" VerticalAlignment="Top" Width="189" Loaded="DatePicker_Loaded"/>
         <Label Content="Payment Mode:" HorizontalAlignment="Left" Height="30" Margin="8,252,0,0" VerticalAlignment="Top" Width="96"/>
         <RadioButton x:Name="CashRadio" Checked="CashRadio_IsChecked"  IsChecked="True" GroupName="Mode"  VerticalContentAlignment="Center" Content="Cash" HorizontalAlignment="Left" Height="21" Margin="13,287,0,0" VerticalAlignment="Top" Width="90"/>
         <RadioButton x:Name="GcashRadio" Checked="GCashRadio_IsChecked"  GroupName="Mode" VerticalContentAlignment="Center" Content="GCash" HorizontalAlignment="Left" Height="21" Margin="109,287,0,0" VerticalAlignment="Top" Width="90"/>
-        <Label Content="Contacts:" HorizontalAlignment="Left" Height="30" Margin="10,378,0,0" VerticalAlignment="Top" Width="96" RenderTransformOrigin="0.515,1.038"/>
-        <TextBox x:Name="ContactsTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="30" Margin="8,413,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="412"/>
+        <Label Content="Contacts:" HorizontalAlignment="Left" Height="30" Margin="8,399,0,0" VerticalAlignment="Top" Width="96" RenderTransformOrigin="0.515,1.038"/>
         <Label Content="Order ID: " HorizontalAlignment="Left" Height="30" Margin="8,93,0,0" VerticalAlignment="Top" Width="96"/>
-        <TextBox x:Name="OrderIdTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="25" Margin="8,117,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="412"/>
         <Label Content="Price:" HorizontalAlignment="Left" Height="30" Margin="230,196,0,0" VerticalAlignment="Top" Width="96" RenderTransformOrigin="0.515,1.038"/>
-        <TextBox x:Name="PriceTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="23" Margin="230,225,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="190"/>
         <Label Content="Status: " HorizontalAlignment="Left" Height="30" Margin="230,254,0,0" VerticalAlignment="Top" Width="96"/>
         <RadioButton x:Name="PaidRadio" Checked="PaidRadio_IsChecked"  IsChecked="True" GroupName="Status"  VerticalContentAlignment="Center" Content="Paid" HorizontalAlignment="Left" Height="21" Margin="230,283,0,0" VerticalAlignment="Top" Width="90"/>
         <RadioButton x:Name="UnpaidRadio" Checked="UnpaidRadio_IsChecked"   GroupName="Status"  VerticalContentAlignment="Center" Content="Unpaid" HorizontalAlignment="Left" Height="21" Margin="320,284,0,0" VerticalAlignment="Top" Width="90"/>
         <Label Content="Delivery Man: " HorizontalAlignment="Left" Height="30" Margin="230,309,0,0" VerticalAlignment="Top" Width="96"/>
-        <TextBox x:Name="DeliveryManTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="22" Margin="230,338,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="190"/>
-        <Label Content="Charge: " HorizontalAlignment="Left" Height="24" Margin="230,360,0,0" VerticalAlignment="Top" Width="96"/>
-        <TextBox x:Name="ChargeTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="22" Margin="230,386,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="190"/>
+        <Label Content="Charge: " HorizontalAlignment="Left" Height="24" Margin="224,360,0,0" VerticalAlignment="Top" Width="96"/>
+        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="23" Margin="10,424,0,0" VerticalAlignment="Top" Width="204">
+            <TextBox x:Name="ContactsTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="Contact..." VerticalAlignment="Center" Width="192" BorderBrush="Transparent" Foreground="Gray" GotFocus="ContactsTB_GotFocus" LostFocus="ContactsTB_LostFocus">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="SelectionBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+        </Border>
+        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="23" Margin="10,338,0,0" VerticalAlignment="Top" Width="204">
+            <DatePicker x:Name="datePicker" 
+            VerticalContentAlignment="Center" 
+            HorizontalAlignment="Center" 
+            Height="23" 
+            VerticalAlignment="Center" 
+            Width="192" 
+            Loaded="DatePicker_Loaded" 
+            Foreground="Gray">
+                <!-- Style for DatePicker -->
+                <DatePicker.Style>
+                    <Style TargetType="DatePicker">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="Foreground" Value="Gray" />
+
+                        <Style.Triggers>
+                            <!-- Remove hover effect -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                                <Setter Property="Background" Value="Transparent" />
+                            </Trigger>
+                            <!-- Remove keyboard focus effect -->
+                            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DatePicker.Style>
+
+                <!-- Style for internal TextBox -->
+                <DatePicker.Resources>
+                    <Style TargetType="TextBox">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                        <Setter Property="BorderBrush" Value="Transparent" />
+                        <Setter Property="BorderThickness" Value="0" />
+
+                        <Style.Triggers>
+                            <!-- Remove hover effect for TextBox -->
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DatePicker.Resources>
+            </DatePicker>
+
+
+        </Border>
+        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="23" Margin="223,384,0,0" VerticalAlignment="Top" Width="204">
+            <TextBox x:Name="ChargeTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="22" TextWrapping="Wrap" Text="Charge fee..." VerticalAlignment="Center" Width="194" BorderBrush="Transparent" Foreground="Gray" GotFocus="ChargeTB_GotFocus" LostFocus="ChargeTB_LostFocus">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="SelectionBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+        </Border>
+        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Center" Height="23" Margin="0,70,0,0" VerticalAlignment="Top" Width="412">
+            <TextBox x:Name="NameTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="Name..." VerticalAlignment="Center" Width="403" BorderBrush="Transparent" Foreground="Gray" GotFocus="NameTB_GotFocus" LostFocus="NameTB_LostFocus">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="SelectionBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+        </Border>
+        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Center" Height="23" Margin="0,168,0,0" VerticalAlignment="Top" Width="408">
+            <TextBox x:Name="AddressTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="Address..." VerticalAlignment="Center" Width="398" BorderBrush="Transparent" Foreground="Gray" GotFocus="AddressTB_GotFocus" LostFocus="AddressTB_LostFocus">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="SelectionBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+        </Border>
+        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="23" Margin="216,224,0,0" VerticalAlignment="Top" Width="204">
+            <TextBox x:Name="PriceTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="Price..." VerticalAlignment="Center" Width="190" BorderBrush="Transparent" Foreground="Gray" GotFocus="PriceTB_GotFocus" LostFocus="PriceTB_LostFocus">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="SelectionBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+        </Border>
+        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="23" Margin="223,332,0,0" VerticalAlignment="Top" Width="204">
+            <TextBox x:Name="DeliveryManTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="22" TextWrapping="Wrap" Text="Delivery Man..." VerticalAlignment="Center" Width="190" BorderBrush="Transparent" Foreground="Gray" GotFocus="DeliveryManTB_GotFocus" LostFocus="DeliveryManTB_LostFocus">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="SelectionBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+        </Border>
+        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Center" Height="23" Margin="0,119,0,0" VerticalAlignment="Top" Width="410">
+            <TextBox x:Name="OrderIdTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="25" TextWrapping="Wrap" Text="Order ID..." VerticalAlignment="Center" Width="400" BorderBrush="Transparent" Foreground="Gray" GotFocus="OrderTB_GotFocus" LostFocus="OrderTB_LostFocus">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="SelectionBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+        </Border>
 
     </Grid>
 </Window>

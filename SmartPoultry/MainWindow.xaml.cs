@@ -13,10 +13,25 @@ namespace SmartPoultry
         public MainWindow()
         {
             InitializeComponent();
-            InitializeNavigationMap();
+            MainWindowOverlay.Visibility = Visibility.Hidden;
         }
 
-        private void InitializeNavigationMap()
+        public void ActiveOverlay(bool isActive)
+        {
+            if (isActive)
+            {
+                MainWindowOverlay.Visibility = Visibility.Visible;
+
+                Panel.SetZIndex(MainWindowOverlay, 99);
+            }
+            else
+            {
+                MainWindowOverlay.Visibility = Visibility.Collapsed;
+                Panel.SetZIndex(MainWindowOverlay, 0);
+            }
+        }
+
+        public void DynamicAddDeliveries()
         {
             // Initialize the dictionary to map buttons to their respective controls
             navigationMap = new Dictionary<Button, Control>

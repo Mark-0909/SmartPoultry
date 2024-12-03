@@ -19,24 +19,27 @@ namespace SmartPoultry
     /// </summary>
     public partial class Home_Checkout : Window
     {
-        public MainWindow? mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
-        
+        public MainWindow mainWindow { get; set; }
+
 
         public string paymentmethod;
         public string status;
         public string purchasemethod;
         readonly home homeController;
-        public Home_Checkout(string price, home homeControl)
+        public Home_Checkout(string price, home homeControl, MainWindow window)
         {
             InitializeComponent();
             totalPricelabel.Content = price;
             homeController = homeControl;
+
+            mainWindow = window;
         }
 
 
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+            mainWindow.ActiveOverlay(false);
         }
 
         
@@ -45,6 +48,7 @@ namespace SmartPoultry
         {
             homeController.ConfirmOrder(paymentmethod, status, purchasemethod);
             this.Close();
+            mainWindow.ActiveOverlay(false);
         }
 
         private void CashRadioButton_Checked(object sender, RoutedEventArgs e)

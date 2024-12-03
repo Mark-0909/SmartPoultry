@@ -8,5 +8,29 @@
              d:DesignHeight="577" d:DesignWidth="1104" Background="#FFE3E3E3" Width="1104" Height="577">
     <Grid>
         <Label Content="RECORDS" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Margin="10,4,0,0"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Height="468" Margin="0,77,0,0" VerticalAlignment="Top" Width="1048" OpacityMask="Black" Background="White">
+            <Button Content="Sales" HorizontalAlignment="Left" Height="60" Margin="-1,-1,0,0" VerticalAlignment="Top" Width="345" FontSize="25" Background="#FF2C6E5D"/>
+        </Border>
+        <TextBox HorizontalAlignment="Left" Height="43" Margin="784,19,0,0" TextWrapping="Wrap" Text="Search record" VerticalAlignment="Top" Width="292" TextChanged="TextBox_TextChanged" FontSize="16" VerticalContentAlignment="Center" SelectionOpacity="2" Opacity="0.4"/>
+        <Button Content="" HorizontalAlignment="Left" Height="43" Margin="1033,19,0,0" VerticalAlignment="Top" Width="43">
+            <Button.Background>
+                <ImageBrush ImageSource="/2946467-200.png"/>
+            </Button.Background>
+        </Button>
+        <Button Content="Inventory" HorizontalAlignment="Center" Height="59" VerticalAlignment="Top" Width="350" Margin="0,77,0,0" FontSize="25" Background="#FFC0E4BE"/>
+        <Button Content="Logs" HorizontalAlignment="Left" Height="59" Margin="732,77,0,0" VerticalAlignment="Top" Width="344" FontSize="25" Background="#FFC0E4BE"/>
+        <Label x:Name="label1" Content="ID&#xD;&#xA;ID" HorizontalAlignment="Left" Height="26" Margin="100,164,0,0" VerticalAlignment="Top" Width="50" FontSize="15"/>
+        <Label Content="Date" HorizontalAlignment="Left" Height="26" Margin="282,164,0,0" VerticalAlignment="Top" Width="47" FontSize="15"/>
+        <Label Content="Status" HorizontalAlignment="Left" Height="40" Margin="434,164,0,0" VerticalAlignment="Top" Width="51" FontSize="15"/>
+        <Label Content="Payment Method" HorizontalAlignment="Left" Height="30" Margin="578,164,0,0" VerticalAlignment="Top" Width="123" FontSize="15"/>
+        <Label Content="Payment Status" HorizontalAlignment="Left" Height="28" Margin="767,164,0,0" VerticalAlignment="Top" Width="116" FontSize="15"/>
+        <Label Content="Price&#xD;&#xA;" HorizontalAlignment="Left" Height="26" Margin="977,168,0,0" VerticalAlignment="Top" Width="46" FontSize="15"/>
+        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Height="44" Margin="0,198,0,0" VerticalAlignment="Top" Width="1020"/>
+        <TextBox HorizontalAlignment="Left" Height="40" Margin="270,200,0,0" TextWrapping="Wrap" Text="10/20/2024" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0,0,0,0"/>
+        <TextBox HorizontalAlignment="Left" Height="41" Margin="424,200,0,0" TextWrapping="Wrap" Text="To Deliver" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0,0,0,0"/>
+        <TextBox HorizontalAlignment="Left" Height="40" Margin="604,200,0,0" TextWrapping="Wrap" Text="COD" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0,0,0,0"/>
+        <TextBox HorizontalAlignment="Left" Height="40" Margin="790,200,0,0" TextWrapping="Wrap" Text="Unpaid" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0,0,0,0"/>
+        <TextBox HorizontalAlignment="Left" Height="40" Margin="965,200,0,0" TextWrapping="Wrap" Text="₱1000" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0,0,0,0"/>
+        <TextBox Height="40" Margin="70,200,0,0" TextWrapping="Wrap" Text="1092741234" VerticalAlignment="Top" Width="80" BorderThickness="0,0,0,0" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
     </Grid>
 </UserControl>

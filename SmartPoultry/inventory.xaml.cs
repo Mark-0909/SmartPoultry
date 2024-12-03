@@ -59,8 +59,21 @@ namespace SmartPoultry
         }
         private void OpenAddForm_Click(object sender, RoutedEventArgs e)
         {
+            MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
             Inventory_AddingForm addForm = new Inventory_AddingForm();
-            addForm.ShowDialog();
+            if (mainWindow != null)
+            {
+                
+                mainWindow.ActiveOverlay(true);
+                addForm.ShowDialog();
+
+            }
+            else
+            {
+                MessageBox.Show("Unable to access the MainWindow.");
+            }
+            
+            
         }
     }
 }

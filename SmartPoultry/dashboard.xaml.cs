@@ -30,18 +30,83 @@ namespace SmartPoultry
         Add_FinancialLiabilities add_FinancialLiabilities;
         Add_Delivery Add_Delivery;
 
+        
 
         public dashboard()
         {
             InitializeComponent();
+
             var context = new AppDbContext();
             salesServices = new SalesServices(context);
             financialLiabilities = new FinancialLiabilitiesServices(context);
             deliveryServices = new DeliveriesServices(context);
+
             DisplaySales();
-            DisplayFinancialLiabilities();
-            DisplayDeliveries();
+
+            FinancialLiabilitiesCbox.SelectionChanged += FinancialCB_SelectionChanged;
+            DeliveryCBox.SelectionChanged += DeliveryCB_SelectionChanged;
+
+
+            FinancialLiabilitiesCbox.SelectedIndex = 0;
+            DeliveryCBox.SelectedIndex = 0;
+
+
+            if (FinancialLiabilitiesCbox.SelectedItem != null)
+            {
+                DisplayFinancialLiabilities(FinancialLiabilitiesCbox.Text);
+            }
+
+            if (DeliveryCBox.SelectedItem != null)
+            {
+                DisplayDeliveries(DeliveryCBox.Text);
+            }
         }
+
+        private void FinancialCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string selectedText = FinancialLiabilitiesCbox.Text;
+            string filter;
+
+            if(selectedText == "To Pay")
+            {
+                filter = "To Receive";
+            }
+            else
+            {
+                filter = "To Pay";
+            }
+            
+            
+            if (FinancilaLiabilitiesPanel != null)
+            {
+                FinancilaLiabilitiesPanel.Children.Clear();
+                
+                DisplayFinancialLiabilities(filter);
+            }
+        }
+
+
+        private void DeliveryCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            string selectedText = DeliveryCBox.Text;
+            string filter;
+
+            if (selectedText == "To Deliver")
+            {
+                filter = "To Receive";
+            }
+            else
+            {
+                filter = "To Deliver";
+            }
+            if (DeliveriesPanel1 != null && DeliveryCBox.SelectedItem != null)
+            {
+                DeliveriesPanel1.Children.Clear();
+                DisplayDeliveries(filter);
+                
+            }
+        }
+
         public void DynamicOrderDisplay()
         {
             OrderListPanel.Children.Clear();
@@ -51,17 +116,17 @@ namespace SmartPoultry
         public void DynamicReloadDeliveries()
         {
             DeliveriesPanel1.Children.Clear();
-            DisplayDeliveries();
+            DisplayDeliveries(DeliveryCBox.Text);
         }
         public void DynamicReloadFinancialLiabilities()
         {
             FinancilaLiabilitiesPanel.Children.Clear();
-            DisplayFinancialLiabilities();
+            DisplayFinancialLiabilities(FinancialLiabilitiesCbox.Text);
         }
-        public void DisplayDeliveries()
+        public void DisplayDeliveries(string filter)
         {
             int evenodd = 0;
-            List<Deliveries> deliveries = deliveryServices.GetList();
+            List<Deliveries> deliveries = deliveryServices.GetList(filter);
 
             foreach (Deliveries deliver in deliveries) {
                 int id = deliver.Id;
@@ -83,10 +148,10 @@ namespace SmartPoultry
                 DeliveriesPanel1.Children.Add(control);
             }
         }
-        public void DisplayFinancialLiabilities()
+        public void DisplayFinancialLiabilities(string filter)
         {
             int evenodd = 0;
-            List<FinancialLiabilities> finance = financialLiabilities.GetList();
+            List<FinancialLiabilities> finance = financialLiabilities.GetList(filter);
             
             foreach (FinancialLiabilities list in finance) { 
                 int id = list.Id;
@@ -139,7 +204,9 @@ namespace SmartPoultry
             if (mainWindow != null)
             {
                 add_FinancialLiabilities = new Add_FinancialLiabilities(mainWindow);
+                mainWindow.ActiveOverlay(true);
                 add_FinancialLiabilities.ShowDialog();
+                
             }
             else
             {
@@ -154,6 +221,7 @@ namespace SmartPoultry
             if (mainWindow != null)
             {
                 Add_Delivery = new Add_Delivery(mainWindow);
+                mainWindow.ActiveOverlay(true);
                 Add_Delivery.ShowDialog();
             }
             else
@@ -163,5 +231,7 @@ namespace SmartPoultry
             
             
         }
+        
+
     }
 }

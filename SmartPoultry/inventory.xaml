@@ -9,10 +9,10 @@
     <Grid>
         <Label Content="INVENTORY" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Margin="10,4,0,0"/>
         <Button HorizontalAlignment="Left" Margin="1048,4,0,0" VerticalAlignment="Top" Height="37" Width="32" Click="OpenAddForm_Click">
-            <Image Height="30" Width="27" Source="/addicon.png" Stretch="UniformToFill"/>
+            <Image Height="30" Width="27" Source="/Images/addicon.png" Stretch="UniformToFill"/>
         </Button>
         <ScrollViewer HorizontalAlignment="Center" Height="523" Margin="0,54,0,0" VerticalAlignment="Top" HorizontalScrollBarVisibility="Disabled" Width="1084">
-            <WrapPanel x:Name="ProductListWPanel" Width="1076"/>
+            <WrapPanel x:Name="ProductListWPanel" Width="1060"/>
         </ScrollViewer>
     </Grid>
 </UserControl>

@@ -28,6 +28,7 @@ namespace SmartPoultry
         public bool baseUnit = false;
         private string? selectedFilePath;
         public bool isEditing = false;
+        public ImageSource imagePath;
 
         //lists
         public List<String> AnimalList = new List<String>();
@@ -48,13 +49,13 @@ namespace SmartPoultry
             SetRoundedCorners();
             editBtn.Visibility = Visibility.Collapsed;
             phaseoutBtn.Visibility = Visibility.Collapsed;
+            AddingFormOverlay.Visibility = Visibility.Hidden;
             
-            mainWindow.Opacity = 0.5;
 
             //set mainwindow in dim mode
             stockunit.Visibility = Visibility.Collapsed;
             stocklisting.Visibility = Visibility.Collapsed;
-            this.Closed += (s, e) => mainWindow.Opacity = 1.0;
+
 
             context = new AppDbContext();
             productService = new ProductServices(context);
@@ -68,12 +69,13 @@ namespace SmartPoultry
             windowName.Content = "ADD PRODUCT";
         }
 
-
         public Inventory_AddingForm(Products product)
         {
             InitializeComponent();
             windowName.Content = "PRODUCT DETAILS";
             isEditing = true;
+            AddingFormOverlay.Visibility = Visibility.Hidden;
+            imagePath = SelectedImage.Source;
 
             context = new AppDbContext();
             productService = new ProductServices(context);
@@ -104,7 +106,19 @@ namespace SmartPoultry
             }
         }
 
-
+        public void ActiveOverlay(bool isActive)
+        {
+            if (isActive == true)
+            {
+                AddingFormOverlay.Visibility = Visibility.Visible;
+                Panel.SetZIndex(AddingFormOverlay, 99);
+            }
+            else
+            {
+                AddingFormOverlay.Visibility = Visibility.Hidden;
+                Panel.SetZIndex(AddingFormOverlay, 0);
+            }
+        }
         public void PopulateSupplierList(string mode)
         {
             
@@ -154,7 +168,7 @@ namespace SmartPoultry
                     type = "base";
                 }
 
-                inventoryAdd_variationscontrol? control = new inventoryAdd_variationscontrol(unitlist[i], pricelist[i], conversionlist[i], type, stockupdate, unitlist[0], i)
+                inventoryAdd_variationscontrol? control = new inventoryAdd_variationscontrol(unitlist[i], pricelist[i], conversionlist[i], type, stockupdate, unitlist[0], i, this)
                 {
                     Height = 166,
                     Width = 60,
@@ -179,11 +193,11 @@ namespace SmartPoultry
             }
           
 
-            inventoryAdd_variationscontrol? control = new inventoryAdd_variationscontrol(name, price, conversion, type, stocks, baseUnitValue, position)
+            inventoryAdd_variationscontrol? control = new inventoryAdd_variationscontrol(name, price, conversion, type, stocks, baseUnitValue, position, this)
             {
                 Height = 166,
                 Width = 60,
-                VerticalAlignment = VerticalAlignment.Center // Ensure correct syntax and property name
+                VerticalAlignment = VerticalAlignment.Center
             };
 
             unitsWPanel.Children.Remove(addUnitBtn);
@@ -212,42 +226,40 @@ namespace SmartPoultry
             int position = unitlist.Count;
             if (!baseUnit)
             {
-                Inventory_Unitadder? popup = new Inventory_Unitadder("base_unit", baseUnitValue, "add", position);
+                Inventory_Unitadder? popup = new Inventory_Unitadder("base_unit", baseUnitValue, "add", position, this);
+                ActiveOverlay(true);
                 popup.ShowDialog();
             }
             else {
-                Inventory_Unitadder? popup = new Inventory_Unitadder("sub_unit", baseUnitValue, "add", position);
+                Inventory_Unitadder? popup = new Inventory_Unitadder("sub_unit", baseUnitValue, "add", position, this);
+                ActiveOverlay(true);
                 popup.ShowDialog();
             }
             
         }
         private void ProductName_GotFocus(object sender, RoutedEventArgs e)
         {
-            
-            if (ProductNameTextBox.Text == "Enter text here...")
-            {
-                ProductNameTextBox.Text = "";
-                ProductNameTextBox.Foreground = Brushes.Black;
-            }
+            HandleTextBoxPlaceholder(ProductNameTextBox, "Enter text here...", true);
         }
         private void ProductName_LostFocus(object sender, RoutedEventArgs e)
         {
-            
-            if (string.IsNullOrWhiteSpace(ProductNameTextBox.Text))
-            {
-                ProductNameTextBox.Text = "Enter text here...";
-                ProductNameTextBox.Foreground = Brushes.Gray;
-            }
+
+            HandleTextBoxPlaceholder(ProductNameTextBox, "Enter text here...", false);
         }
         
         private void CloseAddPopup_Click(object sender, RoutedEventArgs e)
         {
             ClosePopUp();
+            mainWindow.ActiveOverlay(false);
         }
 
         //database - save product
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
+            if (imagePath == SelectedImage.Source || ProductNameTextBox.Text == "Enter text here..." || unitsWPanel.Children.Count == 1 || AnimalList.Count == 0 || ProductTypeList.Count == 0 || SupplierCBox.Text == "-- Select a Supplier --") {
+                MessageBox.Show("Incomplete Details.");
+                return;
+            }
             if (!isEditing)
             {
                 string animaltypelist = string.Join(",", AnimalList);
@@ -284,7 +296,6 @@ namespace SmartPoultry
 
                         string destinationDirectory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Product_Images");
 
-                        // Create the directory if it doesnt exist
                         if (!Directory.Exists(destinationDirectory))
                         {
                             Directory.CreateDirectory(destinationDirectory);
@@ -302,6 +313,7 @@ namespace SmartPoultry
                             productService.UpdateImagePath(id, destinationPath);
 
                             mainWindow.DynamicReload();
+                            mainWindow.ActiveOverlay(false);
                         }
                         catch (Exception ex)
                         {
@@ -312,7 +324,7 @@ namespace SmartPoultry
             }
             else 
             {
-                MessageBox.Show("SUbmit for edit.");
+                MessageBox.Show("Submit for edit.");
             }
             
         }
@@ -348,6 +360,26 @@ namespace SmartPoultry
         }
 
 
+
+        public void HandleTextBoxPlaceholder(TextBox tb, string placeholder, bool isFocused)
+        {
+            if (isFocused)
+            {
+                if (tb.Text == placeholder)
+                {
+                    tb.Text = string.Empty;
+                    tb.Foreground = Brushes.Black;
+                }
+            }
+            else // When the TextBox loses focus
+            {
+                if (string.IsNullOrWhiteSpace(tb.Text))
+                {
+                    tb.Text = placeholder;
+                    tb.Foreground = Brushes.Gray;
+                }
+            }
+        }
 
         public void ClosePopUp()
         {

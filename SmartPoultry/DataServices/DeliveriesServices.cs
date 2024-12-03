@@ -17,8 +17,8 @@ namespace SmartPoultry.DataServices
             _context = context;
         }
         
-        public List<Deliveries> GetList() {
-            List<Deliveries> list = _context.Deliveries.Where(p => p.delivery_status != "delivered").OrderBy(p => p.delivery_date).ToList();
+        public List<Deliveries> GetList(string filter) {
+            List<Deliveries> list = _context.Deliveries.Where(p => p.delivery_status != "delivered" && p.type == filter).OrderBy(p => p.delivery_date).ToList();
             return list;
         }
         public bool Create(long orderid, string name, string type, decimal price, string address, string status, string contact, DateTime deliverydate, string deliveryman, decimal charge)
@@ -28,7 +28,7 @@ namespace SmartPoultry.DataServices
                 var newDelivery = new Deliveries() {
                     order_id = orderid,
                     name = name,
-                    type = type,
+                    type = type.Trim(),
                     price = price,
                     address = address,
                     payment_status = status,

@@ -15,7 +15,11 @@
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition Width="0*"/>
         </Grid.ColumnDefinitions>
-        <local:Supplier x:Name="supplierControl" Visibility ="Collapsed" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,92,0,0" VerticalAlignment="Top" Height="598" Width="1113"/>
+        <Rectangle x:Name="MainWindowOverlay" Opacity=".5"  Grid.ColumnSpan="6" HorizontalAlignment="Left" Height="700" Stroke="#00000000" VerticalAlignment="Center" Width="1232" Fill="#FFA7A7A7"/>
+
+
+
+        <local:Supplier x:Name="supplierControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,92,0,0" VerticalAlignment="Top" Height="598" Width="1113"/>
 
 
 
