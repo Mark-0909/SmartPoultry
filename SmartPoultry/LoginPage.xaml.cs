@@ -49,6 +49,7 @@ namespace SmartPoultry
                 createAccountControl.Visibility = Visibility.Hidden;
                 loginControl.Visibility = Visibility.Visible;
                 forgotControl.Visibility = Visibility.Hidden;
+                
 
                 Panel.SetZIndex(createAccountControl, 0);
                 Panel.SetZIndex(loginControl, 1);
@@ -60,6 +61,7 @@ namespace SmartPoultry
                 createAccountControl.Visibility = Visibility.Visible;
                 loginControl.Visibility = Visibility.Hidden;
                 forgotControl.Visibility = Visibility.Hidden;
+                
 
                 Panel.SetZIndex(createAccountControl, 1);
                 Panel.SetZIndex(loginControl, 0);

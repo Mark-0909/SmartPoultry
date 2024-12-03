@@ -1,15 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
 
 namespace SmartPoultry
 {
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
     public partial class MainWindow : Window
     {
-        private Dictionary<Button, Control> navigationMap;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -33,86 +39,139 @@ namespace SmartPoultry
 
         public void DynamicAddDeliveries()
         {
-            // Initialize the dictionary to map buttons to their respective controls
-            navigationMap = new Dictionary<Button, Control>
-            {
-                { homeButton, homeControl },
-                { dashboardButton, dashboardControl },
-                { inventoryButton, inventoryControl },
-                { recordsButton, recordsControl },
-                { organizationButton, organizationControl },
-                { supplierButton, supplierControl }
-            };
+            dashboardControl.DynamicReloadDeliveries();
+        }
+        public void DynamicAddFinance()
+        {
+            dashboardControl.DynamicReloadFinancialLiabilities();
+        }
+        public void DynamicAddOrder()
+        {
+            dashboardControl.DynamicOrderDisplay();
+        }
+        public void DynamicReload()
+        {
+            homeControl.DynamicReload();
+            inventoryControl.DynamicReload();
         }
 
-        // General method to handle navigation and visibility
-        private void NavigateTo(Button activeButton)
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var pair in navigationMap)
-            {
-                var button = pair.Key;
-                var control = pair.Value;
+            //active inactive buttons
+            ActiveButton(homeButton, "Images/homeicongreen.png", "homeBorder", homeIcon);
+            InactiveButton(dashboardButton, "Images/dashboardgrey.png", "dashboardBorder", dashboardIcon);
+            InactiveButton(inventoryButton, "Images/inventorygrey.png", "inventoryBorder", inventoryIcon);
+            InactiveButton(recordsButton, "Images/recordsgrey.png", "recordsBorder", recordsIcon);
+            InactiveButton(organizationButton, "Images/organizationgrey.png", "organizationBorder", organizationIcon);
+            InactiveButton(supplierButton, "Images/suppliergrey.png", "supplierBorder", supplierIcon);
 
-                if (button == activeButton)
-                {
-                    ActiveButton(button, GetActiveImageSource(button), GetBorderName(button), GetButtonIcon(button));
-                    control.Visibility = Visibility.Visible;
-                    Panel.SetZIndex(control, 10); // Bring this control to the front
-                }
-                else
-                {
-                    InactiveButton(button, GetInactiveImageSource(button), GetBorderName(button), GetButtonIcon(button));
-                    control.Visibility = Visibility.Collapsed;
-                    Panel.SetZIndex(control, 0); // Send other controls to the back
-                }
+
+            //front usercontrol
+            Control[] controls = { dashboardControl, inventoryControl, recordsControl, organizationControl, supplierControl };
+
+            foreach (var control in controls)
+            {
+                Panel.SetZIndex(control, 0);
             }
-        }
+            Panel.SetZIndex(homeControl, 10);
 
-        private string GetActiveImageSource(Button button)
+        }
+        private void DashboardButton_Click(object sender, RoutedEventArgs e)
         {
-            // Define logic for active image source (could be dynamic depending on the button)
-            return button == homeButton ? "Images/homeicongreen.png" :
-                   button == dashboardButton ? "Images/dashboardgreen.png" :
-                   button == inventoryButton ? "Images/inventorygreen.png" :
-                   button == recordsButton ? "Images/recordsgreen.png" :
-                   button == organizationButton ? "Images/organizationgreen.png" :
-                   "Images/suppliergreen.png";
-        }
+            //active inactive buttons
+            InactiveButton(homeButton, "Images/homeicongrey.png", "homeBorder", homeIcon);
+            ActiveButton(dashboardButton, "Images/dashboardgreen.png", "dashboardBorder", dashboardIcon);
+            InactiveButton(inventoryButton, "Images/inventorygrey.png", "inventoryBorder", inventoryIcon);
+            InactiveButton(recordsButton, "Images/recordsgrey.png", "recordsBorder", recordsIcon);
+            InactiveButton(organizationButton, "Images/organizationgrey.png", "organizationBorder", organizationIcon);
+            InactiveButton(supplierButton, "Images/suppliergrey.png", "supplierBorder", supplierIcon);
 
-        private string GetInactiveImageSource(Button button)
+            Control[] controls = { homeControl, inventoryControl, recordsControl, organizationControl, supplierControl };
+
+            foreach (var control in controls)
+            {
+                Panel.SetZIndex(control, 0);
+            }
+            Panel.SetZIndex(dashboardControl, 10);
+        }
+        private void InventoryButton_Click(object sender, RoutedEventArgs e)
         {
-            // Define logic for inactive image source
-            return button == homeButton ? "Images/homeicongrey.png" :
-                   button == dashboardButton ? "Images/dashboardgrey.png" :
-                   button == inventoryButton ? "Images/inventorygrey.png" :
-                   button == recordsButton ? "Images/recordsgrey.png" :
-                   button == organizationButton ? "Images/organizationgrey.png" :
-                   "Images/suppliergrey.png";
-        }
+            //active inactive buttons
+            InactiveButton(homeButton, "Images/homeicongrey.png", "homeBorder", homeIcon);
+            InactiveButton(dashboardButton, "Images/dashboardgrey.png", "dashboardBorder", dashboardIcon);
+            ActiveButton(inventoryButton, "Images/inventorygreen.png", "inventoryBorder", inventoryIcon);
+            InactiveButton(recordsButton, "Images/recordsgrey.png", "recordsBorder", recordsIcon);
+            InactiveButton(organizationButton, "Images/organizationgrey.png", "organizationBorder", organizationIcon);
+            InactiveButton(supplierButton, "Images/suppliergrey.png", "supplierBorder", supplierIcon);
 
-        private string GetBorderName(Button button)
+            //front usercontrol
+            Control[] controls = { dashboardControl, homeControl, recordsControl, organizationControl, supplierControl };
+
+            foreach (var control in controls)
+            {
+                Panel.SetZIndex(control, 0);
+            }
+            Panel.SetZIndex(inventoryControl, 10);
+        }
+        private void RecordsButton_Click(object sender, RoutedEventArgs e)
         {
-            // Return the appropriate border name based on the button
-            return button == homeButton ? "homeBorder" :
-                   button == dashboardButton ? "dashboardBorder" :
-                   button == inventoryButton ? "inventoryBorder" :
-                   button == recordsButton ? "recordsBorder" :
-                   button == organizationButton ? "organizationBorder" :
-                   "supplierBorder";
-        }
+            //active inactive buttons
+            InactiveButton(homeButton, "Images/homeicongrey.png", "homeBorder", homeIcon);
+            InactiveButton(dashboardButton, "Images/dashboardgrey.png", "dashboardBorder", dashboardIcon);
+            InactiveButton(inventoryButton, "Images/inventorygrey.png", "inventoryBorder", inventoryIcon);
+            ActiveButton(recordsButton, "Images/recordsgreen.png", "recordsBorder", recordsIcon);
+            InactiveButton(organizationButton, "Images/organizationgrey.png", "organizationBorder", organizationIcon);
+            InactiveButton(supplierButton, "Images/suppliergrey.png", "supplierBorder", supplierIcon);
 
-        private Image GetButtonIcon(Button button)
+
+            //front usercontrol
+            Control[] controls = { dashboardControl, inventoryControl, homeControl, organizationControl, supplierControl };
+
+            foreach (var control in controls)
+            {
+                Panel.SetZIndex(control, 0);
+            }
+            Panel.SetZIndex(recordsControl, 10);
+
+        }
+        private void OrganizationButton_Click(object sender, RoutedEventArgs e)
         {
-            // Return the button icon based on the button clicked
-            return button == homeButton ? homeIcon :
-                   button == dashboardButton ? dashboardIcon :
-                   button == inventoryButton ? inventoryIcon :
-                   button == recordsButton ? recordsIcon :
-                   button == organizationButton ? organizationIcon :
-                   supplierIcon;
+            InactiveButton(homeButton, "Images/homeicongrey.png", "homeBorder", homeIcon);
+            InactiveButton(dashboardButton, "Images/dashboardgrey.png", "dashboardBorder", dashboardIcon);
+            InactiveButton(inventoryButton, "Images/inventorygrey.png", "inventoryBorder", inventoryIcon);
+            InactiveButton(recordsButton, "Images/recordsgrey.png", "recordsBorder", recordsIcon);
+            ActiveButton(organizationButton, "Images/organizationgreen.png", "organizationBorder", organizationIcon);
+            InactiveButton(supplierButton, "Images/suppliergrey.png", "supplierBorder", supplierIcon);
+
+            //front usecontrol
+            Control[] controls = { dashboardControl, inventoryControl, recordsControl, homeControl, supplierControl };
+
+            foreach (var control in controls)
+            {
+                Panel.SetZIndex(control, 0);
+            }
+            Panel.SetZIndex(organizationControl, 10);
         }
 
-        // Active button appearance logic
+        private void SupplierButton_Click(object sender, RoutedEventArgs e)
+        {
+            InactiveButton(homeButton, "Images/homeicongrey.png", "homeBorder", homeIcon);
+            InactiveButton(dashboardButton, "Images/dashboardgrey.png", "dashboardBorder", dashboardIcon);
+            InactiveButton(inventoryButton, "Images/inventorygrey.png", "inventoryBorder", inventoryIcon);
+            InactiveButton(recordsButton, "Images/recordsgrey.png", "recordsBorder", recordsIcon);
+            InactiveButton(organizationButton, "Images/organizationgrey.png", "organizationBorder", organizationIcon);
+            ActiveButton(supplierButton, "Images/suppliergreen.png", "supplierBorder", supplierIcon);
+
+            //front usecontrol
+            Control[] controls = { dashboardControl, inventoryControl, recordsControl, organizationControl, homeControl };
+
+            foreach (var control in controls)
+            {
+                Panel.SetZIndex(control, 0);
+            }
+            Panel.SetZIndex(supplierControl, 10);
+        }
+
         private void ActiveButton(Button button, string imagesource, string buttonborder, Image icon)
         {
             var border = (Border)button.Template.FindName(buttonborder, button);
@@ -125,7 +184,6 @@ namespace SmartPoultry
             icon.Source = new BitmapImage(new Uri(imagesource, UriKind.RelativeOrAbsolute));
         }
 
-        // Inactive button appearance logic
         private void InactiveButton(Button button, string imagesource, string buttonborder, Image icon)
         {
             var border = (Border)button.Template.FindName(buttonborder, button);
@@ -138,47 +196,17 @@ namespace SmartPoultry
             icon.Source = new BitmapImage(new Uri(imagesource, UriKind.RelativeOrAbsolute));
         }
 
-        // Button click events simplified
-        private void HomeButton_Click(object sender, RoutedEventArgs e) => NavigateTo(homeButton);
-        private void DashboardButton_Click(object sender, RoutedEventArgs e) => NavigateTo(dashboardButton);
-        private void InventoryButton_Click(object sender, RoutedEventArgs e) => NavigateTo(inventoryButton);
-        private void RecordsButton_Click(object sender, RoutedEventArgs e) => NavigateTo(recordsButton);
-        private void OrganizationButton_Click(object sender, RoutedEventArgs e) => NavigateTo(organizationButton);
-        private void SupplierButton_Click(object sender, RoutedEventArgs e) => NavigateTo(supplierButton);
-
-        // Logout functionality
         private void LogoutBtn_Clicked(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show("Are you sure you want to log out?", "Confirm Logout", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
+
                 LoginPage loginWindow = new LoginPage();
                 Application.Current.MainWindow = loginWindow;
                 loginWindow.Show();
                 this.Close();
             }
-        }
-
-        // Methods for dynamically adding content (if necessary)
-        public void DynamicAddDeliveries()
-        {
-            dashboardControl.DynamicReloadDeliveries();
-        }
-
-        public void DynamicAddFinance()
-        {
-            dashboardControl.DynamicReloadFinancialLiabilities();
-        }
-
-        public void DynamicAddOrder()
-        {
-            dashboardControl.DynamicOrderDisplay();
-        }
-
-        public void DynamicReload()
-        {
-            homeControl.DynamicReload();
-            inventoryControl.DynamicReload();
         }
     }
 }

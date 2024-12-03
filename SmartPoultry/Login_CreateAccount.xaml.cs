@@ -29,6 +29,10 @@ namespace SmartPoultry
         {
             InitializeComponent();
             userServices = new UserServices(context);
+            if(this.Controllabel.Content == "CREATE ADMIN ACCOUNT")
+            {
+                LoginBtn.Visibility = Visibility.Hidden;
+            }
         }
         public void Changelabel()
         {
@@ -77,7 +81,15 @@ namespace SmartPoultry
             MessageBox.Show("Account creation complete.");
             ClearTextBoxes();
         }
-
+        public void DisableLogin(bool istheradmin)
+        {
+            if (istheradmin)
+            {
+                LoginBtn.Visibility = Visibility.Hidden;
+                return;
+            }
+            LoginBtn.Visibility = Visibility.Visible;
+        }
         public void ClearTextBoxes() 
         {
             usernameTB.Text = "Username...";

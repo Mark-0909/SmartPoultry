@@ -198,6 +198,6 @@
                 </Style>
             </TextBox.Style>
         </TextBox>
-        <Button Content="Login" HorizontalAlignment="Left" BorderBrush="Transparent" Height="25" Margin="138,505,0,0" VerticalAlignment="Top" Width="118" Click="LoginButton_Click" Background="Transparent" FontWeight="Bold" Foreground="#FF5C5C5C" FontSize="13" Style="{StaticResource NoHoverButton}"/>
+        <Button x:Name="LoginBtn"  Content="Login" HorizontalAlignment="Left" BorderBrush="Transparent" Height="25" Margin="138,505,0,0" VerticalAlignment="Top" Width="118" Click="LoginButton_Click" Background="Transparent" FontWeight="Bold" Foreground="#FF5C5C5C" FontSize="13" Style="{StaticResource NoHoverButton}"/>
     </Grid>
 </UserControl>

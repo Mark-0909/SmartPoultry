@@ -127,11 +127,11 @@ namespace SmartPoultry
 
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
-            if (conversionTextbox.IsVisible && unitLabelTextbox.Text == "Unit..." || priceTextBox.Text == "Price..." || conversionTextbox.Text == "Conversion")
+            if (unitLabelTextbox.Text == "Unit..." || priceTextBox.Text == "Price...")
             {
                 MessageBox.Show("Incomplete Details.");
                 return;
-            } else if (!conversionTextbox.IsVisible && unitLabelTextbox.Text == "Unit..." || priceTextBox.Text == "Price..." || stocksTextBox.Text == "Stocks...")
+            } else if (unitLabelTextbox.Text == "Unit..." || priceTextBox.Text == "Price...")
             {
                 MessageBox.Show("Incomplete Details.");
                 return;
