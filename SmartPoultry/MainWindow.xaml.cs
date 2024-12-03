@@ -33,7 +33,7 @@ namespace SmartPoultry
             else
             {
                 MainWindowOverlay.Visibility = Visibility.Collapsed;
-                Panel.SetZIndex(MainWindowOverlay, 1);
+                Panel.SetZIndex(MainWindowOverlay, 0);
             }
         }
 
