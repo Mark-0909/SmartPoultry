@@ -11,7 +11,7 @@
         <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Height="468" Margin="0,77,0,0" VerticalAlignment="Top" Width="1048" OpacityMask="Black" Background="White">
             <Button Content="Sales" HorizontalAlignment="Left" Height="60" Margin="-1,-1,0,0" VerticalAlignment="Top" Width="345" FontSize="25" Background="#FF2C6E5D" Foreground="White"/>
         </Border>
-        <TextBox HorizontalAlignment="Left" Height="43" Margin="777,19,0,0" TextWrapping="Wrap" Text="Search record" VerticalAlignment="Top" Width="299" TextChanged="TextBox_TextChanged" FontSize="16" VerticalContentAlignment="Center" SelectionOpacity="2" Opacity="0.4"/>
+        <TextBox HorizontalAlignment="Left" Height="43" Margin="784,19,0,0" TextWrapping="Wrap" Text="Search record" VerticalAlignment="Top" Width="292" TextChanged="TextBox_TextChanged" FontSize="16" VerticalContentAlignment="Center" SelectionOpacity="2" Opacity="0.4"/>
         <Button Content="" HorizontalAlignment="Left" Height="43" Margin="1033,19,0,0" VerticalAlignment="Top" Width="43">
             <Button.Background>
                 <ImageBrush ImageSource="/2946467-200.png"/>
