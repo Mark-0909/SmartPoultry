@@ -312,14 +312,16 @@ namespace SmartPoultry
 
                             productService.UpdateImagePath(id, destinationPath);
 
-                            mainWindow.DynamicReload();
-                            mainWindow.ActiveOverlay(false);
+                            
                         }
                         catch (Exception ex)
                         {
                             MessageBox.Show($"Failed to copy image: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                         }
                     }
+
+                    mainWindow.DynamicReload();
+                    mainWindow.ActiveOverlay(false);
                 }
             }
             else 

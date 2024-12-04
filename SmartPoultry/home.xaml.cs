@@ -52,6 +52,9 @@ namespace SmartPoultry
 
         public static String[] buttonTypeArray = { "typeAllBtn", "typeFeedsBtn", "typeMedicineBtn", "typeVitaminsBtn", "typeAccessoriesBtn", "typeVaccinesBtn"};
         public static String[] borderTypeArray = { "typeAllBorder", "typeFeedsBorder", "typeMedicineBorder", "typeVitaminsBorder", "typeAccessoriesBorder", "typeVaccinesBorder" };
+
+        public string filterAnimal = "";
+        public string filterProduct = "";
         public home()
         {
             InitializeComponent();
@@ -450,6 +453,73 @@ namespace SmartPoultry
 
         }
 
+        public void FilterProducts(string type, string animal)
+        {
+            try
+            {
+
+                posPrdocutsPanel.Children.Clear();
+
+
+                List<Products> products = productServices.FilterProducts(type, animal);
+
+                foreach (Products product in products)
+                {
+
+                    string productName = product.product_name;
+                    int productId = product.product_id;
+                    string imagePath = product.image;
+
+
+                    List<ProductVariations> variations = productvariationsServices.GetAllProductVariations(productId);
+
+
+                    home_POSproduct productControl = new home_POSproduct(productName, variations, imagePath, this);
+
+                    posPrdocutsPanel.Children.Add(productControl);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show($"Error filtering products: {ex.Message}");
+            }
+        }
+
+        public void SearchProducts(string searchteram)
+        {
+            try
+            {
+
+                posPrdocutsPanel.Children.Clear();
+
+
+                List<Products> products = productServices.FilterProducts(type, animal);
+
+                foreach (Products product in products)
+                {
+
+                    string productName = product.product_name;
+                    int productId = product.product_id;
+                    string imagePath = product.image;
+
+
+                    List<ProductVariations> variations = productvariationsServices.GetAllProductVariations(productId);
+
+
+                    home_POSproduct productControl = new home_POSproduct(productName, variations, imagePath, this);
+
+                    posPrdocutsPanel.Children.Add(productControl);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show($"Error filtering products: {ex.Message}");
+            }
+        }
+
+
         //POS Buttons Click Functions (Animal type)
         private void AllButton_Click(object sender, RoutedEventArgs e)
         {
@@ -465,7 +535,13 @@ namespace SmartPoultry
             {
                 InactiveButton(buttonAnimalList[i], borderAnimalList[i]);
             }
+            filterAnimal = "";
+
+            FilterProducts(filterProduct, filterAnimal);
         }
+
+
+
 
         private void ChickenButton_Click(object sender, RoutedEventArgs e)
         {
@@ -481,6 +557,10 @@ namespace SmartPoultry
             {
                 InactiveButton(buttonAnimalList[i], borderAnimalList[i]);
             }
+
+            filterAnimal = "chicken";
+
+            FilterProducts(filterProduct, filterAnimal);
         }
         private void DogButton_Click(object sender, RoutedEventArgs e)
         {
@@ -496,6 +576,10 @@ namespace SmartPoultry
             {
                 InactiveButton(buttonAnimalList[i], borderAnimalList[i]);
             }
+
+            filterAnimal = "dog";
+
+            FilterProducts(filterProduct, filterAnimal);
         }
         private void CatButton_Click(object sender, RoutedEventArgs e)
         {
@@ -511,6 +595,9 @@ namespace SmartPoultry
             {
                 InactiveButton(buttonAnimalList[i], borderAnimalList[i]);
             }
+            filterAnimal = "cat";
+
+            FilterProducts(filterProduct, filterAnimal);
         }
         private void PigButton_Click(object sender, RoutedEventArgs e)
         {
@@ -526,6 +613,10 @@ namespace SmartPoultry
             {
                 InactiveButton(buttonAnimalList[i], borderAnimalList[i]);
             }
+
+            filterAnimal = "pig";
+
+            FilterProducts(filterProduct, filterAnimal);
         }
         private void DuckButton_Click(object sender, RoutedEventArgs e)
         {
@@ -541,6 +632,10 @@ namespace SmartPoultry
             {
                 InactiveButton(buttonAnimalList[i], borderAnimalList[i]);
             }
+
+            filterAnimal = "duck";
+
+            FilterProducts(filterProduct, filterAnimal);
         }
         private void CowButton_Click(object sender, RoutedEventArgs e)
         {
@@ -556,6 +651,9 @@ namespace SmartPoultry
             {
                 InactiveButton(buttonAnimalList[i], borderAnimalList[i]);
             }
+            filterAnimal = "cow";
+
+            FilterProducts(filterProduct, filterAnimal);
         }
         private void HorseButton_Click(object sender, RoutedEventArgs e)
         {
@@ -571,6 +669,9 @@ namespace SmartPoultry
             {
                 InactiveButton(buttonAnimalList[i], borderAnimalList[i]);
             }
+            filterAnimal = "horse";
+
+            FilterProducts(filterProduct, filterAnimal);
         }
         private void RabbitButton_Click(object sender, RoutedEventArgs e)
         {
@@ -586,6 +687,9 @@ namespace SmartPoultry
             {
                 InactiveButton(buttonAnimalList[i], borderAnimalList[i]);
             }
+            filterAnimal = "rabbit";
+
+            FilterProducts(filterProduct, filterAnimal);
         }
         private void BirdButton_Click(object sender, RoutedEventArgs e)
         {
@@ -601,6 +705,9 @@ namespace SmartPoultry
             {
                 InactiveButton(buttonAnimalList[i], borderAnimalList[i]);
             }
+            filterAnimal = "bird";
+
+            FilterProducts(filterProduct, filterAnimal);
         }
         private void FishButton_Click(object sender, RoutedEventArgs e)
         {
@@ -616,6 +723,9 @@ namespace SmartPoultry
             {
                 InactiveButton(buttonAnimalList[i], borderAnimalList[i]);
             }
+            filterAnimal = "fish";
+
+            FilterProducts(filterProduct, filterAnimal);
         }
         private void GuineaButton_Click(object sender, RoutedEventArgs e)
         {
@@ -631,6 +741,9 @@ namespace SmartPoultry
             {
                 InactiveButton(buttonAnimalList[i], borderAnimalList[i]);
             }
+            filterAnimal = "guinea pig";
+
+            FilterProducts(filterProduct, filterAnimal);
         }
 
 
@@ -649,6 +762,9 @@ namespace SmartPoultry
             {
                 InactiveButton(buttonTypeList[i], borderTypeList[i]);
             }
+            filterProduct = "";
+
+            FilterProducts(filterProduct, filterAnimal);
         }
         private void FeedsButton_Click(object sender, RoutedEventArgs e)
         {
@@ -664,6 +780,9 @@ namespace SmartPoultry
             {
                 InactiveButton(buttonTypeList[i], borderTypeList[i]);
             }
+            filterProduct = "feeds";
+
+            FilterProducts(filterProduct, filterAnimal);
         }
         private void MedicineButton_Click(object sender, RoutedEventArgs e)
         {
@@ -679,6 +798,9 @@ namespace SmartPoultry
             {
                 InactiveButton(buttonTypeList[i], borderTypeList[i]);
             }
+            filterProduct = "medicine";
+
+            FilterProducts(filterProduct, filterAnimal);
         }
         private void VitaminsButton_Click(object sender, RoutedEventArgs e)
         {
@@ -694,6 +816,9 @@ namespace SmartPoultry
             {
                 InactiveButton(buttonTypeList[i], borderTypeList[i]);
             }
+            filterProduct = "vitamins";
+
+            FilterProducts(filterProduct, filterAnimal);
         }
         private void AccessoriesButton_Click(object sender, RoutedEventArgs e)
         {
@@ -709,6 +834,9 @@ namespace SmartPoultry
             {
                 InactiveButton(buttonTypeList[i], borderTypeList[i]);
             }
+            filterProduct = "accessories";
+
+            FilterProducts(filterProduct, filterAnimal);
         }
         private void VaccinesButton_Click(object sender, RoutedEventArgs e)
         {
@@ -724,6 +852,9 @@ namespace SmartPoultry
             {
                 InactiveButton(buttonTypeList[i], borderTypeList[i]);
             }
+            filterProduct = "vaccines";
+
+            FilterProducts(filterProduct, filterAnimal);
         }
 
 
@@ -747,6 +878,7 @@ namespace SmartPoultry
             {
                 MessageBox.Show("Button or Border not found.");
             }
+
         }
 
         private void InactiveButton(String stringbutton, String stringborder)
