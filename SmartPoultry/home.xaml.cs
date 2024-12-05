@@ -478,6 +478,8 @@ namespace SmartPoultry
 
                     posPrdocutsPanel.Children.Add(productControl);
                 }
+                SearchTB.Text = "Search Product...";
+                SearchTB.Foreground = Brushes.Gray;
             }
             catch (Exception ex)
             {
@@ -494,7 +496,7 @@ namespace SmartPoultry
                 posPrdocutsPanel.Children.Clear();
 
 
-                List<Products> products = productServices.FilterProducts(type, animal);
+                List<Products> products = productServices.SearchProducts(searchteram, filterProduct, filterAnimal);
 
                 foreach (Products product in products)
                 {
@@ -518,7 +520,14 @@ namespace SmartPoultry
                 MessageBox.Show($"Error filtering products: {ex.Message}");
             }
         }
-
+        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(SearchTB.Text == "Search Product..." || string.IsNullOrWhiteSpace(SearchTB.Text))
+            {
+                return;
+            }
+            SearchProducts(SearchTB.Text);
+        }
 
         //POS Buttons Click Functions (Animal type)
         private void AllButton_Click(object sender, RoutedEventArgs e)
@@ -539,8 +548,33 @@ namespace SmartPoultry
 
             FilterProducts(filterProduct, filterAnimal);
         }
-
-
+        private void SearchTB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(SearchTB, "Search Product...", true);
+        }
+        private void SearchTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(SearchTB, "Search Product...", false);
+        }
+        public void HandleTextBoxPlaceholder(TextBox tb, string placeholder, bool isFocused)
+        {
+            if (isFocused)
+            {
+                if (tb.Text == placeholder)
+                {
+                    tb.Text = string.Empty;
+                    tb.Foreground = Brushes.Black;
+                }
+            }
+            else // When the TextBox loses focus
+            {
+                if (string.IsNullOrWhiteSpace(tb.Text))
+                {
+                    tb.Text = placeholder;
+                    tb.Foreground = Brushes.Gray;
+                }
+            }
+        }
 
 
         private void ChickenButton_Click(object sender, RoutedEventArgs e)
@@ -903,6 +937,7 @@ namespace SmartPoultry
             
         }
 
+        
         
     }
 }

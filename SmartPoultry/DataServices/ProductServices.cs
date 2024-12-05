@@ -39,16 +39,14 @@ namespace SmartPoultry.DataServices
         {
             try
             {
-                // Fetch all products first
+
                 var products = _context.Products.ToList();
 
-                // Filter by productType if specified
                 if (!string.IsNullOrEmpty(productType))
                 {
                     products = products.Where(p => p.product_type.Contains(productType)).ToList();
                 }
 
-                // Filter by animalType if specified (supports partial match)
                 if (!string.IsNullOrEmpty(animalType))
                 {
                     products = products.Where(p => p.animal_type.Contains(animalType)).ToList();
@@ -64,22 +62,35 @@ namespace SmartPoultry.DataServices
         }
 
 
-        //public List<Products> SearchProducts(string searchTerm)
-        //{
-           // try
-          //  {
-                
-         //       if (!string.IsNullOrEmpty(searchTerm))
-     //           {
-        //            List<Products> products = _context.Products.Where(p => p.product_id.ToString().Contains(searchTerm) || p.product_name.Contains(searchTerm) || p.animal_type.Contains(searchTerm) || p.product_type.Contains(searchTerm) || p.employee_incharge.ToString().Contains(searchTerm) || p.supplier_id.ToString().Contains(searchTerm) || p.status.Contains(searchTerm)).ToList();
-              //      return products;
-       //         }   
-      //      }catch (Exception e)
-      //      {
-      //          List<Products> products = new List<Products>();
-    //            return products;
-      //      }
-     //   }
+        public List<Products> SearchProducts(string searchTerm, string type, string animal)
+        {
+            try
+            {   var products = _context.Products.ToList();
+
+                if (!string.IsNullOrEmpty(type))
+                {
+                    products = products.Where(p => p.product_type.Contains(type)).ToList();
+                }
+
+                if (!string.IsNullOrEmpty(animal))
+                {
+                    products = products.Where(p => p.animal_type.Contains(animal)).ToList();
+                }
+
+                if (string.IsNullOrEmpty(searchTerm))
+                {
+                    List<Products> products1 = new List<Products>();
+                    return products1;
+                }
+                products = products.Where(p => p.product_id.ToString().Contains(searchTerm) || p.product_name.Contains(searchTerm) || p.animal_type.Contains(searchTerm) || p.product_type.Contains(searchTerm) || p.employee_incharge.ToString().Contains(searchTerm) || p.supplier_id.ToString().Contains(searchTerm) || p.status.Contains(searchTerm)).ToList();
+                return products;
+            }
+            catch (Exception e)
+            {
+                List<Products> products = new List<Products>();
+                return products;
+            }
+        }
 
         public List<Products> GetAllProducts()
         {

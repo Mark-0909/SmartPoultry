@@ -33,7 +33,7 @@
 
 
 
-        <local:records x:Name="recordsControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1126"/>
+        <local:records x:Name="recordsControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1109"/>
 
 
 

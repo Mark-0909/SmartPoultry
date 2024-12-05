@@ -52,15 +52,20 @@
 
 
         <Border BorderThickness="1" HorizontalAlignment="Left" Height="41" Margin="563,8,0,0" VerticalAlignment="Top" Width="210" Background="White" CornerRadius="10">
-            <TextBox HorizontalAlignment="Center" TextWrapping="Wrap" Text="Search Product" VerticalAlignment="Top" Width="196" Height="32" Background="White" BorderBrush="White" TextAlignment="Justify" Padding="0,4,0,0" FontSize="14" MaxLines="1" RenderTransformOrigin="0.5,0.5" Margin="0,5,0,0">
-                <TextBox.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform AngleX="0.287"/>
-                        <RotateTransform/>
-                        <TranslateTransform X="0.09"/>
-                    </TransformGroup>
-                </TextBox.RenderTransform>
+            <TextBox x:Name="SearchTB" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Search Product..." VerticalAlignment="Top" Width="196" Height="32" Background="White" BorderBrush="White" TextAlignment="Justify" Padding="0,4,0,0" FontSize="14" MaxLines="1" RenderTransformOrigin="0.5,0.5" Margin="0,5,0,0" TextChanged="SearchBox_TextChanged" GotFocus="SearchTB_GotFocus" LostFocus="SearchTB_LostFocus"  Foreground="Gray">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="SelectionBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
             </TextBox>
         </Border>
 
