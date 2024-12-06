@@ -7,10 +7,14 @@
              mc:Ignorable="d" Background="#FFE3E3E3" Height="578" Width="1109">
     <Grid>
         <Label Content="RECORDS" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Margin="10,4,0,0"/>
-        <Border BorderBrush="#FF2C6E5D" BorderThickness="1" HorizontalAlignment="Center" Height="505" Margin="0,59,0,0" VerticalAlignment="Top" Width="1073" Background="White"/>
-        <Button Content="INVENTORY" HorizontalAlignment="Center" Height="60" Margin="0,60,0,0" VerticalAlignment="Top" Width="354" FontSize="20" FontWeight="Bold" BorderBrush="#FFDCEDD5" Foreground="Gray" Background="#FFDCEDD5"/>
-        <Button Content="LOGS" HorizontalAlignment="Left" Height="60" Margin="736,60,0,0" VerticalAlignment="Top" Width="354" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Button_Click_1"/>
-        <Button Content="SALES" HorizontalAlignment="Left" Height="60" Margin="20,60,0,0" VerticalAlignment="Top" Width="354" Click="Button_Click" FontSize="20" FontWeight="Bold" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D" Foreground="White"/>
+        <Border BorderBrush="#FF2C6E5D" BorderThickness="1" HorizontalAlignment="Center" Height="505" Margin="0,59,0,0" VerticalAlignment="Top" Width="1073" Background="White">
+            <ScrollViewer HorizontalAlignment="Center" Height="388" Margin="0,116,0,0" VerticalAlignment="Top" Width="1072">
+                <WrapPanel x:Name="SalesPanel" Width="1050"/>
+            </ScrollViewer>
+        </Border>
+        <Button x:Name="InventoryBtn" Content="INVENTORY" HorizontalAlignment="Center" Height="60" Margin="0,60,0,0" VerticalAlignment="Top" Width="354" FontSize="20" FontWeight="Bold" BorderBrush="#FFDCEDD5" Foreground="Gray" Background="#FFDCEDD5" Click="Inventory_Clicked"/>
+        <Button x:Name="LogsBtn" Content="LOGS" HorizontalAlignment="Left" Height="60" Margin="736,60,0,0" VerticalAlignment="Top" Width="354" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Logs_Clicked"/>
+        <Button x:Name="SalesBtn" Content="SALES" HorizontalAlignment="Left" Height="60" Margin="20,60,0,0" VerticalAlignment="Top" Width="354" Click="Sales_Clicked" FontSize="20" FontWeight="Bold" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D" Foreground="White"/>
         <Label Content="Price" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="32" Margin="950,140,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
         <Label Content="Payment Status" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="32" Margin="794,140,0,0" VerticalAlignment="Top" Width="119" FontSize="15" RenderTransformOrigin="0.531,0.299"/>
         <Label Content="Payment Method" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="612,141,0,0" VerticalAlignment="Top" Width="120" FontSize="15"/>

@@ -56,7 +56,19 @@ namespace SmartPoultry.DataServices
             }
         }
 
-
+        public List<Sales> GetAllSales()
+        {
+            try
+            {
+                List<Sales> sales = _context.Sales.OrderByDescending(p => p.purchase_date).ToList();
+                return sales;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex);
+                return null;
+            }
+        }
 
 
         public Sales GetSales(int id)
