@@ -82,7 +82,7 @@ namespace SmartPoultry.DataServices
                     List<Products> products1 = new List<Products>();
                     return products1;
                 }
-                products = products.Where(p => p.product_id.ToString().Contains(searchTerm) || p.product_name.Contains(searchTerm) || p.animal_type.Contains(searchTerm) || p.product_type.Contains(searchTerm) || p.employee_incharge.ToString().Contains(searchTerm) || p.supplier_id.ToString().Contains(searchTerm) || p.status.Contains(searchTerm)).ToList();
+                products = products.Where(p => p.product_id.ToString().Contains(searchTerm.ToLower()) || p.product_name.ToLower().Contains(searchTerm.ToLower()) || p.animal_type.Contains(searchTerm.ToLower()) || p.product_type.Contains(searchTerm.ToLower()) || p.employee_incharge.ToString().Contains(searchTerm.ToLower()) || p.supplier_id.ToString().Contains(searchTerm.ToLower()) || p.status.Contains(searchTerm.ToLower())).ToList();
                 return products;
             }
             catch (Exception e)
@@ -108,7 +108,9 @@ namespace SmartPoultry.DataServices
         public int Create(string product_name, string animal_type, string product_type, int employee_incharge, int supplierId, decimal stocks, string image)
         {
             try
-            {
+            { 
+
+                  
                 var newProduct = new Products
                 {
                     product_name = product_name,

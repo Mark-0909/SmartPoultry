@@ -30,6 +30,12 @@ namespace SmartPoultry
             InitializeComponent();
             salesServices = new SalesServices(context);
             displayDetails(receiptid);
+
+            if(oddeven == 1)
+            {
+                ThisBorder.Background = Brushes.White;
+                ThisBorder.BorderBrush = Brushes.White;
+            }
         }
         public void displayDetails(long receiptid) 
         {
