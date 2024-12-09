@@ -65,24 +65,34 @@ namespace SmartPoultry.DataServices
         public List<Products> SearchProducts(string searchTerm, string type, string animal)
         {
             try
-            {   var products = _context.Products.ToList();
+            {
+                var products = _context.Products.ToList();
 
                 if (!string.IsNullOrEmpty(type))
                 {
-                    products = products.Where(p => p.product_type.Contains(type)).ToList();
+                    products = products.Where(p => p.product_type.Contains(type, StringComparison.OrdinalIgnoreCase)).ToList();
                 }
 
                 if (!string.IsNullOrEmpty(animal))
                 {
-                    products = products.Where(p => p.animal_type.Contains(animal)).ToList();
+                    products = products.Where(p => p.animal_type.Contains(animal, StringComparison.OrdinalIgnoreCase)).ToList();
                 }
 
                 if (string.IsNullOrEmpty(searchTerm))
                 {
-                    List<Products> products1 = new List<Products>();
-                    return products1;
+                    return products; 
                 }
-                products = products.Where(p => p.product_id.ToString().Contains(searchTerm.ToLower()) || p.product_name.ToLower().Contains(searchTerm.ToLower()) || p.animal_type.Contains(searchTerm.ToLower()) || p.product_type.Contains(searchTerm.ToLower()) || p.employee_incharge.ToString().Contains(searchTerm.ToLower()) || p.supplier_id.ToString().Contains(searchTerm.ToLower()) || p.status.Contains(searchTerm.ToLower())).ToList();
+
+                products = products.Where(p =>
+                    p.product_id.ToString().Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    p.product_name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    p.animal_type.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    p.product_type.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    p.employee_incharge.ToString().Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    p.supplier_id.ToString().Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    p.status.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)
+                ).ToList();
+
                 return products;
             }
             catch (Exception e)
@@ -91,6 +101,7 @@ namespace SmartPoultry.DataServices
                 return products;
             }
         }
+
 
         public List<Products> GetAllProducts()
         {

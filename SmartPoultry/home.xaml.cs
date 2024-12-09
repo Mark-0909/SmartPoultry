@@ -522,12 +522,17 @@ namespace SmartPoultry
         }
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if(SearchTB.Text == "Search Product..." || string.IsNullOrWhiteSpace(SearchTB.Text))
+            if (SearchTB.Text == "Search Product..." || string.IsNullOrWhiteSpace(SearchTB.Text))
             {
+                if (string.IsNullOrWhiteSpace(SearchTB.Text))
+                {
+                    SearchProducts("");  
+                }
                 return;
             }
-            SearchProducts(SearchTB.Text);
+            SearchProducts(SearchTB.Text); 
         }
+
 
         //POS Buttons Click Functions (Animal type)
         private void AllButton_Click(object sender, RoutedEventArgs e)
