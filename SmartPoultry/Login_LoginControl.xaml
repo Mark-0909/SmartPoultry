@@ -55,7 +55,7 @@
         <Button Click="Submit_Clicked" x:Name="SubmitBtn" Content="LOGIN" HorizontalAlignment="Center" Height="34" Margin="0,255,0,0" VerticalAlignment="Top" Width="282" FontWeight="Bold" Background="#FF7BC977" BorderBrush="#FF7BC977" Foreground="White" Style="{StaticResource NoHoverButton}"/>
         <Label HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Content="LOGIN" HorizontalAlignment="Left" Height="43" Margin="31,11,0,0" VerticalAlignment="Top" Width="356" FontSize="30" FontWeight="Bold" Foreground="Black"/>
         <Border CornerRadius="5                 " BorderBrush="DarkGray" BorderThickness="1" HorizontalAlignment="Center" Height="33" Margin="0,111,0,0" VerticalAlignment="Top" Width="328" Background="White">
-            <TextBox x:Name="usernameTB" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="25" TextWrapping="Wrap" Text="Enter Username..." VerticalAlignment="Center" Width="308" Padding="1" Background="Transparent" BorderBrush="Transparent" FontSize="14" GotFocus="UserName_GotFocus" LostFocus="UserName_LostFocus" Foreground="Gray" >
+            <TextBox x:Name="usernameTB" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="25" TextWrapping="Wrap" Text="Enter Username..." VerticalAlignment="Center" Width="308" Padding="1" Background="Transparent" BorderBrush="Transparent" FontSize="14" GotFocus="UserName_GotFocus" LostFocus="UserName_LostFocus" Foreground="Gray" KeyDown="TB_KeyDown">
                 <TextBox.Style>
                     <Style TargetType="TextBox">
                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -72,7 +72,7 @@
             </TextBox>
         </Border>
         <Border CornerRadius="5                 " BorderBrush="DarkGray" BorderThickness="1" HorizontalAlignment="Center" Height="33" Margin="0,180,0,0" VerticalAlignment="Top" Width="328" Background="White">
-            <PasswordBox x:Name="passwordTB" HorizontalAlignment="Center" Height="25" VerticalAlignment="Center" Width="308" Background="Transparent" BorderBrush="Transparent" VerticalContentAlignment="Center" Padding="1" LostFocus="PassTB_LostFocus">
+            <PasswordBox x:Name="passwordTB" HorizontalAlignment="Center" Height="25" VerticalAlignment="Center" Width="308" Background="Transparent" BorderBrush="Transparent" VerticalContentAlignment="Center" Padding="1" LostFocus="PassTB_LostFocus" KeyDown="TB_KeyDown">
                 <PasswordBox.Style>
                     <Style TargetType="PasswordBox">
                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -88,7 +88,7 @@
                 </PasswordBox.Style>
             </PasswordBox>
         </Border>
-        <TextBox x:Name="passwordoverTB" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" Text="Enter Password..." VerticalAlignment="Top" Width="305" Padding="1" Background="Transparent" BorderBrush="Transparent" FontSize="14" Foreground="Gray" Margin="40,184,0,0" GotFocus="PassOverTB_GotFocus">
+        <TextBox x:Name="passwordoverTB" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="25" TextWrapping="Wrap" Text="Enter Password..." VerticalAlignment="Top" Width="305" Padding="1" Background="Transparent" BorderBrush="Transparent" FontSize="14" Foreground="Gray" Margin="40,184,0,0" GotFocus="PassOverTB_GotFocus" >
             <TextBox.Style>
                 <Style TargetType="TextBox">
                     <Setter Property="FocusVisualStyle" Value="{x:Null}"/>

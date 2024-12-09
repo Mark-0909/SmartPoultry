@@ -36,7 +36,10 @@ namespace SmartPoultry
 
         private void Submit_Clicked(object sender, RoutedEventArgs e)
         {
-
+            Submit();
+        }
+        public void Submit()
+        {
             string username = usernameTB.Text;
             string password = passwordTB.Password;
 
@@ -62,8 +65,8 @@ namespace SmartPoultry
 
                 if (isVerified)
                 {
-                    
-                    
+
+
 
                     MainWindow window = new MainWindow();
                     Application.Current.MainWindow = window;
@@ -81,7 +84,22 @@ namespace SmartPoultry
                 MessageBox.Show("An error occurred while processing your login. Please try again later.");
             }
         }
-
+        private void TB_KeyDown(Object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab && sender == usernameTB)
+            {
+                passwordoverTB.Visibility = Visibility.Hidden;
+                passwordTB.Focus();
+            }
+            if (e.Key == Key.Enter && sender == passwordTB)
+            {
+                Submit();
+            }
+            if (e.Key == Key.Enter && sender == usernameTB)
+            {
+                Submit();
+            }
+        }
         private void CreateAccount_Clicked(object sender, RoutedEventArgs e)
         {
             loginWindow.ChangeControl("create");

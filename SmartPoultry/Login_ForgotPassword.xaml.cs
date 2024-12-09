@@ -38,6 +38,10 @@ namespace SmartPoultry
 
         private void Submit_Clicked(object sender, RoutedEventArgs e)
         {
+            Submit();
+        }
+        private void Submit()
+        {
             if (string.IsNullOrWhiteSpace(createNewPassTB.Password) || string.IsNullOrWhiteSpace(confirmNewPassTB.Password))
             {
                 MessageBox.Show("Please fill all required fields.");
@@ -72,6 +76,10 @@ namespace SmartPoultry
        
         private void Verify_Clicked(object sender, RoutedEventArgs e)
         {
+            Verify();
+        }
+        public void Verify()
+        {
             string username = usernameTB.Text;
             int question = randomindex + 1;
             string answer = QuestionTB.Text;
@@ -80,10 +88,11 @@ namespace SmartPoultry
             {
                 MessageBox.Show("Please fill all required field.");
                 return;
-            } 
+            }
 
             bool isverified = UserServices.ForgotPassVerification(username, question, answer);
-            if (isverified) {
+            if (isverified)
+            {
                 createNewPassTB.IsEnabled = true;
                 confirmNewPassTB.IsEnabled = true;
                 ChangePassBtn.IsEnabled = true;
@@ -94,6 +103,39 @@ namespace SmartPoultry
             {
                 MessageBox.Show("Not Verified");
                 return;
+            }
+        }
+        private void TB_KeyDown(Object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab && sender == usernameTB)
+            {
+                QuestionTB.Focus();
+            }
+            if (e.Key == Key.Enter && sender == QuestionTB)
+            {
+                Verify();
+            }
+            if (e.Key == Key.Enter && sender == usernameTB)
+            {
+                Verify();
+            }
+            if (e.Key == Key.Tab && sender == QuestionTB && createNewPassTB.IsEnabled && CreateNewPassOverTB.Visibility != Visibility.Hidden)
+            {
+                createNewPassTB.Focus();
+                CreateNewPassOverTB.Visibility = Visibility.Hidden;
+            }
+            if(e.Key ==  Key.Tab && sender == createNewPassTB)
+            {
+                confirmNewPassTB.Focus();
+                confirmNewPassOverTB.Visibility= Visibility.Hidden;
+            }
+            if (e.Key == Key.Enter && sender == createNewPassTB)
+            {
+                Submit();
+            }
+            if (e.Key == Key.Enter && sender == confirmNewPassTB)
+            {
+                Submit();
             }
         }
         private void CreateOverTB_GotFocused(object sender, RoutedEventArgs e)

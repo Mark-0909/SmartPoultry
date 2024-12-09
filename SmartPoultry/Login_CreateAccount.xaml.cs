@@ -40,14 +40,20 @@ namespace SmartPoultry
         }
         private void Submit_Clicked(object sender, RoutedEventArgs e)
         {
-            if (usernameTB.Text == "Username..." || string.IsNullOrWhiteSpace(passwordTB.Password) || string.IsNullOrWhiteSpace(confirmpassTB.Password) || q1TB.Text == "Pet's name..." || q2TB.Text == "Favorite color..." || q3TB.Text == "Book or movie...") {
+            Submit();
+        }
+        public void Submit()
+        {
+            if (usernameTB.Text == "Username..." || string.IsNullOrWhiteSpace(passwordTB.Password) || string.IsNullOrWhiteSpace(confirmpassTB.Password) || q1TB.Text == "Pet's name..." || q2TB.Text == "Favorite color..." || q3TB.Text == "Book or movie...")
+            {
                 MessageBox.Show("Please complete all the necessary field.");
                 return;
             }
 
             bool isUsernamePresent = userServices.IsUserNamePresent(usernameTB.Text);
 
-            if (isUsernamePresent) {
+            if (isUsernamePresent)
+            {
                 MessageBox.Show("Username is not available. Create a new one.");
                 usernameTB.Text = "Username...";
                 usernameTB.Foreground = Brushes.Gray;
@@ -65,7 +71,8 @@ namespace SmartPoultry
             {
                 password = confirmpassTB.Password;
             }
-            else {
+            else
+            {
                 MessageBox.Show("Password does not match!");
                 return;
             }
@@ -74,7 +81,8 @@ namespace SmartPoultry
             string q3 = q3TB.Text;
 
             bool issuccess = userServices.CreateAccount(username, password, q1, q2, q3, role);
-            if (!issuccess) {
+            if (!issuccess)
+            {
                 MessageBox.Show("Create account unsuccessful.");
                 return;
             }
@@ -195,6 +203,48 @@ namespace SmartPoultry
                 }
             }
         }
+        private void TB_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab)
+            {
+                if (sender == usernameTB)
+                {
+                    createpassoverTB.Visibility = Visibility.Hidden;
+                    passwordTB.Focus();
+                    e.Handled = true; // Prevent default Tab behavior
+                }
+                else if (sender == passwordTB)
+                {
+                    confirmpassoverTB.Visibility = Visibility.Hidden;
+                    confirmpassTB.Focus();
+                    e.Handled = true; // Prevent default Tab behavior
+                }
+                else if (sender == confirmpassTB)
+                {
+                    q1TB.Focus();
+                    e.Handled = true; // Prevent default Tab behavior
+                }
+                else if (sender == q1TB)
+                {
+                    q2TB.Focus();
+                    e.Handled = true; // Prevent default Tab behavior
+                }
+                else if (sender == q2TB)
+                {
+                    q3TB.Focus();
+                    e.Handled = true; // Prevent default Tab behavior
+                }
+            }
+            else if (e.Key == Key.Enter)
+            {
+                if (sender == usernameTB || sender == passwordTB || sender == confirmpassTB || sender == q1TB || sender == q2TB || sender == q3TB)
+                {
+                    Submit();
+                    e.Handled = true; // Prevent default Enter behavior if needed
+                }
+            }
+        }
+
 
         private void LoginButton_Click(object sender, RoutedEventArgs e)
         {
