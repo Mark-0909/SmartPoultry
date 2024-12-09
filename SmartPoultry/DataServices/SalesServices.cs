@@ -26,9 +26,9 @@ namespace SmartPoultry.DataServices
                 MessageBox.Show(ex.Message);
                 return null;
             }
-            
-
         }
+
+        
         public List<Sales> GetSales()
         {
             try
@@ -118,6 +118,8 @@ namespace SmartPoultry.DataServices
                 return -1;
             }
         }
+
+        
         public long CreateReferenceNumber()
         {
             try

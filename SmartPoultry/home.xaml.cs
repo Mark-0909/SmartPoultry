@@ -115,6 +115,8 @@ namespace SmartPoultry
 
                 DisplayReceipt(addingSales, salesServices, context);
 
+                MinusStocksProduct(StringProductList, StringQuantityList);
+
                 MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
 
                 if (mainWindow != null)
@@ -133,6 +135,34 @@ namespace SmartPoultry
             }
         }
 
+        public void MinusStocksProduct(string idlist, string quantitylist)
+        {
+            List<int> ids = idlist.Split(',').Select(int.Parse).ToList();
+            List<decimal> qty = quantitylist.Split(',').Select(decimal.Parse).ToList();
+
+            for (int i = 0; i < ids.Count; i++)
+            {
+                ProductVariations product = productvariationsServices.GetProductVariationById(ids[i]);
+                Products prodstocks = productServices.FetchProduct(product.product_id);
+
+                try
+                {
+                    decimal tominus = (1m / (decimal)product.conversion_rate) * qty[i];
+
+                    decimal stocks = (decimal)prodstocks.stocks;
+
+                    decimal newstocks = stocks - tominus;
+
+
+                    productServices.AdjustStcoks("subtract", newstocks, product.product_id);
+                }
+                catch (Exception ex) { 
+                
+                MessageBox.Show(ex.Message);
+                }
+                
+            }
+        }
 
 
         public static void DisplayReceipt(int salesid, SalesServices salesServices, AppDbContext context)

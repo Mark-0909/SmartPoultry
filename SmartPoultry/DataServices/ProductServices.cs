@@ -17,6 +17,37 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+
+        public void AdjustStcoks(string agenda, decimal newstocks, int productid)
+        {
+            try
+            {
+                if (agenda == "subtract")
+                {
+                    var product = _context.Products.FirstOrDefault(p => p.product_id == productid);
+
+                    if (product == null)
+                    {
+                        Console.WriteLine("Product not found.");
+                        return;
+                    }
+
+
+                    product.stocks = newstocks;
+
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    // Code for adding stock goes here
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
         public Products FetchProduct(int id)
         {
             try
