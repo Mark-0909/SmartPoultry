@@ -194,7 +194,7 @@ namespace SmartPoultry
                     tb.Foreground = Brushes.Black;
                 }
             }
-            else // When the TextBox loses focus
+            else 
             {
                 if (string.IsNullOrWhiteSpace(tb.Text))
                 {
@@ -211,28 +211,28 @@ namespace SmartPoultry
                 {
                     createpassoverTB.Visibility = Visibility.Hidden;
                     passwordTB.Focus();
-                    e.Handled = true; // Prevent default Tab behavior
+                    e.Handled = true; 
                 }
                 else if (sender == passwordTB)
                 {
                     confirmpassoverTB.Visibility = Visibility.Hidden;
                     confirmpassTB.Focus();
-                    e.Handled = true; // Prevent default Tab behavior
+                    e.Handled = true; 
                 }
                 else if (sender == confirmpassTB)
                 {
                     q1TB.Focus();
-                    e.Handled = true; // Prevent default Tab behavior
+                    e.Handled = true; 
                 }
                 else if (sender == q1TB)
                 {
                     q2TB.Focus();
-                    e.Handled = true; // Prevent default Tab behavior
+                    e.Handled = true; 
                 }
                 else if (sender == q2TB)
                 {
                     q3TB.Focus();
-                    e.Handled = true; // Prevent default Tab behavior
+                    e.Handled = true; 
                 }
             }
             else if (e.Key == Key.Enter)
@@ -240,7 +240,7 @@ namespace SmartPoultry
                 if (sender == usernameTB || sender == passwordTB || sender == confirmpassTB || sender == q1TB || sender == q2TB || sender == q3TB)
                 {
                     Submit();
-                    e.Handled = true; // Prevent default Enter behavior if needed
+                    e.Handled = true; 
                 }
             }
         }
