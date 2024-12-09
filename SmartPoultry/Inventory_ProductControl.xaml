@@ -8,7 +8,7 @@
     <Grid>
         <Border CornerRadius="5" BorderBrush="#FF66C265" BorderThickness="1" Background="White">
             <Border CornerRadius="5" BorderBrush="#FFC9C6C6" BorderThickness="1" Margin="9,9,9,60">
-                <Image x:Name="Productimage"/>
+                <Image x:Name="Productimage" Stretch="Fill"/>
             </Border>
         </Border>
         <Label x:Name="Productname" Content="Product Name" HorizontalAlignment="Center" Height="29" Margin="0,198,0,0" VerticalAlignment="Top" Width="197" FontSize="15"/>
