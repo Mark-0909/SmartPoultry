@@ -192,7 +192,7 @@ namespace SmartPoultry
                 List<string> originalprice = new List<string>();
                 List<string> totalPrices = new List<string>();
 
-                float heightcalculation = 59 + (3 * itemid.Count);
+                float heightcalculation = 60 + (3 * itemid.Count);
 
                 using (MemoryStream memoryStream = new MemoryStream())
                 {
@@ -205,7 +205,7 @@ namespace SmartPoultry
                     writer.CloseStream = false;
 
                     doc.Open();
-                    Font font = new Font(Font.FontFamily.HELVETICA, 4f, Font.NORMAL);
+                    Font font = new Font(Font.FontFamily.HELVETICA, 3.8f, Font.NORMAL);
                     Font font2 = new Font(Font.FontFamily.HELVETICA, 3f, Font.NORMAL);
                     Font font3 = new Font(Font.FontFamily.HELVETICA, 5f, Font.BOLD);
                     Font font4 = new Font(Font.FontFamily.HELVETICA, 3.3f, Font.NORMAL);
@@ -234,12 +234,12 @@ namespace SmartPoultry
                     doc.Add(new iTextSharp.text.Paragraph($"Palo Alto, Calamba, Laguna Philippines", font2) { Alignment = Element.ALIGN_CENTER });
                     doc.Add(new iTextSharp.text.Paragraph($"+63 1234567890", font2) { Alignment = Element.ALIGN_CENTER });
                     doc.Add(new iTextSharp.text.Paragraph($"gabmigspoultrysupplies@gmail.com", font2) { Alignment = Element.ALIGN_CENTER });
-                    doc.Add(new iTextSharp.text.Paragraph("--------------------------------------------------------", font));
+                    doc.Add(new iTextSharp.text.Paragraph("-----------------------------------------------------------", font));
 
                     doc.Add(new iTextSharp.text.Paragraph($"Order ID: {sales.receipt_id}", font));
                     doc.Add(new iTextSharp.text.Paragraph($"Cashier: {employeename}", font));
                     doc.Add(new iTextSharp.text.Paragraph($"Payment Mode: {sales.payment_mode.ToUpper()}", font));
-                    doc.Add(new iTextSharp.text.Paragraph("--------------------------------------------------------", font));
+                    doc.Add(new iTextSharp.text.Paragraph("-----------------------------------------------------------", font));
                     // Generate receipt items
                     for (int i = 0; i < itemid.Count; i++)
                     {
@@ -269,7 +269,7 @@ namespace SmartPoultry
                     // Table headers
                     PdfPTable table = new PdfPTable(4);
                     table.WidthPercentage = 100;
-                    table.SetWidths(new float[] { 1f, 2.8f, 2f, 2.8f });
+                    table.SetWidths(new float[] { 1.5f, 2.8f, 2.5f, 3f });
 
                     table.AddCell(new PdfPCell(new Phrase("Qty", font4)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
                     table.AddCell(new PdfPCell(new Phrase("Items", font)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
@@ -301,7 +301,7 @@ namespace SmartPoultry
                     doc.Add(new iTextSharp.text.Paragraph($"Date: {DateTime.Now:yyyy-MM-dd}", font));
                     doc.Add(new iTextSharp.text.Paragraph($"Purchase Method: {sales.purchase_method.ToUpper()}", font));
 
-                    doc.Add(new iTextSharp.text.Paragraph("--------------------------------------------------------", font));
+                    doc.Add(new iTextSharp.text.Paragraph("-----------------------------------------------------------", font));
 
                     var thanksParagraph2 = new iTextSharp.text.Paragraph($"Thank you! Please come again!", font2);
                     thanksParagraph2.Alignment = Element.ALIGN_CENTER;
@@ -564,25 +564,7 @@ namespace SmartPoultry
         }
 
 
-        //POS Buttons Click Functions (Animal type)
-        private void AllButton_Click(object sender, RoutedEventArgs e)
-        {
-            List<String> buttonAnimalList = new List<String>(buttonAnimalArray);
-            List<String> borderAnimalList = new List<String>(borderAnimalArray);
-
-            buttonAnimalList.Remove("animalAllBtn");
-            borderAnimalList.Remove("animalAllBorder");
-
-            ActiveButton("animalAllBtn", "animalAllBorder");
-
-            for (int i = 0; i < buttonAnimalList.Count; i++)
-            {
-                InactiveButton(buttonAnimalList[i], borderAnimalList[i]);
-            }
-            filterAnimal = "";
-
-            FilterProducts(filterProduct, filterAnimal);
-        }
+        
         private void SearchTB_GotFocus(object sender, RoutedEventArgs e)
         {
             HandleTextBoxPlaceholder(SearchTB, "Search Product...", true);
@@ -611,6 +593,25 @@ namespace SmartPoultry
             }
         }
 
+        //POS Buttons Click Functions (Animal type)
+        private void AllButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<String> buttonAnimalList = new List<String>(buttonAnimalArray);
+            List<String> borderAnimalList = new List<String>(borderAnimalArray);
+
+            buttonAnimalList.Remove("animalAllBtn");
+            borderAnimalList.Remove("animalAllBorder");
+
+            ActiveButton("animalAllBtn", "animalAllBorder");
+
+            for (int i = 0; i < buttonAnimalList.Count; i++)
+            {
+                InactiveButton(buttonAnimalList[i], borderAnimalList[i]);
+            }
+            filterAnimal = "";
+
+            FilterProducts(filterProduct, filterAnimal);
+        }
 
         private void ChickenButton_Click(object sender, RoutedEventArgs e)
         {
