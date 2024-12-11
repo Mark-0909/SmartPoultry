@@ -41,7 +41,11 @@ namespace SmartPoultry
             financialLiabilities = new FinancialLiabilitiesServices(context);
             deliveryServices = new DeliveriesServices(context);
 
+
+            
             DisplaySales();
+            int orderscount = OrderListPanel.Children.Count;
+            OrdersLabel.Content = orderscount.ToString();
 
             FinancialLiabilitiesCbox.SelectionChanged += FinancialCB_SelectionChanged;
             DeliveryCBox.SelectionChanged += DeliveryCB_SelectionChanged;
@@ -111,6 +115,8 @@ namespace SmartPoultry
         {
             OrderListPanel.Children.Clear();
             DisplaySales();
+            int orderscount = OrderListPanel.Children.Count;
+            OrdersLabel.Content = orderscount.ToString();
         }
 
         public void DynamicReloadDeliveries()

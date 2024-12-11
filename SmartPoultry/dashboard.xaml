@@ -7,9 +7,12 @@
              mc:Ignorable="d" 
              d:DesignHeight="577" d:DesignWidth="1104" Background="#FFE3E3E3" Width="1104" Height="577">
     <Grid>
+        <Border CornerRadius="10" BorderBrush="White" BorderThickness="1" HorizontalAlignment="Left" Height="114" Margin="10,67,0,0" VerticalAlignment="Top" Width="341" Background="White"/>
+
+
         <Label Content="DASHBOARD" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Margin="10,4,0,0" Width="235"/>
-        <Border CornerRadius="10" BorderBrush="#FF2C6E5D" BorderThickness="0" HorizontalAlignment="Left" Height="508" Margin="10,59,0,0" VerticalAlignment="Top" Width="341" Background="White">
-            <ScrollViewer x:Name="OrdersList" HorizontalAlignment="Center" Height="424" Margin="0,84,0,0" VerticalAlignment="Top" Width="341" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden" HorizontalContentAlignment="Center">
+        <Border CornerRadius="10" BorderBrush="#FF2C6E5D" BorderThickness="0" HorizontalAlignment="Left" Height="355" Margin="10,212,0,0" VerticalAlignment="Top" Width="341" Background="White">
+            <ScrollViewer x:Name="OrdersList" HorizontalAlignment="Center" Height="321" Margin="0,34,0,0" VerticalAlignment="Top" Width="341" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden" HorizontalContentAlignment="Center">
                 <WrapPanel x:Name="OrderListPanel" Width="341"/>
             </ScrollViewer>
         </Border>
@@ -28,21 +31,21 @@
                 <Label Content="Scheduled Payments" HorizontalAlignment="Left" Height="36" VerticalAlignment="Center" Width="228" Foreground="White" FontSize="20" Margin="9,0,0,0"/>
             </Border>
         </Border>
-        <Border CornerRadius="10 10 0 0" BorderThickness="1" HorizontalAlignment="Left" Height="36" Margin="10,59,0,0" VerticalAlignment="Top" Width="341" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
+        <Border CornerRadius="10 10 0 0" BorderThickness="1" HorizontalAlignment="Left" Height="36" Margin="10,186,0,0" VerticalAlignment="Top" Width="341" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
             <Label Content="Transaction" HorizontalAlignment="Left" Height="37" VerticalAlignment="Center" Width="140" Foreground="White" FontSize="20" Margin="9,0,0,0"/>
         </Border>
-        <Label Content="Payment" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="95,106,0,0" VerticalAlignment="Top" Width="101"/>
-        <Label Content="Status" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="187,106,0,0" VerticalAlignment="Top" Width="53"/>
-        <Label Content="Total" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="249,106,0,0" VerticalAlignment="Top" Width="55"/>
-        <Label Content="ID" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="47,106,0,0" VerticalAlignment="Top" Width="35"/>
+        <Label Content="Payment" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="93,221,0,0" VerticalAlignment="Top" Width="102"/>
+        <Label Content="Status" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="187,221,0,0" VerticalAlignment="Top" Width="53"/>
+        <Label Content="Total" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="257,221,0,0" VerticalAlignment="Top" Width="55"/>
+        <Label Content="ID" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="49,221,0,0" VerticalAlignment="Top" Width="35"/>
         <ComboBox HorizontalAlignment="Left" Height="20" Margin="1011,67,0,0" VerticalAlignment="Top" Width="77"/>
         <ComboBox x:Name="FinancialLiabilitiesCbox" HorizontalAlignment="Left" Height="20" Margin="638,321,0,0" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.508,0.582" SelectedIndex="0" SelectionChanged="FinancialCB_SelectionChanged">
-            <ComboBoxItem>To Pay</ComboBoxItem>
-            <ComboBoxItem>To Receive</ComboBoxItem>
+            <ComboBoxItem Content="To Pay"/>
+            <ComboBoxItem Content="To Receive"/>
         </ComboBox>
         <ComboBox x:Name="DeliveryCBox" HorizontalAlignment="Left" Height="20" Margin="1011,321,0,0" VerticalAlignment="Top" Width="77" SelectedIndex="0" SelectionChanged="DeliveryCB_SelectionChanged">
-            <ComboBoxItem>To Deliver</ComboBoxItem>
-            <ComboBoxItem>To Receive</ComboBoxItem>
+            <ComboBoxItem Content="To Deliver"/>
+            <ComboBoxItem Content="To Receive"/>
         </ComboBox>
         <Button Click="AddFinancialLiabilities_Click" HorizontalAlignment="Left" Height="26" Margin="605,318,0,0" VerticalAlignment="Top" Width="28" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
             <Image Height="17" Width="18" Source="/Images/addicon.png" RenderTransformOrigin="0.528,0.5"/>
@@ -62,6 +65,34 @@
         <ScrollViewer   HorizontalAlignment="Left" Height="193" Margin="732,374,0,0" VerticalAlignment="Top" Width="362" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden">
             <WrapPanel x:Name="DeliveriesPanel1"   Width="348"/>
         </ScrollViewer>
+        <Border CornerRadius="10 10 0 0" BorderThickness="1" HorizontalAlignment="Left" Height="36" Margin="10,59,0,0" VerticalAlignment="Top" Width="341" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
+            <Label Content="Today's Log" HorizontalAlignment="Left" Height="37" VerticalAlignment="Center" Width="140" Foreground="White" FontSize="20" Margin="9,0,0,0"/>
+        </Border>
+        <Border CornerRadius="10" BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="244" Margin="361,59,0,0" VerticalAlignment="Top" Width="733" Background="White">
+            <Border CornerRadius="10 10 0 0" BorderThickness="1" HorizontalAlignment="Center" Height="36" VerticalAlignment="Top" Width="733" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
+                <Label Content="Charts" HorizontalAlignment="Left" Height="37" VerticalAlignment="Center" Width="140" Foreground="White" FontSize="20" Margin="9,0,0,0"/>
+            </Border>
+        </Border>
+        <Border BorderThickness="0,0,0.5,0.5" BorderBrush="Black" HorizontalAlignment="Left" Height="16" Margin="10,95,0,0" VerticalAlignment="Top" Width="85"/>
+        <Border BorderThickness="0,0,0.5,0.5" BorderBrush="Black" HorizontalAlignment="Left" Height="16" Margin="95,95,0,0" VerticalAlignment="Top" Width="85"/>
+        <Border BorderThickness="0,0,0.5,0.5" BorderBrush="Black" HorizontalAlignment="Left" Height="16" Margin="180,95,0,0" VerticalAlignment="Top" Width="85">
+            <Label Content="To Pay" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="24" VerticalAlignment="Center" Width="85" FontSize="10" FontWeight="Bold"/>
+        </Border>
+        <Border BorderThickness="0,0,0,0.5" BorderBrush="Black" HorizontalAlignment="Left" Height="16" Margin="265,95,0,0" VerticalAlignment="Top" Width="86">
+            <Label Content="Out of Stock" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="21" VerticalAlignment="Top" Width="86" FontSize="10" FontWeight="Bold" Margin="0,-4,0,0"/>
+        </Border>
+        <Border BorderThickness="0,0,0.5,0" BorderBrush="Black" HorizontalAlignment="Left" Height="70" Margin="10,111,0,0" VerticalAlignment="Top" Width="85"/>
+        <Border BorderThickness="0,0,0.5,0" BorderBrush="Black" HorizontalAlignment="Left" Height="70" Margin="95,111,0,0" VerticalAlignment="Top" Width="85"/>
+        <Border BorderThickness="0,0,0.5,0" BorderBrush="Black" HorizontalAlignment="Left" Height="70" Margin="180,111,0,0" VerticalAlignment="Top" Width="85"/>
+        <Border BorderThickness="0,0,0,0" BorderBrush="Black" HorizontalAlignment="Left" Height="70" Margin="265,111,0,0" VerticalAlignment="Top" Width="86"/>
+        <Label Content="Orders" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="21" Margin="10,91,0,0" VerticalAlignment="Top" Width="85" FontSize="10" FontWeight="Bold"/>
+        <Label Content="To Deliver" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="21" Margin="95,91,0,0" VerticalAlignment="Top" Width="85" FontSize="10" FontWeight="Bold"/>
+        <Label x:Name="OrdersLabel"  Content="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="70" Margin="10,111,0,0" VerticalAlignment="Top" Width="85" FontSize="40" FontWeight="Bold"/>
+        <Label x:Name="ToDeliverLabel" Content="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="70" Margin="95,111,0,0" VerticalAlignment="Top" Width="85" FontSize="40" FontWeight="Bold"/>
+        <Label x:Name="ToPayLabel" Content="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="70" Margin="180,111,0,0" VerticalAlignment="Top" Width="85" FontSize="40" FontWeight="Bold"/>
+        <Label x:Name="OutOfStockLabel" Content="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="70" Margin="265,111,0,0" VerticalAlignment="Top" Width="86" FontSize="40" FontWeight="Bold"/>
+
+
 
 
     </Grid>
