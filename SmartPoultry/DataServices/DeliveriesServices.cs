@@ -21,6 +21,20 @@ namespace SmartPoultry.DataServices
             List<Deliveries> list = _context.Deliveries.Where(p => p.delivery_status != "delivered" && p.type == filter).OrderBy(p => p.delivery_date).ToList();
             return list;
         }
+        public int CountDeliveries()
+        {
+            try 
+            { 
+                DateTime dateTime = DateTime.Now;
+                int count = _context.Deliveries.Count(p => p.delivery_date <= dateTime && p.type == "To Deliver");
+
+                return count;
+            }
+            catch (Exception e)
+            {
+                return 0;
+            }
+        }
         public bool Create(long orderid, string name, string type, decimal price, string address, string status, string contact, DateTime deliverydate, string deliveryman, decimal charge)
         {
             try 

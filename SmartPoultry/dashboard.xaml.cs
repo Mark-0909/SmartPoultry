@@ -44,8 +44,9 @@ namespace SmartPoultry
 
             
             DisplaySales();
-            int orderscount = OrderListPanel.Children.Count;
-            OrdersLabel.Content = orderscount.ToString();
+            CountDeliveries();
+            CountPayments();
+            CountOrders();
 
             FinancialLiabilitiesCbox.SelectionChanged += FinancialCB_SelectionChanged;
             DeliveryCBox.SelectionChanged += DeliveryCB_SelectionChanged;
@@ -65,6 +66,8 @@ namespace SmartPoultry
                 DisplayDeliveries(DeliveryCBox.Text);
             }
         }
+
+        
 
         private void FinancialCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -115,19 +118,35 @@ namespace SmartPoultry
         {
             OrderListPanel.Children.Clear();
             DisplaySales();
-            int orderscount = OrderListPanel.Children.Count;
-            OrdersLabel.Content = orderscount.ToString();
+            CountOrders();
         }
 
         public void DynamicReloadDeliveries()
         {
             DeliveriesPanel1.Children.Clear();
             DisplayDeliveries(DeliveryCBox.Text);
+            CountDeliveries();
         }
         public void DynamicReloadFinancialLiabilities()
         {
             FinancilaLiabilitiesPanel.Children.Clear();
             DisplayFinancialLiabilities(FinancialLiabilitiesCbox.Text);
+            CountPayments();
+        }
+        public void CountOrders()
+        {
+            int orderscount = OrderListPanel.Children.Count;
+            OrdersLabel.Content = orderscount.ToString();
+        }
+        public void CountDeliveries()
+        {
+            int deliverycount = deliveryServices.CountDeliveries();
+            ToDeliverLabel.Content = deliverycount.ToString();
+        }
+        public void CountPayments()
+        {
+            int PaymentCount = financialLiabilities.CountPayments();
+            ToPayLabel.Content = PaymentCount.ToString();
         }
         public void DisplayDeliveries(string filter)
         {
