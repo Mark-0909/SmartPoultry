@@ -476,12 +476,7 @@ namespace SmartPoultry
                 posPrdocutsPanel.Children.Add(productControl);
             }
         }
-
-        //Search function
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
+        
 
         public void FilterProducts(string type, string animal)
         {
