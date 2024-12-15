@@ -205,7 +205,7 @@ namespace SmartPoultry
                 string refid = sales.receipt_id.ToString();
                 string mode = sales.payment_mode.ToString();
                 string status = sales.status.ToString();
-                string price = sales.total_price.ToString();
+                string price = sales.total_price.ToString("N2");
                 Dashboard_OrdersControl control;
                 if (evenodd == 0)
                 {

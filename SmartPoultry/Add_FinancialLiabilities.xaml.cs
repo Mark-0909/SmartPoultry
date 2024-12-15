@@ -92,5 +92,58 @@ namespace SmartPoultry
             this.Close();
             mainWindow.ActiveOverlay(false);
         }
+        private void NameTB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(NameTextBox, "Name...", true);
+        }
+        private void NameTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(NameTextBox, "Name...", false);
+        }
+        private void OrderTB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(OrderIDTextBox, "Order ID...", true);
+        }
+        private void OrderTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(OrderIDTextBox, "Order ID...", false);
+        }
+        private void PriceTB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(PriceTextBox, "Price...", true);
+        }
+        private void PriceTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(PriceTextBox, "Price...", false);
+        }
+        private void ContactTB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(ContactsTextBox, "Contacts...", true);
+        }
+        private void ContactTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(ContactsTextBox, "Contacts...", false);
+        }
+        public void HandleTextBoxPlaceholder(TextBox tb, string placeholder, bool isFocused)
+        {
+            if (isFocused)
+            {
+                if (tb.Text == placeholder)
+                {
+                    tb.Text = string.Empty;
+                    tb.Foreground = Brushes.Black;
+                }
+            }
+            else // When the TextBox loses focus
+            {
+                if (string.IsNullOrWhiteSpace(tb.Text))
+                {
+                    tb.Text = placeholder;
+                    tb.Foreground = Brushes.Gray;
+                }
+            }
+        }
+
+        
     }
 }

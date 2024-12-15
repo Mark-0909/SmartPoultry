@@ -36,7 +36,7 @@
         </Border>
         <Label Content="Payment" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="93,221,0,0" VerticalAlignment="Top" Width="102"/>
         <Label Content="Status" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="187,221,0,0" VerticalAlignment="Top" Width="53"/>
-        <Label Content="Total" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="257,221,0,0" VerticalAlignment="Top" Width="55"/>
+        <Label Content="Total" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="251,221,0,0" VerticalAlignment="Top" Width="55"/>
         <Label Content="ID" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="49,221,0,0" VerticalAlignment="Top" Width="35"/>
         <ComboBox HorizontalAlignment="Left" Height="20" Margin="1011,67,0,0" VerticalAlignment="Top" Width="77"/>
         <ComboBox x:Name="FinancialLiabilitiesCbox" HorizontalAlignment="Left" Height="20" Margin="638,321,0,0" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.508,0.582" SelectedIndex="0" SelectionChanged="FinancialCB_SelectionChanged">
