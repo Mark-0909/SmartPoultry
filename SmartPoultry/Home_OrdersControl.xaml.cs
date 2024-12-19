@@ -60,7 +60,7 @@ namespace SmartPoultry
             decimal stocks = poscontrol.origstock;
             int initialQuantity = Convert.ToInt32(quantitylabel.Content);
 
-            if (stocks >= CVRate)  // Check if there is enough stock for the operation
+            if (stocks >= CVRate)  
             {
                 initialQuantity++;
                 quantitylabel.Content = initialQuantity.ToString();
@@ -68,11 +68,11 @@ namespace SmartPoultry
                 decimal priceDifference = pricevar * (initialQuantity - previousQuantity);
                 homeControl?.DisplayTotalPrice(priceDifference);
 
-                // Update the stock and price
-                homeControl?.EditQuantityPriceList(positionList, (pricevar * initialQuantity).ToString(), initialQuantity.ToString());
-                poscontrol.AdjustStocks(-CVRate); // Decrease stock by CVRate
 
-                // Display the new price
+                homeControl?.EditQuantityPriceList(positionList, (pricevar * initialQuantity).ToString(), initialQuantity.ToString());
+                
+                poscontrol.AdjustStocks(-CVRate); 
+
                 pricelabel.Content = (pricevar * initialQuantity).ToString("N2");
                 previousQuantity = initialQuantity;
             }
@@ -118,9 +118,13 @@ namespace SmartPoultry
 
             decimal totalItemPrice = pricevar * previousQuantity;
 
-            decimal stocksback = previousQuantity * CVRate;  
+            int initialQuantity = Convert.ToInt32(quantitylabel.Content);
+
+            decimal stocksback = initialQuantity * CVRate;  
 
             poscontrol.AdjustStocks(stocksback);
+
+            
 
             homeControl?.DisplayTotalPrice(-totalItemPrice); 
             homeControl?.RemoverFromList(positionList, poscontrol); 

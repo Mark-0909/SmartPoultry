@@ -33,6 +33,7 @@ namespace SmartPoultry
             Productimage.Source = bitmap;
 
             Initialize(var_list, origstock);
+            
         }
 
         public void Initialize(List<ProductVariations> var_list, decimal adjustedstock)
@@ -105,10 +106,10 @@ namespace SmartPoultry
 
         public void AdjustStocks(decimal amount)
         {
+            vartypesPanel.Children.Clear();
             origstock = origstock + amount;
 
             StocksLabel.Content = origstock.ToString("0.######");
-
             Initialize(prodVarList, origstock);
         }
 
