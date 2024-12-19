@@ -486,39 +486,6 @@ namespace SmartPoultry
             }
         }
 
-        public void SearchProducts(string searchteram)
-        {
-            try
-            {
-
-                posPrdocutsPanel.Children.Clear();
-
-
-                List<Products> products = productServices.FilterProducts(type, animal);
-
-                foreach (Products product in products)
-                {
-
-                    string productName = product.product_name;
-                    int productId = product.product_id;
-                    string imagePath = product.image;
-
-
-                    List<ProductVariations> variations = productvariationsServices.GetAllProductVariations(productId);
-
-
-                    home_POSproduct productControl = new home_POSproduct(productName, variations, imagePath, this);
-
-                    posPrdocutsPanel.Children.Add(productControl);
-                }
-            }
-            catch (Exception ex)
-            {
-
-                MessageBox.Show($"Error filtering products: {ex.Message}");
-            }
-        }
-
 
         //POS Buttons Click Functions (Animal type)
         private void AllButton_Click(object sender, RoutedEventArgs e)
