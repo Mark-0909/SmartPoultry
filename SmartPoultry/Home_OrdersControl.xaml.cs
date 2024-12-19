@@ -1,4 +1,7 @@
-﻿using System;
+﻿using SmartPoultry.DataAccess;
+using SmartPoultry.DataServices;
+using SmartPoultry.Models;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -11,21 +14,29 @@ namespace SmartPoultry
     /// </summary>
     public partial class Home_OrdersControl : UserControl
     {
-       
+        public int VariantID { get; set; }
+
         public decimal pricevar;
         public int productId;
         public int positionList;
 
-        
+
         private home homeControl;
 
-       
+
         private int previousQuantity = 1;
+        decimal CVRate;
+        public home_POSproduct poscontrol;
 
+        
 
-        public Home_OrdersControl(int prodId, string variant, decimal price, string productName, home homeCtrl, int position, string quantity)
+        public Home_OrdersControl(int prodId, string variant, decimal price, string productName, home homeCtrl, int position, string quantity, home_POSproduct pos, int conversion)
         {
             InitializeComponent();
+            
+            CVRate = 1m / conversion;
+
+            VariantID = prodId;
 
             prodName.Content = productName;
             pricelabel.Content = price.ToString("N2");
@@ -36,73 +47,87 @@ namespace SmartPoultry
             positionList = position;
             homeControl = homeCtrl;
 
-            
+            poscontrol = pos;
+
             if (position % 2 != 0)
             {
-                this.controlBorder.Background = new SolidColorBrush(Colors.White); 
+                this.controlBorder.Background = new SolidColorBrush(Colors.White);
             }
         }
 
+        public void AddQuantity()
+        {
+            decimal stocks = poscontrol.origstock;
+            int initialQuantity = Convert.ToInt32(quantitylabel.Content);
+
+            if (stocks >= CVRate)  // Check if there is enough stock for the operation
+            {
+                initialQuantity++;
+                quantitylabel.Content = initialQuantity.ToString();
+
+                decimal priceDifference = pricevar * (initialQuantity - previousQuantity);
+                homeControl?.DisplayTotalPrice(priceDifference);
+
+                // Update the stock and price
+                homeControl?.EditQuantityPriceList(positionList, (pricevar * initialQuantity).ToString(), initialQuantity.ToString());
+                poscontrol.AdjustStocks(-CVRate); // Decrease stock by CVRate
+
+                // Display the new price
+                pricelabel.Content = (pricevar * initialQuantity).ToString("N2");
+                previousQuantity = initialQuantity;
+            }
+        }
 
 
 
         private void PlusBtn_Click(object sender, RoutedEventArgs e)
         {
-            int initialQuantity = Convert.ToInt32(quantitylabel.Content);
-            initialQuantity++;
-            quantitylabel.Content = initialQuantity.ToString();
-
-           
-            decimal priceDifference = pricevar * (initialQuantity - previousQuantity);
-            homeControl?.DisplayTotalPrice(priceDifference);
-
-            homeControl?.EditQuantityPriceList(positionList, (pricevar * initialQuantity).ToString(), initialQuantity.ToString());
-
-            pricelabel.Content = (pricevar * initialQuantity).ToString("N2");
-            previousQuantity = initialQuantity;
-
-            
+            AddQuantity();
         }
 
-       
+
         private void MinusBtn_Click(object sender, RoutedEventArgs e)
         {
+            decimal stocks = poscontrol.origstock;
             int initialQuantity = Convert.ToInt32(quantitylabel.Content);
 
-            
+
             if (initialQuantity > 1)
             {
-                initialQuantity--; 
+                initialQuantity--;
                 quantitylabel.Content = initialQuantity.ToString();
 
-               
+
                 decimal priceDifference = pricevar * (initialQuantity - previousQuantity);
                 homeControl?.DisplayTotalPrice(priceDifference);
 
                 homeControl?.EditQuantityPriceList(positionList, (pricevar * initialQuantity).ToString(), initialQuantity.ToString());
+                poscontrol.AdjustStocks(CVRate);
 
                 pricelabel.Content = (pricevar * initialQuantity).ToString("N2");
                 previousQuantity = initialQuantity;
-                
+
 
             }
         }
 
-        
+
         private void RemoveBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.Visibility = Visibility.Collapsed; 
+            this.Visibility = Visibility.Collapsed;
 
-           
             decimal totalItemPrice = pricevar * previousQuantity;
-            homeControl?.DisplayTotalPrice(-totalItemPrice);
-            homeControl?.RemoverFromList(positionList);
+
+            decimal stocksback = previousQuantity * CVRate;  
+
+            poscontrol.AdjustStocks(stocksback);
+
+            homeControl?.DisplayTotalPrice(-totalItemPrice); 
+            homeControl?.RemoverFromList(positionList, poscontrol); 
         }
 
-       
-        public void AddToListCheckOut()
-        {
-            homeControl?.CheckOutList(productId.ToString(), quantitylabel.Content.ToString(), varName.Content.ToString(), pricelabel.Content.ToString());
-        }
+
+
+
     }
 }

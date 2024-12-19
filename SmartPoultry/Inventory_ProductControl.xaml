@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:SmartPoultry"
              mc:Ignorable="d" Height="260" Width="207" Background="Transparent" Margin="0 0 5 5" MouseLeftButtonDown="UserControl_MouseLeftButtonDown">
     <Grid>
-        <Border CornerRadius="5" BorderBrush="#FF66C265" BorderThickness="1" Background="White">
+        <Border CornerRadius="5" BorderBrush="#FFA4A4A4" BorderThickness="1" Background="White">
             <Border CornerRadius="5" BorderBrush="#FFC9C6C6" BorderThickness="1" Margin="9,9,9,60">
                 <Image x:Name="Productimage" Stretch="Fill"/>
             </Border>

@@ -20,7 +20,7 @@
             Margin="3,0,0,0" 
             HorizontalContentAlignment="Center" 
             VerticalContentAlignment="Center"/>
-        <Label x:Name="pricelabel" Content="Price" 
+        <Label x:Name="pricelabel" Content="0.00" 
             HorizontalAlignment="Left" 
             VerticalAlignment="Center" 
             Height="46" 

@@ -52,8 +52,9 @@
                 <Image x:Name="Productimage" Stretch="Fill"/>
             </Border>
         </Border>
-        <Label x:Name="Productname" VerticalContentAlignment="Center" Content="Product Name" HorizontalAlignment="Center" Height="37" Margin="0,156,0,0" VerticalAlignment="Top" Width="160"/>
+        <Label x:Name="Productname" VerticalContentAlignment="Center" Content="Product Name" HorizontalAlignment="Left" Height="37" Margin="10,155,0,0" VerticalAlignment="Top" Width="112"/>
         <WrapPanel x:Name="vartypesPanel" HorizontalAlignment="Center" Height="34" Margin="0,197,0,0" VerticalAlignment="Top" Width="160"/>
+        <Label x:Name="StocksLabel" VerticalContentAlignment="Center" HorizontalContentAlignment="Right" Content="stocks" HorizontalAlignment="Left" Height="37" Margin="122,155,0,0" VerticalAlignment="Top" Width="52"/>
 
     </Grid>
 </UserControl>

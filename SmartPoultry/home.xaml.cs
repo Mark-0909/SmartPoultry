@@ -31,7 +31,7 @@ namespace SmartPoultry
     /// </summary>
     public partial class home : UserControl
     {
-        
+
 
         public SalesServices salesServices;
         public ProductServices productServices;
@@ -50,7 +50,7 @@ namespace SmartPoultry
         public static String[] buttonAnimalArray = { "animalAllBtn", "animalChickenBtn", "animalDogBtn", "animalCatBtn", "animalPigBtn", "animalDuckBtn", "animalCowBtn", "animalHorseBtn", "animalRabbitBtn", "animalBirdBtn", "animalFishBtn", "animalGuineaBtn" };
         public static String[] borderAnimalArray = { "animalAllBorder", "animalChickenBorder", "animalDogBorder", "animalCatBorder", "animalPigBorder", "animalDuckBorder", "animalCowBorder", "animalHorseBorder", "animalRabbitBorder", "animalBirdBorder", "animalFishBorder", "animalGuineaBorder" };
 
-        public static String[] buttonTypeArray = { "typeAllBtn", "typeFeedsBtn", "typeMedicineBtn", "typeVitaminsBtn", "typeAccessoriesBtn", "typeVaccinesBtn"};
+        public static String[] buttonTypeArray = { "typeAllBtn", "typeFeedsBtn", "typeMedicineBtn", "typeVitaminsBtn", "typeAccessoriesBtn", "typeVaccinesBtn" };
         public static String[] borderTypeArray = { "typeAllBorder", "typeFeedsBorder", "typeMedicineBorder", "typeVitaminsBorder", "typeAccessoriesBorder", "typeVaccinesBorder" };
 
         public string filterAnimal = "";
@@ -58,7 +58,7 @@ namespace SmartPoultry
         public home()
         {
             InitializeComponent();
-            
+
             productServices = new ProductServices(context);
             productvariationsServices = new ProductVariationServices(context);
             salesServices = new SalesServices(context);
@@ -80,16 +80,16 @@ namespace SmartPoultry
 
         public void ConfirmOrder(string paymentMode, string status, string purchasemethod)
         {
-            
+
             string StringProductList = string.Join(",", Productvaridlist);
             string StringPriceList = string.Join(",", PriceList);
             string StringQuantityList = string.Join(",", QuantityList);
             string StringVarSpecification = string.Join(",", VarSpecification);
 
-            
+
             decimal totalPrice = decimal.Parse(totalPiceLabel.Content.ToString());
 
-            
+
             int addingSales = salesServices.Create(
                 StringProductList,
                 StringPriceList,
@@ -106,7 +106,7 @@ namespace SmartPoultry
                 MessageBox.Show("Order confirmed successfully!");
                 orderPanel.Children.Clear();
                 totalPiceLabel.Content = "0";
-                totalPiceLabel.Visibility= Visibility.Collapsed;
+                totalPiceLabel.Visibility = Visibility.Collapsed;
                 Productvaridlist.Clear();
                 PriceList.Clear();
                 QuantityList.Clear();
@@ -154,13 +154,14 @@ namespace SmartPoultry
                     decimal newstocks = stocks - tominus;
 
 
-                    productServices.AdjustStcoks("subtract", newstocks, product.product_id);
+                    productServices.AdjustStocks("subtract", newstocks, product.product_id);
                 }
-                catch (Exception ex) { 
-                
-                MessageBox.Show(ex.Message);
+                catch (Exception ex)
+                {
+
+                    MessageBox.Show(ex.Message);
                 }
-                
+
             }
         }
 
@@ -245,7 +246,7 @@ namespace SmartPoultry
                     {
                         try
                         {
-                            
+
                             int id = int.Parse(itemid[i]);
                             ProductVariations prodvar = productVariationServices.GetProductVariationById(id);
                             Products prod = productServices.FetchProduct(prodvar.product_id);
@@ -337,7 +338,7 @@ namespace SmartPoultry
 
                     // Open the PDF in the default viewer
                     Process.Start(new ProcessStartInfo(tempFilePath) { UseShellExecute = true });
-                    
+
 
 
                     Task.Run(() =>
@@ -348,9 +349,9 @@ namespace SmartPoultry
                             File.Delete(tempFilePath);
                         }
                     });
-                    
+
                 }
-                
+
 
             }
             catch (Exception e)
@@ -369,7 +370,7 @@ namespace SmartPoultry
             {
                 MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
                 Home_Checkout checkout = new Home_Checkout(totalPiceLabel.Content.ToString(), this, mainWindow);
-                
+
 
                 if (mainWindow != null)
                 {
@@ -380,7 +381,7 @@ namespace SmartPoultry
                     MessageBox.Show("Unable to access the MainWindow.");
                 }
                 checkout.ShowDialog();
-                
+
             }
             else
             {
@@ -396,7 +397,7 @@ namespace SmartPoultry
             VarSpecification.Add(varspec);
             PriceList.Add(price);
         }
-        public void RemoverFromList(int position)
+        public void RemoverFromList(int position, home_POSproduct pos)
         {
             Productvaridlist.RemoveAt(position);
             PriceList.RemoveAt(position);
@@ -408,44 +409,66 @@ namespace SmartPoultry
 
             for (int i = 0; i < Productvaridlist.Count; i++)
             {
+                
                 int id = int.Parse(Productvaridlist[i]);
+                int cv = productvariationsServices.GetProductVariationById(id).conversion_rate;
                 decimal price = decimal.Parse(PriceList[i]);
                 int quantity = int.Parse(QuantityList[i]);
 
-                Home_OrdersControl ordersControl = new Home_OrdersControl(id, VarSpecification[i], price, ProductnameList[i], this, i, quantity.ToString());
+                Home_OrdersControl ordersControl = new Home_OrdersControl(id, VarSpecification[i], price, ProductnameList[i], this, i, quantity.ToString(), pos, cv);
                 orderPanel.Children.Add(ordersControl);
             }
 
         }
 
-        public void DisplayOrder(int id, string productname)
+        public void DisplayOrder(int id, string productname, home_POSproduct pos)
         {
+            var existingcontrol = GetOrderControlById(id);
+            if (existingcontrol != null) 
+            {
+                existingcontrol.AddQuantity();
+                return;
+            }
             var productvar = productvariationsServices.GetProductVariationById(id);
             string? var = productvar.variant_type;
             decimal price = productvar.price;
             int position = Productvaridlist.Count;
-            
+            int cv = productvar.conversion_rate;
             ProductnameList.Add(productname);
             Productvaridlist.Add(id.ToString());
             QuantityList.Add("1");
             VarSpecification.Add(var);
             PriceList.Add(price.ToString());
-            
-            Home_OrdersControl orderControl = new Home_OrdersControl(id, var, price, productname, this, position, "1");
+
+            Home_OrdersControl orderControl = new Home_OrdersControl(id, var, price, productname, this, position, "0", pos, cv);
 
             orderPanel.Children.Add(orderControl);
+
+            orderControl.AddQuantity();
+
             scroller.ScrollToVerticalOffset(scroller.ExtentHeight);
 
             DisplayTotalPrice(price);
+        }
+        public Home_OrdersControl GetOrderControlById(int variationId)
+        {
+            foreach (UIElement element in orderPanel.Children)
+            {
+                if (element is Home_OrdersControl control && control.VariantID == variationId)
+                {
+                    return control;
+                }
+            }
+            return null;
         }
 
         public void DisplayTotalPrice(decimal toadd)
         {
             totalPiceLabel.Visibility = Visibility.Visible;
-            decimal initialPrice = Convert.ToDecimal(totalPiceLabel.Content); 
+            decimal initialPrice = Convert.ToDecimal(totalPiceLabel.Content);
             decimal finalprice = initialPrice + toadd;
 
-            totalPiceLabel.Content = finalprice.ToString("N2"); 
+            totalPiceLabel.Content = finalprice.ToString("N2");
         }
 
         public void EditQuantityPriceList(int position, string price, string quantity)
@@ -455,28 +478,29 @@ namespace SmartPoultry
         }
         public void DisplayProducts()
         {
-            
+
             List<Products> products = productServices.GetAllProducts();
 
-            
+
             foreach (Products product in products)
             {
-                
+
                 string productname = product.product_name;
                 int id = product.product_id;
                 string imagepath = product.image;
+                decimal stocks = product.stocks;
 
-                
+
                 List<ProductVariations> var = productvariationsServices.GetAllProductVariations(id);
 
-               
-                productControl = new home_POSproduct(productname, var, imagepath, this);
 
-                
+                productControl = new home_POSproduct(productname, var, imagepath, this, stocks);
+
+
                 posPrdocutsPanel.Children.Add(productControl);
             }
         }
-        
+
 
         public void FilterProducts(string type, string animal)
         {
@@ -494,12 +518,13 @@ namespace SmartPoultry
                     string productName = product.product_name;
                     int productId = product.product_id;
                     string imagePath = product.image;
+                    decimal stocks = product.stocks;
 
 
                     List<ProductVariations> variations = productvariationsServices.GetAllProductVariations(productId);
 
 
-                    home_POSproduct productControl = new home_POSproduct(productName, variations, imagePath, this);
+                    home_POSproduct productControl = new home_POSproduct(productName, variations, imagePath, this, stocks);
 
                     posPrdocutsPanel.Children.Add(productControl);
                 }
@@ -529,12 +554,13 @@ namespace SmartPoultry
                     string productName = product.product_name;
                     int productId = product.product_id;
                     string imagePath = product.image;
+                    decimal stocks = product.stocks;
 
 
                     List<ProductVariations> variations = productvariationsServices.GetAllProductVariations(productId);
 
 
-                    home_POSproduct productControl = new home_POSproduct(productName, variations, imagePath, this);
+                    home_POSproduct productControl = new home_POSproduct(productName, variations, imagePath, this, stocks);
 
                     posPrdocutsPanel.Children.Add(productControl);
                 }
@@ -551,15 +577,15 @@ namespace SmartPoultry
             {
                 if (string.IsNullOrWhiteSpace(SearchTB.Text))
                 {
-                    SearchProducts("");  
+                    SearchProducts("");
                 }
                 return;
             }
-            SearchProducts(SearchTB.Text); 
+            SearchProducts(SearchTB.Text);
         }
 
 
-        
+
         private void SearchTB_GotFocus(object sender, RoutedEventArgs e)
         {
             HandleTextBoxPlaceholder(SearchTB, "Search Product...", true);
@@ -965,10 +991,10 @@ namespace SmartPoultry
                 MessageBox.Show("Button or Border not found.");
             }
 
-            
+
         }
 
-        
-        
+
+
     }
 }

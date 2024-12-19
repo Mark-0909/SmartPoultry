@@ -18,7 +18,7 @@ namespace SmartPoultry.DataServices
             _context = context;
         }
 
-        public void AdjustStcoks(string agenda, decimal newstocks, int productid)
+        public void AdjustStocks(string agenda, decimal newstocks, int productid)
         {
             try
             {
@@ -39,7 +39,7 @@ namespace SmartPoultry.DataServices
                 }
                 else
                 {
-                    // Code for adding stock goes here
+                    
                 }
             }
             catch (Exception ex)

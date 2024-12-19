@@ -25,15 +25,7 @@ namespace SmartPoultry.DataServices
             }
             return variation.variant_type.ToString();
         }
-        public ProductVariations GetBaseUnitId(int id)
-        {
-            ProductVariations variation = _context.ProductVariations.FirstOrDefault(p => p.product_id == id && p.isBaseUnit);
-            if (variation == null)
-            {
-                return null;
-            }
-            return variation;
-        }
+        
 
         public ProductVariations GetProductVariationById(int id)
         {
