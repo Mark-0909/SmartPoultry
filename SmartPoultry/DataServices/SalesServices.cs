@@ -26,9 +26,9 @@ namespace SmartPoultry.DataServices
                 MessageBox.Show(ex.Message);
                 return null;
             }
-            
-
         }
+
+        
         public List<Sales> GetSales()
         {
             try
@@ -56,7 +56,19 @@ namespace SmartPoultry.DataServices
             }
         }
 
-
+        public List<Sales> GetAllSales()
+        {
+            try
+            {
+                List<Sales> sales = _context.Sales.OrderByDescending(p => p.purchase_date).ToList();
+                return sales;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex);
+                return null;
+            }
+        }
 
 
         public Sales GetSales(int id)
@@ -106,6 +118,8 @@ namespace SmartPoultry.DataServices
                 return -1;
             }
         }
+
+        
         public long CreateReferenceNumber()
         {
             try

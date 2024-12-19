@@ -41,7 +41,12 @@ namespace SmartPoultry
             financialLiabilities = new FinancialLiabilitiesServices(context);
             deliveryServices = new DeliveriesServices(context);
 
+
+            
             DisplaySales();
+            CountDeliveries();
+            CountPayments();
+            CountOrders();
 
             FinancialLiabilitiesCbox.SelectionChanged += FinancialCB_SelectionChanged;
             DeliveryCBox.SelectionChanged += DeliveryCB_SelectionChanged;
@@ -61,6 +66,8 @@ namespace SmartPoultry
                 DisplayDeliveries(DeliveryCBox.Text);
             }
         }
+
+        
 
         private void FinancialCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -111,17 +118,35 @@ namespace SmartPoultry
         {
             OrderListPanel.Children.Clear();
             DisplaySales();
+            CountOrders();
         }
 
         public void DynamicReloadDeliveries()
         {
             DeliveriesPanel1.Children.Clear();
             DisplayDeliveries(DeliveryCBox.Text);
+            CountDeliveries();
         }
         public void DynamicReloadFinancialLiabilities()
         {
             FinancilaLiabilitiesPanel.Children.Clear();
             DisplayFinancialLiabilities(FinancialLiabilitiesCbox.Text);
+            CountPayments();
+        }
+        public void CountOrders()
+        {
+            int orderscount = OrderListPanel.Children.Count;
+            OrdersLabel.Content = orderscount.ToString();
+        }
+        public void CountDeliveries()
+        {
+            int deliverycount = deliveryServices.CountDeliveries();
+            ToDeliverLabel.Content = deliverycount.ToString();
+        }
+        public void CountPayments()
+        {
+            int PaymentCount = financialLiabilities.CountPayments();
+            ToPayLabel.Content = PaymentCount.ToString();
         }
         public void DisplayDeliveries(string filter)
         {
@@ -180,7 +205,7 @@ namespace SmartPoultry
                 string refid = sales.receipt_id.ToString();
                 string mode = sales.payment_mode.ToString();
                 string status = sales.status.ToString();
-                string price = sales.total_price.ToString();
+                string price = sales.total_price.ToString("N2");
                 Dashboard_OrdersControl control;
                 if (evenodd == 0)
                 {

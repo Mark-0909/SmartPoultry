@@ -49,7 +49,7 @@ namespace SmartPoultry
                     Margin = new Thickness(9, 5, 9, 5),
                     Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2C6E5D")),
                     BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2C6E5D")),
-                    FontSize = 16,
+                    FontSize = 13,
                     Foreground = new SolidColorBrush(Colors.White),
                     Style = (Style)FindResource("NoHoverButton")
                 };

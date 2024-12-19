@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="SmartPoultry.Records_SalesControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SmartPoultry"
+             mc:Ignorable="d" 
+             d:DesignHeight="60" d:DesignWidth="1040" Width="1040" Margin="5 0 0 5">
+    <Grid>
+        <Border x:Name="ThisBorder"  CornerRadius="5" BorderBrush="White" BorderThickness="1" HorizontalAlignment="Center" Height="60" VerticalAlignment="Center" Width="1040" Background="#FFDBDBDB">
+            <Label x:Name="IdLabel" Content="ID" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="40" Margin="9,0,0,0" VerticalAlignment="Center" Width="155" FontSize="14"/>
+        </Border>
+        <Label x:Name="MethodLabel" Content="Payment Method" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="40" Margin="530,0,0,0" VerticalAlignment="Center" Width="155" FontSize="14"/>
+        <Label x:Name="PriceLabel" Content="Price" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="40" Margin="875,0,0,0" VerticalAlignment="Center" Width="155" FontSize="14"/>
+        <Label x:Name="StatusLabel" Content="Status" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="40" Margin="329,0,0,0" VerticalAlignment="Center" Width="155" FontSize="14"/>
+        <Label x:Name="DateLabel" Content="Date" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="40" Margin="169,0,0,0" VerticalAlignment="Center" Width="155" FontSize="14"/>
+
+    </Grid>
+</UserControl>

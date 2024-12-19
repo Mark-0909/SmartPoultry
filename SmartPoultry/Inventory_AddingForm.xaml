@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartPoultry"
         mc:Ignorable="d"
-        Title="Inventory_AddingForm" Height="721" Width="624" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Background="Transparent" ShowInTaskbar="False">
+        Title="Inventory_AddingForm" Height="693" Width="600" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Background="Transparent" ShowInTaskbar="False">
     <Window.Resources>
         <Style x:Key="NoHoverButton" TargetType="Button">
             <Setter Property="Background" Value="White"/>
@@ -53,33 +53,33 @@
 
 
         <Border CornerRadius="10" BorderBrush="#FF077C5E" BorderThickness="2" Background="#FFDDDDDD">
-            <Border CornerRadius="10 10 0 0" BorderThickness="1" Margin="-2,-2,-2,680" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
-                <Button Margin="580,2,4,2" Click="CloseAddPopup_Click" Background="Transparent" BorderBrush="Transparent">
+            <Border CornerRadius="10 10 0 0" BorderThickness="1" Margin="-2,-2,-2,652" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
+                <Button Margin="555,2,4,2" Click="CloseAddPopup_Click" Background="Transparent" BorderBrush="Transparent">
                     <Image Height="28" Width="36" Source="/Images/close.png"/>
                 </Button>
             </Border>
         </Border>
-        <Label x:Name="windowName" HorizontalContentAlignment="Center"  Content="ADD PRODUCT" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" Width="262" Height="41" Foreground="White" FontStretch="SemiExpanded" Margin="0,-5,0,0"/>
-        <Border CornerRadius="10" BorderThickness="1" Margin="32,70,396,445" Background="White" BorderBrush="#FFD8D8D8">
+        <Label x:Name="windowName" HorizontalContentAlignment="Center"  Content="ADD PRODUCT" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" Width="262" Height="41" Foreground="White" FontStretch="SemiExpanded" Margin="0,-4,0,0"/>
+        <Border CornerRadius="10" BorderThickness="1" Margin="23,59,397,448" Background="White" BorderBrush="#FFD8D8D8">
             <Button  Style="{StaticResource NoHoverButton}" x:Name="SelectImageBtn" Click="SelectImage_Click" Margin="9,9,9,9" Background="White" BorderBrush="#FFE4E1E1">
                 <Image x:Name="SelectedImage" Height="72" Width="70" Source="/Images/clipicon.png"/>
             </Button>
         </Border>
 
         <Border x:Name="animalChickenBorder" Height="39" Width="76" VerticalAlignment="Top" 
-            Margin="32,316,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            Margin="32,280,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
             <Button x:Name="animalChickenBtn" Click="ChickenButton_Click" Content="Chicken"  
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                 Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
         </Border>
 
-        <Label Content="Animal:" HorizontalAlignment="Left" Margin="32,281,0,0" VerticalAlignment="Top" FontSize="15"/>
-        <Label Content="Name:" HorizontalAlignment="Left" Margin="252,73,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <Label Content="Product Type:" HorizontalAlignment="Left" Margin="32,404,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label Content="Animal:" HorizontalAlignment="Left" Margin="32,250,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label Content="Name:" HorizontalAlignment="Left" Margin="225,54,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label Content="Product Type:" HorizontalAlignment="Left" Margin="32,368,0,0" VerticalAlignment="Top" FontSize="15"/>
 
         <Border x:Name="animalDogBorder" Height="39" Width="56" VerticalAlignment="Top" 
-            Margin="113,316,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            Margin="113,280,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
             <Button x:Name="animalDogBtn" Click="DogButton_Click" Content="Dog"  
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
@@ -87,14 +87,14 @@
         </Border>
 
         <Border x:Name="animalCatBorder" Height="39" Width="56" VerticalAlignment="Top" 
-            Margin="174,316,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            Margin="174,280,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
             <Button x:Name="animalCatBtn" Click="CatButton_Click" Content="Cat"  
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                 Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
         </Border>
         <Border x:Name="animalPigBorder" Height="39" Width="47" VerticalAlignment="Top" 
-            Margin="235,316,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            Margin="235,280,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
             <Button x:Name="animalPigBtn" Click="PigButton_Click" Content="Pig"  
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
@@ -102,7 +102,7 @@
         </Border>
 
         <Border x:Name="animalGuineaBorder" Height="39" Width="93" VerticalAlignment="Top" 
-            Margin="287,316,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            Margin="287,280,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
             <Button x:Name="animalGuineaBtn" Click="GuineaButton_Click" Content="Guinea Pig"  
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
@@ -110,7 +110,7 @@
         </Border>
 
         <Border x:Name="animalDuckBorder" Height="39" Width="58" VerticalAlignment="Top" 
-            Margin="385,316,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            Margin="385,280,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
             <Button x:Name="animalDuckBtn" Click="DuckButton_Click" Content="Duck"  
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
@@ -118,7 +118,7 @@
         </Border>
 
         <Border x:Name="animalCowBorder" Height="39" Width="55" VerticalAlignment="Top" 
-            Margin="448,316,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            Margin="448,280,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
             <Button x:Name="animalCowBtn" Click="CowButton_Click" Content="Cow"  
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
@@ -126,7 +126,7 @@
         </Border>
 
         <Border x:Name="animalHorseBorder" Height="39" Width="65" VerticalAlignment="Top" 
-            Margin="508,316,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            Margin="508,280,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
             <Button x:Name="animalHorseBtn" Click="HorseButton_Click" Content="Horse"  
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
@@ -134,7 +134,7 @@
         </Border>
 
         <Border x:Name="animalRabbitBorder" Height="39" Width="65" VerticalAlignment="Top" 
-            Margin="32,360,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            Margin="32,324,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
             <Button x:Name="animalRabbitBtn" Click="RabbitButton_Click" Content="Rabbit"  
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
@@ -142,7 +142,7 @@
         </Border>
 
         <Border x:Name="animalBirdBorder" Height="39" Width="50" VerticalAlignment="Top" 
-            Margin="102,360,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            Margin="102,324,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
             <Button x:Name="animalBirdBtn" Click="BirdButton_Click" Content="Bird"  
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
@@ -150,7 +150,7 @@
         </Border>
 
         <Border x:Name="animalFishBorder" Height="39" Width="50" VerticalAlignment="Top" 
-            Margin="157,360,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            Margin="157,324,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
             <Button x:Name="animalFishBtn" Click="FishButton_Click" Content="Fish"  
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
@@ -159,7 +159,7 @@
 
 
         <Border x:Name="typeFeedsBorder" Height="39" Width="59" VerticalAlignment="Top" 
-            Margin="32,439,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            Margin="32,403,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
             <Button x:Name="typeFeedsBtn" Click="FeedsButton_Click" Content="Feeds"  
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
@@ -167,7 +167,7 @@
         </Border>
 
         <Border x:Name="typeMedicineBorder" Height="39" Width="82" VerticalAlignment="Top" 
-            Margin="96,439,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            Margin="96,403,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
             <Button x:Name="typeMedicineBtn" Click="MedicineButton_Click" Content="Medicine"  
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
@@ -175,28 +175,28 @@
         </Border>
 
         <Border x:Name="typeVitaminsBorder" Height="39" Width="82" VerticalAlignment="Top" 
-            Margin="183,439,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            Margin="183,403,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
             <Button x:Name="typeVitaminsBtn" Click="VitaminsButton_Click" Content="Vitamins"  
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                 Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
         </Border>
         <Border x:Name="typeAccessoriesBorder" Height="39" Width="100" VerticalAlignment="Top" 
-            Margin="270,439,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            Margin="270,403,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
             <Button x:Name="typeAccessoriesBtn" Click="AccessoriesButton_Click" Content="Accessories"  
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                 Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
         </Border>
         <Border x:Name="typeVaccinesBorder" Height="39" Width="77" VerticalAlignment="Top" 
-            Margin="375,439,0,0" HorizontalAlignment="Left" CornerRadius="10" 
+            Margin="375,403,0,0" HorizontalAlignment="Left" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FFF3F3F3" Background="White">
             <Button x:Name="typeVaccinesBtn" Click="VaccinesButton_Click" Content="Vaccines"  
                 FontSize="15" Foreground="#FFB9B9B9" Background="White" BorderBrush="White" 
                 Style="{StaticResource NoHoverButton}" Margin="9,4,9,4"/>
         </Border>
 
-        <Border CornerRadius="10" BorderBrush="#FFDDDDDD" BorderThickness="1" Margin="252,209,27,466" Background="White" Height="46">
+        <Border CornerRadius="10" BorderBrush="#FFDDDDDD" BorderThickness="1" Margin="225,189,20,462" Background="White" Height="42">
 
             <ComboBox x:Name="SupplierCBox"  Margin="9,5,9,5" Background="Transparent" BorderBrush="Transparent">
                 <ComboBox.Style>
@@ -289,9 +289,9 @@
 
 
         </Border>
-        <Label Content="Supplier:" HorizontalAlignment="Left" Margin="252,166,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <Label Content="Variations: " HorizontalAlignment="Left" Margin="20,503,0,0" VerticalAlignment="Top" FontSize="15"/>
-        <Border CornerRadius="10                 " BorderBrush="#FFDDDDDD" BorderThickness="1" Margin="252,114,27,561" Background="White">
+        <Label Content="Supplier:" HorizontalAlignment="Left" Margin="225,147,0,0" VerticalAlignment="Top" FontSize="20"/>
+        <Label Content="Variations: " HorizontalAlignment="Left" Margin="17,467,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Border CornerRadius="10                 " BorderBrush="#FFDDDDDD" BorderThickness="1" Margin="225,96,20,555" Background="White">
             <TextBox x:Name="ProductNameTextBox" GotFocus="ProductName_GotFocus" LostFocus="ProductName_LostFocus" 
          HorizontalAlignment="Center" TextWrapping="Wrap" 
          Text="Enter text here..." VerticalAlignment="Center" 
@@ -311,14 +311,14 @@
                 </TextBox.Style>
             </TextBox>
         </Border>
-        <Border x:Name="typeFeedsBorder_Copy3" Height="35" Width="622" VerticalAlignment="Top" 
-            Margin="0,684,0,0" HorizontalAlignment="Center" CornerRadius="0 0 10 10" 
+        <Border x:Name="typeFeedsBorder_Copy3" Height="35" Width="600" VerticalAlignment="Top" 
+            Margin="0,657,0,0" HorizontalAlignment="Center" CornerRadius="0 0 10 10" 
             BorderThickness="1" BorderBrush="#FF077C5E" Background="#FF077C5E">
-            <Button Content="Submit" Margin="9,-1,9,-1" Click="Submit_Click" Background="#FF077C5E" Foreground="White" FontWeight="Bold" FontSize="20" BorderThickness="0" Style="{StaticResource NoHoverButton}"/>
+            <Button Content="Submit" Margin="9,-1,26,-1" Click="Submit_Click" Background="#FF077C5E" Foreground="White" FontWeight="Bold" FontSize="20" BorderThickness="0" Style="{StaticResource NoHoverButton}"/>
         </Border>
-        <Label Content="Prices: " HorizontalAlignment="Left" Margin="20,555,0,0" VerticalAlignment="Top" FontSize="15"/>
-        <Label Content="Conversion: " HorizontalAlignment="Left" Margin="20,601,0,0" VerticalAlignment="Top" FontSize="15"/>
-        <WrapPanel x:Name="unitsWPanel" Width="386" Margin="102,485,136,70" Orientation="Horizontal">
+        <Label Content="Prices: " HorizontalAlignment="Left" Margin="17,518,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label Content="Conversion: " HorizontalAlignment="Left" Margin="17,565,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <WrapPanel x:Name="unitsWPanel" Margin="119,450,124,76" Orientation="Horizontal">
             <Border x:Name="addUnitBtn" 
             CornerRadius="10" 
             BorderThickness="1" 
@@ -337,11 +337,11 @@
                 </Button>
             </Border>
         </WrapPanel>
-        <Label Content="Stocks: " HorizontalAlignment="Left" Margin="20,636,0,0" VerticalAlignment="Top" FontSize="15"/>
-        <Label x:Name="stocklisting" Content="stocks " HorizontalAlignment="Left" Margin="111,636,0,0" VerticalAlignment="Top" FontSize="15"/>
-        <Label x:Name="stockunit" Content="stocks " HorizontalAlignment="Left" Margin="175,636,0,0" VerticalAlignment="Top" FontSize="15"/>
-        <Button x:Name="editBtn"  Content="edit" HorizontalAlignment="Left" Height="30" Margin="474,654,0,0" VerticalAlignment="Top" Width="66"/>
-        <Button x:Name="phaseoutBtn"  Content="phaseout" HorizontalAlignment="Left" Height="30" Margin="546,651,0,0" VerticalAlignment="Top" Width="68" Click="Button_Click"/>
+        <Label Content="Stocks: " HorizontalAlignment="Left" Margin="23,621,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label x:Name="stocklisting" Content="stocks " HorizontalAlignment="Left" Margin="113,621,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label x:Name="stockunit" Content="stocks " HorizontalAlignment="Left" Margin="203,621,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Button x:Name="editBtn"  Content="edit" HorizontalAlignment="Left" Height="30" Margin="448,622,0,0" VerticalAlignment="Top" Width="66"/>
+        <Button x:Name="phaseoutBtn"  Content="phaseout" HorizontalAlignment="Left" Height="30" Margin="522,622,0,0" VerticalAlignment="Top" Width="68" Click="Button_Click"/>
 
 
 

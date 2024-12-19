@@ -115,6 +115,8 @@ namespace SmartPoultry
 
                 DisplayReceipt(addingSales, salesServices, context);
 
+                MinusStocksProduct(StringProductList, StringQuantityList);
+
                 MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
 
                 if (mainWindow != null)
@@ -133,6 +135,34 @@ namespace SmartPoultry
             }
         }
 
+        public void MinusStocksProduct(string idlist, string quantitylist)
+        {
+            List<int> ids = idlist.Split(',').Select(int.Parse).ToList();
+            List<decimal> qty = quantitylist.Split(',').Select(decimal.Parse).ToList();
+
+            for (int i = 0; i < ids.Count; i++)
+            {
+                ProductVariations product = productvariationsServices.GetProductVariationById(ids[i]);
+                Products prodstocks = productServices.FetchProduct(product.product_id);
+
+                try
+                {
+                    decimal tominus = (1m / (decimal)product.conversion_rate) * qty[i];
+
+                    decimal stocks = (decimal)prodstocks.stocks;
+
+                    decimal newstocks = stocks - tominus;
+
+
+                    productServices.AdjustStcoks("subtract", newstocks, product.product_id);
+                }
+                catch (Exception ex) { 
+                
+                MessageBox.Show(ex.Message);
+                }
+                
+            }
+        }
 
 
         public static void DisplayReceipt(int salesid, SalesServices salesServices, AppDbContext context)
@@ -162,7 +192,7 @@ namespace SmartPoultry
                 List<string> originalprice = new List<string>();
                 List<string> totalPrices = new List<string>();
 
-                float heightcalculation = 59 + (3 * itemid.Count);
+                float heightcalculation = 60 + (3 * itemid.Count);
 
                 using (MemoryStream memoryStream = new MemoryStream())
                 {
@@ -175,7 +205,7 @@ namespace SmartPoultry
                     writer.CloseStream = false;
 
                     doc.Open();
-                    Font font = new Font(Font.FontFamily.HELVETICA, 4f, Font.NORMAL);
+                    Font font = new Font(Font.FontFamily.HELVETICA, 3.8f, Font.NORMAL);
                     Font font2 = new Font(Font.FontFamily.HELVETICA, 3f, Font.NORMAL);
                     Font font3 = new Font(Font.FontFamily.HELVETICA, 5f, Font.BOLD);
                     Font font4 = new Font(Font.FontFamily.HELVETICA, 3.3f, Font.NORMAL);
@@ -204,12 +234,12 @@ namespace SmartPoultry
                     doc.Add(new iTextSharp.text.Paragraph($"Palo Alto, Calamba, Laguna Philippines", font2) { Alignment = Element.ALIGN_CENTER });
                     doc.Add(new iTextSharp.text.Paragraph($"+63 1234567890", font2) { Alignment = Element.ALIGN_CENTER });
                     doc.Add(new iTextSharp.text.Paragraph($"gabmigspoultrysupplies@gmail.com", font2) { Alignment = Element.ALIGN_CENTER });
-                    doc.Add(new iTextSharp.text.Paragraph("--------------------------------------------------------", font));
+                    doc.Add(new iTextSharp.text.Paragraph("-----------------------------------------------------------", font));
 
                     doc.Add(new iTextSharp.text.Paragraph($"Order ID: {sales.receipt_id}", font));
                     doc.Add(new iTextSharp.text.Paragraph($"Cashier: {employeename}", font));
                     doc.Add(new iTextSharp.text.Paragraph($"Payment Mode: {sales.payment_mode.ToUpper()}", font));
-                    doc.Add(new iTextSharp.text.Paragraph("--------------------------------------------------------", font));
+                    doc.Add(new iTextSharp.text.Paragraph("-----------------------------------------------------------", font));
                     // Generate receipt items
                     for (int i = 0; i < itemid.Count; i++)
                     {
@@ -239,7 +269,7 @@ namespace SmartPoultry
                     // Table headers
                     PdfPTable table = new PdfPTable(4);
                     table.WidthPercentage = 100;
-                    table.SetWidths(new float[] { 1f, 2.8f, 2f, 2.8f });
+                    table.SetWidths(new float[] { 1.5f, 2.8f, 2.5f, 3f });
 
                     table.AddCell(new PdfPCell(new Phrase("Qty", font4)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
                     table.AddCell(new PdfPCell(new Phrase("Items", font)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
@@ -271,7 +301,7 @@ namespace SmartPoultry
                     doc.Add(new iTextSharp.text.Paragraph($"Date: {DateTime.Now:yyyy-MM-dd}", font));
                     doc.Add(new iTextSharp.text.Paragraph($"Purchase Method: {sales.purchase_method.ToUpper()}", font));
 
-                    doc.Add(new iTextSharp.text.Paragraph("--------------------------------------------------------", font));
+                    doc.Add(new iTextSharp.text.Paragraph("-----------------------------------------------------------", font));
 
                     var thanksParagraph2 = new iTextSharp.text.Paragraph($"Thank you! Please come again!", font2);
                     thanksParagraph2.Alignment = Element.ALIGN_CENTER;
@@ -446,12 +476,7 @@ namespace SmartPoultry
                 posPrdocutsPanel.Children.Add(productControl);
             }
         }
-
-        //Search function
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
+        
 
         public void FilterProducts(string type, string animal)
         {
@@ -478,6 +503,8 @@ namespace SmartPoultry
 
                     posPrdocutsPanel.Children.Add(productControl);
                 }
+                SearchTB.Text = "Search Product...";
+                SearchTB.Foreground = Brushes.Gray;
             }
             catch (Exception ex)
             {
@@ -486,6 +513,80 @@ namespace SmartPoultry
             }
         }
 
+        public void SearchProducts(string searchteram)
+        {
+            try
+            {
+
+                posPrdocutsPanel.Children.Clear();
+
+
+                List<Products> products = productServices.SearchProducts(searchteram, filterProduct, filterAnimal);
+
+                foreach (Products product in products)
+                {
+
+                    string productName = product.product_name;
+                    int productId = product.product_id;
+                    string imagePath = product.image;
+
+
+                    List<ProductVariations> variations = productvariationsServices.GetAllProductVariations(productId);
+
+
+                    home_POSproduct productControl = new home_POSproduct(productName, variations, imagePath, this);
+
+                    posPrdocutsPanel.Children.Add(productControl);
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show($"Error filtering products: {ex.Message}");
+            }
+        }
+        private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (SearchTB.Text == "Search Product..." || string.IsNullOrWhiteSpace(SearchTB.Text))
+            {
+                if (string.IsNullOrWhiteSpace(SearchTB.Text))
+                {
+                    SearchProducts("");  
+                }
+                return;
+            }
+            SearchProducts(SearchTB.Text); 
+        }
+
+
+        
+        private void SearchTB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(SearchTB, "Search Product...", true);
+        }
+        private void SearchTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(SearchTB, "Search Product...", false);
+        }
+        public void HandleTextBoxPlaceholder(TextBox tb, string placeholder, bool isFocused)
+        {
+            if (isFocused)
+            {
+                if (tb.Text == placeholder)
+                {
+                    tb.Text = string.Empty;
+                    tb.Foreground = Brushes.Black;
+                }
+            }
+            else // When the TextBox loses focus
+            {
+                if (string.IsNullOrWhiteSpace(tb.Text))
+                {
+                    tb.Text = placeholder;
+                    tb.Foreground = Brushes.Gray;
+                }
+            }
+        }
 
         //POS Buttons Click Functions (Animal type)
         private void AllButton_Click(object sender, RoutedEventArgs e)
@@ -506,9 +607,6 @@ namespace SmartPoultry
 
             FilterProducts(filterProduct, filterAnimal);
         }
-
-
-
 
         private void ChickenButton_Click(object sender, RoutedEventArgs e)
         {
@@ -870,6 +968,7 @@ namespace SmartPoultry
             
         }
 
+        
         
     }
 }

@@ -7,15 +7,11 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="716" Width="1229" WindowStartupLocation="CenterScreen" Background="#FFE3E3E3" ResizeMode="NoResize">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="1019*"/>
-            <ColumnDefinition Width="438*"/>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="0*"/>
-        </Grid.ColumnDefinitions>
+
         <Rectangle x:Name="MainWindowOverlay" Opacity=".5"  Grid.ColumnSpan="6" HorizontalAlignment="Left" Height="700" Stroke="#00000000" VerticalAlignment="Center" Width="1232" Fill="#FFA7A7A7"/>
+
+
+
 
 
 
@@ -33,7 +29,7 @@
 
 
 
-        <local:records x:Name="recordsControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1126"/>
+        <local:records x:Name="recordsControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1109"/>
 
 
 
@@ -55,13 +51,19 @@
 
 
         <local:home x:Name="homeControl" Grid.ColumnSpan="3" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123"/>
+
+
+
+
+
+
         <StackPanel HorizontalAlignment="Left" Height="892" Margin="0,92,0,0" VerticalAlignment="Top" Width="101" Background="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}" Grid.ColumnSpan="2"/>
         <Rectangle HorizontalAlignment="Center" Height="92" VerticalAlignment="Top" Width="1229" Fill="#FFF4F7FC" Grid.Column="1" Grid.ColumnSpan="2"/>
         <Rectangle HorizontalAlignment="Left" Height="608" Margin="0,92,0,0" VerticalAlignment="Top" Width="92" Fill="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}" Grid.ColumnSpan="2"/>
         <Image HorizontalAlignment="Left" Height="86" Margin="8,7,0,0" VerticalAlignment="Top" Width="240" Source="Images/logo.png" Grid.ColumnSpan="2"/>
 
 
-        <Button x:Name="homeButton" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" Height="83" Width="82" Background="#FFC0E4BE" Click="HomeButton_Click" BorderBrush="#FF66C265" BorderThickness="10" Grid.ColumnSpan="2">
+        <Button x:Name="homeButton" HorizontalAlignment="Left" Margin="10,97,0,0" VerticalAlignment="Top" Height="72" Width="82" Background="#FFC0E4BE" Click="HomeButton_Click" BorderBrush="#FF66C265" BorderThickness="10" Grid.ColumnSpan="2">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" BorderBrush="#FF66C265" BorderThickness="2"  CornerRadius="5" x:Name="homeBorder">
@@ -95,7 +97,7 @@
         </Button>
 
 
-        <Button x:Name="dashboardButton" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Height="83" Width="82" Click="DashboardButton_Click" Foreground="#FF66C265" Background="#FFF4F7FC" Grid.ColumnSpan="2">
+        <Button x:Name="dashboardButton" HorizontalAlignment="Left" Margin="10,174,0,0" VerticalAlignment="Top" Height="65" Width="82" Click="DashboardButton_Click" Foreground="#FF66C265" Background="#FFF4F7FC" Grid.ColumnSpan="2">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" BorderBrush="#FFF4F7FC" BorderThickness="1" CornerRadius="5" x:Name="dashboardBorder">
@@ -129,7 +131,7 @@
         </Button>
 
 
-        <Button x:Name="inventoryButton" HorizontalAlignment="Left" Margin="10,273,0,0" VerticalAlignment="Top" Height="83" Width="82" Click="InventoryButton_Click" Foreground="#FF66C265" Background="#FFF4F7FC" Grid.ColumnSpan="2">
+        <Button x:Name="inventoryButton" HorizontalAlignment="Left" Margin="10,244,0,0" VerticalAlignment="Top" Height="64" Width="82" Click="InventoryButton_Click" Foreground="#FF66C265" Background="#FFF4F7FC" Grid.ColumnSpan="2">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" BorderBrush="#FFF4F7FC" BorderThickness="1" CornerRadius="5" x:Name="inventoryBorder">
@@ -159,12 +161,12 @@
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Button.Template>
-            <Image x:Name="inventoryIcon" Height="60" Width="63" Source="Images/inventorygrey.png"/>
+            <Image x:Name="inventoryIcon" Height="55" Width="63" Source="Images/inventorygrey.png"/>
         </Button>
 
 
 
-        <Button x:Name="recordsButton" HorizontalAlignment="Left" Margin="10,361,0,0" VerticalAlignment="Top" Height="83" Width="82" Click="RecordsButton_Click" Foreground="#FF66C265" Background="#FFF4F7FC" Grid.ColumnSpan="2">
+        <Button x:Name="recordsButton" HorizontalAlignment="Left" Margin="10,313,0,0" VerticalAlignment="Top" Height="68" Width="82" Click="RecordsButton_Click" Foreground="#FF66C265" Background="#FFF4F7FC" Grid.ColumnSpan="2">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" BorderBrush="#FFF4F7FC" BorderThickness="1" CornerRadius="5" x:Name="recordsBorder">
@@ -196,7 +198,7 @@
             </Button.Template>
             <Image x:Name="recordsIcon" Height="59" Width="59" Source="Images/recordsgrey.png"/>
         </Button>
-        <Button x:Name="organizationButton" HorizontalAlignment="Left" Margin="10,449,0,0" VerticalAlignment="Top" Height="83" Width="82" Click="OrganizationButton_Click" Foreground="#FF66C265" Background="#FFF4F7FC" Grid.ColumnSpan="2">
+        <Button x:Name="organizationButton" HorizontalAlignment="Left" Margin="10,386,0,0" VerticalAlignment="Top" Height="68" Width="82" Click="OrganizationButton_Click" Foreground="#FF66C265" Background="#FFF4F7FC" Grid.ColumnSpan="2">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" BorderBrush="#FFF4F7FC" BorderThickness="1" CornerRadius="5" x:Name="organizationBorder">
@@ -226,9 +228,9 @@
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Button.Template>
-            <Image x:Name="organizationIcon" Height="59" Width="59" Source="/Images/organizationgrey.png"/>
+            <Image x:Name="organizationIcon" Height="66" Width="72" Source="/Images/organizationgrey.png"/>
         </Button>
-        <Button x:Name="supplierButton" HorizontalAlignment="Left" Margin="10,537,0,0" VerticalAlignment="Top" Height="83" Width="82" Click="SupplierButton_Click" Foreground="#FF66C265" Background="#FFF4F7FC" Grid.ColumnSpan="2">
+        <Button x:Name="supplierButton" HorizontalAlignment="Left" Margin="10,459,0,0" VerticalAlignment="Top" Height="71" Width="82" Click="SupplierButton_Click" Foreground="#FF66C265" Background="#FFF4F7FC" Grid.ColumnSpan="2">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" BorderBrush="#FFF4F7FC" BorderThickness="1" CornerRadius="5" x:Name="supplierBorder">
@@ -258,9 +260,9 @@
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Button.Template>
-            <Image x:Name="supplierIcon" Height="59" Width="59" Source="/Images/suppliergrey.png"/>
+            <Image x:Name="supplierIcon" Height="61" Width="67" Source="/Images/suppliergrey.png"/>
         </Button>
-        <Button x:Name="LogoutBtn" Click="LogoutBtn_Clicked" Grid.Column="2" HorizontalAlignment="Left" Height="44" Margin="291,27,0,0" VerticalAlignment="Top" Width="48" Background="Transparent" BorderBrush="Transparent">
+        <Button x:Name="LogoutBtn" Click="LogoutBtn_Clicked" HorizontalAlignment="Left" Height="44" Margin="1155,24,0,0" VerticalAlignment="Top" Width="48" Background="Transparent" BorderBrush="Transparent">
             <Image Height="38" Width="45" Source="/Images/logouticon.png"/>
         </Button>
 

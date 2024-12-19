@@ -20,6 +20,19 @@ namespace SmartPoultry.DataServices
             List<FinancialLiabilities> financialLiabilities = _context.FinancialLiabilities.Where(p => p.status != "paid" && p.type == filter).OrderBy(p => p.due_date).ToList();
             return financialLiabilities;
         }
+        public int CountPayments()
+        {
+            try 
+            {
+                DateTime dateTime = DateTime.Now;
+                int count = _context.FinancialLiabilities.Count(p => p.due_date <= dateTime && p.type == "To Pay");
+                return count;
+            }
+            catch (Exception ex) 
+            {
+                return 0;
+            }
+        }
         public bool Create(string name, long orderid, decimal amount, string type, string mode, DateTime duedate, string contacts)
         {
             try

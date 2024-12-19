@@ -4,32 +4,23 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
-             mc:Ignorable="d" 
-             d:DesignHeight="577" Background="#FFE3E3E3" Width="1109" Height="577">
+             mc:Ignorable="d" Background="#FFE3E3E3" Height="578" Width="1109">
     <Grid>
-        <Label Content="Records" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="36" FontWeight="Bold" Margin="10,10,0,0" FontFamily="Calibri Light" Height="53" Width="198"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Height="468" Margin="0,77,0,0" VerticalAlignment="Top" Width="1090" OpacityMask="Black" Background="White">
-            <Button Content="Sales" HorizontalAlignment="Left" Height="60" Margin="-1,-1,0,0" VerticalAlignment="Top" Width="375" FontSize="25" Background="#FF2C6E5D" Foreground="White"/>
+        <Label Content="RECORDS" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Margin="10,4,0,0"/>
+        <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Center" Height="505" Margin="0,59,0,0" VerticalAlignment="Top" Width="1073" Background="White">
+            <ScrollViewer HorizontalAlignment="Center" Height="388" Margin="0,116,0,0" VerticalAlignment="Top" Width="1072">
+                <WrapPanel x:Name="SalesPanel" Width="1050"/>
+            </ScrollViewer>
         </Border>
-        <TextBox HorizontalAlignment="Left" Height="43" Margin="784,19,0,0" TextWrapping="Wrap" Text="Search record" VerticalAlignment="Top" Width="292" TextChanged="TextBox_TextChanged" FontSize="16" VerticalContentAlignment="Center" SelectionOpacity="2" Opacity="0.4"/>
-        <Button HorizontalAlignment="Left" Height="43" Margin="1033,19,0,0" VerticalAlignment="Top" Width="43">
-            <Image Height="38" Width="33" Source="/Images/2946467-200.png"/>
+        <Button x:Name="InventoryBtn" Content="INVENTORY" HorizontalAlignment="Center" Height="60" Margin="0,59,0,0" VerticalAlignment="Top" Width="354" FontSize="20" FontWeight="Bold" BorderBrush="#FFDCEDD5" Foreground="Gray" Background="#FFDCEDD5" Click="Inventory_Clicked"/>
+        <Button x:Name="LogsBtn" Content="LOGS" HorizontalAlignment="Left" Height="60" Margin="737,59,0,0" VerticalAlignment="Top" Width="354" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Logs_Clicked"/>
+        <Button x:Name="SalesBtn" Content="SALES" HorizontalAlignment="Left" Height="60" Margin="18,59,0,0" VerticalAlignment="Top" Width="354" Click="Sales_Clicked" FontSize="20" FontWeight="Bold" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D" Foreground="White"/>
+        <Label Content="Price" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="32" Margin="950,140,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
+        <Label Content="Payment Status" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="32" Margin="794,140,0,0" VerticalAlignment="Top" Width="119" FontSize="15" RenderTransformOrigin="0.531,0.299"/>
+        <Label Content="Payment Method" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="612,141,0,0" VerticalAlignment="Top" Width="120" FontSize="15"/>
+        <Label Content="Status" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="436,140,0,0" VerticalAlignment="Top" Width="118" FontSize="15"/>
+        <Label Content="Date" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="312,140,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
+        <Label Content="ID" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="112,141,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
 
-        </Button>
-        <Button Content="Inventory" HorizontalAlignment="Center" Height="59" VerticalAlignment="Top" Width="351" Margin="0,77,0,0" FontSize="25" Background="#FFC0E4BE" Foreground="#FF077C5E"/>
-        <Button Content="Logs" HorizontalAlignment="Left" Height="59" Margin="707,77,0,0" VerticalAlignment="Top" Width="393" FontSize="25" Background="#FFC0E4BE" Foreground="#FF077C5E"/>
-        <Label x:Name="label1" Content="ID&#xD;&#xA;ID" HorizontalAlignment="Left" Height="26" Margin="100,164,0,0" VerticalAlignment="Top" Width="50" FontSize="15"/>
-        <Label Content="Date" HorizontalAlignment="Left" Height="26" Margin="282,164,0,0" VerticalAlignment="Top" Width="47" FontSize="15"/>
-        <Label Content="Status" HorizontalAlignment="Left" Height="40" Margin="434,164,0,0" VerticalAlignment="Top" Width="51" FontSize="15"/>
-        <Label Content="Payment Method" HorizontalAlignment="Left" Height="30" Margin="578,164,0,0" VerticalAlignment="Top" Width="123" FontSize="15"/>
-        <Label Content="Payment Status" HorizontalAlignment="Left" Height="28" Margin="767,164,0,0" VerticalAlignment="Top" Width="116" FontSize="15"/>
-        <Label Content="Price&#xD;&#xA;" HorizontalAlignment="Left" Height="26" Margin="977,168,0,0" VerticalAlignment="Top" Width="46" FontSize="15"/>
-        <Border BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Center" Height="44" Margin="0,198,0,0" VerticalAlignment="Top" Width="1020"/>
-        <TextBox HorizontalAlignment="Left" Height="40" Margin="270,200,0,0" TextWrapping="Wrap" Text="10/20/2024" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0,0,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="41" Margin="424,200,0,0" TextWrapping="Wrap" Text="To Deliver" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0,0,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="40" Margin="604,200,0,0" TextWrapping="Wrap" Text="COD" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0,0,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="40" Margin="790,200,0,0" TextWrapping="Wrap" Text="Unpaid" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0,0,0,0"/>
-        <TextBox HorizontalAlignment="Left" Height="40" Margin="965,200,0,0" TextWrapping="Wrap" Text="₱1000" VerticalAlignment="Top" Width="70" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" BorderThickness="0,0,0,0"/>
-        <TextBox Height="40" Margin="70,200,0,0" TextWrapping="Wrap" Text="1092741234" VerticalAlignment="Top" Width="80" BorderThickness="0,0,0,0" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
     </Grid>
 </UserControl>

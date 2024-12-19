@@ -17,6 +17,37 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+
+        public void AdjustStcoks(string agenda, decimal newstocks, int productid)
+        {
+            try
+            {
+                if (agenda == "subtract")
+                {
+                    var product = _context.Products.FirstOrDefault(p => p.product_id == productid);
+
+                    if (product == null)
+                    {
+                        Console.WriteLine("Product not found.");
+                        return;
+                    }
+
+
+                    product.stocks = newstocks;
+
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    // Code for adding stock goes here
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
         public Products FetchProduct(int id)
         {
             try
@@ -39,16 +70,14 @@ namespace SmartPoultry.DataServices
         {
             try
             {
-                // Fetch all products first
+
                 var products = _context.Products.ToList();
 
-                // Filter by productType if specified
                 if (!string.IsNullOrEmpty(productType))
                 {
                     products = products.Where(p => p.product_type.Contains(productType)).ToList();
                 }
 
-                // Filter by animalType if specified (supports partial match)
                 if (!string.IsNullOrEmpty(animalType))
                 {
                     products = products.Where(p => p.animal_type.Contains(animalType)).ToList();
@@ -64,22 +93,46 @@ namespace SmartPoultry.DataServices
         }
 
 
-        //public List<Products> SearchProducts(string searchTerm)
-        //{
-           // try
-          //  {
-                
-         //       if (!string.IsNullOrEmpty(searchTerm))
-     //           {
-        //            List<Products> products = _context.Products.Where(p => p.product_id.ToString().Contains(searchTerm) || p.product_name.Contains(searchTerm) || p.animal_type.Contains(searchTerm) || p.product_type.Contains(searchTerm) || p.employee_incharge.ToString().Contains(searchTerm) || p.supplier_id.ToString().Contains(searchTerm) || p.status.Contains(searchTerm)).ToList();
-              //      return products;
-       //         }   
-      //      }catch (Exception e)
-      //      {
-      //          List<Products> products = new List<Products>();
-    //            return products;
-      //      }
-     //   }
+        public List<Products> SearchProducts(string searchTerm, string type, string animal)
+        {
+            try
+            {
+                var products = _context.Products.ToList();
+
+                if (!string.IsNullOrEmpty(type))
+                {
+                    products = products.Where(p => p.product_type.Contains(type, StringComparison.OrdinalIgnoreCase)).ToList();
+                }
+
+                if (!string.IsNullOrEmpty(animal))
+                {
+                    products = products.Where(p => p.animal_type.Contains(animal, StringComparison.OrdinalIgnoreCase)).ToList();
+                }
+
+                if (string.IsNullOrEmpty(searchTerm))
+                {
+                    return products; 
+                }
+
+                products = products.Where(p =>
+                    p.product_id.ToString().Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    p.product_name.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    p.animal_type.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    p.product_type.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    p.employee_incharge.ToString().Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    p.supplier_id.ToString().Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    p.status.Contains(searchTerm, StringComparison.OrdinalIgnoreCase)
+                ).ToList();
+
+                return products;
+            }
+            catch (Exception e)
+            {
+                List<Products> products = new List<Products>();
+                return products;
+            }
+        }
+
 
         public List<Products> GetAllProducts()
         {
@@ -97,7 +150,9 @@ namespace SmartPoultry.DataServices
         public int Create(string product_name, string animal_type, string product_type, int employee_incharge, int supplierId, decimal stocks, string image)
         {
             try
-            {
+            { 
+
+                  
                 var newProduct = new Products
                 {
                     product_name = product_name,
