@@ -25,6 +25,8 @@ namespace SmartPoultry
     {
         private SupplierList _selectedSupplier;
         SupplierServices SupplierServices;
+        
+
         public Supplier()
         {
             InitializeComponent();
@@ -66,11 +68,14 @@ namespace SmartPoultry
         public void RetrieveSupplierList(SupplierServices supplierServices)
         {
             
-                List<SupplierList> supplierLists = supplierServices.ListSuppliers();
+            List<SupplierList> supplierLists = supplierServices.ListSuppliers();
             
+            
+
             foreach (SupplierList list in supplierLists)
             {
-                Supplier_SupplierControl control = new Supplier_SupplierControl(list);
+                MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
+                Supplier_SupplierControl control = new Supplier_SupplierControl(list, mainWindow);
                 SupplierListPanel.Children.Add(control);
 
                 control.SupplierClicked += Supplier_SupplierControl_SupplierClicked;

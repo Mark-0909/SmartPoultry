@@ -33,8 +33,9 @@ namespace SmartPoultry
         }
 
         public event Action<SupplierList> SupplierClicked;
+        public MainWindow mainWindow {get; set;}
 
-        public Supplier_SupplierControl(SupplierList supplier)
+        public Supplier_SupplierControl(SupplierList supplier, MainWindow window)
         {
             InitializeComponent();
             Name.Content = supplier.Name;
@@ -45,6 +46,7 @@ namespace SmartPoultry
 
             // Add MouseDown event for row selection
             MouseDown += Supplier_SupplierControl_MouseDown;
+            mainWindow = window;
         }
 
         public SupplierList Supplier { get; set; }
@@ -70,15 +72,26 @@ namespace SmartPoultry
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            // Instantiate the Supplier_InfoUserControl
+
+            
             Supplier_InfoUserControl supplierInfoControl = new Supplier_InfoUserControl();
+            if (mainWindow != null)
+            {
+                mainWindow.ActiveOverlay(true);
+                
+                // Show the popup (e.g., in a parent window or as a dialog)
+                Window.GetWindow(this).Content = supplierInfoControl;
+                supplierInfoControl.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                MessageBox.Show("Unable to access the MainWindow.");
+            }
+            // Instantiate the Supplier_InfoUserControl
+            
 
             // Optionally, pass supplier data to the popup here
             // For example: supplierInfoControl.FillData(supplierName, contactPerson, etc.);
-
-            // Show the popup (e.g., in a parent window or as a dialog)
-            Window.GetWindow(this).Content = supplierInfoControl;
-            supplierInfoControl.Visibility = Visibility.Visible;
         }
     }
 }
