@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
@@ -38,18 +39,21 @@ namespace SmartPoultry
 
         public void Initialize(List<ProductVariations> var_list, decimal adjustedstock)
         {
-            double buttonSize = (vartypesPanel.Width - (5 * var_list.Count)) / var_list.Count;
+            double totalMargin = 1 * (var_list.Count - 1);
+            double buttonSize = (vartypesPanel.Width - totalMargin) / var_list.Count;
 
-            foreach (var variation in var_list)
+            for (int i = 0; i < var_list.Count; i++)
             {
+                var variation = var_list[i];
                 decimal stockvalue = 1m / variation.conversion_rate;
 
                 Border animalAllBorder = new Border
                 {
                     Name = $"thisBorder_{SanitizeName(variation.id.ToString())}_border",
-
-                    Margin = new Thickness(0, 0, 5, 0),
-                    CornerRadius = new CornerRadius(10),
+                    Margin = i == var_list.Count - 1
+                        ? new Thickness(0, 0, 0, 0)
+                        : new Thickness(0, 0, 1, 0),
+                    CornerRadius = new CornerRadius(5),
                     BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2C6E5D")),
                     BorderThickness = new Thickness(1),
                     HorizontalAlignment = HorizontalAlignment.Center,
@@ -59,20 +63,27 @@ namespace SmartPoultry
                     Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2C6E5D"))
                 };
 
-
                 Button animalAllBtn = new Button
                 {
                     Name = $"thisButton_{SanitizeName(variation.id.ToString())}_button",
-
                     Content = variation.variant_type,
                     Margin = new Thickness(9, 5, 9, 5),
                     Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2C6E5D")),
                     BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2C6E5D")),
-                    FontSize = 13,
+                    FontSize = 10.5,
+                    Padding = new Thickness(10, 5, 10, 5), 
                     Foreground = new SolidColorBrush(Colors.White),
-                    Style = (Style)FindResource("NoHoverButton")
-
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    HorizontalContentAlignment = HorizontalAlignment.Center,
+                    VerticalContentAlignment = VerticalAlignment.Center,
+                    Style = (Style)FindResource("NoHoverButton"),
+                    Width = 70, 
+                    MaxWidth = 90,
+                    FontWeight = FontWeights.Bold,
                 };
+
+
                 animalAllBtn.IsEnabled = stockvalue <= adjustedstock;
 
                 if (!animalAllBtn.IsEnabled)
@@ -83,13 +94,12 @@ namespace SmartPoultry
 
                 animalAllBtn.Click += (sender, e) => VarButton_Click(sender, e, variation.id, prodname);
 
-
                 animalAllBorder.Child = animalAllBtn;
-
 
                 vartypesPanel.Children.Add(animalAllBorder);
             }
         }
+
 
         string SanitizeName(string input)
         {

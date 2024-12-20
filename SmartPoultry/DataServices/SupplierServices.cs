@@ -19,7 +19,7 @@ namespace SmartPoultry.DataServices
         {
             try
             {
-                int supplierId = _context.SupplierLists.Take(1).FirstOrDefault(p => p.Name == name).Id;
+                int supplierId = _context.SupplierLists.FirstOrDefault(p => p.Name == name).Id;
                 return supplierId;
             }
             catch (Exception ex) { 
