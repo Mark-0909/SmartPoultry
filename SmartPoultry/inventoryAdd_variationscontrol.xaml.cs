@@ -80,5 +80,9 @@ namespace SmartPoultry
 
 
         }
+        private void RemoveButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

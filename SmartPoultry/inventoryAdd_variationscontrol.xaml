@@ -55,6 +55,10 @@
         <Border x:Name="conversionTemplate" CornerRadius="10" BorderBrush="#FF66C265" BorderThickness="1" Background="#FFC0E4BE" Margin="2,108,2,13" Width="56" Height="42">
             <Label x:Name="conversionLabel" Content="conv." HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFC0E4BE" BorderBrush="#FFC0E4BE" Foreground="#FF66C265" FontSize="15" />
         </Border>
-
+        <Border CornerRadius="100" BorderBrush="#FFEC7373" BorderThickness="1" HorizontalAlignment="Left" Height="16" Margin="40,5,0,0" VerticalAlignment="Top" Width="16" Background="#FFEC7373">
+            <Button Margin="2,2,2,2" Background="#FFEC7373" BorderBrush="#FFEC7373" Padding="0" Style="{StaticResource NoHoverButton}" Click="RemoveButton_Click">
+                <Image Height="6" Width="6" Source="/Images/close.png"/>
+            </Button>
+        </Border>
     </Grid>
 </UserControl>

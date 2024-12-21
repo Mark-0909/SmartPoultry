@@ -136,6 +136,11 @@ namespace SmartPoultry
                 MessageBox.Show("Incomplete Details.");
                 return;
             }
+            if (inventoryAddForm.unitlist.Contains(UnitCB.Text))
+            {
+                MessageBox.Show("Unit has been added! Choose another one.");
+                return;
+            }
             if (actionDeclaration == "add")
             {
                 if (agenda == "base_unit")
