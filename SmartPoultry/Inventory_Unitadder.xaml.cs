@@ -92,7 +92,7 @@ namespace SmartPoultry
                 conversionTextbox.Visibility = Visibility.Collapsed;
 
                 
-                if (name != null) unitLabelTextbox.Text = name;
+                if (name != null) UnitCB.Text = name;
                 if (price != null) priceTextBox.Text = price;
                 if (stocks != null) stocksTextBox.Text = stocks;
             }
@@ -116,7 +116,7 @@ namespace SmartPoultry
                 conversionName.Visibility = Visibility.Visible;
 
                 // Set sub unit values
-                if (name != null) unitLabelTextbox.Text = name;
+                if (name != null) UnitCB.Text = name;
                 if (baseUnitvalue != null) conversionName.Content = "/ " + baseUnitvalue;
                 if (price != null) priceTextBox.Text = price;
                 if (conversion != null) conversionTextbox.Text = conversion;
@@ -127,11 +127,11 @@ namespace SmartPoultry
 
         private void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
-            if (unitLabelTextbox.Text == "Unit..." || priceTextBox.Text == "Price...")
+            if (UnitCB.Text == "Select Unit Below..." || priceTextBox.Text == "Price...")
             {
                 MessageBox.Show("Incomplete Details.");
                 return;
-            } else if (unitLabelTextbox.Text == "Unit..." || priceTextBox.Text == "Price...")
+            } else if (UnitCB.Text == "Select Unit Below..." || priceTextBox.Text == "Price...")
             {
                 MessageBox.Show("Incomplete Details.");
                 return;
@@ -140,14 +140,14 @@ namespace SmartPoultry
             {
                 if (agenda == "base_unit")
                 {
-                    inventoraddingWindow.AddUnit(unitLabelTextbox.Text, priceTextBox.Text, "1", stocksTextBox.Text, "base", positionlist);
+                    inventoraddingWindow.AddUnit(UnitCB.Text, priceTextBox.Text, "1", stocksTextBox.Text, "base", positionlist);
                     this.Close();
                     inventoryAddForm.ActiveOverlay(false);
 
                 }
                 else
                 {
-                    inventoraddingWindow.AddUnit(unitLabelTextbox.Text, priceTextBox.Text, conversionTextbox.Text, null, "sub", positionlist);
+                    inventoraddingWindow.AddUnit(UnitCB.Text, priceTextBox.Text, conversionTextbox.Text, null, "sub", positionlist);
                     this.Close();
                     inventoryAddForm.ActiveOverlay(false);
                 }
@@ -156,14 +156,14 @@ namespace SmartPoultry
             {
                 if (agenda == "base_unit")
                 {
-                    unitcontrol.EditUnit(unitLabelTextbox.Text, priceTextBox.Text, "1", stocksTextBox.Text, baseunit, positionlist);
+                    unitcontrol.EditUnit(UnitCB.Text, priceTextBox.Text, "1", stocksTextBox.Text, baseunit, positionlist);
                     this.Close();
                     inventoryAddForm.ActiveOverlay(false);
 
                 }
                 else
                 {
-                    unitcontrol.EditUnit(unitLabelTextbox.Text, priceTextBox.Text, conversionTextbox.Text, null, baseunit, positionlist);
+                    unitcontrol.EditUnit(UnitCB.Text, priceTextBox.Text, conversionTextbox.Text, null, baseunit, positionlist);
 
                     this.Close();
                     inventoryAddForm.ActiveOverlay(false);
@@ -185,14 +185,6 @@ namespace SmartPoultry
             inventoryAddForm.ActiveOverlay(false);
         }
 
-        private void UnitLabelTB_GotFocused(object sender, RoutedEventArgs e)
-        {
-            HandleTextBoxPlaceholder(unitLabelTextbox, "Unit...", true);
-        }
-        private void UnitLabelTB_LostFocused(object sender, RoutedEventArgs e)
-        {
-            HandleTextBoxPlaceholder(unitLabelTextbox, "Unit...", false);
-        }
         private void PriceTB_GotFocused(object sender, RoutedEventArgs e)
         {
             HandleTextBoxPlaceholder(priceTextBox, "Price...", true);

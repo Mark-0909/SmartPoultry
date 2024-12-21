@@ -6,6 +6,90 @@
         xmlns:local="clr-namespace:SmartPoultry"
         mc:Ignorable="d"
         Title="Inventory_Unitadder" Height="202" Width="340" ResizeMode="NoResize" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent">
+    <Window.Resources>
+        <!-- Combobox Style -->
+        <Style x:Key="ComboboxStyle" TargetType="{x:Type ComboBox}">
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBox}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition MaxWidth="18"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Name="PART_EditableTextBox"
+                                 Padding="5,0,0,0"
+                                 BorderBrush="White"
+                                 IsReadOnly="True"
+                                 Height="{TemplateBinding Height}"/>
+                            <ToggleButton x:Name="PART_DropDownButton" Grid.Column="1" Margin="0"
+                                      Height="{TemplateBinding Height}"
+                                      Focusable="False"
+                                      Background="LightGray"
+                                      BorderBrush="LightGray"
+                                      IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                                      ClickMode="Press">
+                                <Path Grid.Column="1"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Data="M 0 0 L 4 4 L 8 0 Z"
+                                  Fill="Green"/>
+                            </ToggleButton>
+                            <ContentPresenter Name="ContentSite"
+                                          Content="{TemplateBinding SelectionBoxItem}"
+                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                                          ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Left"
+                                          Margin="5,0,0,0"/>
+                            <Popup Name="Popup"
+                               Placement="Bottom"
+                               IsOpen="{TemplateBinding IsDropDownOpen}"
+                               AllowsTransparency="True"
+                               Focusable="False"
+                               PopupAnimation="Slide">
+                                <Grid Name="DropDown"
+                                  SnapsToDevicePixels="True"
+                                  MinWidth="{TemplateBinding ActualWidth}"
+                                  MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border x:Name="DropDownBorder"
+                                        BorderThickness="1"
+                                        CornerRadius="5"
+                                        Background="White"
+                                        BorderBrush="White"/>
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True"
+                                                 KeyboardNavigation.DirectionalNavigation="Contained"/>
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ComboboxButtonStyle" TargetType="{x:Type ToggleButton}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ToggleButton}">
+                        <Border Background="White"
+                            x:Name="border"
+                            CornerRadius="0,5,5,0"
+                            BorderThickness="0,1,1,1"
+                            BorderBrush="Black">
+                            <ContentPresenter />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+
+
     <Grid>
         <Border CornerRadius="10" BorderBrush="#FF077C5E" BorderThickness="1" Background="White">
             <Border CornerRadius="10 10 0 0" BorderBrush="#FF077C5E" BorderThickness="1" HorizontalAlignment="Center" Height="31" Margin="0,-1,0,0" VerticalAlignment="Top" Width="340" Background="#FF077C5E">
@@ -40,21 +124,22 @@
             </TextBox>
         </Border>
         <Border CornerRadius="5" BorderBrush="#FF077C5E" BorderThickness="1" HorizontalAlignment="Left" Height="25" Margin="10,65,0,0" VerticalAlignment="Top" Width="155">
-            <TextBox x:Name="unitLabelTextbox" VerticalContentAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Unit..." VerticalAlignment="Top" Width="146" FontSize="14" Height="18" BorderBrush="White" SelectionBrush="White" Foreground="Gray" Margin="0,1,0,0" GotFocus="UnitLabelTB_GotFocused" LostFocus="UnitLabelTB_LostFocused">
-                <TextBox.Style>
-                    <Style TargetType="TextBox">
-                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-                        <Setter Property="BorderBrush" Value="Transparent"/>
-                        <Setter Property="SelectionBrush" Value="Transparent"/>
-                        <Setter Property="BorderThickness" Value="0"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsFocused" Value="True">
-                                <Setter Property="BorderBrush" Value="Transparent"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </TextBox.Style>
-            </TextBox>
+            <ComboBox x:Name="UnitCB" HorizontalAlignment="Center" VerticalContentAlignment="Center" Height="17" VerticalAlignment="Center" Width="147" BorderBrush="White" Background="White" SelectedIndex="0" FontSize="10" Foreground="#FF454545" Style="{StaticResource ComboboxStyle}">
+                <ComboBoxItem Content="Select Unit Below..."/>
+                <ComboBoxItem Content="bag"/>
+                <ComboBoxItem Content="kg"/>
+                <ComboBoxItem Content="1/2"/>
+                <ComboBoxItem Content="btl"/>
+                <ComboBoxItem Content="10ml"/>
+                <ComboBoxItem Content="5ml"/>
+                <ComboBoxItem Content="1ml"/>
+                <ComboBoxItem Content="1pc"/>
+                <ComboBoxItem Content="10pcs"/>
+
+                <!-- Custom ComboBox Button Style -->
+
+            </ComboBox>
+
         </Border>
         <Border x:Name="stocksBorder" CornerRadius="5" BorderBrush="#FF077C5E" BorderThickness="1" HorizontalAlignment="Left" Height="25" Margin="189,65,0,0" VerticalAlignment="Top" Width="98">
             <TextBox x:Name="stocksTextBox" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Stocks..." VerticalAlignment="Top" Width="89" FontSize="14" Height="18" Margin="0,1,0,0" BorderBrush="White" SelectionBrush="White" Foreground="Gray" GotFocus="StocksTB_GotFocused" LostFocus="StocksTB_LostFocused" TextChanged="StocksTB_TextChanged">
