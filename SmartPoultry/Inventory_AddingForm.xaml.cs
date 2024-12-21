@@ -14,6 +14,9 @@ using SmartPoultry.DataAccess;
 using System.IO;
 using SmartPoultry.Models;
 using static SmartPoultry.App;
+using iTextSharp.xmp.impl;
+using Org.BouncyCastle.Math;
+using static iTextSharp.text.pdf.XfaForm;
 
 namespace SmartPoultry
 {
@@ -136,7 +139,54 @@ namespace SmartPoultry
             }
         }
 
+        public void ClearVariation(int position)
+        {
+            unitlist.RemoveAt(position);
+            pricelist.RemoveAt(position);
+            conversionlist.RemoveAt(position);
 
+            unitsWPanel.Children.Clear();
+
+            if(position == 0)
+            {
+                unitlist.Clear();
+                pricelist.Clear(); 
+                conversionlist.Clear();
+                stocklisting.Visibility = Visibility.Hidden;
+                stockunit.Visibility = Visibility.Hidden;
+                unitsWPanel.Children.Add(addUnitBtn);
+                return;
+            }
+
+            string type;
+
+            string stockupdate = stocklisting.Content.ToString();
+
+            for (int i = 0; i < unitlist.Count; i++)
+            {
+                if (i != 0)
+                {
+                    type = "sub";
+
+                }
+                else
+                {
+                    type = "base";
+                }
+
+                inventoryAdd_variationscontrol? control = new inventoryAdd_variationscontrol(unitlist[i], pricelist[i], conversionlist[i], type, stockupdate, unitlist[0], i, this)
+                {
+                    Height = 166,
+                    Width = 60,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+
+                unitsWPanel.Children.Add(control);
+
+            }
+
+            unitsWPanel.Children.Add(addUnitBtn);
+        }
 
         public void UpdateBaseValueForAllInstances(string name, string price, string conversion, string stocks, int position)
         {
@@ -208,23 +258,21 @@ namespace SmartPoultry
             pricelist.Add(price);
             conversionlist.Add(conversion);
 
-            if (stocks != null)
-            {
-                stocklisting.Visibility = Visibility.Visible;
-                stocklisting.Content = stocks;
-                stockunit.Visibility = Visibility.Visible;
-                stockunit.Content = unitlist[0];
-            }
-            else { 
             
-            
+            stocklisting.Visibility = Visibility.Visible;
+            stockunit.Visibility = Visibility.Visible;
+            stockunit.Content = unitlist[0];
+            if (stocks == null) 
+            { 
+                return; 
             }
+            stocklisting.Content = stocks;
         }
 
         public void AddUnitPopup_Click(object sender, RoutedEventArgs s)
         {
             int position = unitlist.Count;
-            if (!baseUnit)
+            if (unitsWPanel.Children.Count == 1)
             {
                 Inventory_Unitadder? popup = new Inventory_Unitadder("base_unit", baseUnitValue, "add", position, this);
                 ActiveOverlay(true);

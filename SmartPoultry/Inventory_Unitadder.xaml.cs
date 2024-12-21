@@ -136,11 +136,12 @@ namespace SmartPoultry
                 MessageBox.Show("Incomplete Details.");
                 return;
             }
-            if (inventoryAddForm.unitlist.Contains(UnitCB.Text))
+            if (inventoryAddForm.unitlist.Contains(UnitCB.Text) && actionDeclaration == "add")
             {
                 MessageBox.Show("Unit has been added! Choose another one.");
                 return;
             }
+            
             if (actionDeclaration == "add")
             {
                 if (agenda == "base_unit")
@@ -161,17 +162,34 @@ namespace SmartPoultry
             {
                 if (agenda == "base_unit")
                 {
-                    unitcontrol.EditUnit(UnitCB.Text, priceTextBox.Text, "1", stocksTextBox.Text, baseunit, positionlist);
-                    this.Close();
-                    inventoryAddForm.ActiveOverlay(false);
+                    if (inventoryAddForm.unitlist[positionlist] == UnitCB.Text)
+                    {
+                        unitcontrol.EditUnit(UnitCB.Text, priceTextBox.Text, "1", stocksTextBox.Text, baseunit, positionlist);
+                        this.Close();
+                        inventoryAddForm.ActiveOverlay(false);
+                    }else if (inventoryAddForm.unitlist.Contains(UnitCB.Text))
+                    {
+                        MessageBox.Show("Unit has been added! Choose another one.");
+                        return;
+                    }
+                    
 
                 }
                 else
                 {
-                    unitcontrol.EditUnit(UnitCB.Text, priceTextBox.Text, conversionTextbox.Text, null, baseunit, positionlist);
+                    if (inventoryAddForm.unitlist[positionlist] == UnitCB.Text)
+                    {
+                        unitcontrol.EditUnit(UnitCB.Text, priceTextBox.Text, conversionTextbox.Text, null, baseunit, positionlist);
 
-                    this.Close();
-                    inventoryAddForm.ActiveOverlay(false);
+                        this.Close();
+                        inventoryAddForm.ActiveOverlay(false);
+                        
+                    }else if (inventoryAddForm.unitlist.Contains(UnitCB.Text))
+                    {
+                        MessageBox.Show("Unit has been added! Choose another one.");
+                        return;
+                    }
+                    
 
                 }
             }
