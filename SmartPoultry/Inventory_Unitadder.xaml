@@ -92,21 +92,21 @@
 
     <Grid>
         <Border CornerRadius="10" BorderBrush="#FF077C5E" BorderThickness="1" Background="White">
-            <Border CornerRadius="10 10 0 0" BorderBrush="#FF077C5E" BorderThickness="1" HorizontalAlignment="Center" Height="31" Margin="0,-1,0,0" VerticalAlignment="Top" Width="340" Background="#FF077C5E">
+            <Border CornerRadius="10 10 0 0" BorderBrush="#FF077C5E" BorderThickness="1" HorizontalAlignment="Center" Height="31" Margin="0,-1,0,0" VerticalAlignment="Top" Width="410" Background="#FF077C5E">
                 <Label x:Name="modeLabel" Content="Mode type" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontSize="18" Margin="0,-5,0,0"/>
             </Border>
         </Border>
-        <Button x:Name="CloseButton" HorizontalAlignment="Left" Height="25" Margin="310,3,0,0" VerticalAlignment="Top" Width="27" Click="CloseButton_Click" Background="Transparent" BorderBrush="Transparent">
+        <Button x:Name="CloseButton" HorizontalAlignment="Left" Height="25" Margin="379,3,0,0" VerticalAlignment="Top" Width="27" Click="CloseButton_Click" Background="Transparent" BorderBrush="Transparent">
             <Image Height="20" Width="24" Source="/Images/close.png"/>
         </Button>
-        <Border CornerRadius="0 0 10 10" BorderBrush="#FF077C5E" BorderThickness="1" HorizontalAlignment="Center" Height="30" VerticalAlignment="Top" Width="340" Background="#FF077C5E" Margin="0,172,0,0">
+        <Border CornerRadius="0 0 10 10" BorderBrush="#FF077C5E" BorderThickness="1" HorizontalAlignment="Center" Height="30" VerticalAlignment="Top" Width="410" Background="#FF077C5E" Margin="0,222,0,0">
             <Button x:Name="submitBtn" Content="Submit" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="332" Click="SubmitButton_Click" BorderBrush="#FF077C5E" Background="#FF077C5E" Foreground="White" FontSize="20"/>
         </Border>
         <Label Content="Unit Label: " HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" FontSize="15"/>
         <Label Content="Price: " HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" FontSize="15"/>
         <Label x:Name="stocksName" Content="Stocks:" HorizontalAlignment="Left" Margin="189,39,0,0" VerticalAlignment="Top" FontSize="15" RenderTransformOrigin="0.526,0.546"/>
-        <Label x:Name="conversionName" Content="/baseunit" HorizontalAlignment="Left" Margin="236,129,0,0" VerticalAlignment="Top" FontSize="15"/>
-        <Border CornerRadius="5" BorderBrush="#FF077C5E" BorderThickness="1" HorizontalAlignment="Left" Height="25" Margin="10,131,0,0" VerticalAlignment="Top" Width="101">
+        <Label x:Name="conversionName" Content="/baseunit" HorizontalAlignment="Left" Margin="310,174,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Border CornerRadius="5" BorderBrush="#FF077C5E" BorderThickness="1" HorizontalAlignment="Left" Height="25" Margin="10,131,0,0" VerticalAlignment="Top" Width="111">
             <TextBox x:Name="priceTextBox" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Price..." VerticalAlignment="Top" Width="94" FontSize="14" Height="18" Margin="0,1,0,0" BorderBrush="White" SelectionBrush="White" Foreground="Gray" GotFocus="PriceTB_GotFocused" LostFocus="PriceTB_LostFocused" TextChanged="PriceTB_TextChanged">
                 <TextBox.Style>
                     <Style TargetType="TextBox">
@@ -159,7 +159,7 @@
             </TextBox>
         </Border>
         <Label x:Name="conversionLabel" Content="Conversion:" HorizontalAlignment="Center" Margin="0,101,0,0" VerticalAlignment="Top" FontSize="15"/>
-        <Border x:Name="conversionBorder" CornerRadius="5" BorderBrush="#FF077C5E" BorderThickness="1" HorizontalAlignment="Left" Height="25" Margin="126,131,0,0" VerticalAlignment="Top" Width="101">
+        <Border x:Name="conversionBorder" CornerRadius="5" BorderBrush="#FF077C5E" BorderThickness="1" HorizontalAlignment="Left" Height="25" Margin="204,179,0,0" VerticalAlignment="Top" Width="101">
             <TextBox x:Name="conversionTextbox" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Conversion..." VerticalAlignment="Top" Width="94" FontSize="14" Height="18" Margin="0,1,0,0" BorderBrush="White" SelectionBrush="White" Foreground="Gray" GotFocus="ConversionTB_GotFocused" LostFocus="ConversionTB_LostFocused" TextChanged="ConversionTB_TextChanged">
                 <TextBox.Style>
                     <Style TargetType="TextBox">

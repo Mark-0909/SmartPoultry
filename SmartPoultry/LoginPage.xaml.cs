@@ -28,16 +28,17 @@ namespace SmartPoultry
         public AppDbContext context = new AppDbContext();
         UserServices userServices;
 
+        
+
         public LoginPage()
         {
             InitializeComponent();
             CreateProductImagesFolder();
 
-            var context = new AppDbContext();
-
-            // Ensures the database and tables are created
             context.Database.EnsureCreated();
-            context.Database.Migrate();
+
+            DbInitializer.ApplyMigrations(context);
+
 
             userServices = new UserServices(context);
             Initialization();
