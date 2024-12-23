@@ -28,6 +28,8 @@ namespace SmartPoultry.DataAccess
 
             string dbFilePath = Path.Combine(folderPath, "SmartPoultryDatabase.db");
             optionsBuilder.UseSqlite($"Data Source={dbFilePath}");
+
+            
         }
     }
 }

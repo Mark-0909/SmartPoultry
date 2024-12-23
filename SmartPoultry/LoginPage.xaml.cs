@@ -1,4 +1,5 @@
-﻿using SmartPoultry.DataAccess;
+﻿using Microsoft.EntityFrameworkCore;
+using SmartPoultry.DataAccess;
 using SmartPoultry.DataServices;
 using System;
 using System.Collections.Generic;
@@ -31,12 +32,18 @@ namespace SmartPoultry
         {
             InitializeComponent();
             CreateProductImagesFolder();
-            var context = new AppDbContext();
-            context.Database.EnsureCreated();
-            userServices = new UserServices(context);
+
+            using (var context = new AppDbContext())
+            {
+                // Apply any pending migrations
+                context.Database.Migrate();
+            }
+
+            userServices = new UserServices(new AppDbContext());
             Initialization();
-            
         }
+
+
 
 
         public void Initialization()

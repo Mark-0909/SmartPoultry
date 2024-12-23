@@ -4,15 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
-             mc:Ignorable="d" Height="260" Width="207" Background="Transparent" Margin="0 0 5 5" MouseLeftButtonDown="UserControl_MouseLeftButtonDown">
+             mc:Ignorable="d" Height="232" Width="207" Background="Transparent" Margin="0 0 5 5" MouseLeftButtonDown="UserControl_MouseLeftButtonDown">
     <Grid>
         <Border CornerRadius="5" BorderBrush="#FFA4A4A4" BorderThickness="1" Background="White">
             <Border CornerRadius="5" BorderBrush="#FFC9C6C6" BorderThickness="1" Margin="9,9,9,60">
                 <Image x:Name="Productimage" Stretch="Fill"/>
             </Border>
         </Border>
-        <Label x:Name="Productname" Content="Product Name" HorizontalAlignment="Center" Height="29" Margin="0,198,0,0" VerticalAlignment="Top" Width="197" FontSize="15"/>
-        <Label Content="Stocks: " HorizontalAlignment="Left" Height="29" Margin="5,233,0,0" VerticalAlignment="Top" Width="98" FontSize="10"/>
-        <Label x:Name="Productstock" Content="Number " HorizontalAlignment="Left" Height="30" Margin="107,232,0,0" VerticalAlignment="Top" Width="94" FontSize="10" HorizontalContentAlignment="Right"/>
+        <Label x:Name="Productname" Content="Product Name" HorizontalAlignment="Center" Height="28" Margin="0,173,0,0" VerticalAlignment="Top" Width="197" FontSize="15"/>
+        <Label Content="Stocks: " HorizontalAlignment="Left" Height="29" Margin="10,206,0,0" VerticalAlignment="Top" Width="98" FontSize="10"/>
+        <Label x:Name="Productstock" Content="Number " HorizontalAlignment="Left" Height="30" Margin="104,206,0,0" VerticalAlignment="Top" Width="94" FontSize="10" HorizontalContentAlignment="Right"/>
     </Grid>
 </UserControl>
