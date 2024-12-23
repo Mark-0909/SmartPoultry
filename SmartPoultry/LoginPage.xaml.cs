@@ -33,20 +33,15 @@ namespace SmartPoultry
             InitializeComponent();
             CreateProductImagesFolder();
 
+            var context = new AppDbContext();
 
-            using (var context = new AppDbContext())
-            {
+            // Ensures the database and tables are created
+            context.Database.EnsureCreated();
+            context.Database.Migrate();
 
-                if (!context.Database.CanConnect())
-                {
-                    context.Database.Migrate(); 
-                }
-            }
-
-            userServices = new UserServices(new AppDbContext());
+            userServices = new UserServices(context);
             Initialization();
         }
-
 
 
 
