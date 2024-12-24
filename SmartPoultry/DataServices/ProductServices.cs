@@ -25,12 +25,19 @@ namespace SmartPoultry.DataServices
                     (p.product_type.Contains("feeds") && p.stocks <= 3) ||
                     (p.product_type.Contains("vaccine") && p.stocks <= 2) ||
                     (p.product_type.Contains("accessories") && p.stocks <= 3) ||
-                    (p.product_type.Contains("medicine") && p.stocks <= 3) ||
-                    (p.product_type.Contains("vitamins") && p.stocks <= 3))
+                    (p.product_type.Contains("medicine") && p.product_name.ToLower().Contains("powder") && p.stocks <= 10) ||
+                    (p.product_type.Contains("medicine") && p.product_name.ToLower().Contains("liquid") && p.stocks <= 1) ||
+                    (p.product_type.Contains("medicine") && p.product_name.ToLower().Contains("capsules") && p.stocks <= 10) ||
+                    (p.product_type.Contains("medicine") && p.product_name.ToLower().Contains("tablets") && p.stocks <= 10) ||
+                    (p.product_type.Contains("vitamins") && p.product_name.ToLower().Contains("powder") && p.stocks <= 10) ||
+                    (p.product_type.Contains("vitamins") && p.product_name.ToLower().Contains("liquid") && p.stocks <= 1) ||
+                    (p.product_type.Contains("vitamins") && p.product_name.ToLower().Contains("tablets") && p.stocks <= 1) ||
+                    (p.product_type.Contains("vitamins") && p.product_name.ToLower().Contains("capsules") && p.stocks <= 10))
                 .ToList();
 
             return lowStockProducts;
         }
+
 
 
 
