@@ -45,17 +45,17 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <Border x:Name="unitTemplate" CornerRadius="10" 
+        <Border MouseLeftButtonDown="UserControl_MouseLeftButtonDown" x:Name="unitTemplate" CornerRadius="10" 
             BorderThickness="1" BorderBrush="#FF66C265" Background="#FFC0E4BE" Margin="2,2,2,106" Width="56" Height="55">
-            <Button x:Name="nameBtn" Margin="3,4,3,4" BorderBrush="#FFC0E4BE" Background="#FFC0E4BE" Style="{StaticResource NoHoverButton}" Content="Unit" Foreground="#FF66C265" FontSize="15" Click="NameBtn_Click"/>
+            <Button x:Name="nameBtn" Margin="3,4,3,4" BorderBrush="#FFC0E4BE" Background="#FFC0E4BE" Style="{StaticResource NoHoverButton}" Content="Unit" Foreground="#FF66C265" FontSize="14" Click="NameBtn_Click"/>
         </Border>
-        <Border x:Name="priceTemplate" CornerRadius="10" BorderBrush="#FF66C265" BorderThickness="1" Background="#FFC0E4BE" Margin="2,61,2,60" Width="56">
-            <Label x:Name="priceLabel" Content="Price" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFC0E4BE" BorderBrush="#FFC0E4BE" Foreground="#FF66C265" FontSize="15" Height="31" />
+        <Border x:Name="priceTemplate" MouseLeftButtonDown="UserControl_MouseLeftButtonDown" CornerRadius="10" BorderBrush="#FF66C265" BorderThickness="1" Background="#FFC0E4BE" Margin="2,61,2,60" Width="56">
+            <Label x:Name="priceLabel" Content="Price" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFC0E4BE" BorderBrush="#FFC0E4BE" Foreground="#FF66C265" FontSize="14" Height="31" />
         </Border>
-        <Border x:Name="conversionTemplate" CornerRadius="10" BorderBrush="#FF66C265" BorderThickness="1" Background="#FFC0E4BE" Margin="2,108,2,13" Width="56" Height="42">
-            <Label x:Name="conversionLabel" Content="conv." HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFC0E4BE" BorderBrush="#FFC0E4BE" Foreground="#FF66C265" FontSize="15" />
+        <Border x:Name="conversionTemplate" MouseLeftButtonDown="UserControl_MouseLeftButtonDown" CornerRadius="10" BorderBrush="#FF66C265" BorderThickness="1" Background="#FFC0E4BE" Margin="2,108,2,13" Width="56" Height="42">
+            <Label x:Name="conversionLabel" Content="conv." HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FFC0E4BE" BorderBrush="#FFC0E4BE" Foreground="#FF66C265" FontSize="14" />
         </Border>
-        <Border CornerRadius="100" BorderBrush="#FFEC7373" BorderThickness="1" HorizontalAlignment="Left" Height="16" Margin="40,5,0,0" VerticalAlignment="Top" Width="16" Background="#FFEC7373">
+        <Border  CornerRadius="100" BorderBrush="#FFEC7373" BorderThickness="1" HorizontalAlignment="Left" Height="16" Margin="40,5,0,0" VerticalAlignment="Top" Width="16" Background="#FFEC7373">
             <Button Margin="2,2,2,2" Background="#FFEC7373" BorderBrush="#FFEC7373" Padding="0" Style="{StaticResource NoHoverButton}" Click="RemoveButton_Click">
                 <Image Height="6" Width="6" Source="/Images/close.png"/>
             </Button>

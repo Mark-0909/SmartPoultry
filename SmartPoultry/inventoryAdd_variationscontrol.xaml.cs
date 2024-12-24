@@ -84,5 +84,21 @@ namespace SmartPoultry
         {
             addingform.ClearVariation(positionlist);
         }
+
+        private void UserControl_MouseLeftButtonDown(object sender, RoutedEventArgs e)
+        {
+            if (typevar == "base")
+            {
+                Inventory_Unitadder popup = new Inventory_Unitadder("base_unit", "edit", namevar, pricevar, conversionvar, basevaluevar, stocksvar, this, positionlist, addingform);
+                addingform.ActiveOverlay(true);
+                popup.ShowDialog();
+            }
+            else
+            {
+                Inventory_Unitadder popup = new Inventory_Unitadder("sub_unit", "edit", namevar, pricevar, conversionvar, basevaluevar, stocksvar, this, positionlist, addingform);
+                addingform.ActiveOverlay(true);
+                popup.ShowDialog();
+            }
+        }
     }
 }
