@@ -18,6 +18,22 @@ namespace SmartPoultry.DataServices
             _context = context;
         }
 
+        public List<Products> GetLowStockProducts()
+        {
+            var lowStockProducts = _context.Products
+                .Where(p =>
+                    (p.product_type.Contains("feeds") && p.stocks <= 3) ||
+                    (p.product_type.Contains("vaccine") && p.stocks <= 2) ||
+                    (p.product_type.Contains("accessories") && p.stocks <= 3) ||
+                    (p.product_type.Contains("medicine") && p.stocks <= 3) ||
+                    (p.product_type.Contains("vitamins") && p.stocks <= 3))
+                .ToList();
+
+            return lowStockProducts;
+        }
+
+
+
         public void AdjustStocks(string agenda, decimal newstocks, int productid)
         {
             try

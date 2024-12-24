@@ -27,8 +27,10 @@ namespace SmartPoultry
         readonly SalesServices salesServices;
         readonly FinancialLiabilitiesServices financialLiabilities;
         readonly DeliveriesServices deliveryServices;
+        readonly ProductServices productServices;
         Add_FinancialLiabilities add_FinancialLiabilities;
         Add_Delivery Add_Delivery;
+
 
         
 
@@ -40,13 +42,14 @@ namespace SmartPoultry
             salesServices = new SalesServices(context);
             financialLiabilities = new FinancialLiabilitiesServices(context);
             deliveryServices = new DeliveriesServices(context);
-
+            productServices = new ProductServices(context);
 
             
             DisplaySales();
             CountDeliveries();
             CountPayments();
             CountOrders();
+            CountOutOfStocks();
 
             FinancialLiabilitiesCbox.SelectionChanged += FinancialCB_SelectionChanged;
             DeliveryCBox.SelectionChanged += DeliveryCB_SelectionChanged;
@@ -148,6 +151,12 @@ namespace SmartPoultry
             int PaymentCount = financialLiabilities.CountPayments();
             ToPayLabel.Content = PaymentCount.ToString();
         }
+        public void CountOutOfStocks()
+        {
+            List<Products> lowonstocks = productServices.GetLowStockProducts();
+            OutOfStockLabel.Content = lowonstocks.Count.ToString();
+        }
+
         public void DisplayDeliveries(string filter)
         {
             int evenodd = 0;
