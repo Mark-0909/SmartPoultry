@@ -1,4 +1,6 @@
-﻿using SmartPoultry.Models;
+﻿using SmartPoultry.DataAccess;
+using SmartPoultry.DataServices;
+using SmartPoultry.Models;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,14 +14,22 @@ namespace SmartPoultry
     public partial class home_POSproduct : UserControl
     {
         public home? homeControl;
-        public decimal origstock {  get; set; }
+        public decimal origstock { get; set; }
 
         public List<ProductVariations> prodVarList;
 
+        public AppDbContext context = new AppDbContext();
+
+        public ProductServices productServices;
+
         public string prodname;
-        public home_POSproduct(string product_name, List<ProductVariations> var_list, string imagepath, home homecontrol, decimal stocks)
+
+        public int productId;
+        public home_POSproduct(string product_name, List<ProductVariations> var_list, string imagepath, home homecontrol, decimal stocks, Products prod)
         {
             InitializeComponent();
+
+            productServices = new ProductServices(context);
 
             homeControl = homecontrol;
 
@@ -34,7 +44,8 @@ namespace SmartPoultry
             Productimage.Source = bitmap;
 
             Initialize(var_list, origstock);
-            
+
+            productId = prod.product_id;
         }
 
         public void Initialize(List<ProductVariations> var_list, decimal adjustedstock)
@@ -71,14 +82,14 @@ namespace SmartPoultry
                     Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2C6E5D")),
                     BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2C6E5D")),
                     FontSize = 10.5,
-                    Padding = new Thickness(10, 5, 10, 5), 
+                    Padding = new Thickness(10, 5, 10, 5),
                     Foreground = new SolidColorBrush(Colors.White),
                     HorizontalAlignment = HorizontalAlignment.Center,
                     VerticalAlignment = VerticalAlignment.Center,
                     HorizontalContentAlignment = HorizontalAlignment.Center,
                     VerticalContentAlignment = VerticalAlignment.Center,
                     Style = (Style)FindResource("NoHoverButton"),
-                    Width = 70, 
+                    Width = 70,
                     MaxWidth = 90,
                     FontWeight = FontWeights.Bold,
                 };
@@ -96,6 +107,8 @@ namespace SmartPoultry
 
                 animalAllBorder.Child = animalAllBtn;
 
+                animalAllBorder.MouseLeftButtonDown += (sender, e) => VarButton_Click(sender, e, variation.id, prodname);
+
                 vartypesPanel.Children.Add(animalAllBorder);
             }
         }
@@ -112,6 +125,8 @@ namespace SmartPoultry
         private void VarButton_Click(object sender, RoutedEventArgs e, int variationId, string name)
         {
             homeControl.DisplayOrder(variationId, name, this);
+            homeControl.EnableDropBtn();
+            homeControl.IsOrderConfirmed();
         }
 
         public void AdjustStocks(decimal amount)
@@ -123,6 +138,17 @@ namespace SmartPoultry
             Initialize(prodVarList, origstock);
         }
 
+        public void StockRevertBack()
+        {
+            Products products = productServices.FetchProduct(productId);
+
+            this.StocksLabel.Content = products.stocks.ToString();
+
+            this.vartypesPanel.Children.Clear();
+            this.Initialize(prodVarList, products.stocks);
+
+            this.origstock = products.stocks;
+        }
 
     }
 }

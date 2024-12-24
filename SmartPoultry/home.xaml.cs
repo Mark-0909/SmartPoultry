@@ -31,7 +31,7 @@ namespace SmartPoultry
     /// </summary>
     public partial class home : UserControl
     {
-
+        private bool isOrderConfirmed = false;
 
         public SalesServices salesServices;
         public ProductServices productServices;
@@ -64,8 +64,21 @@ namespace SmartPoultry
             salesServices = new SalesServices(context);
             userServices = new UserServices(context);
             totalPiceLabel.Visibility = Visibility.Collapsed;
+            DropOrderBtn.IsEnabled = false;
             DisplayProducts();
         }
+        public void EnableDropBtn()
+        {
+            bool hasOrders = orderPanel.Children.Count > 0;
+
+            DropOrderBtn.IsEnabled = hasOrders;
+
+        }
+        public void IsOrderConfirmed()
+        {
+            isOrderConfirmed = false;
+        }
+
         public void DynamicReload()
         {
             posPrdocutsPanel.Children.Clear();
@@ -73,22 +86,41 @@ namespace SmartPoultry
         }
         private void DropOrderBtn_Click(object sender, RoutedEventArgs e)
         {
-            orderPanel.Children.Clear();
+            if (isOrderConfirmed)
+            {
+                return;
+            }
+
             totalPiceLabel.Content = "0";
             totalPiceLabel.Visibility = Visibility.Collapsed;
+
+            Productvaridlist.Clear();
+            QuantityList.Clear();
+            VarSpecification.Clear();
+            PriceList.Clear();
+            ProductnameList.Clear();
+
+            foreach (UIElement element in posPrdocutsPanel.Children)
+            {
+                if (element is home_POSproduct control)
+                {
+                    control.StockRevertBack();
+                }
+            }
+
+            orderPanel.Children.Clear();
+            EnableDropBtn();
         }
+
 
         public void ConfirmOrder(string paymentMode, string status, string purchasemethod)
         {
-
             string StringProductList = string.Join(",", Productvaridlist);
             string StringPriceList = string.Join(",", PriceList);
             string StringQuantityList = string.Join(",", QuantityList);
             string StringVarSpecification = string.Join(",", VarSpecification);
 
-
             decimal totalPrice = decimal.Parse(totalPiceLabel.Content.ToString());
-
 
             int addingSales = salesServices.Create(
                 StringProductList,
@@ -104,6 +136,10 @@ namespace SmartPoultry
             if (addingSales != -1)
             {
                 MessageBox.Show("Order confirmed successfully!");
+
+                // Prevent stock revert on drop button click
+                isOrderConfirmed = true;
+
                 orderPanel.Children.Clear();
                 totalPiceLabel.Content = "0";
                 totalPiceLabel.Visibility = Visibility.Collapsed;
@@ -134,6 +170,7 @@ namespace SmartPoultry
                 MessageBox.Show("Failed to confirm the order.");
             }
         }
+
 
         public void MinusStocksProduct(string idlist, string quantitylist)
         {
@@ -405,26 +442,25 @@ namespace SmartPoultry
             QuantityList.RemoveAt(position);
             ProductnameList.RemoveAt(position);
 
-            orderPanel.Children.Clear();
-
-            for (int i = 0; i < Productvaridlist.Count; i++)
+            if (position < orderPanel.Children.Count)
             {
-                
-                int id = int.Parse(Productvaridlist[i]);
-                int cv = productvariationsServices.GetProductVariationById(id).conversion_rate;
-                decimal price = decimal.Parse(PriceList[i]);
-                int quantity = int.Parse(QuantityList[i]);
-
-                Home_OrdersControl ordersControl = new Home_OrdersControl(id, VarSpecification[i], price, ProductnameList[i], this, i, quantity.ToString(), pos, cv);
-                orderPanel.Children.Add(ordersControl);
+                orderPanel.Children.RemoveAt(position);
             }
 
+            for (int i = 0; i < orderPanel.Children.Count; i++)
+            {
+                if (orderPanel.Children[i] is Home_OrdersControl control)
+                {
+                    control.positionList = i;
+                }
+            }
         }
+
 
         public void DisplayOrder(int id, string productname, home_POSproduct pos)
         {
             var existingcontrol = GetOrderControlById(id);
-            if (existingcontrol != null) 
+            if (existingcontrol != null)
             {
                 existingcontrol.AddQuantity();
                 return;
@@ -494,7 +530,7 @@ namespace SmartPoultry
                 List<ProductVariations> var = productvariationsServices.GetAllProductVariations(id);
 
 
-                productControl = new home_POSproduct(productname, var, imagepath, this, stocks);
+                productControl = new home_POSproduct(productname, var, imagepath, this, stocks, product);
 
 
                 posPrdocutsPanel.Children.Add(productControl);
@@ -524,7 +560,7 @@ namespace SmartPoultry
                     List<ProductVariations> variations = productvariationsServices.GetAllProductVariations(productId);
 
 
-                    home_POSproduct productControl = new home_POSproduct(productName, variations, imagePath, this, stocks);
+                    home_POSproduct productControl = new home_POSproduct(productName, variations, imagePath, this, stocks, product);
 
                     posPrdocutsPanel.Children.Add(productControl);
                 }
@@ -560,7 +596,7 @@ namespace SmartPoultry
                     List<ProductVariations> variations = productvariationsServices.GetAllProductVariations(productId);
 
 
-                    home_POSproduct productControl = new home_POSproduct(productName, variations, imagePath, this, stocks);
+                    home_POSproduct productControl = new home_POSproduct(productName, variations, imagePath, this, stocks, product);
 
                     posPrdocutsPanel.Children.Add(productControl);
                 }

@@ -153,7 +153,7 @@ namespace SmartPoultry
         }
         public void CountOutOfStocks()
         {
-            List<Products> lowonstocks = productServices.GetLowStockProducts();
+            List<Products> lowonstocks = productServices.GetLowStockProducts("", "", "");
             OutOfStockLabel.Content = lowonstocks.Count.ToString();
         }
 

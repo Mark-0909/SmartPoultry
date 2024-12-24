@@ -47,6 +47,7 @@ namespace SmartPoultry
         private void Confirm_Click(object sender, RoutedEventArgs e)
         {
             homeController.ConfirmOrder(paymentmethod, status, purchasemethod);
+            homeController.EnableDropBtn();
             this.Close();
             mainWindow.ActiveOverlay(false);
         }

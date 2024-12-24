@@ -18,7 +18,7 @@ namespace SmartPoultry.DataServices
             _context = context;
         }
 
-        public List<Products> GetLowStockProducts()
+        public List<Products> GetLowStockProducts(string animal, string type, string searchterm)
         {
             var lowStockProducts = _context.Products
                 .Where(p =>
@@ -34,6 +34,30 @@ namespace SmartPoultry.DataServices
                     (p.product_type.Contains("vitamins") && p.product_name.ToLower().Contains("tablets") && p.stocks <= 1) ||
                     (p.product_type.Contains("vitamins") && p.product_name.ToLower().Contains("capsules") && p.stocks <= 10))
                 .ToList();
+
+            if (!string.IsNullOrEmpty(type))
+            {
+                lowStockProducts = lowStockProducts.Where(p => p.product_type.Contains(type, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
+            if (!string.IsNullOrEmpty(animal))
+            {
+                lowStockProducts = lowStockProducts.Where(p => p.animal_type.Contains(animal, StringComparison.OrdinalIgnoreCase)).ToList();
+            }
+
+            if (string.IsNullOrEmpty(searchterm))
+            {
+                return lowStockProducts;
+            }
+            lowStockProducts = lowStockProducts.Where(p =>
+                    p.product_id.ToString().Contains(searchterm, StringComparison.OrdinalIgnoreCase) ||
+                    p.product_name.Contains(searchterm, StringComparison.OrdinalIgnoreCase) ||
+                    p.animal_type.Contains(searchterm, StringComparison.OrdinalIgnoreCase) ||
+                    p.product_type.Contains(searchterm, StringComparison.OrdinalIgnoreCase) ||
+                    p.employee_incharge.ToString().Contains(searchterm, StringComparison.OrdinalIgnoreCase) ||
+                    p.supplier_id.ToString().Contains(searchterm, StringComparison.OrdinalIgnoreCase) ||
+                    p.status.Contains(searchterm, StringComparison.OrdinalIgnoreCase)
+                ).ToList();
 
             return lowStockProducts;
         }

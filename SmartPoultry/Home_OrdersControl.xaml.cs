@@ -28,12 +28,12 @@ namespace SmartPoultry
         decimal CVRate;
         public home_POSproduct poscontrol;
 
-        
+
 
         public Home_OrdersControl(int prodId, string variant, decimal price, string productName, home homeCtrl, int position, string quantity, home_POSproduct pos, int conversion)
         {
             InitializeComponent();
-            
+
             CVRate = 1m / conversion;
 
             VariantID = prodId;
@@ -60,7 +60,7 @@ namespace SmartPoultry
             decimal stocks = poscontrol.origstock;
             int initialQuantity = Convert.ToInt32(quantitylabel.Content);
 
-            if (stocks >= CVRate)  
+            if (stocks >= CVRate)
             {
                 initialQuantity++;
                 quantitylabel.Content = initialQuantity.ToString();
@@ -70,8 +70,8 @@ namespace SmartPoultry
 
 
                 homeControl?.EditQuantityPriceList(positionList, (pricevar * initialQuantity).ToString(), initialQuantity.ToString());
-                
-                poscontrol.AdjustStocks(-CVRate); 
+
+                poscontrol.AdjustStocks(-CVRate);
 
                 pricelabel.Content = (pricevar * initialQuantity).ToString("N2");
                 previousQuantity = initialQuantity;
@@ -114,20 +114,21 @@ namespace SmartPoultry
 
         private void RemoveBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.Visibility = Visibility.Collapsed;
 
             decimal totalItemPrice = pricevar * previousQuantity;
 
             int initialQuantity = Convert.ToInt32(quantitylabel.Content);
 
-            decimal stocksback = initialQuantity * CVRate;  
+            decimal stocksback = initialQuantity * CVRate;
+
+
+            homeControl?.DisplayTotalPrice(-totalItemPrice);
+            homeControl?.RemoverFromList(positionList, poscontrol);
+            homeControl?.EnableDropBtn();
 
             poscontrol.AdjustStocks(stocksback);
 
-            
-
-            homeControl?.DisplayTotalPrice(-totalItemPrice); 
-            homeControl?.RemoverFromList(positionList, poscontrol); 
+            this.Visibility = Visibility.Collapsed;
         }
 
 
