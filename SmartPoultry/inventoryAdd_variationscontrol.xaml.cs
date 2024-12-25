@@ -69,16 +69,13 @@ namespace SmartPoultry
             }
         }
 
-        public void EditUnit(string name, string price, string conversion, string stocks, string baseunit, int position) { 
-            
+        public void EditUnit(string name, string price, string conversion, string stocks, string baseunit, int position)
+        {
             nameBtn.Content = name;
             priceLabel.Content = price;
             conversionLabel.Content = conversion;
 
             inventoraddingWindow.UpdateBaseValueForAllInstances(name, price, conversion, stocks, position);
-
-
-
         }
         private void RemoveButton_Click(object sender, RoutedEventArgs e)
         {

@@ -23,11 +23,15 @@
     <None Remove="Images\dashboardgrey.png" />
     <None Remove="Images\dropdown.png" />
     <None Remove="Images\dropup.png" />
+    <None Remove="Images\exiticon.png" />
+    <None Remove="Images\greenlogo.png" />
     <None Remove="Images\homeicongreen.png" />
     <None Remove="Images\homeicongrey.png" />
+    <None Remove="Images\Image1.png" />
     <None Remove="Images\infoicon.png" />
     <None Remove="Images\inventorygreen.png" />
     <None Remove="Images\inventorygrey.png" />
+    <None Remove="Images\LOGIN DESIGN.png" />
     <None Remove="Images\loginbg.png" />
     <None Remove="Images\loginslogan.png" />
     <None Remove="Images\logo.png" />
@@ -35,12 +39,18 @@
     <None Remove="Images\minusorder.png" />
     <None Remove="Images\organizationgreen.png" />
     <None Remove="Images\organizationgrey.png" />
+    <None Remove="Images\qrcode.png" />
     <None Remove="Images\recordsgreen.png" />
     <None Remove="Images\recordsgrey.png" />
     <None Remove="Images\removeorder.png" />
+    <None Remove="Images\smartpoultryicon.ico" />
     <None Remove="Images\smartpoultrylogin.png" />
     <None Remove="Images\suppliergreen.png" />
     <None Remove="Images\suppliergrey.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\smartpoultryicon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -67,11 +77,15 @@
     <Resource Include="Images\dashboardgrey.png" />
     <Resource Include="Images\dropdown.png" />
     <Resource Include="Images\dropup.png" />
+    <Resource Include="Images\exiticon.png" />
+    <Resource Include="Images\greenlogo.png" />
     <Resource Include="Images\homeicongreen.png" />
     <Resource Include="Images\homeicongrey.png" />
+    <Resource Include="Images\Image1.png" />
     <Resource Include="Images\infoicon.png" />
     <Resource Include="Images\inventorygreen.png" />
     <Resource Include="Images\inventorygrey.png" />
+    <Resource Include="Images\LOGIN DESIGN.png" />
     <Resource Include="Images\loginbg.png" />
     <Resource Include="Images\loginslogan.png" />
     <Resource Include="Images\logo.png" />
@@ -79,6 +93,7 @@
     <Resource Include="Images\minusorder.png" />
     <Resource Include="Images\organizationgreen.png" />
     <Resource Include="Images\organizationgrey.png" />
+    <Resource Include="Images\qrcode.png" />
     <Resource Include="Images\recordsgreen.png" />
     <Resource Include="Images\recordsgrey.png" />
     <Resource Include="Images\removeorder.png" />

@@ -125,76 +125,92 @@ namespace SmartPoultry
 
 
 
-        private void SubmitButton_Click(object sender, RoutedEventArgs e)
+        public void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
+            // Validation for empty or default inputs
             if (UnitCB.Text == "Select Unit Below..." || priceTextBox.Text == "Price...")
             {
                 MessageBox.Show("Incomplete Details.");
                 return;
-            } else if (UnitCB.Text == "Select Unit Below..." || priceTextBox.Text == "Price...")
-            {
-                MessageBox.Show("Incomplete Details.");
-                return;
             }
+
+            // Prevent duplicate entries when adding
             if (inventoryAddForm.unitlist.Contains(UnitCB.Text) && actionDeclaration == "add")
             {
                 MessageBox.Show("Unit has been added! Choose another one.");
                 return;
             }
-            
+
+            // Adding a new unit
             if (actionDeclaration == "add")
             {
                 if (agenda == "base_unit")
                 {
                     inventoraddingWindow.AddUnit(UnitCB.Text, priceTextBox.Text, "1", stocksTextBox.Text, "base", positionlist);
-                    this.Close();
-                    inventoryAddForm.ActiveOverlay(false);
-
                 }
                 else
                 {
                     inventoraddingWindow.AddUnit(UnitCB.Text, priceTextBox.Text, conversionTextbox.Text, null, "sub", positionlist);
-                    this.Close();
-                    inventoryAddForm.ActiveOverlay(false);
                 }
+                this.Close();
+                inventoryAddForm.ActiveOverlay(false);
             }
-            else 
+            else // Editing an existing unit
             {
                 if (agenda == "base_unit")
                 {
-                    if (inventoryAddForm.unitlist[positionlist] == UnitCB.Text)
-                    {
-                        unitcontrol.EditUnit(UnitCB.Text, priceTextBox.Text, "1", stocksTextBox.Text, baseunit, positionlist);
-                        this.Close();
-                        inventoryAddForm.ActiveOverlay(false);
-                    }else if (inventoryAddForm.unitlist.Contains(UnitCB.Text))
-                    {
-                        MessageBox.Show("Unit has been added! Choose another one.");
-                        return;
-                    }
-                    
-
+                    HandleEditBaseUnit();
                 }
                 else
                 {
-                    if (inventoryAddForm.unitlist[positionlist] == UnitCB.Text)
-                    {
-                        unitcontrol.EditUnit(UnitCB.Text, priceTextBox.Text, conversionTextbox.Text, null, baseunit, positionlist);
-
-                        this.Close();
-                        inventoryAddForm.ActiveOverlay(false);
-                        
-                    }else if (inventoryAddForm.unitlist.Contains(UnitCB.Text))
-                    {
-                        MessageBox.Show("Unit has been added! Choose another one.");
-                        return;
-                    }
-                    
-
+                    HandleEditSubUnit();
                 }
             }
-
         }
+
+        private void HandleEditBaseUnit()
+        {
+            if (inventoryAddForm.unitlist[positionlist] == UnitCB.Text)
+            {
+                unitcontrol.EditUnit(UnitCB.Text, priceTextBox.Text, "1", stocksTextBox.Text, baseunit, positionlist);
+            }
+            else if (inventoryAddForm.unitlist.Contains(UnitCB.Text))
+            {
+                MessageBox.Show("Unit has been added! Choose another one.");
+                return;
+            }
+            else
+            {
+                inventoryAddForm.unitlist[positionlist] = UnitCB.Text;
+                unitcontrol.EditUnit(UnitCB.Text, priceTextBox.Text, "1", stocksTextBox.Text, baseunit, positionlist);
+            }
+
+            this.Close();
+            inventoryAddForm.ActiveOverlay(false);
+        }
+
+        private void HandleEditSubUnit()
+        {
+            if (inventoryAddForm.unitlist[positionlist] == UnitCB.Text)
+            {
+                unitcontrol.EditUnit(UnitCB.Text, priceTextBox.Text, conversionTextbox.Text, null, baseunit, positionlist);
+            }
+            else if (inventoryAddForm.unitlist.Contains(UnitCB.Text))
+            {
+                MessageBox.Show("Unit has been added! Choose another one.");
+                return;
+            }
+            else
+            {
+                inventoryAddForm.unitlist[positionlist] = UnitCB.Text;
+                unitcontrol.EditUnit(UnitCB.Text, priceTextBox.Text, conversionTextbox.Text, null, baseunit, positionlist);
+            }
+
+            this.Close();
+            inventoryAddForm.ActiveOverlay(false);
+        }
+
+
         private void SetRoundedCorners()
         {
             this.WindowStyle = WindowStyle.None;

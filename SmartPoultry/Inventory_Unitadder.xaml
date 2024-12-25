@@ -103,11 +103,11 @@
             <Button x:Name="submitBtn" Content="Submit" HorizontalAlignment="Center" Height="30" VerticalAlignment="Center" Width="332" Click="SubmitButton_Click" BorderBrush="#FF077C5E" Background="#FF077C5E" Foreground="White" FontSize="20"/>
         </Border>
         <Label Content="Unit Label: " HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top" FontSize="15"/>
-        <Label Content="Price: " HorizontalAlignment="Left" Margin="10,101,0,0" VerticalAlignment="Top" FontSize="15"/>
-        <Label x:Name="stocksName" Content="Stocks:" HorizontalAlignment="Left" Margin="189,39,0,0" VerticalAlignment="Top" FontSize="15" RenderTransformOrigin="0.526,0.546"/>
-        <Label x:Name="conversionName" Content="/baseunit" HorizontalAlignment="Left" Margin="310,174,0,0" VerticalAlignment="Top" FontSize="15"/>
-        <Border CornerRadius="5" BorderBrush="#FF077C5E" BorderThickness="1" HorizontalAlignment="Left" Height="25" Margin="10,131,0,0" VerticalAlignment="Top" Width="111">
-            <TextBox x:Name="priceTextBox" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Price..." VerticalAlignment="Top" Width="94" FontSize="14" Height="18" Margin="0,1,0,0" BorderBrush="White" SelectionBrush="White" Foreground="Gray" GotFocus="PriceTB_GotFocused" LostFocus="PriceTB_LostFocused" TextChanged="PriceTB_TextChanged">
+        <Label Content="Price: " HorizontalAlignment="Left" Margin="10,121,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label x:Name="stocksName" Content="Stocks:" HorizontalAlignment="Left" Margin="218,35,0,0" VerticalAlignment="Top" FontSize="15" RenderTransformOrigin="0.526,0.546"/>
+        <Label x:Name="conversionName" Content="/baseunit" HorizontalAlignment="Left" Margin="334,158,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Border CornerRadius="5" BorderBrush="#FF077C5E" BorderThickness="1" HorizontalAlignment="Left" Height="36" Margin="34,156,0,0" VerticalAlignment="Top" Width="146">
+            <TextBox x:Name="priceTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Price..." VerticalAlignment="Top" Width="126" FontSize="16" Height="26" BorderBrush="White" SelectionBrush="White" Foreground="Gray" GotFocus="PriceTB_GotFocused" LostFocus="PriceTB_LostFocused" TextChanged="PriceTB_TextChanged" Margin="0,3,0,0">
                 <TextBox.Style>
                     <Style TargetType="TextBox">
                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -123,8 +123,8 @@
                 </TextBox.Style>
             </TextBox>
         </Border>
-        <Border CornerRadius="5" BorderBrush="#FF077C5E" BorderThickness="1" HorizontalAlignment="Left" Height="25" Margin="10,65,0,0" VerticalAlignment="Top" Width="155">
-            <ComboBox x:Name="UnitCB" HorizontalAlignment="Center" VerticalContentAlignment="Center" Height="17" VerticalAlignment="Center" Width="147" BorderBrush="White" Background="White" SelectedIndex="0" FontSize="10" Foreground="#FF454545" Style="{StaticResource ComboboxStyle}">
+        <Border CornerRadius="5" BorderBrush="#FF077C5E" BorderThickness="1" HorizontalAlignment="Left" Height="36" Margin="10,65,0,0" VerticalAlignment="Top" Width="170">
+            <ComboBox x:Name="UnitCB" HorizontalAlignment="Center" VerticalContentAlignment="Center" Height="29" VerticalAlignment="Center" Width="170" BorderBrush="White" Background="White" SelectedIndex="0" FontSize="13" Foreground="#FF454545" Style="{StaticResource ComboboxStyle}">
                 <ComboBoxItem Content="Select Unit Below..."/>
                 <ComboBoxItem Content="bag"/>
                 <ComboBoxItem Content="kg"/>
@@ -141,8 +141,8 @@
             </ComboBox>
 
         </Border>
-        <Border x:Name="stocksBorder" CornerRadius="5" BorderBrush="#FF077C5E" BorderThickness="1" HorizontalAlignment="Left" Height="25" Margin="189,65,0,0" VerticalAlignment="Top" Width="98">
-            <TextBox x:Name="stocksTextBox" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Stocks..." VerticalAlignment="Top" Width="89" FontSize="14" Height="18" Margin="0,1,0,0" BorderBrush="White" SelectionBrush="White" Foreground="Gray" GotFocus="StocksTB_GotFocused" LostFocus="StocksTB_LostFocused" TextChanged="StocksTB_TextChanged">
+        <Border x:Name="stocksBorder" CornerRadius="5" BorderBrush="#FF077C5E" BorderThickness="1" HorizontalAlignment="Left" Height="36" Margin="218,65,0,0" VerticalAlignment="Top" Width="164">
+            <TextBox x:Name="stocksTextBox" HorizontalAlignment="Center" VerticalContentAlignment="Center" TextWrapping="Wrap" Text="Stocks..." VerticalAlignment="Top" Width="144" FontSize="16" Height="26" BorderBrush="White" SelectionBrush="White" Foreground="Gray" GotFocus="StocksTB_GotFocused" LostFocus="StocksTB_LostFocused" TextChanged="StocksTB_TextChanged" Margin="0,3,0,0">
                 <TextBox.Style>
                     <Style TargetType="TextBox">
                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -158,9 +158,9 @@
                 </TextBox.Style>
             </TextBox>
         </Border>
-        <Label x:Name="conversionLabel" Content="Conversion:" HorizontalAlignment="Center" Margin="0,101,0,0" VerticalAlignment="Top" FontSize="15"/>
-        <Border x:Name="conversionBorder" CornerRadius="5" BorderBrush="#FF077C5E" BorderThickness="1" HorizontalAlignment="Left" Height="25" Margin="204,179,0,0" VerticalAlignment="Top" Width="101">
-            <TextBox x:Name="conversionTextbox" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Conversion..." VerticalAlignment="Top" Width="94" FontSize="14" Height="18" Margin="0,1,0,0" BorderBrush="White" SelectionBrush="White" Foreground="Gray" GotFocus="ConversionTB_GotFocused" LostFocus="ConversionTB_LostFocused" TextChanged="ConversionTB_TextChanged">
+        <Label x:Name="conversionLabel" Content="Conversion:" HorizontalAlignment="Left" Margin="218,121,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Border x:Name="conversionBorder" CornerRadius="5" BorderBrush="#FF077C5E" BorderThickness="1" HorizontalAlignment="Left" Height="39" Margin="218,153,0,0" VerticalAlignment="Top" Width="116">
+            <TextBox x:Name="conversionTextbox" VerticalContentAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Conversion..." VerticalAlignment="Center" Width="96" FontSize="16" Height="30" BorderBrush="White" SelectionBrush="White" Foreground="Gray" GotFocus="ConversionTB_GotFocused" LostFocus="ConversionTB_LostFocused" TextChanged="ConversionTB_TextChanged">
                 <TextBox.Style>
                     <Style TargetType="TextBox">
                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -176,6 +176,7 @@
                 </TextBox.Style>
             </TextBox>
         </Border>
+        <Label Content="₱" HorizontalAlignment="Left" Margin="10,159,0,0" VerticalAlignment="Top" FontSize="15"/>
 
     </Grid>
 </Window>

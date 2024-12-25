@@ -190,43 +190,29 @@ namespace SmartPoultry
 
         public void UpdateBaseValueForAllInstances(string name, string price, string conversion, string stocks, int position)
         {
-
             unitsWPanel.Children.Clear();
-
 
             unitlist[position] = name;
             pricelist[position] = price;
             conversionlist[position] = conversion;
 
-            string stockupdate = stocks;
-            if (stocks == null)
-            {
-                stockupdate = stocklisting.Content.ToString();
-            }
-            
+            string stockupdate = stocks ?? stocklisting.Content.ToString();
             stocklisting.Content = stockupdate;
 
             string type;
+            for (int i = 0; i < unitlist.Count; i++)
+            {
+                type = i == 0 ? "base" : "sub";
 
-            for (int i = 0; i < unitlist.Count; i++) {
-                if (i != 0)
-                {
-                    type = "sub";
-
-                }
-                else {
-                    type = "base";
-                }
-
-                inventoryAdd_variationscontrol? control = new inventoryAdd_variationscontrol(unitlist[i], pricelist[i], conversionlist[i], type, stockupdate, unitlist[0], i, this)
+                inventoryAdd_variationscontrol? control = new inventoryAdd_variationscontrol(
+                    unitlist[i], pricelist[i], conversionlist[i], type, stockupdate, unitlist[0], i, this)
                 {
                     Height = 166,
                     Width = 60,
-                    VerticalAlignment = VerticalAlignment.Center 
+                    VerticalAlignment = VerticalAlignment.Center
                 };
 
                 unitsWPanel.Children.Add(control);
-
             }
 
             unitsWPanel.Children.Add(addUnitBtn);
