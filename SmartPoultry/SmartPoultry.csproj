@@ -12,6 +12,9 @@
   <ItemGroup>
     <None Remove="Images\2946467-200.png" />
     <None Remove="Images\addbaseunit.png" />
+    <None Remove="Images\addbutton.png" />
+    <None Remove="Images\addbuttonproduct.png" />
+    <None Remove="Images\addbuttonsupplier.png" />
     <None Remove="Images\addicon.png" />
     <None Remove="Images\addorder.png" />
     <None Remove="Images\addvariant.png" />
@@ -47,6 +50,12 @@
     <None Remove="Images\smartpoultrylogin.png" />
     <None Remove="Images\suppliergreen.png" />
     <None Remove="Images\suppliergrey.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\addbutton.png" />
+    <Resource Include="Images\addbuttonproduct.png" />
+    <Resource Include="Images\addbuttonsupplier.png" />
   </ItemGroup>
 
   <ItemGroup>

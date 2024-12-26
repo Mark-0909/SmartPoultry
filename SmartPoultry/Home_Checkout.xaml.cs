@@ -26,7 +26,7 @@ namespace SmartPoultry
         public string status;
         public string purchasemethod;
         readonly home homeController;
-        public Home_Checkout(string price, home homeControl, MainWindow window)
+        public Home_Checkout(string price, home homeControl, MainWindow window, List<string> provvarid, List<string> quantity, List<string> varspec, List<string> pricelist, List<string> Prodname)
         {
             InitializeComponent();
             totalPricelabel.Content = price;

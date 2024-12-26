@@ -406,7 +406,7 @@ namespace SmartPoultry
             if (orderPanel.Children.Count > 0)
             {
                 MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
-                Home_Checkout checkout = new Home_Checkout(totalPiceLabel.Content.ToString(), this, mainWindow);
+                Home_Checkout checkout = new Home_Checkout(totalPiceLabel.Content.ToString(), this, mainWindow, Productvaridlist, QuantityList, VarSpecification, PriceList, ProductnameList);
 
 
                 if (mainWindow != null)

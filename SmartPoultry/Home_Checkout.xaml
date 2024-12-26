@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartPoultry"
         mc:Ignorable="d"
-        Title="Home_Checkout" Height="359" Width="372" 
+        Title="Home_Checkout" Height="588" Width="589" 
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" 
         WindowStyle="None" Background="Transparent" 
         Foreground="Transparent" AllowsTransparency="True">
     <Grid>
         <Border CornerRadius="10 10 10 10" BorderBrush="#FF2C6E5D" Background="White" BorderThickness="2
-                " Margin="0,-1,0,3" RenderTransformOrigin="0.5,0.5">
+                " RenderTransformOrigin="0.5,0.5" Height="589" VerticalAlignment="Center">
             <Border.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -20,37 +20,54 @@
                     <TranslateTransform X="0.506"/>
                 </TransformGroup>
             </Border.RenderTransform>
-            <Border BorderBrush="#FF2C6E5D" CornerRadius="10 10 0 0" BorderThickness="1" HorizontalAlignment="Center" Height="41" Margin="0,-2,0,0" VerticalAlignment="Top" Width="372" Background="#FF2C6E5D">
+            <Border BorderBrush="#FF2C6E5D" CornerRadius="10 10 0 0" BorderThickness="1" HorizontalAlignment="Center" Height="41" Margin="0,-2,0,0" VerticalAlignment="Top" Width="585" Background="#FF2C6E5D">
                 <Label HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center" Content="CHECKOUT" FontSize="20" FontWeight="Bold"/>
             </Border>
         </Border>
-        <Label Content="TOTAL AMOUNT:" HorizontalAlignment="Left" Height="38" Margin="28,69,0,0" VerticalAlignment="Top" Width="150" FontSize="16" FontWeight="Bold"/>
-        <Label Content="₱" HorizontalAlignment="Left" Height="38" Margin="217,69,0,0" VerticalAlignment="Top" Width="26" FontSize="16"/>
+        <Label Content="TOTAL AMOUNT:" HorizontalAlignment="Left" Height="38" Margin="333,63,0,0" VerticalAlignment="Top" Width="150" FontSize="16" FontWeight="Bold"/>
+        <Label Content="₱" HorizontalAlignment="Left" Height="38" Margin="483,66,0,0" VerticalAlignment="Top" Width="26" FontSize="16"/>
         <Label x:Name="totalPricelabel" Content="PRICE" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Height="38" Margin="0,69,28,0" VerticalAlignment="Top" Width="100" FontSize="16"/>
-        <Label Content="Payment Details:" HorizontalAlignment="Left" Height="38" Margin="28,107,0,0" VerticalAlignment="Top" Width="150" FontSize="16" FontWeight="Bold"/>
-        <Label Content="Status:" HorizontalAlignment="Left" Height="33" Margin="28,167,0,0" VerticalAlignment="Top" Width="150" FontSize="16" FontWeight="Bold"/>
-        <Label Content="Purchased Method:" HorizontalAlignment="Left" Height="32" Margin="28,224,0,0" VerticalAlignment="Top" Width="150" FontSize="16" FontWeight="Bold"/>
-        <Button x:Name="CloseButton" Click="CloseWindow_Click" HorizontalAlignment="Left" Height="30" Margin="339,5,0,0" VerticalAlignment="Top" Width="27" Background="Transparent" BorderBrush="Transparent">
+        <Label Content="Payment Details:" HorizontalAlignment="Left" Height="38" Margin="421,109,0,0" VerticalAlignment="Top" Width="150" FontSize="16" FontWeight="Bold"/>
+        <Label Content="Status:" HorizontalAlignment="Left" Height="33" Margin="411,171,0,0" VerticalAlignment="Top" Width="150" FontSize="16" FontWeight="Bold"/>
+        <Label Content="Purchased Method:" HorizontalAlignment="Left" Height="32" Margin="403,219,0,0" VerticalAlignment="Top" Width="150" FontSize="16" FontWeight="Bold"/>
+        <Button x:Name="CloseButton" Click="CloseWindow_Click" HorizontalAlignment="Left" Height="30" Margin="554,5,0,0" VerticalAlignment="Top" Width="27" Background="Transparent" BorderBrush="Transparent">
             <Image Height="22" Width="24" Source="/Images/close.png"/>
         </Button>
-        <Border BorderBrush="#FF2C6E5D" CornerRadius="0 0 10 10" BorderThickness="1" HorizontalAlignment="Center" Height="38" VerticalAlignment="Top" Width="372" Background="#FF2C6E5D" Margin="0,318,0,0"/>
-        <Button x:Name="ConfirmBtn" Click="Confirm_Click" Content="CONFIRM" HorizontalAlignment="Center" Height="32" Margin="0,321,0,0" VerticalAlignment="Top" Width="360" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D" Foreground="White" FontWeight="Bold" FontSize="20"/>
+        <Border BorderBrush="#FF2C6E5D" CornerRadius="0 0 10 0" BorderThickness="1" HorizontalAlignment="Left" Height="38" VerticalAlignment="Top" Width="186" Background="#FF2C6E5D" Margin="403,549,0,0">
+            <Button x:Name="ConfirmBtn" Click="Confirm_Click" Content="Next" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Width="166" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D" Foreground="White" FontWeight="Bold" FontSize="20"/>
+        </Border>
 
-        <!-- Payment Method Group -->
 
-        <RadioButton Checked="GCashRadioButton_Checked" Content="Gcash" GroupName="PaymentMethod" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="121,144,0,0" VerticalAlignment="Top" FontSize="15" />
-        <RadioButton Checked="CashRadioButton_Checked" IsChecked="True" Content="Cash" GroupName="PaymentMethod" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="33,143,0,0" VerticalAlignment="Top" FontSize="15" />
+        <RadioButton Checked="GCashRadioButton_Checked" Content="Gcash" GroupName="PaymentMethod" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="482,142,0,0" VerticalAlignment="Top" FontSize="15" />
+        <RadioButton Checked="CashRadioButton_Checked" IsChecked="True" Content="Cash" GroupName="PaymentMethod" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="416,138,0,0" VerticalAlignment="Top" FontSize="15" />
 
-        <!-- Payment Status Group -->
 
-        <RadioButton Checked="PaidRadioButton_Checked" IsChecked="True" Content="Paid" GroupName="PaymentStatus" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="33,200,0,0" VerticalAlignment="Top" FontSize="15" />
-        <RadioButton Checked="UnpaidRadioButton_Checked" Content="Unpaid" GroupName="PaymentStatus" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="119,200,0,0" VerticalAlignment="Top" FontSize="15" />
+        <RadioButton Checked="PaidRadioButton_Checked" IsChecked="True" Content="Paid" GroupName="PaymentStatus" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="420,204,0,0" VerticalAlignment="Top" FontSize="15" />
+        <RadioButton Checked="UnpaidRadioButton_Checked" Content="Unpaid" GroupName="PaymentStatus" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="487,204,0,0" VerticalAlignment="Top" FontSize="15" />
 
-        <!-- Purchase Type Group -->
 
-        <RadioButton Checked="UpfrontRadioButton_Checked" IsChecked="True" Content="Upfront" GroupName="PurchaseType" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="33,261,0,0" VerticalAlignment="Top" FontSize="15" />
-        <RadioButton Checked="ToDeliverRadioButton_Checked" Content="To Deliver" GroupName="PurchaseType" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="121,261,0,0" VerticalAlignment="Top" FontSize="15" />
+        <RadioButton Checked="UpfrontRadioButton_Checked" IsChecked="True" Content="Upfront" GroupName="PurchaseType" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="408,265,0,0" VerticalAlignment="Top" FontSize="15" />
+        <RadioButton Checked="ToDeliverRadioButton_Checked" Content="To Deliver" GroupName="PurchaseType" HorizontalAlignment="Left" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="478,265,0,0" VerticalAlignment="Top" FontSize="15" />
+        <Border BorderBrush="#FF2C6E5D" CornerRadius="0 0 0 10" BorderThickness="1" HorizontalAlignment="Left" Height="38" VerticalAlignment="Top" Width="186" Background="#FF2C6E5D" Margin="2,553,0,0">
+            <Button x:Name="ConfirmBtn1" Click="Confirm_Click" Content="Back" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Width="166" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D" Foreground="White" FontWeight="Bold" FontSize="20"/>
+        </Border>
+        <Label Content="Orders:" HorizontalAlignment="Left" Height="38" Margin="20,85,0,0" VerticalAlignment="Top" Width="150" FontSize="16" FontWeight="Bold"/>
+        <Label Content="Item" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="38" Margin="20,114,0,0" VerticalAlignment="Top" Width="70" FontSize="16" FontWeight="Bold"/>
+        <Label Content="Price" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="38" Margin="193,114,0,0" VerticalAlignment="Top" Width="82" FontSize="16" FontWeight="Bold"/>
+        <Label Content="Quantity" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="38" Margin="95,114,0,0" VerticalAlignment="Top" Width="93" FontSize="16" FontWeight="Bold"/>
+        <Label Content="PAYMENT METHOD" HorizontalAlignment="Left" Height="38" Margin="20,47,0,0" VerticalAlignment="Top" Width="178" FontSize="16" FontWeight="Bold" RenderTransformOrigin="0.5,0.5">
+            <Label.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleY="-0.215"/>
+                    <RotateTransform/>
+                    <TranslateTransform Y="-0.282"/>
+                </TransformGroup>
+            </Label.RenderTransform>
+        </Label>
 
 
     </Grid>
+
+
 </Window>

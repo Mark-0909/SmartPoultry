@@ -61,7 +61,6 @@ namespace SmartPoultry
             
         }
 
-        // combined methods
         private void InitializeUnitAdder(string? mode, string? action, string? name, string? price, string? conversion, string? baseUnitvalue, string? stocks, inventoryAdd_variationscontrol control, int position, Inventory_AddingForm form)
         {
             inventoryAddForm = form;
@@ -115,7 +114,6 @@ namespace SmartPoultry
                 
                 conversionName.Visibility = Visibility.Visible;
 
-                // Set sub unit values
                 if (name != null) UnitCB.Text = name;
                 if (baseUnitvalue != null) conversionName.Content = "/ " + baseUnitvalue;
                 if (price != null) priceTextBox.Text = price;
@@ -127,21 +125,17 @@ namespace SmartPoultry
 
         public void SubmitButton_Click(object sender, RoutedEventArgs e)
         {
-            // Validation for empty or default inputs
             if (UnitCB.Text == "Select Unit Below..." || priceTextBox.Text == "Price...")
             {
                 MessageBox.Show("Incomplete Details.");
                 return;
             }
 
-            // Prevent duplicate entries when adding
             if (inventoryAddForm.unitlist.Contains(UnitCB.Text) && actionDeclaration == "add")
             {
                 MessageBox.Show("Unit has been added! Choose another one.");
                 return;
             }
-
-            // Adding a new unit
             if (actionDeclaration == "add")
             {
                 if (agenda == "base_unit")
@@ -155,7 +149,7 @@ namespace SmartPoultry
                 this.Close();
                 inventoryAddForm.ActiveOverlay(false);
             }
-            else // Editing an existing unit
+            else 
             {
                 if (agenda == "base_unit")
                 {
@@ -285,12 +279,10 @@ namespace SmartPoultry
 
             string input = textBox.Text;
 
-            // Filter input based on whether decimals are allowed
             string filteredInput = allowDecimal
                 ? new string(input.Where(c => char.IsDigit(c) || c == '.').ToArray())
                 : new string(input.Where(char.IsDigit).ToArray());
 
-            // Allow only one decimal point
             if (allowDecimal)
             {
                 int firstDecimalIndex = filteredInput.IndexOf('.');
@@ -301,7 +293,6 @@ namespace SmartPoultry
                 }
             }
 
-            // Update the TextBox only if input has changed
             if (input != filteredInput)
             {
                 textBox.Text = filteredInput;
@@ -322,7 +313,7 @@ namespace SmartPoultry
                     tb.Foreground = Brushes.Black;
                 }
             }
-            else // When the TextBox loses focus
+            else
             {
                 if (string.IsNullOrWhiteSpace(tb.Text))
                 {
