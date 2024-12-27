@@ -137,7 +137,6 @@ namespace SmartPoultry
             {
                 MessageBox.Show("Order confirmed successfully!");
 
-                // Prevent stock revert on drop button click
                 isOrderConfirmed = true;
 
                 orderPanel.Children.Clear();
@@ -302,9 +301,6 @@ namespace SmartPoultry
                         }
                     }
 
-
-
-                    // Table headers
                     PdfPTable table = new PdfPTable(4);
                     table.WidthPercentage = 100;
                     table.SetWidths(new float[] { 1.5f, 2.8f, 2.5f, 3f });
@@ -314,7 +310,6 @@ namespace SmartPoultry
                     table.AddCell(new PdfPCell(new Phrase("Price", font)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
                     table.AddCell(new PdfPCell(new Phrase("Total", font)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
 
-                    // Add rows to the table
                     for (int i = 0; i < itemnames.Count; i++)
                     {
                         table.AddCell(new PdfPCell(new Phrase(quantitylist[i], font)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
@@ -325,7 +320,6 @@ namespace SmartPoultry
 
                     doc.Add(table);
 
-                    // Total price
                     PdfPTable totalTable = new PdfPTable(2);
                     totalTable.WidthPercentage = 100;
                     totalTable.SetWidths(new float[] { 3f, 3f });
@@ -366,14 +360,12 @@ namespace SmartPoultry
                     doc.Close();
                     memoryStream.Position = 0;
 
-                    // Save the PDF to a temporary file
                     string tempFilePath = System.IO.Path.Combine(
                         System.IO.Path.GetTempPath(),
                         $"{DateTime.Now:yyyyMMddHHmmss}.pdf"
                     );
                     File.WriteAllBytes(tempFilePath, memoryStream.ToArray());
 
-                    // Open the PDF in the default viewer
                     Process.Start(new ProcessStartInfo(tempFilePath) { UseShellExecute = true });
 
 
