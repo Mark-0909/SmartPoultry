@@ -452,6 +452,7 @@ namespace SmartPoultry
                 if (orderPanel.Children[i] is Home_OrdersControl control)
                 {
                     control.positionList = i;
+                    control.UpdateColorCoding(i);
                 }
             }
         }

@@ -55,6 +55,17 @@ namespace SmartPoultry
             }
         }
 
+        public void UpdateColorCoding(int position)
+        {
+            if (position % 2 != 0)
+            {
+                this.controlBorder.Background = new SolidColorBrush(Colors.White);
+            } else
+            {
+                this.controlBorder.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xD4, 0xD4, 0xD4));
+
+            }
+        }
         public void AddQuantity()
         {
             decimal stocks = poscontrol.origstock;
