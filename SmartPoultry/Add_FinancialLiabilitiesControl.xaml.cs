@@ -1,4 +1,7 @@
-﻿using System;
+﻿using SmartPoultry.DataAccess;
+using SmartPoultry.DataServices;
+using SmartPoultry.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,12 +24,17 @@ namespace SmartPoultry
     /// </summary>
     public partial class Add_FinancialLiabilitiesControl : UserControl
     {
+        public int ID;
+        public AppDbContext context = new AppDbContext();
+        FinancialLiabilitiesServices financialLiabilitiesServices;
         public Add_FinancialLiabilitiesControl(int id, string name, string duedate, string amount, int evenodd)
         {
             InitializeComponent();
             Namelabel.Content = name;
             DueDateLabel.Content = duedate;
             AmountLabel.Content = amount;
+            ID = id;
+            financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
 
             DateTime dueDateValue;
             bool isValidDate = DateTime.TryParse(duedate, out dueDateValue);
@@ -62,6 +70,27 @@ namespace SmartPoultry
             }
         }
 
+        private void Info_Clicked(object sender, RoutedEventArgs e)
+        {
+            FinancialLiabilities var = financialLiabilitiesServices.GetById(ID);
+            
 
+            MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
+
+            Add_FinancialLiabilities window = new Add_FinancialLiabilities(var, mainWindow);
+            if (mainWindow != null)
+            {
+
+                mainWindow.ActiveOverlay(true);
+                window.ShowDialog();
+
+            }
+            else
+            {
+                MessageBox.Show("Unable to access the MainWindow.");
+            }
+
+            
+        }
     }
 }

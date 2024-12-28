@@ -16,6 +16,12 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+
+        public FinancialLiabilities GetById(int id)
+        {
+            var itemrow = _context.FinancialLiabilities.FirstOrDefault(x => x.Id == id);
+            return itemrow;
+        }
         public List<FinancialLiabilities> GetList(string filter) { 
             List<FinancialLiabilities> financialLiabilities = _context.FinancialLiabilities.Where(p => p.status != "paid" && p.type == filter).OrderBy(p => p.due_date).ToList();
             return financialLiabilities;

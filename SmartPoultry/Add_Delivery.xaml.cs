@@ -1,5 +1,6 @@
 ﻿using SmartPoultry.DataAccess;
 using SmartPoultry.DataServices;
+using SmartPoultry.Models;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,7 +27,7 @@ namespace SmartPoultry
         {
             InitializeComponent();
             datePicker.SelectedDate = DateTime.Now;
-            OrderIdTextBox.IsEnabled = false;
+
             toDeliverRadio.IsEnabled = false;
             toReceiveRadio.IsChecked = true;
             deliveriesServices = new DeliveriesServices(context);
@@ -34,6 +35,10 @@ namespace SmartPoultry
             mainWindow = window;
         }
 
+        public Add_Delivery(Deliveries itemrow, MainWindow window)
+        {
+
+        }
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
@@ -102,20 +107,11 @@ namespace SmartPoultry
 
         private void ToDeliver_IsChecked(object sender, RoutedEventArgs e)
         {
-            if (OrderIdTextBox != null && !OrderIdTextBox.IsEnabled)
-            {
-                OrderIdTextBox.IsReadOnly = false;  // Make it editable
-                OrderIdTextBox.IsEnabled = true;    // Enable the control
-            }
             type = "To Deliver";
         }
 
         private void ToReceive_IsChecked(object sender, RoutedEventArgs e)
         {
-            if (OrderIdTextBox != null)
-            {
-                OrderIdTextBox.IsEnabled = false;
-            }
             type = "To Receive";
         }
 
@@ -151,14 +147,6 @@ namespace SmartPoultry
         private void NameTB_LostFocus(object sender, RoutedEventArgs e)
         {
             HandleTextBoxPlaceholder(NameTextBox, "Name...", false);
-        }
-        private void OrderTB_GotFocus(object sender, RoutedEventArgs e)
-        {
-            HandleTextBoxPlaceholder(OrderIdTextBox, "Order ID...", true);
-        }
-        private void OrderTB_LostFocus(object sender, RoutedEventArgs e)
-        {
-            HandleTextBoxPlaceholder(OrderIdTextBox, "Order ID...", false);
         }
         private void AddressTB_GotFocus(object sender, RoutedEventArgs e)
         {

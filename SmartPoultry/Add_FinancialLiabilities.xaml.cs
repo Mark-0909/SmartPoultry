@@ -1,6 +1,6 @@
 ﻿using SmartPoultry.DataAccess;
 using SmartPoultry.DataServices;
-using SmartPoultry.Migrations;
+using SmartPoultry.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,22 +27,63 @@ namespace SmartPoultry
         public string type;
         public long orderid;
 
-        MainWindow mainWindow { get; set; }
+        public MainWindow mainWindow;
         public Add_FinancialLiabilities(MainWindow window)
         {
             InitializeComponent();
             AppDbContext context = new AppDbContext();
             financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
             datePicker.SelectedDate = DateTime.Now.AddDays(14);
-            OrderIDTextBox.IsEnabled = false;
             orderid = 0;
 
             mainWindow = window;
         }
+        public Add_FinancialLiabilities(FinancialLiabilities itemrow, MainWindow mainwindow)
+        {
+            InitializeComponent();
+            NameTextBox.Text = itemrow.name;
+            PriceTextBox.Text = itemrow.amount.ToString("N2");
+            if (itemrow.type == "To Receive")
+            {
+                ToReceiveRBtn.IsChecked = true;
+            }
+            if (itemrow.payment_mode == "GCash")
+            {
+                GCashRBtn.IsChecked = true;
+            }
+            datePicker.SelectedDate = itemrow.due_date;
+            ContactsTextBox.Text = itemrow.contacts;
+            mainWindow = mainwindow;
+        }
+
         public void DatePicker_Loaded(object sender, RoutedEventArgs e)
         {
-            datePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
+            datePicker.BlackoutDates.Clear();
+            DateTime today = DateTime.Today;
+            DateTime? specificPastDate = datePicker.SelectedDate;
+
+            if (specificPastDate.HasValue)
+            {
+                DateTime pastDate = specificPastDate.Value;
+
+                if (pastDate < today)
+                {
+                    datePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, pastDate.AddDays(-1)));
+                    datePicker.BlackoutDates.Add(new CalendarDateRange(pastDate.AddDays(1), today.AddDays(-1)));
+                }
+                else
+                {
+                    datePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, today.AddDays(-1)));
+                }
+            }
+            else
+            {
+                datePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, today.AddDays(-1)));
+            }
         }
+
+
+
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -99,14 +140,6 @@ namespace SmartPoultry
         private void NameTB_LostFocus(object sender, RoutedEventArgs e)
         {
             HandleTextBoxPlaceholder(NameTextBox, "Name...", false);
-        }
-        private void OrderTB_GotFocus(object sender, RoutedEventArgs e)
-        {
-            HandleTextBoxPlaceholder(OrderIDTextBox, "Order ID...", true);
-        }
-        private void OrderTB_LostFocus(object sender, RoutedEventArgs e)
-        {
-            HandleTextBoxPlaceholder(OrderIDTextBox, "Order ID...", false);
         }
         private void PriceTB_GotFocus(object sender, RoutedEventArgs e)
         {
