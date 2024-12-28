@@ -1,4 +1,6 @@
-﻿using SmartPoultry.Migrations;
+﻿using SmartPoultry.DataAccess;
+using SmartPoultry.DataServices;
+using SmartPoultry.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,12 +23,17 @@ namespace SmartPoultry
     /// </summary>
     public partial class Add_DeliveriesControl : UserControl
     {
+        public AppDbContext context = new AppDbContext();
+        public DeliveriesServices deliveriesServices;
+        public int ID;
         public Add_DeliveriesControl(int id, string name, string date, string status, int evenodd)
         {
             InitializeComponent();
             NameLabel.Content = name;
             Datelabel.Content = date;
             StatusLabel.Content = status;
+            ID = id;
+            deliveriesServices = new DeliveriesServices(context);
 
             DateTime dateValue;
             bool isValidDate = DateTime.TryParse(date, out dateValue);
@@ -61,5 +68,25 @@ namespace SmartPoultry
             }
         }
 
+        private void DisplayDetail_Clicked(object sender, RoutedEventArgs e)
+        {
+            Deliveries var = deliveriesServices.GetById(ID);
+
+
+            MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
+
+            Add_Delivery window = new Add_Delivery(var, mainWindow);
+            if (mainWindow != null)
+            {
+
+                mainWindow.ActiveOverlay(true);
+                window.ShowDialog();
+
+            }
+            else
+            {
+                MessageBox.Show("Unable to access the MainWindow.");
+            }
+        }
     }
 }

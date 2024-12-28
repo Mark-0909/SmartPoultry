@@ -37,7 +37,15 @@ namespace SmartPoultry
 
         public Add_Delivery(Deliveries itemrow, MainWindow window)
         {
+            InitializeComponent();
+            NameTextBox.Text = itemrow.name;
+            AddressTextBox.Text = itemrow.address;
+            PriceTextBox.Text = itemrow.price.ToString("N2");
+            datePicker.SelectedDate = itemrow.delivery_date;
+            ContactsTextBox.Text = itemrow.contact_no;
+            ChargeTextBox.Text = itemrow.charges.ToString("N2");
 
+            mainWindow = window;
         }
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
@@ -102,7 +110,28 @@ namespace SmartPoultry
 
         private void DatePicker_Loaded(object sender, RoutedEventArgs e)
         {
-            datePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, DateTime.Today.AddDays(-1)));
+            datePicker.BlackoutDates.Clear();
+            DateTime today = DateTime.Today;
+            DateTime? specificPastDate = datePicker.SelectedDate;
+
+            if (specificPastDate.HasValue)
+            {
+                DateTime pastDate = specificPastDate.Value;
+
+                if (pastDate < today)
+                {
+                    datePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, pastDate.AddDays(-1)));
+                    datePicker.BlackoutDates.Add(new CalendarDateRange(pastDate.AddDays(1), today.AddDays(-1)));
+                }
+                else
+                {
+                    datePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, today.AddDays(-1)));
+                }
+            }
+            else
+            {
+                datePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, today.AddDays(-1)));
+            }
         }
 
         private void ToDeliver_IsChecked(object sender, RoutedEventArgs e)
