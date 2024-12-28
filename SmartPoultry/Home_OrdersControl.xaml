@@ -16,7 +16,7 @@
             HorizontalAlignment="Left" 
             VerticalAlignment="Center" 
             Height="46" 
-            Width="87" 
+            Width="100" 
             Margin="3,0,0,0" 
             HorizontalContentAlignment="Center" 
             VerticalContentAlignment="Center"/>
@@ -24,7 +24,7 @@
             HorizontalAlignment="Left" 
             VerticalAlignment="Center" 
             Height="46" 
-            Width="67" 
+            Width="65" 
             Margin="226,0,0,0" 
             HorizontalContentAlignment="Center" 
             VerticalContentAlignment="Center" FontSize="13"/>
@@ -38,14 +38,14 @@
         <Button x:Name="MinusBtn" Click="MinusBtn_Click" HorizontalAlignment="Left" Height="18" Margin="108,0,0,0" VerticalAlignment="Center" Width="18" Background="Transparent" BorderBrush="Transparent">
             <Image Height="15" Width="14" Source="/Images/minusorder.png"/>
         </Button>
-        <Button x:Name="RemoveBtn" Click="RemoveBtn_Click" HorizontalAlignment="Left" Height="18" Margin="293,0,0,0" VerticalAlignment="Center" Width="18" Background="Transparent" BorderBrush="Transparent">
+        <Button x:Name="RemoveBtn" Click="RemoveBtn_Click" HorizontalAlignment="Left" Height="18" Margin="290,0,0,0" VerticalAlignment="Center" Width="18" Background="Transparent" BorderBrush="Transparent">
             <Image Height="15" Width="14" Source="/Images/removeorder.png"/>
         </Button>
         <Label x:Name="varName" Content="var" 
             HorizontalAlignment="Left" 
             VerticalAlignment="Center" 
             Height="46" 
-            Width="34" 
+            Width="42" 
             Margin="172,0,0,0" 
             HorizontalContentAlignment="Center" 
             VerticalContentAlignment="Center" FontSize="13"/>
@@ -53,8 +53,8 @@
             HorizontalAlignment="Left" 
             VerticalAlignment="Center" 
             Height="46" 
-            Width="18" 
-            Margin="208,0,0,0" 
+            Width="17" 
+            Margin="213,0,0,0" 
             HorizontalContentAlignment="Left" 
             VerticalContentAlignment="Center" FontSize="13"/>
     </Grid>
