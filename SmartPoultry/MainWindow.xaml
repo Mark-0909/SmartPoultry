@@ -12,6 +12,10 @@
             <ColumnDefinition Width="794*"/>
         </Grid.ColumnDefinitions>
 
+        <local:Schedule x:Name="scheduleControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="602" Margin="106,92,0,0" VerticalAlignment="Top" Width="1123"/>
+
+
+
         <Rectangle x:Name="MainWindowOverlay" Opacity=".5"  Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="700" Stroke="#00000000" VerticalAlignment="Center" Width="1232" Fill="#FFA7A7A7"/>
 
 
@@ -55,7 +59,7 @@
 
 
 
-        <StackPanel HorizontalAlignment="Left" Height="892" Margin="0,92,0,0" VerticalAlignment="Top" Width="101" Background="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}"/>
+        <StackPanel HorizontalAlignment="Left" Height="649" Margin="0,92,0,0" VerticalAlignment="Top" Width="101" Background="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}"/>
         <Rectangle HorizontalAlignment="Left" Height="92" VerticalAlignment="Top" Width="1229" Fill="#FFF4F7FC" Grid.ColumnSpan="2"/>
         <Rectangle HorizontalAlignment="Left" Height="608" Margin="0,92,0,0" VerticalAlignment="Top" Width="92" Fill="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}"/>
         <Image HorizontalAlignment="Left" Height="86" Margin="8,7,0,0" VerticalAlignment="Top" Width="240" Source="Images/logo.png"/>
@@ -262,6 +266,38 @@
         </Button>
         <Button x:Name="LogoutBtn" Click="LogoutBtn_Clicked" HorizontalAlignment="Left" Height="44" Margin="720,24,0,0" VerticalAlignment="Top" Width="48" Background="Transparent" BorderBrush="Transparent" Grid.Column="1">
             <Image Height="38" Width="45" Source="/Images/logouticon.png"/>
+        </Button>
+        <Button x:Name="scheduleButton" HorizontalAlignment="Left" Margin="10,529,0,0" VerticalAlignment="Top" Height="65" Width="82" Click="ScheduleButton_Click" Foreground="#FF66C265" Background="#FFF4F7FC">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="#FFF4F7FC" BorderThickness="1" CornerRadius="5" x:Name="scheduleBorder">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="scheduleBorder" 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            To="0.5" Duration="0:0:0.3" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="scheduleBorder" 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            To="1.0" Duration="0:0:0.3" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+            <Image x:Name="scheduleIcon" Height="61" Width="67" Source="/Images/schedulegray.png"/>
         </Button>
 
 

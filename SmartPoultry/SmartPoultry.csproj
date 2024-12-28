@@ -46,6 +46,8 @@
     <None Remove="Images\recordsgreen.png" />
     <None Remove="Images\recordsgrey.png" />
     <None Remove="Images\removeorder.png" />
+    <None Remove="Images\schedulegray.png" />
+    <None Remove="Images\schedulegreen.png" />
     <None Remove="Images\smartpoultryicon.ico" />
     <None Remove="Images\smartpoultrylogin.png" />
     <None Remove="Images\suppliergreen.png" />
@@ -56,6 +58,8 @@
     <Resource Include="Images\addbutton.png" />
     <Resource Include="Images\addbuttonproduct.png" />
     <Resource Include="Images\addbuttonsupplier.png" />
+    <Resource Include="Images\schedulegray.png" />
+    <Resource Include="Images\schedulegreen.png" />
   </ItemGroup>
 
   <ItemGroup>

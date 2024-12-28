@@ -65,10 +65,10 @@ namespace SmartPoultry
             InactiveButton(recordsButton, "Images/recordsgrey.png", "recordsBorder", recordsIcon);
             InactiveButton(organizationButton, "Images/organizationgrey.png", "organizationBorder", organizationIcon);
             InactiveButton(supplierButton, "Images/suppliergrey.png", "supplierBorder", supplierIcon);
-
+            InactiveButton(scheduleButton, "Images/schedulegray.png", "scheduleBorder", scheduleIcon);
 
             //front usercontrol
-            Control[] controls = { dashboardControl, inventoryControl, recordsControl, organizationControl, supplierControl };
+            Control[] controls = { dashboardControl, inventoryControl, recordsControl, organizationControl, supplierControl, scheduleControl};
 
             foreach (var control in controls)
             {
@@ -86,8 +86,9 @@ namespace SmartPoultry
             InactiveButton(recordsButton, "Images/recordsgrey.png", "recordsBorder", recordsIcon);
             InactiveButton(organizationButton, "Images/organizationgrey.png", "organizationBorder", organizationIcon);
             InactiveButton(supplierButton, "Images/suppliergrey.png", "supplierBorder", supplierIcon);
+            InactiveButton(scheduleButton, "Images/schedulegray.png", "scheduleBorder", scheduleIcon);
 
-            Control[] controls = { homeControl, inventoryControl, recordsControl, organizationControl, supplierControl };
+            Control[] controls = { homeControl, inventoryControl, recordsControl, organizationControl, supplierControl, scheduleControl};
 
             foreach (var control in controls)
             {
@@ -104,9 +105,10 @@ namespace SmartPoultry
             InactiveButton(recordsButton, "Images/recordsgrey.png", "recordsBorder", recordsIcon);
             InactiveButton(organizationButton, "Images/organizationgrey.png", "organizationBorder", organizationIcon);
             InactiveButton(supplierButton, "Images/suppliergrey.png", "supplierBorder", supplierIcon);
+            InactiveButton(scheduleButton, "Images/schedulegray.png", "scheduleBorder", scheduleIcon);
 
             //front usercontrol
-            Control[] controls = { dashboardControl, homeControl, recordsControl, organizationControl, supplierControl };
+            Control[] controls = { dashboardControl, homeControl, recordsControl, organizationControl, supplierControl, scheduleControl };
 
             foreach (var control in controls)
             {
@@ -123,10 +125,10 @@ namespace SmartPoultry
             ActiveButton(recordsButton, "Images/recordsgreen.png", "recordsBorder", recordsIcon);
             InactiveButton(organizationButton, "Images/organizationgrey.png", "organizationBorder", organizationIcon);
             InactiveButton(supplierButton, "Images/suppliergrey.png", "supplierBorder", supplierIcon);
-
+            InactiveButton(scheduleButton, "Images/schedulegray.png", "scheduleBorder", scheduleIcon);
 
             //front usercontrol
-            Control[] controls = { dashboardControl, inventoryControl, homeControl, organizationControl, supplierControl };
+            Control[] controls = { dashboardControl, inventoryControl, homeControl, organizationControl, supplierControl, scheduleControl };
 
             foreach (var control in controls)
             {
@@ -143,9 +145,10 @@ namespace SmartPoultry
             InactiveButton(recordsButton, "Images/recordsgrey.png", "recordsBorder", recordsIcon);
             ActiveButton(organizationButton, "Images/organizationgreen.png", "organizationBorder", organizationIcon);
             InactiveButton(supplierButton, "Images/suppliergrey.png", "supplierBorder", supplierIcon);
+            InactiveButton(scheduleButton, "Images/schedulegray.png", "scheduleBorder", scheduleIcon);
 
             //front usecontrol
-            Control[] controls = { dashboardControl, inventoryControl, recordsControl, homeControl, supplierControl };
+            Control[] controls = { dashboardControl, inventoryControl, recordsControl, homeControl, supplierControl, scheduleControl };
 
             foreach (var control in controls)
             {
@@ -162,9 +165,10 @@ namespace SmartPoultry
             InactiveButton(recordsButton, "Images/recordsgrey.png", "recordsBorder", recordsIcon);
             InactiveButton(organizationButton, "Images/organizationgrey.png", "organizationBorder", organizationIcon);
             ActiveButton(supplierButton, "Images/suppliergreen.png", "supplierBorder", supplierIcon);
+            InactiveButton(scheduleButton, "Images/schedulegray.png", "scheduleBorder", scheduleIcon);
 
             //front usecontrol
-            Control[] controls = { dashboardControl, inventoryControl, recordsControl, organizationControl, homeControl };
+            Control[] controls = { dashboardControl, inventoryControl, recordsControl, organizationControl, homeControl, scheduleControl };
 
             foreach (var control in controls)
             {
@@ -172,7 +176,25 @@ namespace SmartPoultry
             }
             Panel.SetZIndex(supplierControl, 10);
         }
+        private void ScheduleButton_Click(object sender, RoutedEventArgs e)
+        {
+            InactiveButton(homeButton, "Images/homeicongrey.png", "homeBorder", homeIcon);
+            InactiveButton(dashboardButton, "Images/dashboardgrey.png", "dashboardBorder", dashboardIcon);
+            InactiveButton(inventoryButton, "Images/inventorygrey.png", "inventoryBorder", inventoryIcon);
+            InactiveButton(recordsButton, "Images/recordsgrey.png", "recordsBorder", recordsIcon);
+            InactiveButton(organizationButton, "Images/organizationgrey.png", "organizationBorder", organizationIcon);
+            InactiveButton(supplierButton, "Images/suppliergrey.png", "supplierBorder", supplierIcon);
+            ActiveButton(scheduleButton, "Images/schedulegreen.png", "scheduleBorder", scheduleIcon);
 
+            //front usecontrol
+            Control[] controls = { dashboardControl, inventoryControl, recordsControl, organizationControl, homeControl, supplierControl };
+
+            foreach (var control in controls)
+            {
+                Panel.SetZIndex(control, 0);
+            }
+            Panel.SetZIndex(scheduleControl, 10);
+        }
         private void ActiveButton(Button button, string imagesource, string buttonborder, Image icon)
         {
             var border = (Border)button.Template.FindName(buttonborder, button);
@@ -209,5 +231,7 @@ namespace SmartPoultry
                 this.Close();
             }
         }
+
+        
     }
 }
