@@ -197,8 +197,21 @@ namespace SmartPoultry
         {
             if (Validation())
             {
-                homeController.ConfirmOrder(paymentmethod, status, purchasemethod);
+                if (purchasemethod == "to deliver" && status == "unpaid")
+                {
+                    homeController.ConfirmOrder(paymentmethod, status, purchasemethod, datePickerDelivery.SelectedDate.Value, datePickerPayment.SelectedDate.Value, NameTB.Text, ContactsTB.Text, ChargeTB.Text, AddressTB.Text);
+                } else if (purchasemethod == "to deliver")
+                {
+                    homeController.ConfirmOrder(paymentmethod, status, purchasemethod, datePickerDelivery.SelectedDate.Value, null, NameTB.Text, ContactsTB.Text, ChargeTB.Text, AddressTB.Text);
+                } else if (status == "unpaid")
+                {
+                    homeController.ConfirmOrder(paymentmethod, status, purchasemethod, null, datePickerPayment.SelectedDate.Value, NameTB.Text, ContactsTB.Text, null, null);
+                } else
+                {
+                    homeController.ConfirmOrder(paymentmethod, status, purchasemethod, null, null, null, null, null, null);
+                }
                 homeController.EnableDropBtn();
+
                 this.Close();
                 mainWindow.ActiveOverlay(false);
             }
@@ -207,13 +220,13 @@ namespace SmartPoultry
 
         private void CashRadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            paymentmethod = "cash";
+            paymentmethod = "Cash";
             DisableTextBoxes();
         }
 
         private void GCashRadioButton_Checked(object sender, RoutedEventArgs e)
         {
-            paymentmethod = "gcash";
+            paymentmethod = "GCash";
             DisableTextBoxes();
         }
 

@@ -208,7 +208,7 @@ namespace SmartPoultry
         }
         public void DisplaySales() {
             int evenodd = 0;
-            List<Sales> salesList = salesServices.GetSales();
+            List<Sales> salesList = salesServices.GetSalesList();
 
             foreach (Sales sales in salesList) { 
                 string refid = sales.receipt_id.ToString();

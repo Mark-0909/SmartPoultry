@@ -35,7 +35,7 @@ namespace SmartPoultry.DataServices
                 return 0;
             }
         }
-        public bool Create(long orderid, string name, string type, decimal price, string address, string status, string contact, DateTime deliverydate, string deliveryman, decimal charge)
+        public bool Create(long orderid, string name, string type, decimal price, string address, string status, string contact, DateTime deliverydate, string? deliveryman, decimal charge)
         {
             try 
             {

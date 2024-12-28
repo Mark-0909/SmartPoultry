@@ -29,7 +29,7 @@ namespace SmartPoultry.DataServices
         }
 
         
-        public List<Sales> GetSales()
+        public List<Sales> GetSalesList()
         {
             try
             {
@@ -70,22 +70,7 @@ namespace SmartPoultry.DataServices
             }
         }
 
-
-        public Sales GetSales(int id)
-        {
-            try
-            {
-                return _context.Sales.FirstOrDefault(p => p.id == id);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine($"Error fetching sales record: {e.Message}");
-                return null; 
-            }
-        }
-
-
-        public int Create(string productList, string priceList, string quantityList, string varList, string paymentMode, string status, decimal totalPrice, string purchaseMethod)
+        public long Create(string productList, string priceList, string quantityList, string varList, string paymentMode, string status, decimal totalPrice, string purchaseMethod)
         {
             try
             {
@@ -109,7 +94,7 @@ namespace SmartPoultry.DataServices
                 _context.Sales.Add(newSales);
                 _context.SaveChanges();
 
-                return newSales.id;
+                return newSales.receipt_id;
             }
             catch (Exception e)
             {

@@ -37,6 +37,8 @@ namespace SmartPoultry
         public ProductServices productServices;
         public UserServices userServices;
         public ProductVariationServices productvariationsServices;
+        public DeliveriesServices deliveriesServices;
+        public FinancialLiabilitiesServices financialLiabilitiesServices;
         public AppDbContext context = new AppDbContext();
 
         home_POSproduct productControl;
@@ -63,6 +65,8 @@ namespace SmartPoultry
             productvariationsServices = new ProductVariationServices(context);
             salesServices = new SalesServices(context);
             userServices = new UserServices(context);
+            deliveriesServices = new DeliveriesServices(context);
+            financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
             totalPiceLabel.Visibility = Visibility.Collapsed;
             DropOrderBtn.IsEnabled = false;
             DisplayProducts();
@@ -113,7 +117,7 @@ namespace SmartPoultry
         }
 
 
-        public void ConfirmOrder(string paymentMode, string status, string purchasemethod)
+        public void ConfirmOrder(string paymentMode, string status, string purchasemethod, DateTime? deliverydate, DateTime? paymentDate, string name, string contacts, string charge, string address)
         {
             string StringProductList = string.Join(",", Productvaridlist);
             string StringPriceList = string.Join(",", PriceList);
@@ -122,7 +126,7 @@ namespace SmartPoultry
 
             decimal totalPrice = decimal.Parse(totalPiceLabel.Content.ToString());
 
-            int addingSales = salesServices.Create(
+            long addingSales = salesServices.Create(
                 StringProductList,
                 StringPriceList,
                 StringQuantityList,
@@ -133,8 +137,41 @@ namespace SmartPoultry
                 purchasemethod
             );
 
+            decimal chargefee = 0m; 
+
+            if (!string.IsNullOrEmpty(charge))
+            {
+                if (!decimal.TryParse(charge, out chargefee))
+                {
+                    MessageBox.Show("Invalid charge value.");
+                    return;
+                }
+            }
+            else
+            {
+                chargefee = 0m;
+            }
+
+
             if (addingSales != -1)
             {
+                DateTime actualPaymentDate = paymentDate ?? DateTime.Now;
+                DateTime actualDeliveryDate = deliverydate ?? DateTime.Now;
+
+                if (purchasemethod == "to deliver" && status == "unpaid")
+                {
+                    financialLiabilitiesServices.Create(name, addingSales, totalPrice, "To Receive", paymentMode, actualPaymentDate, contacts);
+                    deliveriesServices.Create(addingSales, name, "To Deliver", totalPrice, address, status, contacts, actualDeliveryDate, "", chargefee);
+                }
+                else if (purchasemethod == "to deliver")
+                {
+                    deliveriesServices.Create(addingSales, name, "To Deliver", totalPrice, address, status, contacts, actualDeliveryDate, "", chargefee);
+                }
+                else if (status == "unpaid")
+                {
+                    financialLiabilitiesServices.Create(name, addingSales, totalPrice, "To Receive", paymentMode, actualPaymentDate, contacts);
+                }
+
                 MessageBox.Show("Order confirmed successfully!");
 
                 isOrderConfirmed = true;
@@ -157,6 +194,8 @@ namespace SmartPoultry
                 if (mainWindow != null)
                 {
                     mainWindow.DynamicAddOrder();
+                    mainWindow.DynamicAddDeliveries();
+                    mainWindow.DynamicAddFinance();
                     mainWindow.ActiveOverlay(false);
                 }
                 else
@@ -169,6 +208,7 @@ namespace SmartPoultry
                 MessageBox.Show("Failed to confirm the order.");
             }
         }
+
 
 
         public void MinusStocksProduct(string idlist, string quantitylist)
@@ -202,7 +242,7 @@ namespace SmartPoultry
         }
 
 
-        public static void DisplayReceipt(int salesid, SalesServices salesServices, AppDbContext context)
+        public static void DisplayReceipt(long salesid, SalesServices salesServices, AppDbContext context)
         {
             try
             {
