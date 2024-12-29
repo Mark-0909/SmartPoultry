@@ -16,6 +16,21 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+        public bool UpdateDelivered(int id)
+        {
+            try
+            {
+                var row = _context.Deliveries.FirstOrDefault(x => x.Id == id);
+                row.delivery_status = "delivered";
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch (Exception ex) 
+            {
+                return false;
+            }
+        }
         public Deliveries GetById(int Id)
         {
             var itemrow = _context.Deliveries.FirstOrDefault(x => x.Id == Id);

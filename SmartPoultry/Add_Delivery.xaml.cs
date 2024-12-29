@@ -14,7 +14,11 @@ namespace SmartPoultry
     public partial class Add_Delivery : Window
     {
         DeliveriesServices deliveriesServices;
+        SalesServices salesServices;
+        FinancialLiabilitiesServices financialLiabilitiesServices;
         public AppDbContext context = new AppDbContext();
+
+        Deliveries deliveries;
 
         public MainWindow mainWindow { get; set; }
 
@@ -31,6 +35,7 @@ namespace SmartPoultry
             toDeliverRadio.IsEnabled = false;
             toReceiveRadio.IsChecked = true;
             deliveriesServices = new DeliveriesServices(context);
+            salesServices = new SalesServices(context);
             
             mainWindow = window;
         }
@@ -38,6 +43,11 @@ namespace SmartPoultry
         public Add_Delivery(Deliveries itemrow, MainWindow window)
         {
             InitializeComponent();
+            deliveriesServices = new DeliveriesServices(context);
+            salesServices = new SalesServices(context);
+            financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
+            deliveries = itemrow;
+
             NameTextBox.Text = itemrow.name;
             AddressTextBox.Text = itemrow.address;
             PriceTextBox.Text = itemrow.price.ToString("N2");
@@ -45,10 +55,61 @@ namespace SmartPoultry
             ContactsTextBox.Text = itemrow.contact_no;
             ChargeTextBox.Text = itemrow.charges.ToString("N2");
 
+            if(itemrow.payment_status == "Unpaid")
+            {
+                UnpaidRadio.IsChecked = true;
+            }
+            if(itemrow.type == "To Receive")
+            {
+                toReceiveRadio.IsChecked = true;
+            }
+
             mainWindow = window;
+            confirmBtn.Content = "DELIVERED";
         }
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (confirmBtn.Content.ToString() == "CONFIRM")
+            {
+                AddScheduledDelivery();
+            }
+            else if (confirmBtn.Content.ToString() == "DELIVERED")
+            {
+                MarkAsDelivered();
+            } 
+            else if (confirmBtn.Content.ToString() == "UPDATE")
+            {
+
+            }
+            else
+            {
+                MessageBox.Show("Unexpected button action. Please check the button state.");
+            }
+        }
+
+        public void MarkAsDelivered()
+        {
+            bool updatedelivery = deliveriesServices.UpdateDelivered(deliveries.Id);
+            bool updateSale = salesServices.UpdateDelivered(deliveries.order_id);
+            if (!updatedelivery || !updateSale) 
+            {
+                MessageBox.Show("Unsuccessfull.");
+                return;
+            }
+            if(deliveries.order_id != 0 && deliveries.payment_status == "unpaid")
+            {
+                FinancialLiabilities finance = financialLiabilitiesServices.GetByReceipt(deliveries.order_id);
+                Add_FinancialLiabilities payment = new Add_FinancialLiabilities(finance, mainWindow);
+                payment.Show();
+                this.Close();
+                return;
+            }
+            this.Close();
+            mainWindow.ActiveOverlay(false);
+
+        }
+        public void AddScheduledDelivery()
         {
             string name = NameTextBox.Text;
             string price = PriceTextBox.Text;
@@ -83,7 +144,7 @@ namespace SmartPoultry
             if (added)
             {
                 MessageBox.Show("Successful!");
-                
+
                 this.Close();
                 if (mainWindow != null)
                 {
@@ -95,10 +156,10 @@ namespace SmartPoultry
                     MessageBox.Show("Unable to access the MainWindow.");
                 }
             }
-            else {
+            else
+            {
                 MessageBox.Show("Unsuccessful!");
             }
-        
         }
 
 

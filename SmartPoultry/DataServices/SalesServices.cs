@@ -13,6 +13,26 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+        public bool UpdateDelivered(long id)
+        {
+            try
+            {
+                if (id == 0)
+                {
+                    return true;
+                }
+
+                var row = _context.Sales.FirstOrDefault(x => x.receipt_id == id);
+                row.purchase_method = "delivered";
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
 
         public Sales GetSales(long id)
         {

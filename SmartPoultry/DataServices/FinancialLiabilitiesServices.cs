@@ -16,6 +16,11 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+        public FinancialLiabilities GetByReceipt(long id)
+        {
+            var itemrow = _context.FinancialLiabilities.FirstOrDefault(x => x.order_id == id);
+            return itemrow;
+        }
 
         public FinancialLiabilities GetById(int id)
         {

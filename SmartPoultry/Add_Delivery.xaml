@@ -16,25 +16,22 @@
         </Border>
         <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="ADD DELIVERY" HorizontalAlignment="Center" Height="35" VerticalAlignment="Top" Width="220" FontSize="20" Foreground="White" FontWeight="Bold"/>
         <Border CornerRadius="0 0 10 10" BorderBrush="#FF2C6E5D" BorderThickness="1" HorizontalAlignment="Center" Height="32" Margin="0,455,0,0" VerticalAlignment="Top" Width="432" Background="#FF2C6E5D">
-            <Button Content="CONFIRM" HorizontalAlignment="Center" Height="27" VerticalAlignment="Center" Width="412" BorderBrush="#FF2C6E5D" Background="#FF2C6E5D" FontSize="15" Click="ConfirmButton_Click" Foreground="White" FontWeight="Bold"/>
+            <Button x:Name="confirmBtn" Content="CONFIRM" HorizontalAlignment="Center" Height="27" VerticalAlignment="Center" Width="412" BorderBrush="#FF2C6E5D" Background="#FF2C6E5D" FontSize="15" Click="ConfirmButton_Click" Foreground="White" FontWeight="Bold"/>
         </Border>
         <Label Content="Name: " HorizontalAlignment="Left" Height="30" Margin="8,40,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
-        <Label Content="Address:" HorizontalAlignment="Left" Height="26" Margin="8,138,0,0" VerticalAlignment="Top" Width="83" FontSize="14"/>
-        <Label Content="Type:" HorizontalAlignment="Left" Height="30" Margin="10,196,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
-        <RadioButton x:Name="toDeliverRadio" Checked="ToDeliver_IsChecked"  IsChecked="True" GroupName="Type" VerticalContentAlignment="Center" Content="To Deliver" HorizontalAlignment="Left" Height="21" Margin="10,226,0,0" VerticalAlignment="Top" Width="90" FontSize="14"/>
-        <RadioButton x:Name="toReceiveRadio" Checked="ToReceive_IsChecked"  GroupName="Type" VerticalContentAlignment="Center" Content="To Receive" HorizontalAlignment="Left" Height="21" Margin="100,226,0,0" VerticalAlignment="Top" Width="90" FontSize="14"/>
-        <Label Content="Delivery Date: " HorizontalAlignment="Left" Height="30" Margin="10,305,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
-        <Label Content="Payment Mode:" HorizontalAlignment="Left" Height="30" Margin="10,247,0,0" VerticalAlignment="Top" Width="116" FontSize="14"/>
-        <RadioButton x:Name="CashRadio" Checked="CashRadio_IsChecked"  IsChecked="True" GroupName="Mode"  VerticalContentAlignment="Center" Content="Cash" HorizontalAlignment="Left" Height="21" Margin="10,279,0,0" VerticalAlignment="Top" Width="90" FontSize="14"/>
-        <RadioButton x:Name="GcashRadio" Checked="GCashRadio_IsChecked"  GroupName="Mode" VerticalContentAlignment="Center" Content="GCash" HorizontalAlignment="Left" Height="21" Margin="100,279,0,0" VerticalAlignment="Top" Width="90" FontSize="14"/>
-        <Label Content="Contacts:" HorizontalAlignment="Left" Height="30" Margin="10,369,0,0" VerticalAlignment="Top" Width="96" RenderTransformOrigin="0.515,1.038" FontSize="14"/>
-        <Label Content="Price:" HorizontalAlignment="Left" Height="30" Margin="230,196,0,0" VerticalAlignment="Top" Width="96" RenderTransformOrigin="0.515,1.038" FontSize="14"/>
-        <Label Content="Status: " HorizontalAlignment="Left" Height="30" Margin="229,247,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
-        <RadioButton x:Name="PaidRadio" Checked="PaidRadio_IsChecked"  IsChecked="True" GroupName="Status"  VerticalContentAlignment="Center" Content="Paid" HorizontalAlignment="Left" Height="21" Margin="230,279,0,0" VerticalAlignment="Top" Width="90" FontSize="14"/>
-        <RadioButton x:Name="UnpaidRadio" Checked="UnpaidRadio_IsChecked"   GroupName="Status"  VerticalContentAlignment="Center" Content="Unpaid" HorizontalAlignment="Left" Height="21" Margin="322,279,0,0" VerticalAlignment="Top" Width="90" FontSize="14"/>
-        <Label Content="Delivery Man: " HorizontalAlignment="Left" Height="30" Margin="230,305,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
-        <Label Content="Charge: " HorizontalAlignment="Left" Height="29" Margin="230,370,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
-        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="10,404,0,0" VerticalAlignment="Top" Width="204">
+        <Label Content="Address:" HorizontalAlignment="Left" Height="26" Margin="8,100,0,0" VerticalAlignment="Top" Width="83" FontSize="14"/>
+        <Label Content="Type:" HorizontalAlignment="Left" Height="30" Margin="10,166,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
+        <RadioButton x:Name="toDeliverRadio" Checked="ToDeliver_IsChecked"  IsChecked="True" GroupName="Type" VerticalContentAlignment="Center" Content="To Deliver" HorizontalAlignment="Left" Height="21" Margin="10,195,0,0" VerticalAlignment="Top" Width="90" FontSize="14"/>
+        <RadioButton x:Name="toReceiveRadio" Checked="ToReceive_IsChecked"  GroupName="Type" VerticalContentAlignment="Center" Content="To Receive" HorizontalAlignment="Left" Height="21" Margin="100,195,0,0" VerticalAlignment="Top" Width="90" FontSize="14"/>
+        <Label Content="Delivery Date: " HorizontalAlignment="Left" Height="30" Margin="11,221,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
+        <Label Content="Contacts:" HorizontalAlignment="Left" Height="30" Margin="10,284,0,0" VerticalAlignment="Top" Width="96" RenderTransformOrigin="0.515,1.038" FontSize="14"/>
+        <Label Content="Price:" HorizontalAlignment="Left" Height="30" Margin="216,221,0,0" VerticalAlignment="Top" Width="96" RenderTransformOrigin="0.515,1.038" FontSize="14"/>
+        <Label Content="Status: " HorizontalAlignment="Left" Height="30" Margin="216,166,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
+        <RadioButton x:Name="PaidRadio" Checked="PaidRadio_IsChecked"  IsChecked="True" GroupName="Status"  VerticalContentAlignment="Center" Content="Paid" HorizontalAlignment="Left" Height="21" Margin="216,195,0,0" VerticalAlignment="Top" Width="90" FontSize="14"/>
+        <RadioButton x:Name="UnpaidRadio" Checked="UnpaidRadio_IsChecked"   GroupName="Status"  VerticalContentAlignment="Center" Content="Unpaid" HorizontalAlignment="Left" Height="21" Margin="278,195,0,0" VerticalAlignment="Top" Width="90" FontSize="14"/>
+        <Label Content="Delivery Man: " HorizontalAlignment="Left" Height="30" Margin="217,284,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
+        <Label Content="Charge: " HorizontalAlignment="Left" Height="29" Margin="12,349,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
+        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="12,314,0,0" VerticalAlignment="Top" Width="204">
             <TextBox x:Name="ContactsTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="Contact..." VerticalAlignment="Center" Width="192" BorderBrush="Transparent" Foreground="Gray" GotFocus="ContactsTB_GotFocus" LostFocus="ContactsTB_LostFocus" FontSize="14">
                 <TextBox.Style>
                     <Style TargetType="TextBox">
@@ -51,7 +48,7 @@
                 </TextBox.Style>
             </TextBox>
         </Border>
-        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="8,332,0,0" VerticalAlignment="Top" Width="204">
+        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="8,249,0,0" VerticalAlignment="Top" Width="193">
             <DatePicker x:Name="datePicker" 
             VerticalContentAlignment="Center" 
             HorizontalAlignment="Center" 
@@ -101,7 +98,7 @@
 
 
         </Border>
-        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="230,404,0,0" VerticalAlignment="Top" Width="182">
+        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="14,378,0,0" VerticalAlignment="Top" Width="182">
             <TextBox x:Name="ChargeTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="22" TextWrapping="Wrap" Text="Charge fee..." VerticalAlignment="Center" Width="175" BorderBrush="Transparent" Foreground="Gray" GotFocus="ChargeTB_GotFocus" LostFocus="ChargeTB_LostFocus" FontSize="14">
                 <TextBox.Style>
                     <Style TargetType="TextBox">
@@ -135,7 +132,7 @@
                 </TextBox.Style>
             </TextBox>
         </Border>
-        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="10,163,0,0" VerticalAlignment="Top" Width="408">
+        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="8,131,0,0" VerticalAlignment="Top" Width="408">
             <TextBox x:Name="AddressTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="Address..." VerticalAlignment="Center" Width="398" BorderBrush="Transparent" Foreground="Gray" GotFocus="AddressTB_GotFocus" LostFocus="AddressTB_LostFocus" FontSize="14">
                 <TextBox.Style>
                     <Style TargetType="TextBox">
@@ -152,7 +149,7 @@
                 </TextBox.Style>
             </TextBox>
         </Border>
-        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="230,219,0,0" VerticalAlignment="Top" Width="185">
+        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="216,249,0,0" VerticalAlignment="Top" Width="185">
             <TextBox x:Name="PriceTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="22" TextWrapping="Wrap" Text="Price..." VerticalAlignment="Center" Width="175" BorderBrush="Transparent" Foreground="Gray" GotFocus="PriceTB_GotFocus" LostFocus="PriceTB_LostFocus" FontSize="14">
                 <TextBox.Style>
                     <Style TargetType="TextBox">
@@ -169,7 +166,7 @@
                 </TextBox.Style>
             </TextBox>
         </Border>
-        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="230,330,0,0" VerticalAlignment="Top" Width="182">
+        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="216,314,0,0" VerticalAlignment="Top" Width="182">
             <TextBox x:Name="DeliveryManTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="22" TextWrapping="Wrap" Text="Delivery Man..." VerticalAlignment="Center" Width="175" BorderBrush="Transparent" Foreground="Gray" GotFocus="DeliveryManTB_GotFocus" LostFocus="DeliveryManTB_LostFocus" FontSize="14">
                 <TextBox.Style>
                     <Style TargetType="TextBox">
