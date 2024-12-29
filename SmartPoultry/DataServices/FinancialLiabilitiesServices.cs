@@ -16,11 +16,26 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
-        public FinancialLiabilities GetByReceipt(long id)
+        public bool MarkAsPaid(int id)
         {
-            var itemrow = _context.FinancialLiabilities.FirstOrDefault(x => x.order_id == id);
-            return itemrow;
+            try
+            {
+                var itemrow = _context.FinancialLiabilities.FirstOrDefault(p => p.Id == id);
+                itemrow.status = "paid";
+                _context.SaveChanges();
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
+        public FinancialLiabilities GetByReceipt(long orderId)
+        {
+            return _context.FinancialLiabilities.FirstOrDefault(f => f.order_id == orderId);
+        }
+
 
         public FinancialLiabilities GetById(int id)
         {
@@ -36,7 +51,7 @@ namespace SmartPoultry.DataServices
             try 
             {
                 DateTime dateTime = DateTime.Now;
-                int count = _context.FinancialLiabilities.Count(p => p.due_date <= dateTime && p.type == "To Pay");
+                int count = _context.FinancialLiabilities.Count(p => p.due_date <= dateTime && p.type == "To Pay" && p.status == "Unpaid");
                 return count;
             }
             catch (Exception ex) 

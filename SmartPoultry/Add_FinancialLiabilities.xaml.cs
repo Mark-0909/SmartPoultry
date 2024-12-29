@@ -23,6 +23,11 @@ namespace SmartPoultry
     public partial class Add_FinancialLiabilities : Window
     {
         FinancialLiabilitiesServices financialLiabilitiesServices;
+        SalesServices salesServices;
+        DeliveriesServices deliveriesServices;
+        AppDbContext context = new AppDbContext();
+
+        FinancialLiabilities finance;
         public string mode;
         public string type;
         public long orderid;
@@ -31,7 +36,6 @@ namespace SmartPoultry
         public Add_FinancialLiabilities(MainWindow window)
         {
             InitializeComponent();
-            AppDbContext context = new AppDbContext();
             financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
             datePicker.SelectedDate = DateTime.Now.AddDays(14);
             orderid = 0;
@@ -41,7 +45,13 @@ namespace SmartPoultry
         public Add_FinancialLiabilities(FinancialLiabilities itemrow, MainWindow mainwindow)
         {
             InitializeComponent();
+            financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
+            salesServices = new SalesServices(context);
+            deliveriesServices = new DeliveriesServices(context);
+            
             NameTextBox.Text = itemrow.name;
+            finance = itemrow;
+
             PriceTextBox.Text = itemrow.amount.ToString("N2");
             if (itemrow.type == "To Receive")
             {
@@ -53,6 +63,7 @@ namespace SmartPoultry
             }
             datePicker.SelectedDate = itemrow.due_date;
             ContactsTextBox.Text = itemrow.contacts;
+            ConfirmBtn.Content = "PAID";
             mainWindow = mainwindow;
         }
 
@@ -111,13 +122,44 @@ namespace SmartPoultry
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
+            if(ConfirmBtn.Content.ToString() == "PAID")
+            {
+                MarkAsPaid();
+            }
+            else if(ConfirmBtn.Content.ToString() == "CONFIRM")
+            {
+                AddScheduledPayment();
+            }
+        }
+        public void MarkAsPaid()
+        {
+            bool financeupdate = financialLiabilitiesServices.MarkAsPaid(finance.Id);
+            if (finance.order_id != 0)
+            {
+
+                bool salesupdate = salesServices.MarkAsPaid(finance.order_id);
+                bool deliveryupdate = deliveriesServices.MarkAsPaid(finance.order_id);
+                if (!financeupdate || !salesupdate || !deliveryupdate)
+                {
+                    MessageBox.Show("Error");
+                    return;
+                }
+                this.Close();
+                mainWindow.ActiveOverlay(false);
+                mainWindow.ScheduleUpdateReload();
+            }
+        }
+
+        public void AddScheduledPayment()
+        {
             string name = NameTextBox.Text;
             decimal price = Decimal.Parse(PriceTextBox.Text);
             DateTime dueDate = DateTime.Parse(datePicker.Text);
             string contacts = ContactsTextBox.Text;
 
             bool createNewSched = financialLiabilitiesServices.Create(name, orderid, price, type, mode, dueDate, contacts);
-            if (!createNewSched) {
+            if (!createNewSched)
+            {
                 MessageBox.Show("Not Created");
             }
             MessageBox.Show("Success");

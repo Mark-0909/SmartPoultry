@@ -36,6 +36,13 @@ namespace SmartPoultry
                 Panel.SetZIndex(MainWindowOverlay, 0);
             }
         }
+        public void ScheduleUpdateReload()
+        {
+            DynamicAddDeliveries();
+            DynamicAddFinance();
+            dashboardControl.CountDeliveries();
+            dashboardControl.CountPayments();
+        }
 
         public void DynamicAddDeliveries()
         {

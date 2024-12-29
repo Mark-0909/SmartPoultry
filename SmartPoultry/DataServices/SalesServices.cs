@@ -13,6 +13,21 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+        public bool MarkAsPaid(long orderid)
+        {
+            try
+            {
+                var itemrow = _context.Sales.FirstOrDefault(p => p.receipt_id == orderid);
+                itemrow.status = "paid";
+                _context.SaveChanges();
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         public bool UpdateDelivered(long id)
         {
             try

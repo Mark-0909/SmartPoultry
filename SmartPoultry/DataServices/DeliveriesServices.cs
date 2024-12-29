@@ -16,6 +16,21 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+        public bool MarkAsPaid(long orderid)
+        {
+            try
+            {
+                var itemrow = _context.Deliveries.FirstOrDefault(p => p.order_id == orderid);
+                itemrow.payment_status = "paid";
+                _context.SaveChanges();
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         public bool UpdateDelivered(int id)
         {
             try
@@ -42,10 +57,15 @@ namespace SmartPoultry.DataServices
         }
         public int CountDeliveries()
         {
-            try 
-            { 
+            try
+            {
                 DateTime dateTime = DateTime.Now;
-                int count = _context.Deliveries.Count(p => p.delivery_date <= dateTime && p.type == "To Deliver");
+
+                int count = _context.Deliveries.Count(p =>
+                    p.delivery_date <= dateTime &&
+                    p.type == "To Deliver" &&
+                    p.delivery_status == "pending" 
+                );
 
                 return count;
             }
@@ -54,6 +74,8 @@ namespace SmartPoultry.DataServices
                 return 0;
             }
         }
+
+
         public bool Create(long orderid, string name, string type, decimal price, string address, string status, string contact, DateTime deliverydate, string? deliveryman, decimal charge)
         {
             try 

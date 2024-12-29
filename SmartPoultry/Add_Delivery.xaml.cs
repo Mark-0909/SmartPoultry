@@ -36,6 +36,7 @@ namespace SmartPoultry
             toReceiveRadio.IsChecked = true;
             deliveriesServices = new DeliveriesServices(context);
             salesServices = new SalesServices(context);
+            financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
             
             mainWindow = window;
         }
@@ -55,7 +56,7 @@ namespace SmartPoultry
             ContactsTextBox.Text = itemrow.contact_no;
             ChargeTextBox.Text = itemrow.charges.ToString("N2");
 
-            if(itemrow.payment_status == "Unpaid")
+            if(itemrow.payment_status == "unpaid")
             {
                 UnpaidRadio.IsChecked = true;
             }
@@ -100,6 +101,7 @@ namespace SmartPoultry
             if(deliveries.order_id != 0 && deliveries.payment_status == "unpaid")
             {
                 FinancialLiabilities finance = financialLiabilitiesServices.GetByReceipt(deliveries.order_id);
+
                 Add_FinancialLiabilities payment = new Add_FinancialLiabilities(finance, mainWindow);
                 payment.Show();
                 this.Close();
@@ -107,6 +109,7 @@ namespace SmartPoultry
             }
             this.Close();
             mainWindow.ActiveOverlay(false);
+            mainWindow.ScheduleUpdateReload();
 
         }
         public void AddScheduledDelivery()
