@@ -167,7 +167,7 @@
             </TextBox>
         </Border>
         <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="216,314,0,0" VerticalAlignment="Top" Width="182">
-            <TextBox x:Name="DeliveryManTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="22" TextWrapping="Wrap" Text="Delivery Man..." VerticalAlignment="Center" Width="175" BorderBrush="Transparent" Foreground="Gray" GotFocus="DeliveryManTB_GotFocus" LostFocus="DeliveryManTB_LostFocus" FontSize="14">
+            <TextBox x:Name="DeliveryManTextBox" Tag="Delivery Man..." VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="22" TextWrapping="Wrap" Text="Delivery Man..." VerticalAlignment="Center" Width="175" BorderBrush="Transparent" Foreground="Gray" GotFocus="DeliveryManTB_GotFocus" LostFocus="DeliveryManTB_LostFocus" FontSize="14">
                 <TextBox.Style>
                     <Style TargetType="TextBox">
                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -183,6 +183,8 @@
                 </TextBox.Style>
             </TextBox>
         </Border>
+        <Button x:Name="EditBtn" Content="EDIT" HorizontalAlignment="Left" Height="38" Margin="8,412,0,0" VerticalAlignment="Top" Width="85" Click="EditBtn_Click"/>
+        <Button x:Name="CancelBtn" Content="CANCEL" HorizontalAlignment="Left" Height="37" Margin="98,413,0,0" VerticalAlignment="Top" Width="85" Click="CancelBtn_Click"/>
 
     </Grid>
 </Window>

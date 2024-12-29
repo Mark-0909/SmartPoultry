@@ -33,12 +33,17 @@ namespace SmartPoultry
         public long orderid;
 
         public MainWindow mainWindow;
+
+        string Agenda = "Update";
+
         public Add_FinancialLiabilities(MainWindow window)
         {
             InitializeComponent();
             financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
             datePicker.SelectedDate = DateTime.Now.AddDays(14);
             orderid = 0;
+            EditBtn.Visibility = Visibility.Collapsed;
+            CancelBtn.Visibility = Visibility.Collapsed;
 
             mainWindow = window;
         }
@@ -65,6 +70,20 @@ namespace SmartPoultry
             ContactsTextBox.Text = itemrow.contacts;
             ConfirmBtn.Content = "PAID";
             mainWindow = mainwindow;
+
+            EnabledForm(false);
+        }
+
+        public void EnabledForm(bool isEnabled)
+        {
+            NameTextBox.IsEnabled = isEnabled;
+            PriceTextBox.IsEnabled = isEnabled;
+            datePicker.IsEnabled = isEnabled;
+            ContactsTextBox.IsEnabled = isEnabled;
+            ToPayRBtn.IsEnabled = isEnabled;
+            ToReceiveRBtn.IsEnabled = isEnabled;
+            CashRBtn.IsEnabled = isEnabled;
+            GCashRBtn.IsEnabled = isEnabled;
         }
 
         public void DatePicker_Loaded(object sender, RoutedEventArgs e)
@@ -129,7 +148,14 @@ namespace SmartPoultry
             else if(ConfirmBtn.Content.ToString() == "CONFIRM")
             {
                 AddScheduledPayment();
+            }else if (ConfirmBtn.Content.ToString() == "UPDATE")
+            {
+                UpdatePayment();
             }
+        }
+        public void UpdatePayment()
+        {
+            
         }
         public void MarkAsPaid()
         {
@@ -175,6 +201,31 @@ namespace SmartPoultry
             this.Close();
             mainWindow.ActiveOverlay(false);
         }
+
+
+        private void EditBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (Agenda == "Update")
+            {
+                Agenda = "Edit";
+                ConfirmBtn.Content = "UPDATE";
+                EnabledForm(true);
+            }
+            else
+            {
+                Agenda = "Update";
+                ConfirmBtn.Content = "PAID";
+                EnabledForm(false);
+            }
+        }
+
+        private void CancelBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
+
         private void NameTB_GotFocus(object sender, RoutedEventArgs e)
         {
             HandleTextBoxPlaceholder(NameTextBox, "Name...", true);

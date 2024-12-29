@@ -27,6 +27,8 @@ namespace SmartPoultry
         public string mode;
         public string status;
 
+        string Agenda = "Update";
+
         public Add_Delivery(MainWindow window)
         {
             InitializeComponent();
@@ -67,8 +69,22 @@ namespace SmartPoultry
 
             mainWindow = window;
             confirmBtn.Content = "DELIVERED";
-        }
 
+            EnableForm(false);
+        }
+        public void EnableForm(bool isEnabled)
+        {
+            NameTextBox.IsEnabled = isEnabled;
+            PriceTextBox.IsEnabled = isEnabled;
+            toDeliverRadio.IsEnabled = isEnabled;
+            toReceiveRadio.IsEnabled = isEnabled;
+            PaidRadio.IsEnabled = isEnabled;
+            UnpaidRadio.IsEnabled = isEnabled;
+            datePicker.IsEnabled = isEnabled;
+            PriceTextBox.IsEnabled = isEnabled;
+            ContactsTextBox.IsEnabled = isEnabled;
+            ChargeTextBox.IsEnabled = isEnabled;
+        }
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
             if (confirmBtn.Content.ToString() == "CONFIRM")
@@ -81,7 +97,7 @@ namespace SmartPoultry
             } 
             else if (confirmBtn.Content.ToString() == "UPDATE")
             {
-
+                EditDelivery();
             }
             else
             {
@@ -91,6 +107,11 @@ namespace SmartPoultry
 
         public void MarkAsDelivered()
         {
+            if(DeliveryManTextBox.Text == DeliveryManTextBox.Tag.ToString())
+            {
+                MessageBox.Show("Add Delivery Man");
+                return;
+            }
             bool updatedelivery = deliveriesServices.UpdateDelivered(deliveries.Id);
             bool updateSale = salesServices.UpdateDelivered(deliveries.order_id);
             if (!updatedelivery || !updateSale) 
@@ -105,11 +126,36 @@ namespace SmartPoultry
                 Add_FinancialLiabilities payment = new Add_FinancialLiabilities(finance, mainWindow);
                 payment.Show();
                 this.Close();
+                mainWindow.ScheduleUpdateReload();
                 return;
             }
             this.Close();
             mainWindow.ActiveOverlay(false);
             mainWindow.ScheduleUpdateReload();
+
+        }
+        public void EditDelivery()
+        {
+            MessageBox.Show("UPdate Delivery");
+        }
+        private void EditBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (Agenda == "Update")
+            {
+                Agenda = "Edit";
+                confirmBtn.Content = "UPDATE";
+                EnableForm(true);
+            }
+            else
+            {
+                Agenda = "Update";
+                confirmBtn.Content = "DELIVERED";
+                EnableForm(false);
+            }
+        }
+
+        private void CancelBtn_Click(object sender, RoutedEventArgs e)
+        {
 
         }
         public void AddScheduledDelivery()
@@ -333,5 +379,7 @@ namespace SmartPoultry
                 }
             }
         }
+
+        
     }
 }
