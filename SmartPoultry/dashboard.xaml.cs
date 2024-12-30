@@ -111,7 +111,6 @@ namespace SmartPoultry
             }
             if (DeliveriesPanel1 != null && DeliveryCBox.SelectedItem != null)
             {
-                DeliveriesPanel1.Children.Clear();
                 DisplayDeliveries(filter);
                 
             }
@@ -119,20 +118,17 @@ namespace SmartPoultry
 
         public void DynamicOrderDisplay()
         {
-            OrderListPanel.Children.Clear();
             DisplaySales();
             CountOrders();
         }
 
         public void DynamicReloadDeliveries()
         {
-            DeliveriesPanel1.Children.Clear();
             DisplayDeliveries(DeliveryCBox.Text);
             CountDeliveries();
         }
         public void DynamicReloadFinancialLiabilities()
         {
-            FinancilaLiabilitiesPanel.Children.Clear();
             DisplayFinancialLiabilities(FinancialLiabilitiesCbox.Text);
             CountPayments();
         }
@@ -159,6 +155,7 @@ namespace SmartPoultry
 
         public void DisplayDeliveries(string filter)
         {
+            DeliveriesPanel1.Children.Clear();
             int evenodd = 0;
             List<Deliveries> deliveries = deliveryServices.GetList(filter);
 
@@ -179,6 +176,7 @@ namespace SmartPoultry
         }
         public void DisplayFinancialLiabilities(string filter)
         {
+            FinancilaLiabilitiesPanel.Children.Clear();
             int evenodd = 0;
             List<FinancialLiabilities> finance = financialLiabilities.GetList(filter);
             
@@ -198,6 +196,7 @@ namespace SmartPoultry
             }
         }
         public void DisplaySales() {
+            OrderListPanel.Children.Clear();
             int evenodd = 0;
             List<Sales> salesList = salesServices.GetSalesList();
 

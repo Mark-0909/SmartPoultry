@@ -73,7 +73,10 @@ namespace SmartPoultry.DataServices
             var itemrow = _context.Deliveries.FirstOrDefault(x => x.Id == Id);
             return itemrow;
         }
+
+
         public List<Deliveries> GetList(string filter) {
+            _context.ChangeTracker.Clear();
             List<Deliveries> list = _context.Deliveries.Where(p => p.delivery_status != "delivered" && p.type == filter).OrderBy(p => p.delivery_date).ToList();
             return list;
         }

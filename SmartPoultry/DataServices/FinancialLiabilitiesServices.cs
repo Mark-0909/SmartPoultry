@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace SmartPoultry.DataServices
 {
@@ -62,10 +63,18 @@ namespace SmartPoultry.DataServices
             var itemrow = _context.FinancialLiabilities.FirstOrDefault(x => x.Id == id);
             return itemrow;
         }
-        public List<FinancialLiabilities> GetList(string filter) { 
-            List<FinancialLiabilities> financialLiabilities = _context.FinancialLiabilities.Where(p => p.status != "paid" && p.type == filter).OrderBy(p => p.due_date).ToList();
+        public List<FinancialLiabilities> GetList(string filter)
+        {
+            _context.ChangeTracker.Clear(); 
+            List<FinancialLiabilities> financialLiabilities = _context.FinancialLiabilities
+                .Where(p => p.status != "paid" && p.type == filter)
+                .OrderBy(p => p.due_date)
+                .ToList();
+
             return financialLiabilities;
+           
         }
+
         public int CountPayments()
         {
             try 
