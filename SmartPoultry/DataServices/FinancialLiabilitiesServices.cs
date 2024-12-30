@@ -16,6 +16,26 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+        public bool EditPayment(int id, string name, decimal price, string type, string paymentmode, DateTime date, string contacts)
+        {
+            try
+            {
+                var payment = _context.FinancialLiabilities.FirstOrDefault(p => p.Id == id);
+                payment.name = name;
+                payment.amount = price;
+                payment.type = type;
+                payment.payment_mode = paymentmode;
+                payment.due_date = date;
+                payment.contacts = contacts;
+
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         public bool MarkAsPaid(int id)
         {
             try

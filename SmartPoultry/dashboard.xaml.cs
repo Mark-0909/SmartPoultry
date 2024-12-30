@@ -163,20 +163,15 @@ namespace SmartPoultry
             List<Deliveries> deliveries = deliveryServices.GetList(filter);
 
             foreach (Deliveries deliver in deliveries) {
-                int id = deliver.Id;
-                string name = deliver.name;
-                string date = deliver.delivery_date.ToString("MM-dd-yyyy");
-                string status = deliver.delivery_status;
-
                 Add_DeliveriesControl control;
                 if (evenodd == 0)
                 {
-                    control = new Add_DeliveriesControl(id, name, date, status, 0);
+                    control = new Add_DeliveriesControl(deliver, 0);
                     evenodd = 1;
                 }
                 else
                 {
-                    control = new Add_DeliveriesControl(id, name, date, status, 1);
+                    control = new Add_DeliveriesControl(deliver, 1);
                     evenodd = 0;
                 }
                 DeliveriesPanel1.Children.Add(control);
@@ -188,18 +183,14 @@ namespace SmartPoultry
             List<FinancialLiabilities> finance = financialLiabilities.GetList(filter);
             
             foreach (FinancialLiabilities list in finance) { 
-                int id = list.Id;
-                string name = list.name;
-                string duedate = list.due_date.ToString("MM-dd-yyyy");
-                string amount = list.amount.ToString("N2");
                 Add_FinancialLiabilitiesControl control;
                 if (evenodd == 0)
                 {
-                    control = new Add_FinancialLiabilitiesControl(id, name, duedate, amount, 0);
+                    control = new Add_FinancialLiabilitiesControl(list, 0);
                     evenodd = 1;
                 }
                 else {
-                    control = new Add_FinancialLiabilitiesControl(id, name, duedate, amount, 1);
+                    control = new Add_FinancialLiabilitiesControl(list, 1);
                     evenodd = 0;
                 }
                 

@@ -26,17 +26,17 @@ namespace SmartPoultry
         public AppDbContext context = new AppDbContext();
         public DeliveriesServices deliveriesServices;
         public int ID;
-        public Add_DeliveriesControl(int id, string name, string date, string status, int evenodd)
+        public Add_DeliveriesControl(Deliveries deliver, int evenodd)
         {
             InitializeComponent();
-            NameLabel.Content = name;
-            Datelabel.Content = date;
-            StatusLabel.Content = status;
-            ID = id;
+            NameLabel.Content = deliver.name;
+            Datelabel.Content = deliver.delivery_date;
+            StatusLabel.Content = deliver.payment_status;
+            ID = deliver.Id;
             deliveriesServices = new DeliveriesServices(context);
 
             DateTime dateValue;
-            bool isValidDate = DateTime.TryParse(date, out dateValue);
+            bool isValidDate = DateTime.TryParse(deliver.delivery_date.ToString(), out dateValue);
 
             if (isValidDate)
             {

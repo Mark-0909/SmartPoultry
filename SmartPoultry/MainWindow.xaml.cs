@@ -38,8 +38,8 @@ namespace SmartPoultry
         }
         public void ScheduleUpdateReload()
         {
-            DynamicAddDeliveries();
-            DynamicAddFinance();
+            dashboardControl.DynamicReloadDeliveries();
+            dashboardControl.DynamicReloadFinancialLiabilities();
             dashboardControl.CountDeliveries();
             dashboardControl.CountPayments();
         }

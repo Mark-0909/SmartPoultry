@@ -155,7 +155,31 @@ namespace SmartPoultry
         }
         public void UpdatePayment()
         {
-            
+            string name = NameTextBox.Text;
+            decimal price = decimal.Parse(PriceTextBox.Text);
+            string type = "To Receive";
+            if(ToPayRBtn.IsChecked == true)
+            {
+                type = "To Pay";
+            }
+            string paymode = "Cash";
+            if(GCashRBtn.IsChecked == true)
+            {
+                paymode = "GCash";
+            }
+            DateTime date = datePicker.SelectedDate.Value;
+            string contacts = ContactsTextBox.Text;
+
+            bool isUpdated = financialLiabilitiesServices.EditPayment(finance.Id, name, price, type, paymode, date, contacts);
+            if (!isUpdated) 
+            {
+                MessageBox.Show("Update Unsuccessfull");
+            }
+            MessageBox.Show("Update Successfull");
+            Agenda = "Update";
+            ConfirmBtn.Content = "PAID";
+            EnabledForm(false);
+            mainWindow.ScheduleUpdateReload();
         }
         public void MarkAsPaid()
         {

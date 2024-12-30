@@ -27,17 +27,17 @@ namespace SmartPoultry
         public int ID;
         public AppDbContext context = new AppDbContext();
         FinancialLiabilitiesServices financialLiabilitiesServices;
-        public Add_FinancialLiabilitiesControl(int id, string name, string duedate, string amount, int evenodd)
+        public Add_FinancialLiabilitiesControl(FinancialLiabilities finace, int evenodd)
         {
             InitializeComponent();
-            Namelabel.Content = name;
-            DueDateLabel.Content = duedate;
-            AmountLabel.Content = amount;
-            ID = id;
+            Namelabel.Content = finace.name;
+            DueDateLabel.Content = finace.due_date;
+            AmountLabel.Content = finace.amount;
+            ID = finace.Id;
             financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
 
             DateTime dueDateValue;
-            bool isValidDate = DateTime.TryParse(duedate, out dueDateValue);
+            bool isValidDate = DateTime.TryParse(finace.due_date.ToString(), out dueDateValue);
 
             if (isValidDate)
             {

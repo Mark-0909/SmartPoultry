@@ -75,6 +75,8 @@ namespace SmartPoultry
                 DeliveryManTextBox.Text = itemrow.name;
             }
 
+            PaidRadio.IsEnabled = false;
+            UnpaidRadio.IsEnabled = false;
             EnableForm(false);
         }
         public void EnableForm(bool isEnabled)
@@ -84,8 +86,6 @@ namespace SmartPoultry
             PriceTextBox.IsEnabled = isEnabled;
             toDeliverRadio.IsEnabled = isEnabled;
             toReceiveRadio.IsEnabled = isEnabled;
-            PaidRadio.IsEnabled = isEnabled;
-            UnpaidRadio.IsEnabled = isEnabled;
             datePicker.IsEnabled = isEnabled;
             PriceTextBox.IsEnabled = isEnabled;
             ContactsTextBox.IsEnabled = isEnabled;
