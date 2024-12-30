@@ -23,7 +23,7 @@ namespace SmartPoultry
     public partial class Inventory_AddingForm : Window
     {
         //variables
-        MainWindow mainWindow = Application.Current.MainWindow as MainWindow;
+        MainWindow mainWindow;
 
 
         public static string baseUnitValue = "";
@@ -40,12 +40,17 @@ namespace SmartPoultry
         public List<String> pricelist = new List<String>();
         public List<String> conversionlist = new List<String>();
 
+        public List<int> variationIDlist = new List<int>();
+
         //database
         public AppDbContext context;
         private readonly ProductServices productService;
         private readonly ProductVariationServices productVariationService;
         readonly SupplierServices supplierServices;
 
+        string Agenda = "Add";
+
+        Products prod;
         public Inventory_AddingForm()
         {
             InitializeComponent();
@@ -71,9 +76,12 @@ namespace SmartPoultry
             windowName.Content = "ADD PRODUCT";
         }
 
-        public Inventory_AddingForm(Products product)
+        public Inventory_AddingForm(Products product, MainWindow window)
         {
             InitializeComponent();
+            mainWindow = window;
+
+            prod = product;
             windowName.Content = "PRODUCT DETAILS";
             isEditing = true;
             AddingFormOverlay.Visibility = Visibility.Hidden;
@@ -118,6 +126,8 @@ namespace SmartPoultry
                 unitlist.Add(baseUnit.variant_type.ToString());
                 pricelist.Add(baseUnit.price.ToString());
                 conversionlist.Add(baseUnit.conversion_rate.ToString());
+                variationIDlist.Add(baseUnit.id);
+                
             }
 
             for (int i = 0; i < productvarlist.Count; i++)
@@ -127,14 +137,60 @@ namespace SmartPoultry
                     unitlist.Add(productvarlist[i].variant_type.ToString());
                     pricelist.Add(productvarlist[i].price.ToString());
                     conversionlist.Add(productvarlist[i].conversion_rate.ToString());
+                    variationIDlist.Add(productvarlist[i].id);
                 }
             }
 
             DisplayVariation();
             AdjustAnimalButtons();
             AdjustTypeButtons();
+            DisableForm(false);
         }
 
+        private void EditBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if(Agenda == "Add")
+            {
+                Agenda = "Edit";
+                DisableForm(true);
+                SubmitBtn.Content = "Update";
+            }
+            else
+            {
+                Agenda = "Add";
+                DisableForm(false);
+                SubmitBtn.Content = "Submit";
+            }
+        }
+
+        private void PhaseOutBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+        public void DisableForm(bool isEnabled)
+        {
+            SelectImageBtn.IsEnabled = isEnabled;
+            ProductNameTextBox.IsEnabled = isEnabled;
+            SupplierCBox.IsEnabled = isEnabled;
+            animalChickenBorder.IsEnabled = isEnabled;
+            animalDogBorder.IsEnabled = isEnabled;
+            animalCatBorder.IsEnabled = isEnabled;
+            animalPigBorder.IsEnabled = isEnabled;
+            animalGuineaBorder.IsEnabled = isEnabled;
+            animalDuckBorder.IsEnabled = isEnabled;
+            animalCowBorder.IsEnabled = isEnabled;
+            animalHorseBorder.IsEnabled = isEnabled;
+            animalRabbitBorder.IsEnabled = isEnabled;
+            animalBirdBorder.IsEnabled = isEnabled;
+            animalFishBorder.IsEnabled = isEnabled;
+
+            typeFeedsBorder.IsEnabled = isEnabled;
+            typeAccessoriesBorder.IsEnabled = isEnabled;
+            typeMedicineBorder.IsEnabled = isEnabled;
+            typeVaccinesBorder.IsEnabled = isEnabled;
+            typeVitaminsBorder.IsEnabled = isEnabled;
+            unitsWPanel.IsEnabled = isEnabled;
+        }
         public void AdjustAnimalButtons()
         {
             
@@ -377,7 +433,52 @@ namespace SmartPoultry
         //database - save product
         private void Submit_Click(object sender, RoutedEventArgs e)
         {
-            if (imagePath == SelectedImage.Source || ProductNameTextBox.Text == "Enter text here..." || unitsWPanel.Children.Count == 1 || AnimalList.Count == 0 || ProductTypeList.Count == 0 || SupplierCBox.Text == "-- Select a Supplier --") {
+            if (SubmitBtn.Content.ToString() == "Submit")
+            {
+                SubmitAddProduct();
+            }else if(SubmitBtn.Content.ToString() == "Update")
+            {
+                EditProduct();
+            }
+            
+        }
+        public void EditProduct()
+        {
+            string name = ProductNameTextBox.Text;
+            int supplierid = supplierServices.FindSupplierByName(SupplierCBox.Text);
+
+            string animallist = string.Join(",", AnimalList);
+            string typelist = string.Join(",", ProductTypeList);
+
+            decimal stocks = decimal.Parse(stocklisting.Content.ToString());
+
+            for (int i = 0; i < variationIDlist.Count; i++) 
+            {
+                decimal price = decimal.Parse((pricelist[i]).ToString());
+                int conversion = int.Parse(conversionlist[i].ToString());
+                bool isUpdated = productVariationService.EditUnitVar(variationIDlist[i], unitlist[i], price, conversion);
+
+                if (!isUpdated) 
+                {
+                    MessageBox.Show("Unsuccessful Edit");
+                }
+            }
+
+            bool IsProductUpdated = productService.EditProduct(prod.product_id, name, animallist, typelist, supplierid, stocks);
+
+            if (!IsProductUpdated) 
+            {
+                MessageBox.Show("Unsuccessful.");
+                return;
+            }
+            MessageBox.Show("Successful.");
+            DisableForm(false);
+            mainWindow.DynamicReload();
+        }
+        public void SubmitAddProduct()
+        {
+            if (imagePath == SelectedImage.Source || ProductNameTextBox.Text == "Enter text here..." || unitsWPanel.Children.Count == 1 || AnimalList.Count == 0 || ProductTypeList.Count == 0 || SupplierCBox.Text == "-- Select a Supplier --")
+            {
                 MessageBox.Show("Incomplete Details.");
                 return;
             }
@@ -433,7 +534,7 @@ namespace SmartPoultry
 
                             productService.UpdateImagePath(id, destinationPath);
 
-                            
+
                         }
                         catch (Exception ex)
                         {
@@ -445,13 +546,11 @@ namespace SmartPoultry
                     mainWindow.ActiveOverlay(false);
                 }
             }
-            else 
+            else
             {
                 MessageBox.Show("Submit for edit.");
             }
-            
         }
-
 
         public void AddVariations(int id) 
         {
@@ -779,9 +878,8 @@ namespace SmartPoultry
             this.Background = Brushes.Transparent;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
+        
 
-        }
+        
     }
 }

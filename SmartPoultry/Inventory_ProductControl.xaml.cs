@@ -37,6 +37,7 @@ namespace SmartPoultry
             AppDbContext context = new AppDbContext();
             productservices = new ProductServices(context);
             id = productid;
+
         }
 
         private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -54,7 +55,7 @@ namespace SmartPoultry
             }
             Products product = productservices.FetchProduct(id);
 
-            viewproduct = new Inventory_AddingForm(product);
+            viewproduct = new Inventory_AddingForm(product, mainWindow);
 
             viewproduct.ShowDialog();
 

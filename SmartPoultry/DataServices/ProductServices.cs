@@ -17,7 +17,28 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+        public bool EditProduct(int id, string name, string animaltype, string producttype, int supplierid, decimal stocks)
+        {
+            try
+            {
+                var product = _context.Products.FirstOrDefault(x => x.product_id == id);
 
+                product.product_name = name;
+                product.product_type = producttype;
+                product.animal_type = animaltype;
+                product.supplier_id = supplierid;
+                product.stocks = stocks;
+
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex) 
+            {
+                return false;
+            }
+            
+
+        }
         public List<Products> GetLowStockProducts(string animal, string type, string searchterm)
         {
             var lowStockProducts = _context.Products
@@ -185,6 +206,7 @@ namespace SmartPoultry.DataServices
         {
             try
             {
+                _context.ChangeTracker.Clear();
                 return _context.Products.ToList();
             }
             catch (Exception ex)

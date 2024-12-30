@@ -26,6 +26,26 @@ namespace SmartPoultry.DataServices
             return variation.variant_type.ToString();
         }
         
+        public bool EditUnitVar(int id, string name, decimal price, int conversion)
+        {
+            try
+            {
+                var variation = _context.ProductVariations.FirstOrDefault(p => p.id == id);
+
+                variation.variant_type = name;
+                variation.price = price;
+                variation.conversion_rate = conversion;
+                
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch (Exception ex) 
+            {
+                return false;
+            }
+            
+        }
 
         public ProductVariations GetProductVariationById(int id)
         {
