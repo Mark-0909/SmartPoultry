@@ -16,6 +16,28 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+        public bool UpdateDelivery(int id, string name, string address, string type, DateTime date, decimal price, string contacts, decimal charge)
+        {
+            try
+            {
+                var delivery = _context.Deliveries.FirstOrDefault(x => x.Id == id);
+                delivery.name = name;
+                delivery.address = address;
+                delivery.type = type;
+                delivery.delivery_date = date;
+                delivery.price = price;
+                delivery.contact_no = contacts;
+                delivery.charges = charge;
+
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch (Exception ex) 
+            {
+                return false;
+            }   
+        }
         public bool MarkAsPaid(long orderid)
         {
             try

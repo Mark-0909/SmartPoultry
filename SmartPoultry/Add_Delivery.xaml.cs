@@ -70,11 +70,17 @@ namespace SmartPoultry
             mainWindow = window;
             confirmBtn.Content = "DELIVERED";
 
+            if(itemrow.type == "To Receive")
+            {
+                DeliveryManTextBox.Text = itemrow.name;
+            }
+
             EnableForm(false);
         }
         public void EnableForm(bool isEnabled)
         {
             NameTextBox.IsEnabled = isEnabled;
+            AddressTextBox.IsEnabled = isEnabled;
             PriceTextBox.IsEnabled = isEnabled;
             toDeliverRadio.IsEnabled = isEnabled;
             toReceiveRadio.IsEnabled = isEnabled;
@@ -84,6 +90,7 @@ namespace SmartPoultry
             PriceTextBox.IsEnabled = isEnabled;
             ContactsTextBox.IsEnabled = isEnabled;
             ChargeTextBox.IsEnabled = isEnabled;
+            DeliveryManTextBox.IsEnabled = !isEnabled;
         }
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
@@ -136,7 +143,30 @@ namespace SmartPoultry
         }
         public void EditDelivery()
         {
-            MessageBox.Show("UPdate Delivery");
+            string name = NameTextBox.Text;
+            string address = AddressTextBox.Text;
+            string type = "To Deliver";
+            if (toReceiveRadio.IsChecked == true)
+            {
+                type = "To Receive";
+            }
+            DateTime date = datePicker.SelectedDate.Value;
+            decimal price = decimal.Parse(PriceTextBox.Text);
+            string contacts = ContactsTextBox.Text;
+            decimal charge = decimal.Parse(ChargeTextBox.Text);
+
+            bool UpdateDelivery = deliveriesServices.UpdateDelivery(deliveries.Id, name, address, type, date, price, contacts, charge);
+
+            if (!UpdateDelivery) 
+            {
+                MessageBox.Show("Update Unsuccessfull");
+                return;
+            }
+            MessageBox.Show("Update Successfull");
+            mainWindow.ScheduleUpdateReload();
+            EnableForm(false);
+            Agenda = "Update";
+            confirmBtn.Content = "DELIVERED";
         }
         private void EditBtn_Click(object sender, RoutedEventArgs e)
         {
