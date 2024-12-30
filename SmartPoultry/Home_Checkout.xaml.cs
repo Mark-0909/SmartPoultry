@@ -27,6 +27,7 @@ namespace SmartPoultry
         public string status;
         public string purchasemethod;
         readonly home homeController;
+        decimal priceamount;
         
         public Home_Checkout(string price, home homeControl, MainWindow window, List<string> provvarid, List<string> quantity, List<string> varspec, List<string> pricelist, List<string> Prodname)
         {
@@ -45,6 +46,8 @@ namespace SmartPoultry
             datePickerPayment.SelectedDate = DateTime.Now.AddDays(14);
             datePickerDelivery.SelectedDate = DateTime.Now;
             DisableTextBoxes();
+
+            priceamount = decimal.Parse(price);
         }
         public void DisableTextBoxes()
         {
@@ -195,20 +198,21 @@ namespace SmartPoultry
 
         private void Confirm_Click(object sender, RoutedEventArgs e)
         {
+            decimal price = decimal.Parse(totalPricelabel.Content.ToString());
             if (Validation())
             {
                 if (purchasemethod == "to deliver" && status == "unpaid")
                 {
-                    homeController.ConfirmOrder(paymentmethod, status, purchasemethod, datePickerDelivery.SelectedDate.Value, datePickerPayment.SelectedDate.Value, NameTB.Text, ContactsTB.Text, ChargeTB.Text, AddressTB.Text);
+                    homeController.ConfirmOrder(paymentmethod, status, purchasemethod, datePickerDelivery.SelectedDate.Value, datePickerPayment.SelectedDate.Value, NameTB.Text, ContactsTB.Text, ChargeTB.Text, AddressTB.Text, price);
                 } else if (purchasemethod == "to deliver")
                 {
-                    homeController.ConfirmOrder(paymentmethod, status, purchasemethod, datePickerDelivery.SelectedDate.Value, null, NameTB.Text, ContactsTB.Text, ChargeTB.Text, AddressTB.Text);
+                    homeController.ConfirmOrder(paymentmethod, status, purchasemethod, datePickerDelivery.SelectedDate.Value, null, NameTB.Text, ContactsTB.Text, ChargeTB.Text, AddressTB.Text, price);
                 } else if (status == "unpaid")
                 {
-                    homeController.ConfirmOrder(paymentmethod, status, purchasemethod, null, datePickerPayment.SelectedDate.Value, NameTB.Text, ContactsTB.Text, null, null);
+                    homeController.ConfirmOrder(paymentmethod, status, purchasemethod, null, datePickerPayment.SelectedDate.Value, NameTB.Text, ContactsTB.Text, null, null, price);
                 } else
                 {
-                    homeController.ConfirmOrder(paymentmethod, status, purchasemethod, null, null, null, null, null, null);
+                    homeController.ConfirmOrder(paymentmethod, status, purchasemethod, null, null, null, null, null, null, price);
                 }
                 homeController.EnableDropBtn();
 
@@ -254,6 +258,63 @@ namespace SmartPoultry
             purchasemethod = "to deliver";
             DisableTextBoxes();
         }
+
+        private void ChargeFee_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (ChargeTB.Text == "Charge Fee...")
+            {
+                return;
+            }
+
+            HandleNumericInput(ChargeTB, true);
+
+            if (string.IsNullOrWhiteSpace(ChargeTB.Text) || !decimal.TryParse(ChargeTB.Text, out decimal charge))
+            {
+                totalPricelabel.Content = priceamount.ToString("N2");
+                return;
+            }
+
+            if (ChargeTB.Tag != null && ChargeTB.Text == ChargeTB.Tag.ToString())
+            {
+                totalPricelabel.Content = priceamount.ToString("N2");
+                return;
+            }
+
+            decimal total = priceamount + charge;
+            totalPricelabel.Content = total.ToString("N2");
+        }
+
+
+
+        private void HandleNumericInput(TextBox textBox, bool allowDecimal)
+        {
+            if (textBox == null || string.IsNullOrEmpty(textBox.Text)) return;
+
+            if (textBox.Text == "Charge Fee...") return;
+
+            string input = textBox.Text;
+
+            string filteredInput = allowDecimal
+                ? new string(input.Where(c => char.IsDigit(c) || c == '.').ToArray())
+                : new string(input.Where(char.IsDigit).ToArray());
+
+            if (allowDecimal)
+            {
+                int firstDecimalIndex = filteredInput.IndexOf('.');
+                if (firstDecimalIndex != -1)
+                {
+                    filteredInput = filteredInput.Substring(0, firstDecimalIndex + 1) +
+                                    filteredInput.Substring(firstDecimalIndex + 1).Replace(".", "");
+                }
+            }
+
+            if (input != filteredInput)
+            {
+                textBox.Text = filteredInput;
+                textBox.CaretIndex = filteredInput.Length;
+            }
+        }
+
         private void TB_GotFocus(object sender, RoutedEventArgs e)
         {
             if (sender is TextBox textBox)

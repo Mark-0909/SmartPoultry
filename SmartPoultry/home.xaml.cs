@@ -117,14 +117,14 @@ namespace SmartPoultry
         }
 
 
-        public void ConfirmOrder(string paymentMode, string status, string purchasemethod, DateTime? deliverydate, DateTime? paymentDate, string name, string contacts, string charge, string address)
+        public void ConfirmOrder(string paymentMode, string status, string purchasemethod, DateTime? deliverydate, DateTime? paymentDate, string name, string contacts, string charge, string address, decimal price)
         {
             string StringProductList = string.Join(",", Productvaridlist);
             string StringPriceList = string.Join(",", PriceList);
             string StringQuantityList = string.Join(",", QuantityList);
             string StringVarSpecification = string.Join(",", VarSpecification);
 
-            decimal totalPrice = decimal.Parse(totalPiceLabel.Content.ToString());
+            
 
             long addingSales = salesServices.Create(
                 StringProductList,
@@ -133,7 +133,7 @@ namespace SmartPoultry
                 StringVarSpecification,
                 paymentMode,
                 status,
-                totalPrice,
+                price,
                 purchasemethod
             );
 
@@ -160,16 +160,16 @@ namespace SmartPoultry
 
                 if (purchasemethod == "to deliver" && status == "unpaid")
                 {
-                    financialLiabilitiesServices.Create(name, addingSales, totalPrice, "To Receive", paymentMode, actualPaymentDate, contacts);
-                    deliveriesServices.Create(addingSales, name, "To Deliver", totalPrice, address, status, contacts, actualDeliveryDate, "", chargefee);
+                    financialLiabilitiesServices.Create(name, addingSales, price, "To Receive", paymentMode, actualPaymentDate, contacts);
+                    deliveriesServices.Create(addingSales, name, "To Deliver", price, address, status, contacts, actualDeliveryDate, "", chargefee);
                 }
                 else if (purchasemethod == "to deliver")
                 {
-                    deliveriesServices.Create(addingSales, name, "To Deliver", totalPrice, address, status, contacts, actualDeliveryDate, "", chargefee);
+                    deliveriesServices.Create(addingSales, name, "To Deliver", price, address, status, contacts, actualDeliveryDate, "", chargefee);
                 }
                 else if (status == "unpaid")
                 {
-                    financialLiabilitiesServices.Create(name, addingSales, totalPrice, "To Receive", paymentMode, actualPaymentDate, contacts);
+                    financialLiabilitiesServices.Create(name, addingSales, price, "To Receive", paymentMode, actualPaymentDate, contacts);
                 }
 
                 MessageBox.Show("Order confirmed successfully!");
@@ -250,6 +250,9 @@ namespace SmartPoultry
                 ProductServices productServices = new ProductServices(context);
                 ProductVariationServices productVariationServices = new ProductVariationServices(context);
                 UserServices userServices = new UserServices(context);
+                DeliveriesServices deliveriesServices = new DeliveriesServices(context);
+
+                
 
                 int employeeId = UserContext.CurrentUserId;
                 string employeename = userServices.GetUser(employeeId).Username;
@@ -269,7 +272,7 @@ namespace SmartPoultry
                 List<string> originalprice = new List<string>();
                 List<string> totalPrices = new List<string>();
 
-                float heightcalculation = 60 + (3 * itemid.Count);
+                float heightcalculation = 75 + (3 * itemid.Count);
 
                 using (MemoryStream memoryStream = new MemoryStream())
                 {
@@ -360,6 +363,21 @@ namespace SmartPoultry
 
                     doc.Add(table);
 
+                    if (sales.purchase_method == "to deliver" || sales.purchase_method == "delivered")
+                    {
+                        decimal charge = deliveriesServices.GetByReceiptId(sales.receipt_id).charges;
+                        PdfPTable chargeTable = new PdfPTable(2);
+                        chargeTable.WidthPercentage = 100;
+                        chargeTable.SetWidths(new float[] { 3f, 3f });
+
+                        chargeTable.AddCell(new PdfPCell(new Phrase("Delivery Charge", font)) { Border = 0, HorizontalAlignment = Element.ALIGN_LEFT });
+                        chargeTable.AddCell(new PdfPCell(new Phrase($"{charge.ToString("N2")}", font)) { Border = 0, HorizontalAlignment = Element.ALIGN_RIGHT });
+                        doc.Add(new iTextSharp.text.Paragraph(" ", font));
+                        doc.Add(chargeTable);
+                    }
+
+                        
+
                     PdfPTable totalTable = new PdfPTable(2);
                     totalTable.WidthPercentage = 100;
                     totalTable.SetWidths(new float[] { 3f, 3f });
@@ -373,7 +391,12 @@ namespace SmartPoultry
                     doc.Add(new iTextSharp.text.Paragraph($"Date: {DateTime.Now:yyyy-MM-dd}", font));
                     doc.Add(new iTextSharp.text.Paragraph($"Purchase Method: {sales.purchase_method.ToUpper()}", font));
 
-                    doc.Add(new iTextSharp.text.Paragraph("-----------------------------------------------------------", font));
+                    if (sales.purchase_method == "to deliver" || sales.purchase_method == "delivered")
+                    {
+                        doc.Add(new iTextSharp.text.Paragraph($"Address: {deliveriesServices.GetByReceiptId(sales.receipt_id).address}", font));
+                    }
+
+                        doc.Add(new iTextSharp.text.Paragraph("-----------------------------------------------------------", font));
 
                     var thanksParagraph2 = new iTextSharp.text.Paragraph($"Thank you! Please come again!", font2);
                     thanksParagraph2.Alignment = Element.ALIGN_CENTER;

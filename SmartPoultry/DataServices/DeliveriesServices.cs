@@ -16,6 +16,12 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+
+        public Deliveries GetByReceiptId(long Id)
+        {
+            var itemrow = _context.Deliveries.FirstOrDefault(x => x.order_id == Id);
+            return itemrow;
+        }
         public bool UpdateDelivery(int id, string name, string address, string type, DateTime date, decimal price, string contacts, decimal charge)
         {
             try
