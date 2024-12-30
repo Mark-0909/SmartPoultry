@@ -55,7 +55,7 @@ namespace SmartPoultry
             }
             Products product = productservices.FetchProduct(id);
 
-            viewproduct = new Inventory_AddingForm(product, mainWindow);
+            viewproduct = new Inventory_AddingForm(product, mainWindow, this);
 
             viewproduct.ShowDialog();
 
