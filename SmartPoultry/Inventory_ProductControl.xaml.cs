@@ -41,6 +41,17 @@ namespace SmartPoultry
 
         private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
+            if (mainWindow != null)
+            {
+
+                mainWindow.ActiveOverlay(true);
+
+            }
+            else
+            {
+                MessageBox.Show("Unable to access the MainWindow.");
+            }
             Products product = productservices.FetchProduct(id);
 
             viewproduct = new Inventory_AddingForm(product);

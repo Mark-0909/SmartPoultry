@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartPoultry"
         mc:Ignorable="d"
-        Title="Inventory_AddingForm" Height="693" Width="600" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Background="Transparent" ShowInTaskbar="False">
+        Title="Inventory_AddingForm" Height="693" Width="600" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None" Background="Transparent" ShowInTaskbar="False" AllowsTransparency="True">
     <Window.Resources>
         <Style x:Key="NoHoverButton" TargetType="Button">
             <Setter Property="Background" Value="White"/>
@@ -145,7 +145,7 @@
         <Label x:Name="windowName" HorizontalContentAlignment="Center"  Content="ADD PRODUCT" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25" Width="262" Height="41" Foreground="White" FontStretch="SemiExpanded" Margin="0,-4,0,0"/>
         <Border CornerRadius="10" BorderThickness="1" Margin="23,59,397,448" Background="White" BorderBrush="#FFD8D8D8">
             <Button  Style="{StaticResource NoHoverButton}" x:Name="SelectImageBtn" Click="SelectImage_Click" Margin="9,9,9,9" Background="White" BorderBrush="#FFE4E1E1">
-                <Image x:Name="SelectedImage" Height="72" Width="70" Source="/Images/clipicon.png"/>
+                <Image x:Name="SelectedImage" Height="72" Width="70" Stretch="Fill" Source="/Images/clipicon.png"/>
             </Button>
         </Border>
 

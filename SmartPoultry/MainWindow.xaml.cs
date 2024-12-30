@@ -20,6 +20,7 @@ namespace SmartPoultry
         {
             InitializeComponent();
             MainWindowOverlay.Visibility = Visibility.Hidden;
+
         }
 
         public void ActiveOverlay(bool isActive)

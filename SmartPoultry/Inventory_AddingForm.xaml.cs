@@ -45,7 +45,7 @@ namespace SmartPoultry
         private readonly ProductServices productService;
         private readonly ProductVariationServices productVariationService;
         readonly SupplierServices supplierServices;
-        readonly UserServices userServices;
+
         public Inventory_AddingForm()
         {
             InitializeComponent();
@@ -64,7 +64,6 @@ namespace SmartPoultry
             productService = new ProductServices(context);
             productVariationService = new ProductVariationServices(context);
             supplierServices = new SupplierServices(context);
-            userServices = new UserServices(context);
 
             
             PopulateSupplierList("add");
@@ -107,6 +106,94 @@ namespace SmartPoultry
             {
                 MessageBox.Show("Supplier not found for the given ID.");
             }
+
+            AnimalList = product.animal_type.Split(',').Select(animal => animal.Trim()).ToList();
+            ProductTypeList = product.product_type.Split(',').Select(type => type.Trim()).ToList();
+
+            List<ProductVariations> productvarlist = productVariationService.GetAllProductVariations(product.product_id);
+
+            var baseUnit = productvarlist.FirstOrDefault(pv => pv.isBaseUnit == true);
+            if (baseUnit != null)
+            {
+                unitlist.Add(baseUnit.variant_type.ToString());
+                pricelist.Add(baseUnit.price.ToString());
+                conversionlist.Add(baseUnit.conversion_rate.ToString());
+            }
+
+            for (int i = 0; i < productvarlist.Count; i++)
+            {
+                if (productvarlist[i] != baseUnit)
+                {
+                    unitlist.Add(productvarlist[i].variant_type.ToString());
+                    pricelist.Add(productvarlist[i].price.ToString());
+                    conversionlist.Add(productvarlist[i].conversion_rate.ToString());
+                }
+            }
+
+            DisplayVariation();
+            AdjustAnimalButtons();
+            AdjustTypeButtons();
+        }
+
+        public void AdjustAnimalButtons()
+        {
+            
+            for (int i = 0; i < AnimalList.Count; i++)
+            {
+                if (AnimalList[i] == "guinea pig") 
+                {
+                    ActiveButton("animalGuineaBtn", "animalGuineaBorder", "animal", AnimalList[i]);
+                }
+                else
+                {
+                    string animalButton = $"animal{char.ToUpper(AnimalList[i][0])}{AnimalList[i].Substring(1)}Btn";
+                    string animalBorder = $"animal{char.ToUpper(AnimalList[i][0])}{AnimalList[i].Substring(1)}Border";
+
+                    ActiveButton(animalButton, animalBorder, "animal", AnimalList[i]);
+                }
+            }
+        }
+        public void AdjustTypeButtons()
+        {
+            for (int i = 0; i < ProductTypeList.Count; i++)
+            {
+                string typeButton = $"type{char.ToUpper(ProductTypeList[i][0])}{ProductTypeList[i].Substring(1)}Btn";
+                string typeBorder = $"type{char.ToUpper(ProductTypeList[i][0])}{ProductTypeList[i].Substring(1)}Border";
+
+                ActiveButton(typeButton, typeBorder, "product-type", ProductTypeList[i]);
+            }
+        }
+
+
+
+        public void DisplayVariation()
+        {
+            unitsWPanel.Children.Clear();
+            string type;
+            for (int i = 0; i < unitlist.Count; i++)
+            {
+                if (i != 0)
+                {
+                    type = "sub";
+
+                }
+                else
+                {
+                    type = "base";
+                }
+
+                inventoryAdd_variationscontrol? control = new inventoryAdd_variationscontrol(unitlist[i], pricelist[i], conversionlist[i], type, stocklisting.Content.ToString(), unitlist[0], i, this)
+                {
+                    Height = 166,
+                    Width = 60,
+                    VerticalAlignment = VerticalAlignment.Center
+                };
+
+                unitsWPanel.Children.Add(control);
+
+            }
+
+            unitsWPanel.Children.Add(addUnitBtn);
         }
 
         public void ActiveOverlay(bool isActive)
@@ -635,17 +722,18 @@ namespace SmartPoultry
 
             if (button != null && border != null)
             {
-                
                 border.Background = new SolidColorBrush(Color.FromRgb(192, 228, 190));
                 border.BorderBrush = new SolidColorBrush(Color.FromRgb(102, 194, 101));
                 button.Background = new SolidColorBrush(Color.FromRgb(192, 228, 190));
                 button.BorderBrush = new SolidColorBrush(Color.FromRgb(192, 228, 190));
                 button.Foreground = new SolidColorBrush(Color.FromRgb(102, 194, 101));
-                if (category == "animal")
+
+                // Add the animal only if it's not already in the list
+                if (category == "animal" && !AnimalList.Contains(toSave))
                 {
                     AnimalList.Add(toSave);
                 }
-                else
+                else if (category != "animal" && !ProductTypeList.Contains(toSave))
                 {
                     ProductTypeList.Add(toSave);
                 }
@@ -661,7 +749,6 @@ namespace SmartPoultry
             Button? button = FindName(stringbutton) as Button;
             Border? border = FindName(stringborder) as Border;
 
-
             if (button != null && border != null)
             {
                 border.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
@@ -669,11 +756,13 @@ namespace SmartPoultry
                 button.Background = new SolidColorBrush(Color.FromRgb(255, 255, 255));
                 button.BorderBrush = new SolidColorBrush(Color.FromRgb(255, 255, 255));
                 button.Foreground = new SolidColorBrush(Color.FromRgb(185, 185, 185));
-                if (category == "animal")
+
+                if (category == "animal" && AnimalList.Contains(toSave))
                 {
                     AnimalList.Remove(toSave);
                 }
-                else {
+                else if (category != "animal" && ProductTypeList.Contains(toSave))
+                {
                     ProductTypeList.Remove(toSave);
                 }
             }
@@ -681,9 +770,8 @@ namespace SmartPoultry
             {
                 MessageBox.Show("Button or Border not found.");
             }
-
-
         }
+
         private void SetRoundedCorners()
         {
             this.WindowStyle = WindowStyle.None;

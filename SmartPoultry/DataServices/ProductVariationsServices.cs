@@ -39,7 +39,9 @@ namespace SmartPoultry.DataServices
             {
                 var productVariations = _context.ProductVariations
                                                  .Where(pv => pv.product_id == productId)
+                                                 .OrderByDescending(pv => pv.isBaseUnit) 
                                                  .ToList();
+
                 if (!productVariations.Any())
                 {
                     MessageBox.Show("No variations found for this product.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -53,10 +55,11 @@ namespace SmartPoultry.DataServices
                 return new List<ProductVariations>();
             }
         }
-    
 
 
-    public bool Create(int productid, string variantname, bool unittype, decimal price, int conversionrate)
+
+
+        public bool Create(int productid, string variantname, bool unittype, decimal price, int conversionrate)
         {
             try
             {

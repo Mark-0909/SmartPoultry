@@ -34,6 +34,7 @@ namespace SmartPoultry
 
         public string filteranimal = "";
         public string filtertype = "";
+
         
         public inventory()
         {
@@ -42,6 +43,7 @@ namespace SmartPoultry
             productService = new ProductServices(context);
 
             LoadProducts();
+
         }
         public void DynamicReload()
         {
@@ -51,9 +53,9 @@ namespace SmartPoultry
         private void LoadProducts()
         {
             
-            List<Products> products = productService.GetAllProducts(); 
+            List<Products> products = productService.GetAllProducts();
+            
 
-           
             foreach (var product in products)
             {
                
@@ -61,7 +63,7 @@ namespace SmartPoultry
                     product.product_id,
                     product.product_name,
                     product.stocks,
-                    product.image 
+                    product.image
                 );
 
                 
@@ -137,7 +139,7 @@ namespace SmartPoultry
 
 
                 List<Products> products = productService.FilterProducts(type, animal);
-
+                
                 foreach (Products product in products)
                 {
 
@@ -169,7 +171,7 @@ namespace SmartPoultry
 
 
                 List<Products> products = productService.SearchProducts(searchterm, filtertype, filteranimal);
-
+                
                 foreach (Products product in products)
                 {
 

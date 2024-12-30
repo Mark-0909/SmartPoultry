@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:SmartPoultry"
         mc:Ignorable="d"
         Title="SmartPoultry" Height="716" Width="1229" WindowStartupLocation="CenterScreen" Background="#FFE3E3E3" ResizeMode="NoResize" Icon="/Images/smartpoultryicon.ico">
-    <Grid>
+    <Grid x:Name="MainGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="435*"/>
             <ColumnDefinition Width="794*"/>
