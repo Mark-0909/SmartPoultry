@@ -83,7 +83,7 @@
 
 
         </Border>
-        <Label Content="HOME" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Margin="10,4,0,0"/>
+        <Label Content="POS" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Margin="10,4,0,0"/>
 
         <Label Content="Orders" HorizontalAlignment="Left" Margin="786,4,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.128,0.014" FontSize="21"/>
         <Rectangle HorizontalAlignment="Left" Height="5" Margin="778,44,0,0" VerticalAlignment="Top" Width="348" Fill="#FFE3E3E3"/>

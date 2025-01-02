@@ -18,8 +18,9 @@ namespace SmartPoultry.DataServices
         }
         public List<InventoryLogs> GetList()
         {
-            var list = _context.InventoryLogs.OrderBy(p => p.timestamp).ToList();
+            var list = _context.InventoryLogs.OrderByDescending(p => p.timestamp).ToList();
             return list;
+
         }
         public bool Create(int productid, int employeeid, string action, string reason)
         {

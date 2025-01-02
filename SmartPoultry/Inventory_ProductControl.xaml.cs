@@ -25,7 +25,7 @@ namespace SmartPoultry
     {
         Inventory_AddingForm viewproduct;
         ProductServices productservices;
-        int id;
+        public int prodid {  get; set; }
         public Inventory_ProductControl(int productid, string name, decimal stocks, byte[] imagepath)
         {
             InitializeComponent();
@@ -36,7 +36,7 @@ namespace SmartPoultry
 
             AppDbContext context = new AppDbContext();
             productservices = new ProductServices(context);
-            id = productid;
+            prodid = productid;
 
         }
         private void DisplayProductImage(byte[] imageData)
@@ -80,7 +80,7 @@ namespace SmartPoultry
             {
                 MessageBox.Show("Unable to access the MainWindow.");
             }
-            Products product = productservices.FetchProduct(id);
+            Products product = productservices.FetchProduct(prodid);
 
             viewproduct = new Inventory_AddingForm(product, mainWindow, this);
 

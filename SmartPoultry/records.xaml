@@ -5,6 +5,47 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
              mc:Ignorable="d" Background="#FFE3E3E3" Height="578" Width="1109">
+    <UserControl.Resources>
+        <Style x:Key="NoHoverButton" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <!-- Animation for the button itself when hovered -->
+                                            <DoubleAnimation 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            To=".7" Duration="0:0:0.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+
+                                            <DoubleAnimation 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            To="1.0" Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Label Content="RECORDS" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Margin="10,4,0,0"/>
         <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Center" Height="505" Margin="0,59,0,0" VerticalAlignment="Top" Width="1073" Background="White">
@@ -12,9 +53,9 @@
                 <WrapPanel x:Name="SalesPanel" Width="1050"/>
             </ScrollViewer>
         </Border>
-        <Button x:Name="InventoryBtn" Content="INVENTORY" HorizontalAlignment="Center" Height="60" Margin="0,59,0,0" VerticalAlignment="Top" Width="354" FontSize="20" FontWeight="Bold" BorderBrush="#FFDCEDD5" Foreground="Gray" Background="#FFDCEDD5" Click="Inventory_Clicked"/>
-        <Button x:Name="LogsBtn" Content="LOGS" HorizontalAlignment="Left" Height="60" Margin="737,59,0,0" VerticalAlignment="Top" Width="354" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Logs_Clicked"/>
-        <Button x:Name="SalesBtn" Content="SALES" HorizontalAlignment="Left" Height="60" Margin="18,59,0,0" VerticalAlignment="Top" Width="354" Click="Sales_Clicked" FontSize="20" FontWeight="Bold" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D" Foreground="White"/>
+        <Button x:Name="InventoryBtn" Content="INVENTORY" HorizontalAlignment="Center" Height="60" Margin="0,59,0,0" VerticalAlignment="Top" Width="354" FontSize="20" FontWeight="Bold" BorderBrush="#FFDCEDD5" Foreground="Gray" Background="#FFDCEDD5" Click="Inventory_Clicked" Style="{StaticResource NoHoverButton}"/>
+        <Button x:Name="LogsBtn" Content="LOGS" HorizontalAlignment="Left" Height="60" Margin="737,59,0,0" VerticalAlignment="Top" Width="354" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Logs_Clicked" Style="{StaticResource NoHoverButton}"/>
+        <Button x:Name="SalesBtn" Content="SALES" HorizontalAlignment="Left" Height="60" Margin="18,59,0,0" VerticalAlignment="Top" Width="354" Click="Sales_Clicked" FontSize="20" FontWeight="Bold" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D" Foreground="White" Style="{StaticResource NoHoverButton}"/>
         <Label Content="Price" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="32" Margin="950,140,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
         <Label Content="Payment Status" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="32" Margin="794,140,0,0" VerticalAlignment="Top" Width="119" FontSize="15" RenderTransformOrigin="0.531,0.299"/>
         <Label Content="Payment Method" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="612,141,0,0" VerticalAlignment="Top" Width="120" FontSize="15"/>

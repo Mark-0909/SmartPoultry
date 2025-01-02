@@ -43,6 +43,8 @@ namespace SmartPoultry
 
         home_POSproduct productControl;
 
+        
+
         public List<string> Productvaridlist = new List<string>();
         public List<string> QuantityList = new List<string>();
         public List<string> VarSpecification = new List<string>();
@@ -70,6 +72,40 @@ namespace SmartPoultry
             totalPiceLabel.Visibility = Visibility.Collapsed;
             DropOrderBtn.IsEnabled = false;
             DisplayProducts();
+        }
+
+        public void AdjustStocksInventory()
+        {
+            try
+            {
+                MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
+                for (int i = 0; i < Productvaridlist.Count; i++)
+                {
+                    ProductVariations product = productvariationsServices.GetProductVariationById(int.Parse(Productvaridlist[i]));
+                    int productid = product.product_id;
+                    int conversion = product.conversion_rate;
+                    int qty = int.Parse(QuantityList[i]);
+
+                    foreach (UIElement element in mainWindow.inventoryControl.ProductListWPanel.Children)
+                    {
+                        if (element is Inventory_ProductControl control && control.prodid == productid)
+                        {
+                            decimal stocks = decimal.Parse(control.Productstock.Content.ToString());
+                            decimal tominus = (1m / conversion) * qty;
+                            decimal newstocks = stocks - tominus;
+
+                            control.Productstock.Content = newstocks.ToString();
+                        }
+                    }
+
+
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            
         }
         public void EnableDropBtn()
         {
@@ -171,9 +207,9 @@ namespace SmartPoultry
                 {
                     financialLiabilitiesServices.Create(name, addingSales, price, "To Receive", paymentMode, actualPaymentDate, contacts);
                 }
-
+                AdjustStocksInventory();
                 MessageBox.Show("Order confirmed successfully!");
-
+                
                 isOrderConfirmed = true;
 
                 orderPanel.Children.Clear();
