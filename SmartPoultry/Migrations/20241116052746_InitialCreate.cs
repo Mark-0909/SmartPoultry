@@ -23,7 +23,7 @@ namespace SmartPoultry.Migrations
                     supplier_id = table.Column<int>(type: "INTEGER", nullable: false),
                     stocks = table.Column<decimal>(type: "decimal(10,2)", nullable: false),
                     status = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
-                    image = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    image = table.Column<byte[]>(type: "longblob", nullable: false),
                     added_date = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false)
                 },
                 constraints: table =>

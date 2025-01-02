@@ -26,18 +26,45 @@ namespace SmartPoultry
         Inventory_AddingForm viewproduct;
         ProductServices productservices;
         int id;
-        public Inventory_ProductControl(int productid, string name, decimal stocks, string imagepath)
+        public Inventory_ProductControl(int productid, string name, decimal stocks, byte[] imagepath)
         {
             InitializeComponent();
             Productname.Content = name;
             Productstock.Content = stocks.ToString();
-            BitmapImage bitmap = new BitmapImage(new Uri(imagepath, UriKind.RelativeOrAbsolute));
-            Productimage.Source = bitmap;
+
+            DisplayProductImage(imagepath);
 
             AppDbContext context = new AppDbContext();
             productservices = new ProductServices(context);
             id = productid;
 
+        }
+        private void DisplayProductImage(byte[] imageData)
+        {
+            if (imageData != null && imageData.Length > 0)
+            {
+                try
+                {
+                    using (var memoryStream = new System.IO.MemoryStream(imageData))
+                    {
+                        BitmapImage bitmap = new BitmapImage();
+                        bitmap.BeginInit();
+                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                        bitmap.StreamSource = memoryStream;
+                        bitmap.EndInit();
+                        Productimage.Source = bitmap;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading image: {ex.Message}", "Image Load Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Productimage.Source = null;
+                }
+            }
+            else
+            {
+                Productimage.Source = null;
+            }
         }
 
         private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

@@ -29,8 +29,8 @@ namespace SmartPoultry.Models
         [MaxLength(100)]
         public string status { get; set; }
 
-        [MaxLength(255)]
-        public string image { get; set; }
+        [Column(TypeName = "longblob")]
+        public byte[] image { get; set; }
 
         [MaxLength(100)]
         public string added_date { get; set; }

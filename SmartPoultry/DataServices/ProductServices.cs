@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System;
 using System.Windows.Controls;
+using System.IO;
 
 
 namespace SmartPoultry.DataServices
@@ -17,11 +18,15 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
-        public bool EditProduct(int id, string name, string animaltype, string producttype, int supplierid, decimal stocks)
+        public bool EditProduct(int id, string name, string animaltype, string producttype, int supplierid, decimal stocks, string image)
         {
             try
             {
                 var product = _context.Products.FirstOrDefault(x => x.product_id == id);
+                if (product == null)
+                {
+                    return false; 
+                }
 
                 product.product_name = name;
                 product.product_type = producttype;
@@ -29,16 +34,23 @@ namespace SmartPoultry.DataServices
                 product.supplier_id = supplierid;
                 product.stocks = stocks;
 
+                
+                if (image != null && image.Length > 0)
+                {
+                    byte[] imageData = File.ReadAllBytes(image);
+                    product.image = imageData;
+                }
+
                 _context.SaveChanges();
                 return true;
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
+                Console.WriteLine($"Error updating product: {ex.Message}");
                 return false;
             }
-            
-
         }
+
         public List<Products> GetLowStockProducts(string animal, string type, string searchterm)
         {
             var lowStockProducts = _context.Products
@@ -219,9 +231,16 @@ namespace SmartPoultry.DataServices
         public int Create(string product_name, string animal_type, string product_type, int employee_incharge, int supplierId, decimal stocks, string image)
         {
             try
-            { 
+            {
+                if (!File.Exists(image))
+                {
+                    MessageBox.Show("Image file not found at the specified path.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return 0;
+                }
 
-                  
+                // Read the image as binary data
+                byte[] imageData = File.ReadAllBytes(image);
+
                 var newProduct = new Products
                 {
                     product_name = product_name,
@@ -230,7 +249,7 @@ namespace SmartPoultry.DataServices
                     employee_incharge = employee_incharge,
                     supplier_id = supplierId,
                     stocks = stocks,
-                    image = image,
+                    image = imageData,
                     status = "active",
                     added_date = DateTime.Now.ToString("MM-dd-yyyy")
                 };
@@ -238,38 +257,21 @@ namespace SmartPoultry.DataServices
                 _context.Products.Add(newProduct);
                 _context.SaveChanges();
 
-                
-                return newProduct.product_id; 
+                return newProduct.product_id;
+            }
+            catch (FileNotFoundException ex)
+            {
+                MessageBox.Show($"Image not found: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return 0;
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error creating product: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-
-                return 0; 
+                return 0;
             }
         }
-        public void UpdateImagePath(int id, string imagePath)
-        {
-            try
-            {
-                var product = _context.Products.FirstOrDefault(p => p.product_id == id);
 
-                if (product != null)
-                {
-                    product.image = imagePath;
 
-                    _context.SaveChanges();
-                }
-                else
-                {
-                    MessageBox.Show("Product not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error updating image path: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-        }
 
 
     }

@@ -17,6 +17,7 @@ using static SmartPoultry.App;
 using iTextSharp.xmp.impl;
 using Org.BouncyCastle.Math;
 using static iTextSharp.text.pdf.XfaForm;
+using System.Text;
 
 namespace SmartPoultry
 {
@@ -51,7 +52,7 @@ namespace SmartPoultry
         string Agenda = "Add";
 
         Products prod;
-        public Inventory_AddingForm()
+        public Inventory_AddingForm(MainWindow mainwindow)
         {
             InitializeComponent();
             SetRoundedCorners();
@@ -74,6 +75,8 @@ namespace SmartPoultry
             PopulateSupplierList("add");
             SupplierCBox.SelectedItem = "-- Select a Supplier --";
             windowName.Content = "ADD PRODUCT";
+
+            mainWindow = mainwindow;
         }
 
         public Inventory_AddingForm(Products product, MainWindow window, Inventory_ProductControl productcontrol)
@@ -97,19 +100,18 @@ namespace SmartPoultry
 
             SelectedImage.Height = SelectImageBtn.Height;
             SelectedImage.Width = SelectImageBtn.Width;
-            BitmapImage bitmap = new BitmapImage(new Uri(product.image, UriKind.RelativeOrAbsolute));
-            SelectedImage.Source = bitmap;
-            stocklisting.Content = product.stocks.ToString();
 
+            DisplayProductImage(product.image);
+
+            stocklisting.Content = product.stocks.ToString();
             stockunit.Content = productVariationService.GetBaseUnit(product.product_id);
 
-            
             ProductNameTextBox.Text = product.product_name;
-            
+
             var supplier = supplierServices.FindSupplier(product.supplier_id);
             if (supplier != null)
             {
-                SupplierCBox.SelectedItem = supplier.Name.ToString(); 
+                SupplierCBox.SelectedItem = supplier.Name.ToString();
             }
             else
             {
@@ -128,7 +130,6 @@ namespace SmartPoultry
                 pricelist.Add(baseUnit.price.ToString());
                 conversionlist.Add(baseUnit.conversion_rate.ToString());
                 variationIDlist.Add(baseUnit.id);
-                
             }
 
             for (int i = 0; i < productvarlist.Count; i++)
@@ -147,6 +148,35 @@ namespace SmartPoultry
             AdjustTypeButtons();
             DisableForm(false);
         }
+
+        private void DisplayProductImage(byte[] imageData)
+        {
+            if (imageData != null && imageData.Length > 0)
+            {
+                try
+                {
+                    using (var memoryStream = new System.IO.MemoryStream(imageData))
+                    {
+                        BitmapImage bitmap = new BitmapImage();
+                        bitmap.BeginInit();
+                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                        bitmap.StreamSource = memoryStream;
+                        bitmap.EndInit();
+                        SelectedImage.Source = bitmap;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading image: {ex.Message}", "Image Load Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    SelectedImage.Source = null;
+                }
+            }
+            else
+            {
+                SelectedImage.Source = null;
+            }
+        }
+
 
         private void EditBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -445,75 +475,62 @@ namespace SmartPoultry
         }
         public void EditProduct()
         {
-            string name = ProductNameTextBox.Text;
-            int supplierid = supplierServices.FindSupplierByName(SupplierCBox.Text);
-
-            string animallist = string.Join(",", AnimalList);
-            string typelist = string.Join(",", ProductTypeList);
-
-            decimal stocks = decimal.Parse(stocklisting.Content.ToString());
-
-            for (int i = 0; i < variationIDlist.Count; i++)
+            try
             {
-                decimal price = decimal.Parse((pricelist[i]).ToString());
-                int conversion = int.Parse(conversionlist[i].ToString());
-                bool isUpdated = productVariationService.EditUnitVar(variationIDlist[i], unitlist[i], price, conversion);
+                // Retrieve and process input data
+                string name = ProductNameTextBox.Text;
+                int supplierid = supplierServices.FindSupplierByName(SupplierCBox.Text);
+                string animallist = string.Join(",", AnimalList);
+                string typelist = string.Join(",", ProductTypeList);
+                decimal stocks = decimal.Parse(stocklisting.Content.ToString());
 
-                if (!isUpdated)
+                // Update product variations
+                for (int i = 0; i < variationIDlist.Count; i++)
                 {
-                    MessageBox.Show("Unsuccessful Edit");
-                }
-            }
+                    decimal price = decimal.Parse(pricelist[i].ToString());
+                    int conversion = int.Parse(conversionlist[i].ToString());
+                    bool isUpdated = productVariationService.EditUnitVar(variationIDlist[i], unitlist[i], price, conversion);
 
-            bool IsProductUpdated = productService.EditProduct(prod.product_id, name, animallist, typelist, supplierid, stocks);
-
-            if (!IsProductUpdated)
-            {
-                MessageBox.Show("Unsuccessful.");
-                return;
-            }
-
-            if (!string.IsNullOrEmpty(selectedFilePath))
-            {
-                inventoryControl.Productimage.Source = null;
-
-                string destinationDirectory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Product_Images");
-
-                if (!Directory.Exists(destinationDirectory))
-                {
-                    Directory.CreateDirectory(destinationDirectory);
-                }
-
-                string destinationPath = System.IO.Path.Combine(destinationDirectory, $"{prod.product_id}.jpg");
-
-                try
-                {
-                    if (File.Exists(destinationPath))
+                    if (!isUpdated)
                     {
-                        File.Delete(destinationPath);
+                        MessageBox.Show("Failed to update product variation.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
                     }
-
-                    File.Copy(selectedFilePath, destinationPath, overwrite: true);
-
-                    productService.UpdateImagePath(prod.product_id, destinationPath);
-
-                    inventoryControl.Productimage.Source = new BitmapImage(new Uri(destinationPath));
                 }
-                catch (IOException ex)
+
+                bool isProductUpdated = productService.EditProduct(prod.product_id, name, animallist, typelist, supplierid, stocks, selectedFilePath);
+                if (!isProductUpdated)
                 {
-                    MessageBox.Show($"File operation failed: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Failed to update product details.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Unexpected error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+
+                
+                MessageBox.Show("Product updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                DisableForm(false);
+                inventoryControl.Productname.Content = ProductNameTextBox.Text;
+                inventoryControl.Productstock.Content = stocklisting.Content.ToString();
             }
-
-            MessageBox.Show("Successful.");
-            DisableForm(false);
-            mainWindow.DynamicReload();
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
+
+
+
+        public home_POSproduct GetPOSControlById(int id)
+        {
+            foreach (UIElement element in mainWindow.homeControl.posPrdocutsPanel.Children)
+            {
+                if (element is home_POSproduct control && control.productId == id)
+                {
+                    return control;
+                }
+            }
+            return null; 
+        }
         public void SubmitAddProduct()
         {
             if (imagePath == SelectedImage.Source || ProductNameTextBox.Text == "Enter text here..." || unitsWPanel.Children.Count == 1 || AnimalList.Count == 0 || ProductTypeList.Count == 0 || SupplierCBox.Text == "-- Select a Supplier --")
@@ -521,6 +538,7 @@ namespace SmartPoultry
                 MessageBox.Show("Incomplete Details.");
                 return;
             }
+
             if (!isEditing)
             {
                 string animaltypelist = string.Join(",", AnimalList);
@@ -536,11 +554,10 @@ namespace SmartPoultry
                 int supplierid = supplierServices.FindSupplierByName(SupplierCBox.Text);
                 int employeeId = UserContext.CurrentUserId;
 
+                // Convert image source to a valid file path
+                string imagePath = new Uri(SelectedImage.Source.ToString()).LocalPath;
 
-
-
-
-                int id = productService.Create(ProductNameTextBox.Text, animaltypelist, producttypelist, employeeId, supplierid, stocks, "");
+                int id = productService.Create(ProductNameTextBox.Text, animaltypelist, producttypelist, employeeId, supplierid, stocks, imagePath);
 
                 if (id == 0)
                 {
@@ -551,36 +568,6 @@ namespace SmartPoultry
                 {
                     AddVariations(id);
 
-
-                    if (!string.IsNullOrEmpty(selectedFilePath))
-                    {
-
-                        string destinationDirectory = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Product_Images");
-
-                        if (!Directory.Exists(destinationDirectory))
-                        {
-                            Directory.CreateDirectory(destinationDirectory);
-                        }
-
-
-                        string destinationPath = System.IO.Path.Combine(destinationDirectory, $"{id}.jpg");
-
-                        try
-                        {
-
-                            File.Copy(selectedFilePath, destinationPath, overwrite: true);
-
-
-                            productService.UpdateImagePath(id, destinationPath);
-
-
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Failed to copy image: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                        }
-                    }
-
                     mainWindow.DynamicReload();
                     mainWindow.ActiveOverlay(false);
                 }
@@ -590,6 +577,7 @@ namespace SmartPoultry
                 MessageBox.Show("Submit for edit.");
             }
         }
+
 
         public void AddVariations(int id) 
         {

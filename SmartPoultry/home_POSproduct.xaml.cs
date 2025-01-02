@@ -24,8 +24,8 @@ namespace SmartPoultry
 
         public string prodname;
 
-        public int productId;
-        public home_POSproduct(string product_name, List<ProductVariations> var_list, string imagepath, home homecontrol, decimal stocks, Products prod)
+        public int productId {  get; set; }
+        public home_POSproduct(string product_name, List<ProductVariations> var_list, byte[] imagepath, home homecontrol, decimal stocks, Products prod)
         {
             InitializeComponent();
 
@@ -40,14 +40,40 @@ namespace SmartPoultry
             prodname = product_name;
 
             Productname.Content = product_name;
-            BitmapImage bitmap = new BitmapImage(new Uri(imagepath, UriKind.RelativeOrAbsolute));
-            Productimage.Source = bitmap;
+
+            DisplayProductImage(imagepath);
 
             Initialize(var_list, origstock);
 
             productId = prod.product_id;
         }
-
+        private void DisplayProductImage(byte[] imageData)
+        {
+            if (imageData != null && imageData.Length > 0)
+            {
+                try
+                {
+                    using (var memoryStream = new System.IO.MemoryStream(imageData))
+                    {
+                        BitmapImage bitmap = new BitmapImage();
+                        bitmap.BeginInit();
+                        bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                        bitmap.StreamSource = memoryStream;
+                        bitmap.EndInit();
+                        Productimage.Source = bitmap;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error loading image: {ex.Message}", "Image Load Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Productimage.Source = null;
+                }
+            }
+            else
+            {
+                Productimage.Source = null;
+            }
+        }
         public void Initialize(List<ProductVariations> var_list, decimal adjustedstock)
         {
             double totalMargin = 1 * (var_list.Count - 1);

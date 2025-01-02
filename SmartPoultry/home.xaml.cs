@@ -554,6 +554,8 @@ namespace SmartPoultry
             return null;
         }
 
+
+
         public void DisplayTotalPrice(decimal toadd)
         {
             totalPiceLabel.Visibility = Visibility.Visible;
@@ -579,7 +581,7 @@ namespace SmartPoultry
 
                 string productname = product.product_name;
                 int id = product.product_id;
-                string imagepath = product.image;
+                byte[] imagepath = product.image;
                 decimal stocks = product.stocks;
 
 
@@ -609,7 +611,7 @@ namespace SmartPoultry
 
                     string productName = product.product_name;
                     int productId = product.product_id;
-                    string imagePath = product.image;
+                    byte[] imagePath = product.image;
                     decimal stocks = product.stocks;
 
 
@@ -645,7 +647,7 @@ namespace SmartPoultry
 
                     string productName = product.product_name;
                     int productId = product.product_id;
-                    string imagePath = product.image;
+                    byte[] imagePath = product.image;
                     decimal stocks = product.stocks;
 
 

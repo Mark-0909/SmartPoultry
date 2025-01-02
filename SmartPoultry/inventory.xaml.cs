@@ -58,7 +58,7 @@ namespace SmartPoultry
 
             foreach (var product in products)
             {
-               
+
                 Inventory_ProductControl productControl = new Inventory_ProductControl(
                     product.product_id,
                     product.product_name,
@@ -70,10 +70,12 @@ namespace SmartPoultry
                 ProductListWPanel.Children.Add(productControl);
             }
         }
+        
+
         private void OpenAddForm_Click(object sender, RoutedEventArgs e)
         {
             MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
-            Inventory_AddingForm addForm = new Inventory_AddingForm();
+            Inventory_AddingForm addForm = new Inventory_AddingForm(mainWindow);
             if (mainWindow != null)
             {
                 
@@ -145,7 +147,7 @@ namespace SmartPoultry
 
                     string productName = product.product_name;
                     int productId = product.product_id;
-                    string imagePath = product.image;
+                    byte[] imagePath = product.image;
                     decimal stocks = product.stocks;
 
 
@@ -177,7 +179,7 @@ namespace SmartPoultry
 
                     string productName = product.product_name;
                     int productId = product.product_id;
-                    string imagePath = product.image;
+                    byte[] imagePath = product.image;
                     decimal stocks = product.stocks;
 
 
