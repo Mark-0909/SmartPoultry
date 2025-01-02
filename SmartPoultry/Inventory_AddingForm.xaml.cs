@@ -623,7 +623,7 @@ namespace SmartPoultry
                     tb.Foreground = Brushes.Black;
                 }
             }
-            else // When the TextBox loses focus
+            else
             {
                 if (string.IsNullOrWhiteSpace(tb.Text))
                 {
@@ -637,13 +637,6 @@ namespace SmartPoultry
         {
             this.Close();
         }
-
-        public void SaveProductDB()
-        {
-            
-
-        }
-
 
         private void SelectImage_Click(object sender, RoutedEventArgs e)
         {
@@ -661,7 +654,6 @@ namespace SmartPoultry
                 SelectedImage.Width = SelectImageBtn.Width;
             }
         }
-
         private void ChickenButton_Click(object sender, RoutedEventArgs e)
         {
             if (!AnimalList.Contains("chicken"))
@@ -856,8 +848,6 @@ namespace SmartPoultry
                 button.Background = new SolidColorBrush(Color.FromRgb(192, 228, 190));
                 button.BorderBrush = new SolidColorBrush(Color.FromRgb(192, 228, 190));
                 button.Foreground = new SolidColorBrush(Color.FromRgb(102, 194, 101));
-
-                // Add the animal only if it's not already in the list
                 if (category == "animal" && !AnimalList.Contains(toSave))
                 {
                     AnimalList.Add(toSave);
