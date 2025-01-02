@@ -61,7 +61,7 @@ namespace SmartPoultry
             AddingFormOverlay.Visibility = Visibility.Hidden;
             
 
-            //set mainwindow in dim mode
+
             stockunit.Visibility = Visibility.Collapsed;
             stocklisting.Visibility = Visibility.Collapsed;
 
@@ -214,6 +214,7 @@ namespace SmartPoultry
             animalRabbitBorder.IsEnabled = isEnabled;
             animalBirdBorder.IsEnabled = isEnabled;
             animalFishBorder.IsEnabled = isEnabled;
+            SubmitBtn.IsEnabled = isEnabled;
 
             typeFeedsBorder.IsEnabled = isEnabled;
             typeAccessoriesBorder.IsEnabled = isEnabled;
@@ -477,14 +478,12 @@ namespace SmartPoultry
         {
             try
             {
-                // Retrieve and process input data
                 string name = ProductNameTextBox.Text;
                 int supplierid = supplierServices.FindSupplierByName(SupplierCBox.Text);
                 string animallist = string.Join(",", AnimalList);
                 string typelist = string.Join(",", ProductTypeList);
                 decimal stocks = decimal.Parse(stocklisting.Content.ToString());
 
-                // Update product variations
                 for (int i = 0; i < variationIDlist.Count; i++)
                 {
                     decimal price = decimal.Parse(pricelist[i].ToString());
@@ -510,15 +509,20 @@ namespace SmartPoultry
                 DisableForm(false);
                 inventoryControl.Productname.Content = ProductNameTextBox.Text;
                 inventoryControl.Productstock.Content = stocklisting.Content.ToString();
+                inventoryControl.Productimage.Source = SelectedImage.Source;
+
+                home_POSproduct posprod = GetPOSControlById(prod.product_id);
+                if (posprod != null) 
+                {
+                    posprod.Productimage.Source = SelectedImage.Source;
+                }
+                
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
-
-
 
         public home_POSproduct GetPOSControlById(int id)
         {
@@ -554,7 +558,6 @@ namespace SmartPoultry
                 int supplierid = supplierServices.FindSupplierByName(SupplierCBox.Text);
                 int employeeId = UserContext.CurrentUserId;
 
-                // Convert image source to a valid file path
                 string imagePath = new Uri(SelectedImage.Source.ToString()).LocalPath;
 
                 int id = productService.Create(ProductNameTextBox.Text, animaltypelist, producttypelist, employeeId, supplierid, stocks, imagePath);
