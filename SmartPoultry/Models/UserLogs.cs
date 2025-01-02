@@ -13,7 +13,7 @@ namespace SmartPoultry.Models
     {
         [Key]
         public int Id { get; set; }
-        public long user_id { get; set; }
+        public int user_id { get; set; }
         
         public string action { get; set; }
 

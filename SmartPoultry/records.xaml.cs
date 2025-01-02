@@ -25,14 +25,22 @@ namespace SmartPoultry
     {
         public AppDbContext context = new AppDbContext();
         SalesServices salesServices;
+        UserLogsServices userLogsServices;
+        InventoryLogsServices inventoryLogsServices;
         public records()
         {
             InitializeComponent();
             salesServices = new SalesServices(context);
+            userLogsServices = new UserLogsServices(context);
+            inventoryLogsServices = new InventoryLogsServices(context);
             FetchSales();
         }
         public void FetchSales()
         {
+            if(SalesPanel.Children != null)
+            {
+                SalesPanel.Children.Clear();
+            }
             List<Sales> sales = salesServices.GetAllSales();
             int evenodd = 0;
             for (int i = 0; i < sales.Count; i++) { 
@@ -50,6 +58,54 @@ namespace SmartPoultry
                 }
             }
         }
+        public void FetchInventoryLogs()
+        {
+            if (SalesPanel.Children != null)
+            {
+                SalesPanel.Children.Clear();
+            }
+            List<InventoryLogs> inventory = inventoryLogsServices.GetList();
+            int evenodd = 0;
+            for (int i = 0; i < inventory.Count; i++)
+            {
+
+                Records_InventoryControl control = new Records_InventoryControl(inventory[i].product_id, inventory[i].employee_incharge, inventory[i].action, inventory[i].timestamp, inventory[i].reason, evenodd);
+
+                SalesPanel.Children.Add(control);
+                if (evenodd == 0)
+                {
+                    evenodd = 1;
+                }
+                else
+                {
+                    evenodd = 0;
+                }
+            }
+        }
+        public void FetchUserLogs()
+        {
+            if (SalesPanel.Children != null)
+            {
+                SalesPanel.Children.Clear();
+            }
+            List<UserLogs> logs = userLogsServices.GetList();
+            int evenodd = 0;
+            for (int i = 0; i < logs.Count; i++)
+            {
+
+                Records_LogsControl control = new Records_LogsControl(logs[i].user_id, logs[i].action, logs[i].timestamp, evenodd);
+
+                SalesPanel.Children.Add(control);
+                if (evenodd == 0)
+                {
+                    evenodd = 1;
+                }
+                else
+                {
+                    evenodd = 0;
+                }
+            }
+        }
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
@@ -58,16 +114,19 @@ namespace SmartPoultry
         private void Sales_Clicked(object sender, RoutedEventArgs e)
         {
             HandleButtonDesign(SalesBtn);
+            FetchSales();
         }
 
         private void Inventory_Clicked(object sender, RoutedEventArgs e)
         {
             HandleButtonDesign(InventoryBtn);
+            FetchInventoryLogs();
         }
 
         private void Logs_Clicked(object sender, RoutedEventArgs e)
         {
             HandleButtonDesign(LogsBtn);
+            FetchUserLogs();
         }
         public void HandleButtonDesign(Button button)
         {

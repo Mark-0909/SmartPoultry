@@ -16,6 +16,11 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+        public List<UserLogs> GetList()
+        {
+            var list = _context.UserLogs.OrderBy(p => p.timestamp).ToList();
+            return list;
+        }
         public bool Create(int userId, string action)
         {
             try

@@ -21,9 +21,14 @@ namespace SmartPoultry.DataServices
         }
         public User GetUser(int id)
         {
-            User user = _context.Users.FirstOrDefault(p => p.Id == id);
+            var user = _context.Users.FirstOrDefault(p => p.Id == id);
+            if (user == null)
+            {
+                throw new Exception($"No user found with ID: {id}");
+            }
             return user;
         }
+
 
         public bool UpdatePassword(string username, string password)
         {
