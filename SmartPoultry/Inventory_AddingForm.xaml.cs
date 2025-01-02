@@ -45,9 +45,10 @@ namespace SmartPoultry
 
         //database
         public AppDbContext context;
-        private readonly ProductServices productService;
-        private readonly ProductVariationServices productVariationService;
-        readonly SupplierServices supplierServices;
+        public readonly ProductServices productService;
+        public ProductVariationServices productVariationService;
+        public SupplierServices supplierServices;
+        public InventoryLogsServices InventoryLogsServices;
 
         string Agenda = "Add";
 
@@ -70,6 +71,7 @@ namespace SmartPoultry
             productService = new ProductServices(context);
             productVariationService = new ProductVariationServices(context);
             supplierServices = new SupplierServices(context);
+            InventoryLogsServices = new InventoryLogsServices(context);
 
             
             PopulateSupplierList("add");
@@ -570,6 +572,14 @@ namespace SmartPoultry
                 else
                 {
                     AddVariations(id);
+
+                    bool isRecorded = InventoryLogsServices.Create(id, employeeId, "ADD", "Added new product.");
+
+                    if (!isRecorded)
+                    {
+                        MessageBox.Show("Not Recorded");
+                        return;
+                    }
 
                     mainWindow.DynamicReload();
                     mainWindow.ActiveOverlay(false);

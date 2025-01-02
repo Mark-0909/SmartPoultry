@@ -1,5 +1,6 @@
 ﻿using SmartPoultry.DataAccess;
 using SmartPoultry.DataServices;
+using static SmartPoultry.App;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,7 @@ namespace SmartPoultry
         //database
         public AppDbContext context = new AppDbContext();
         UserServices userServices;
+        public UserLogsServices userLogsServices;
 
         public LoginPage? loginWindow = Application.Current.Windows.OfType<LoginPage>().FirstOrDefault();
         MainWindow window = new MainWindow();
@@ -32,6 +34,7 @@ namespace SmartPoultry
         {
             InitializeComponent();
             userServices = new UserServices(context);
+            userLogsServices = new UserLogsServices(context);
         }
 
         private void Submit_Clicked(object sender, RoutedEventArgs e)
@@ -65,13 +68,16 @@ namespace SmartPoultry
 
                 if (isVerified)
                 {
-
-
-
                     MainWindow window = new MainWindow();
                     Application.Current.MainWindow = window;
                     window.Show();
                     loginWindow.SuccessLogin();
+                    int user_id = UserContext.CurrentUserId;
+                    bool isRecorded = userLogsServices.Create(user_id, "LOGIN");
+                    if (!isRecorded) 
+                    {
+                        MessageBox.Show("Not Recorded");
+                    }
                 }
                 else
                 {
