@@ -46,6 +46,11 @@ namespace SmartPoultry
             Initialize(var_list, origstock);
 
             productId = prod.product_id;
+
+            if(homecontrol == null)
+            {
+                MessageBox.Show("Null home");
+            }
         }
         private void DisplayProductImage(byte[] imageData)
         {
@@ -150,9 +155,16 @@ namespace SmartPoultry
 
         private void VarButton_Click(object sender, RoutedEventArgs e, int variationId, string name)
         {
-            homeControl.DisplayOrder(variationId, name, this);
-            homeControl.EnableDropBtn();
-            homeControl.IsOrderConfirmed();
+            try
+            {
+                homeControl.DisplayOrder(variationId, name, this);
+                homeControl.EnableDropBtn();
+                homeControl.IsOrderConfirmed();
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         public void AdjustStocks(decimal amount)

@@ -631,7 +631,26 @@ namespace SmartPoultry
             }
         }
 
+        public decimal StocksUpdateAfterFilterorSearch(int product)
+        {
+            decimal tominus = 0; 
 
+            foreach (UIElement element in orderPanel.Children)
+            {
+                if (element is Home_OrdersControl control)
+                {
+                    ProductVariations productvar = productvariationsServices.GetProductVariationById(control.VariantID);
+                    if (productvar.product_id == product)
+                    {
+                        int qty = int.Parse(control.quantitylabel.Content.ToString());
+                        int conversion = productvar.conversion_rate;
+
+                        tominus += (1m / conversion) * qty;
+                    }
+                }
+            }
+            return tominus; 
+        }
         public void FilterProducts(string type, string animal)
         {
             try
@@ -653,10 +672,12 @@ namespace SmartPoultry
 
                     List<ProductVariations> variations = productvariationsServices.GetAllProductVariations(productId);
 
+                    decimal tominus = StocksUpdateAfterFilterorSearch(productId);
+                    stocks -= tominus;
 
                     home_POSproduct productControl = new home_POSproduct(productName, variations, imagePath, this, stocks, product);
-
                     posPrdocutsPanel.Children.Add(productControl);
+
                 }
                 SearchTB.Text = "Search Product...";
                 SearchTB.Foreground = Brushes.Gray;
@@ -689,10 +710,12 @@ namespace SmartPoultry
 
                     List<ProductVariations> variations = productvariationsServices.GetAllProductVariations(productId);
 
+                    decimal tominus = StocksUpdateAfterFilterorSearch(productId);
+                    stocks -= tominus;
 
                     home_POSproduct productControl = new home_POSproduct(productName, variations, imagePath, this, stocks, product);
-
                     posPrdocutsPanel.Children.Add(productControl);
+
                 }
             }
             catch (Exception ex)

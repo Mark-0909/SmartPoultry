@@ -43,7 +43,9 @@ namespace SmartPoultry
             varName.Content = variant;
             quantitylabel.Content = quantity;
             pricevar = price;
+
             productId = prodId;
+
             positionList = position;
             homeControl = homeCtrl;
 
