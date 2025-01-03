@@ -55,7 +55,7 @@ namespace SmartPoultry.DataServices
 
         }
 
-        public bool Create(string name, string contactperson, string contact, string location, string productlist)
+        public bool Create(string name, string contactperson, string contact, string email, string location)
         {
             try
             {
@@ -65,7 +65,7 @@ namespace SmartPoultry.DataServices
                     Contact_Person = contactperson,
                     Contact = contact,
                     Location = location,
-                    Products = productlist,
+                    Email = email,
                     Added_date = DateTime.Now.ToString(),
                     Status = "active",
                     employee_incharge = 1

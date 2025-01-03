@@ -20,7 +20,7 @@ namespace SmartPoultry.Migrations
                     Contact_Person = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     Contact = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     Location = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
-                    Products = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
+                    Email = table.Column<string>(type: "TEXT", maxLength: 255, nullable: false),
                     Added_date = table.Column<string>(type: "TEXT", maxLength: 100, nullable: false),
                     Status = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     employee_incharge = table.Column<int>(type: "INTEGER", nullable: false)

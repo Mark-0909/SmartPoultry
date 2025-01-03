@@ -80,6 +80,12 @@ namespace SmartPoultry
 
             mainWindow = mainwindow;
         }
+        private void AddSUpplier_Click(object sender, RoutedEventArgs e)
+        {
+            Inventory_AddSupplier window = new Inventory_AddSupplier(this);
+            ActiveOverlay(true);
+            window.ShowDialog();
+        }
 
         public Inventory_AddingForm(Products product, MainWindow window, Inventory_ProductControl productcontrol)
         {
@@ -301,20 +307,21 @@ namespace SmartPoultry
         }
         public void PopulateSupplierList(string mode)
         {
-            
             SupplierCBox.Items.Clear();
 
             if (mode != "edit")
             {
                 SupplierCBox.Items.Add("-- Select a Supplier --");
             }
-            List <SupplierList> suppliers = supplierServices.ListSuppliers();
+
+            List<SupplierList> suppliers = supplierServices.ListSuppliers();
 
             foreach (var supplier in suppliers)
             {
-                SupplierCBox.Items.Add(supplier.Name); 
+                SupplierCBox.Items.Add(supplier.Name);
             }
         }
+
 
         public void ClearVariation(int position)
         {

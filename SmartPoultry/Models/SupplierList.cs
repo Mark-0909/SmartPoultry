@@ -18,9 +18,9 @@ namespace SmartPoultry.Models
         [MaxLength(100)]
         public string Contact { get; set; }
         [MaxLength(255)]
-        public string Location { get; set; }
+        public string Email { get; set; }
         [MaxLength(255)]
-        public string Products { get; set; }
+        public string Location { get; set; }
         [MaxLength(100)]
         public string Added_date { get; set; }
         [MaxLength(50)]
