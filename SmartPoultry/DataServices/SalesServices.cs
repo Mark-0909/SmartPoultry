@@ -25,6 +25,7 @@ namespace SmartPoultry.DataServices
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }
@@ -45,6 +46,7 @@ namespace SmartPoultry.DataServices
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }
@@ -58,7 +60,7 @@ namespace SmartPoultry.DataServices
             }
             catch (Exception ex) 
             {
-                MessageBox.Show(ex.Message);
+                Console.WriteLine(ex.Message);
                 return null;
             }
         }

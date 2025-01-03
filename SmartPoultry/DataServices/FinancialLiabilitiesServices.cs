@@ -34,6 +34,7 @@ namespace SmartPoultry.DataServices
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }
@@ -49,7 +50,8 @@ namespace SmartPoultry.DataServices
             }
             catch (Exception ex)
             {
-                return false;
+                Console.WriteLine(ex.Message);
+                return false;      
             }
         }
         public FinancialLiabilities GetByReceipt(long orderId)
@@ -85,6 +87,7 @@ namespace SmartPoultry.DataServices
             }
             catch (Exception ex) 
             {
+                Console.WriteLine(ex.Message);
                 return 0;
             }
         }
@@ -110,7 +113,8 @@ namespace SmartPoultry.DataServices
                 _context.SaveChanges();
                 return true;
             }
-            catch (Exception ex) { 
+            catch (Exception ex) {
+                Console.WriteLine(ex.Message);
                 return false;
             }
             

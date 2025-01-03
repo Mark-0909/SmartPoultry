@@ -209,6 +209,7 @@ namespace SmartPoultry.DataServices
             catch (Exception e)
             {
                 List<Products> products = new List<Products>();
+                Console.WriteLine(e.Message);
                 return products;
             }
         }

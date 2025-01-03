@@ -41,6 +41,7 @@ namespace SmartPoultry.DataServices
             }
             catch (Exception ex) 
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }   
         }
@@ -56,6 +57,7 @@ namespace SmartPoultry.DataServices
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }
@@ -71,6 +73,7 @@ namespace SmartPoultry.DataServices
             }
             catch (Exception ex) 
             {
+                Console.WriteLine(ex.Message);
                 return false;
             }
         }
@@ -100,14 +103,15 @@ namespace SmartPoultry.DataServices
 
                 return count;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return 0;
             }
         }
 
 
-        public bool Create(long orderid, string name, string type, decimal price, string address, string status, string contact, DateTime deliverydate, string? deliveryman, decimal charge)
+        public bool Create(long orderid, string name, string type, decimal price, string address, string status, string contact, DateTime deliverydate, string deliveryman, decimal charge)
         {
             try 
             {

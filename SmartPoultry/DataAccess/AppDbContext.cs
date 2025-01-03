@@ -20,6 +20,8 @@ namespace SmartPoultry.DataAccess
         public DbSet<Models.UserLogs> UserLogs { get; set; }
         public DbSet<Models.InventoryLogs> InventoryLogs { get; set; }
 
+        public DbSet<Models.SupplierLogs> SupplierLogs { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");
