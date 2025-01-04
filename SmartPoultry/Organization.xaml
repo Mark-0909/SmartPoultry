@@ -4,10 +4,71 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Width="1104" Height="582" Background="#FFE3E3E3">
+             mc:Ignorable="d" Background="#FFE3E3E3" Height="578" Width="1109">
+    <UserControl.Resources>
+        <Style x:Key="NoHoverButton" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <!-- Animation for the button itself when hovered -->
+                                            <DoubleAnimation 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            To=".7" Duration="0:0:0.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+
+                                            <DoubleAnimation 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            To="1.0" Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Label Content="ORGANIZATION" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Margin="10,4,0,0"/>
+        <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Center" Height="505" Margin="-13,59,0,0" VerticalAlignment="Top" Width="1073" Background="White">
+            <WrapPanel HorizontalAlignment="Center" Height="386" Margin="0,108,0,0" VerticalAlignment="Top" Width="1053">
+                <WrapPanel Height="386" Width="590">
+                    <ScrollViewer Height="386" Width="590">
+                        <WrapPanel x:Name="UserPanel"  Width="572"/>
+                    </ScrollViewer>
+                </WrapPanel>
+                <Border BorderBrush="Black" BorderThickness="1" Height="384" Width="463">
+                    <WrapPanel HorizontalAlignment="Center" Height="361" Margin="0,9,0,0" VerticalAlignment="Top" Width="443">
+                        <Label x:Name="NameLabel" Content="name" Height="39" Width="443"/>
+                        <Label x:Name="RoleLabel" Content="Role" Height="39" Width="443"/>
+                        <ScrollViewer Height="283" Width="443">
+                            <WrapPanel Height="283" Width="424"/>
+                        </ScrollViewer>
+                    </WrapPanel>
+                </Border>
+            </WrapPanel>
+        </Border>
+        <Button x:Name="InactiveBtn" Content="INACTIVE" HorizontalAlignment="Left" Height="60" Margin="557,59,0,0" VerticalAlignment="Top" Width="534" FontSize="20" FontWeight="Bold" BorderBrush="#FFDCEDD5" Foreground="Gray" Background="#FFDCEDD5" Click="Inactive_Clicked" Style="{StaticResource NoHoverButton}"/>
+        <Button x:Name="ActiveBtn" Content="ACTIVE" HorizontalAlignment="Left" Height="60" Margin="18,59,0,0" VerticalAlignment="Top" Width="534" Click="Active_Clicked" FontSize="20" FontWeight="Bold" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D" Foreground="White" Style="{StaticResource NoHoverButton}"/>
+        <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="MEMBER INFO" HorizontalAlignment="Left" Height="36" Margin="757,127,0,0" VerticalAlignment="Top" Width="200" FontSize="20" FontWeight="Bold"/>
 
     </Grid>
 </UserControl>
