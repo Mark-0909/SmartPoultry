@@ -21,6 +21,7 @@ using iTextSharp.text.pdf;
 using System.Diagnostics;
 using System.IO;
 using static SmartPoultry.App;
+using Org.BouncyCastle.Asn1.BC;
 
 
 
@@ -651,24 +652,102 @@ namespace SmartPoultry
             }
             return tominus; 
         }
-        public void FilterProducts(string type, string animal)
+
+        public void RecreateOrdersControl()
         {
             try
             {
+                HashSet<int> existingProductIds = new HashSet<int>();
+                List<Home_OrdersControl> updatedOrders = new List<Home_OrdersControl>();
 
+                foreach (UIElement element in posPrdocutsPanel.Children)
+                {
+                    if (element is home_POSproduct control2)
+                    {
+                        existingProductIds.Add(control2.productId);
+                    }
+                }
+
+                foreach (UIElement element in orderPanel.Children)
+                {
+                    if (element is Home_OrdersControl control)
+                    {
+                        var variationrow = productvariationsServices.GetProductVariationById(control.VariantID);
+
+                        
+
+                        decimal price = decimal.Parse(control.pricelabel.Content.ToString());
+                        string name = control.prodName.Content.ToString();
+                        int position = control.positionList;
+                        int qty = int.Parse(control.quantitylabel.Content.ToString());
+                        int conversion = control.conversionrate;
+                        home_POSproduct productcontrol = control.poscontrol;
+
+                        bool isOrderMatched = false;
+
+                        foreach (UIElement element2 in posPrdocutsPanel.Children)
+                        {
+                            if (element2 is home_POSproduct control2Match && control2Match.productId == variationrow.product_id)
+                            {
+                                var updatedOrder = new Home_OrdersControl(
+                                    variationrow.id, 
+                                    variationrow.variant_type,
+                                    price,
+                                    name,
+                                    this,
+                                    position,
+                                    qty.ToString(),
+                                    control2Match,
+                                    conversion
+                                );
+                                updatedOrders.Add(updatedOrder);
+                                isOrderMatched = true;
+                                break;
+                            }
+                        }
+                        if (!isOrderMatched)
+                        {
+                            var updatedOrder = new Home_OrdersControl(
+                                variationrow.id,
+                                variationrow.variant_type,
+                                price,
+                                name,
+                                this,
+                                position,
+                                qty.ToString(),
+                                productcontrol,
+                                conversion
+                            );
+                            updatedOrders.Add(updatedOrder);
+                        }
+                    }
+                }
+                orderPanel.Children.Clear();
+                foreach (var order in updatedOrders)
+                {
+                    orderPanel.Children.Add(order);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error recreating orders: {ex.Message}");
+            }
+        }
+
+        public async void FilterProducts(string type, string animal)
+        {
+            try
+            {
                 posPrdocutsPanel.Children.Clear();
 
+                List<Products> products = await Task.Run(() => productServices.FilterProducts(type, animal));
 
-                List<Products> products = productServices.FilterProducts(type, animal);
-
-                foreach (Products product in products)
+                foreach (var product in products)
                 {
-
                     string productName = product.product_name;
                     int productId = product.product_id;
                     byte[] imagePath = product.image;
                     decimal stocks = product.stocks;
-
 
                     List<ProductVariations> variations = productvariationsServices.GetAllProductVariations(productId);
 
@@ -677,36 +756,37 @@ namespace SmartPoultry
 
                     home_POSproduct productControl = new home_POSproduct(productName, variations, imagePath, this, stocks, product);
                     posPrdocutsPanel.Children.Add(productControl);
-
                 }
+
+                if (posPrdocutsPanel.Children.Count != 0) 
+                {
+                    RecreateOrdersControl();
+                }
+                
+
                 SearchTB.Text = "Search Product...";
                 SearchTB.Foreground = Brushes.Gray;
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show($"Error filtering products: {ex.Message}");
             }
         }
 
-        public void SearchProducts(string searchteram)
+        public async void SearchProducts(string searchterm)
         {
             try
             {
-
                 posPrdocutsPanel.Children.Clear();
 
+                List<Products> products = await Task.Run(() => productServices.SearchProducts(searchterm, filterProduct, filterAnimal));
 
-                List<Products> products = productServices.SearchProducts(searchteram, filterProduct, filterAnimal);
-
-                foreach (Products product in products)
+                foreach (var product in products)
                 {
-
                     string productName = product.product_name;
                     int productId = product.product_id;
                     byte[] imagePath = product.image;
                     decimal stocks = product.stocks;
-
 
                     List<ProductVariations> variations = productvariationsServices.GetAllProductVariations(productId);
 
@@ -715,15 +795,21 @@ namespace SmartPoultry
 
                     home_POSproduct productControl = new home_POSproduct(productName, variations, imagePath, this, stocks, product);
                     posPrdocutsPanel.Children.Add(productControl);
+                }
 
+                if (posPrdocutsPanel.Children.Count != 0)
+                {
+                    RecreateOrdersControl();
                 }
             }
             catch (Exception ex)
             {
-
-                MessageBox.Show($"Error filtering products: {ex.Message}");
+                MessageBox.Show($"Error searching products: {ex.Message}");
             }
         }
+
+
+
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (SearchTB.Text == "Search Product..." || string.IsNullOrWhiteSpace(SearchTB.Text))
