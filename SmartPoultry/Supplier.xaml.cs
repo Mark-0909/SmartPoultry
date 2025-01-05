@@ -24,7 +24,7 @@ namespace SmartPoultry
     public partial class Supplier : UserControl
     {
         private SupplierList _selectedSupplier;
-        SupplierServices SupplierServices;
+        private SupplierServices SupplierServices;
         
 
         public Supplier()
@@ -49,6 +49,20 @@ namespace SmartPoultry
             {
                 RetrieveSupplierList(SupplierServices); //this will refresh the list after adding
             }
+
+            else
+            {
+                MessageBox.Show("Failed to add the supplier");
+            }
+        }
+
+        private void ClearInputFields()
+        {
+            SupplierName.Clear();
+            ContactPerson.Clear();
+            Phone.Clear();
+            Email.Clear();
+            Address.Clear();
         }
 
         private void EditSupplier_Click(object sender, RoutedEventArgs e)
@@ -62,22 +76,23 @@ namespace SmartPoultry
 
         private void DeleteSupplier_Click(object sender, RoutedEventArgs e)
         {
-            string name = SupplierName.Text;
+            
         }
 
         public void RetrieveSupplierList(SupplierServices supplierServices)
         {
-            
             List<SupplierList> supplierLists = supplierServices.ListSuppliers();
-            
-            
+
+            SupplierListPanel.Children.Clear(); // Ensure we clear the list before adding new items
 
             foreach (SupplierList list in supplierLists)
             {
-                MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
-                Supplier_SupplierControl control = new Supplier_SupplierControl(list, mainWindow);
+                // Updated constructor to remove the MainWindow parameter
+                Supplier_SupplierControl control = new Supplier_SupplierControl(list);
+
                 SupplierListPanel.Children.Add(control);
 
+                // Subscribe to the SupplierClicked event
                 control.SupplierClicked += Supplier_SupplierControl_SupplierClicked;
             }
         }

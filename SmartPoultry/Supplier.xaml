@@ -11,6 +11,7 @@
             <RowDefinition Height="11*"/>
             <RowDefinition Height="439*"/>
         </Grid.RowDefinitions>
+
         <!-- Header Label -->
         <Label Content="SUPPLIER" HorizontalAlignment="Left" VerticalAlignment="Top"
                FontSize="30" FontWeight="Bold" Margin="10,4,0,0" Grid.RowSpan="2"/>
@@ -29,10 +30,9 @@
                 <ScrollViewer HorizontalAlignment="Center" Height="354" Margin="0,26,0,0" VerticalAlignment="Top" Width="650" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                     <WrapPanel x:Name="SupplierListPanel"/>
                 </ScrollViewer>
-
             </Border>
 
-            <!-- Supplier Information Section -->
+            <!-- Supplier Information Section (StackPanel) -->
             <StackPanel Grid.Column="1" Margin="10">
                 <TextBlock Text="Add a Supplier" FontSize="20" FontWeight="Bold" Margin="0,0,0,10"/>
 
@@ -68,10 +68,13 @@
                 </DataGrid>
             </StackPanel>
         </Grid>
+
+        <!-- Row Labels (for Name, Contact Person, etc.) -->
         <Label HorizontalContentAlignment="Center" Content="NAME" HorizontalAlignment="Left" Height="32" Margin="34,44,0,0" VerticalAlignment="Top" Width="138" Grid.Row="1"/>
         <Label HorizontalContentAlignment="Center" Content="CONTACT PERSON" HorizontalAlignment="Left" Height="28" Margin="199,44,0,0" VerticalAlignment="Top" Width="144" Grid.Row="1"/>
         <Label HorizontalContentAlignment="Center" Content="CONTACT INFO" HorizontalAlignment="Left" Height="28" Margin="377,44,0,0" VerticalAlignment="Top" Width="144" Grid.Row="1"/>
     </Grid>
 </UserControl>
+
 
 
