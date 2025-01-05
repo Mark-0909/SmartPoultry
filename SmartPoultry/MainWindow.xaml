@@ -12,44 +12,29 @@
             <ColumnDefinition Width="794*"/>
         </Grid.ColumnDefinitions>
 
-        <local:Schedule x:Name="scheduleControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="602" Margin="106,92,0,0" VerticalAlignment="Top" Width="1123"/>
+        
 
 
 
         <Rectangle x:Name="MainWindowOverlay" Opacity=".5"  Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="700" Stroke="#00000000" VerticalAlignment="Center" Width="1232" Fill="#FFA7A7A7"/>
 
 
-
-
+        <local:Schedule x:Name="scheduleControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="602" Margin="106,92,0,0" VerticalAlignment="Top" Width="1123"/>
 
 
         <local:Supplier x:Name="supplierControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,92,0,0" VerticalAlignment="Top" Height="598" Width="1113"/>
 
 
-
-
-
-
         <local:Organization x:Name="organizationControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123"/>
-
-
-
-
 
 
         <local:records x:Name="recordsControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1109"/>
 
 
-
-
-
-
         <local:inventory x:Name="inventoryControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123"/>
+        
+        
         <local:home x:Name="homeControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123"/>
-
-
-
-
 
 
         <local:dashboard x:Name="dashboardControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Width="1123" Height="603"/>
