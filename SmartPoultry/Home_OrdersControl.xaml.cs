@@ -19,7 +19,7 @@ namespace SmartPoultry
         public decimal pricevar;
         public int productId;
         public int positionList;
-
+        public int conversionrate;
 
         private home homeControl;
 
@@ -35,7 +35,7 @@ namespace SmartPoultry
             InitializeComponent();
 
             CVRate = 1m / conversion;
-
+            conversionrate = conversion; 
             VariantID = prodId;
 
             prodName.Content = productName;

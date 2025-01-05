@@ -29,6 +29,11 @@ namespace SmartPoultry.DataServices
             return user;
         }
 
+        public List<User> GetUserList(string isactive)
+        {
+            var list = _context.Users.Where(p=> p.Status == isactive.ToLower()).ToList();
+            return list;
+        }
 
         public bool UpdatePassword(string username, string password)
         {

@@ -1,4 +1,6 @@
-﻿using System.Text;
+﻿using SmartPoultry.DataAccess;
+using SmartPoultry.DataServices;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -8,6 +10,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml;
+using static SmartPoultry.App;
 
 namespace SmartPoultry
 {
@@ -16,11 +20,13 @@ namespace SmartPoultry
     /// </summary>
     public partial class MainWindow : Window
     {
+        public AppDbContext context = new AppDbContext();
+        public UserLogsServices userLogsServices;
         public MainWindow()
         {
             InitializeComponent();
             MainWindowOverlay.Visibility = Visibility.Hidden;
-
+            userLogsServices = new UserLogsServices(context);
         }
 
         public void ActiveOverlay(bool isActive)
@@ -237,6 +243,12 @@ namespace SmartPoultry
                 Application.Current.MainWindow = loginWindow;
                 loginWindow.Show();
                 this.Close();
+                bool ifRecorded = userLogsServices.Create(UserContext.CurrentUserId, "LOGOUT");
+
+                if (!ifRecorded) 
+                {
+                    MessageBox.Show("Unsuccesful");
+                }
             }
         }
 
