@@ -524,6 +524,8 @@ namespace SmartPoultry
                 if (posprod != null) 
                 {
                     posprod.Productimage.Source = SelectedImage.Source;
+                    posprod.Productname.Content = ProductNameTextBox.Text;
+                    posprod.StocksLabel.Content = stocklisting.Content.ToString();
                 }
                 
             }

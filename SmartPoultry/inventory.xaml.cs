@@ -195,7 +195,30 @@ namespace SmartPoultry
                 MessageBox.Show($"Error filtering products: {ex.Message}");
             }
         }
-        
+        private void OutOfStock_Clicked(object sender, RoutedEventArgs e)
+        {
+            if(ProductListWPanel.Children.Count > 0)
+            {
+                ProductListWPanel.Children.Clear();
+            }
+
+            List<Products> products = productService.GetLowStockProducts("", "", "");
+
+
+            foreach (var product in products)
+            {
+
+                Inventory_ProductControl productControl = new Inventory_ProductControl(
+                    product.product_id,
+                    product.product_name,
+                    product.stocks,
+                    product.image
+                );
+
+
+                ProductListWPanel.Children.Add(productControl);
+            }
+        }
 
         //Inventory Buttons Click Functions (Animal type)
         private void AllButton_Click(object sender, RoutedEventArgs e)
@@ -575,8 +598,5 @@ namespace SmartPoultry
 
         }
 
-
-
-    
-}
+    }
 }

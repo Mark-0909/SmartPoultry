@@ -219,5 +219,6 @@
                 </Border>
             </Grid>
         </Border>
+        <Button Content="Out of Stock" HorizontalAlignment="Left" Height="41" Margin="789,8,0,0" VerticalAlignment="Top" Width="50" Click="OutOfStock_Clicked"/>
     </Grid>
 </UserControl>
