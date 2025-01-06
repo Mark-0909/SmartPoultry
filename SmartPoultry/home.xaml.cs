@@ -124,6 +124,11 @@ namespace SmartPoultry
         {
             posPrdocutsPanel.Children.Clear();
             DisplayProducts();
+
+            var args = new RoutedEventArgs(Button.ClickEvent);
+
+            AllButton_Click(animalAllBtn, args);
+            TypeAllButton_Click(typeAllBtn, args);
         }
         private void DropOrderBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -612,6 +617,7 @@ namespace SmartPoultry
 
             List<Products> products = productServices.GetAllProducts();
 
+            posPrdocutsPanel.Children.Clear();
 
             foreach (Products product in products)
             {

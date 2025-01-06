@@ -49,6 +49,10 @@ namespace SmartPoultry
         {
             ProductListWPanel.Children.Clear();
             LoadProducts();
+            var args = new RoutedEventArgs(Button.ClickEvent); 
+
+            AllButton_Click(animalAllBtn, args);
+            TypeAllButton_Click(typeAllBtn, args);
         }
         private void LoadProducts()
         {
