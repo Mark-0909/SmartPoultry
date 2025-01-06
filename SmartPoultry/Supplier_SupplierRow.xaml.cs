@@ -1,19 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Xml;
 using SmartPoultry.Models;
 
 namespace SmartPoultry
@@ -33,9 +21,10 @@ namespace SmartPoultry
         }
 
         public event Action<SupplierList> SupplierClicked;
-        public MainWindow mainWindow {get; set;}
 
-        public Supplier_SupplierControl(SupplierList supplier, MainWindow window)
+        public SupplierList Supplier { get; set; }
+
+        public Supplier_SupplierControl(SupplierList supplier)
         {
             InitializeComponent();
             Name.Content = supplier.Name;
@@ -46,19 +35,15 @@ namespace SmartPoultry
 
             // Add MouseDown event for row selection
             MouseDown += Supplier_SupplierControl_MouseDown;
-            mainWindow = window;
         }
 
-        public SupplierList Supplier { get; set; }
-
-        public void Supplier_SupplierControl_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void Supplier_SupplierControl_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             IsSelected = true; // Mark this row as selected
-
             SupplierClicked?.Invoke(Supplier);
         }
 
-        public void UpdateVisualState()
+        private void UpdateVisualState()
         {
             if (IsSelected)
             {
@@ -72,26 +57,26 @@ namespace SmartPoultry
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-
-            
+            // Create an instance of Supplier_InfoUserControl
             Supplier_InfoUserControl supplierInfoControl = new Supplier_InfoUserControl();
-            if (mainWindow != null)
-            {
-                mainWindow.ActiveOverlay(true);
-                
-                // Show the popup (e.g., in a parent window or as a dialog)
-                Window.GetWindow(this).Content = supplierInfoControl;
-                supplierInfoControl.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                MessageBox.Show("Unable to access the MainWindow.");
-            }
-            // Instantiate the Supplier_InfoUserControl
-            
 
-            // Optionally, pass supplier data to the popup here
-            // For example: supplierInfoControl.FillData(supplierName, contactPerson, etc.);
+            // Set the DataContext to the current supplier so the form can auto-fill
+            supplierInfoControl.DataContext = Supplier;
+
+            // Display the control in a new window or popup
+            Window editWindow = new Window
+            {
+                Title = "Edit Supplier Details",
+                Content = supplierInfoControl,
+                Width = 400,
+                Height = 300,
+                ResizeMode = ResizeMode.NoResize,
+                WindowStartupLocation = WindowStartupLocation.CenterScreen,
+                Owner = Window.GetWindow(this) // Associate with the current window
+            };
+
+            // Show the window modally to block interaction with other UI elements
+            editWindow.ShowDialog();
         }
     }
 }
