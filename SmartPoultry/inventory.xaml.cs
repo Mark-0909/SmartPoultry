@@ -47,8 +47,6 @@ namespace SmartPoultry
         }
         public void DynamicReload()
         {
-            ProductListWPanel.Children.Clear();
-            LoadProducts();
             var args = new RoutedEventArgs(Button.ClickEvent); 
 
             AllButton_Click(animalAllBtn, args);
@@ -144,8 +142,10 @@ namespace SmartPoultry
                 ProductListWPanel.Children.Clear();
 
 
-                List<Products> products = productService.FilterProducts(type, animal);
-                
+                AppDbContext context = new AppDbContext();
+                ProductServices prodservices = new ProductServices(context);
+                List<Products> products = prodservices.FilterProducts(type, animal);
+
                 foreach (Products product in products)
                 {
 
