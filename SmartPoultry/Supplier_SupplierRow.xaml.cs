@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using SmartPoultry.Models;
+using static SmartPoultry.App;
 
 namespace SmartPoultry
 {
@@ -57,14 +58,14 @@ namespace SmartPoultry
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            // Create an instance of Supplier_InfoUserControl
+
             Supplier_InfoUserControl supplierInfoControl = new Supplier_InfoUserControl();
 
-            // Set the DataContext to the current supplier so the form can auto-fill
+
             supplierInfoControl.DataContext = Supplier;
 
-            // Display the control in a new window or popup
-            Window editWindow = new Window
+
+            Window editWindow = new Window  // gawa ka nalang bagong window sa solution explorer
             {
                 Title = "Edit Supplier Details",
                 Content = supplierInfoControl,
@@ -72,10 +73,11 @@ namespace SmartPoultry
                 Height = 300,
                 ResizeMode = ResizeMode.NoResize,
                 WindowStartupLocation = WindowStartupLocation.CenterScreen,
-                Owner = Window.GetWindow(this) // Associate with the current window
+                Owner = Window.GetWindow(this) 
             };
 
-            // Show the window modally to block interaction with other UI elements
+            MainWindow mainWindow = UserContext.mainWindow;
+            mainWindow.ActiveOverlay(true);
             editWindow.ShowDialog();
         }
     }

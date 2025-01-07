@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SmartPoultry.DataAccess;
+using static SmartPoultry.App;
 
 namespace SmartPoultry
 {
@@ -76,7 +77,7 @@ namespace SmartPoultry
 
         private void OpenAddForm_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
+            MainWindow? mainWindow = UserContext.mainWindow;
             Inventory_AddingForm addForm = new Inventory_AddingForm(mainWindow);
             if (mainWindow != null)
             {
@@ -87,7 +88,7 @@ namespace SmartPoultry
             }
             else
             {
-                MessageBox.Show("Unable to access the MainWindow.");
+                MessageBox.Show("Unable to access the MainWindow. inventory");
             }
             
             

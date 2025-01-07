@@ -14,7 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using static SmartPoultry.App;
 namespace SmartPoultry
 {
     /// <summary>
@@ -45,7 +45,7 @@ namespace SmartPoultry
             EditBtn.Visibility = Visibility.Collapsed;
             CancelBtn.Visibility = Visibility.Collapsed;
 
-            mainWindow = window;
+            mainWindow = UserContext.mainWindow;
         }
         public Add_FinancialLiabilities(FinancialLiabilities itemrow, MainWindow mainwindow)
         {
@@ -69,7 +69,7 @@ namespace SmartPoultry
             datePicker.SelectedDate = itemrow.due_date;
             ContactsTextBox.Text = itemrow.contacts;
             ConfirmBtn.Content = "PAID";
-            mainWindow = mainwindow;
+            mainWindow = UserContext.mainWindow;
 
             EnabledForm(false);
         }
@@ -220,7 +220,7 @@ namespace SmartPoultry
             }
             else
             {
-                MessageBox.Show("Unable to access the MainWindow.");
+                MessageBox.Show("Unable to access the MainWindow. add financial");
             }
             this.Close();
             mainWindow.ActiveOverlay(false);

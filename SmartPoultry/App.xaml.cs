@@ -12,7 +12,9 @@ namespace SmartPoultry
         
         public static class UserContext
         {
-            public static int CurrentUserId { get; set; } = -1; 
+            public static int CurrentUserId { get; set; } = -1;
+            
+            public static MainWindow mainWindow { get; set; }
         }
 
     }

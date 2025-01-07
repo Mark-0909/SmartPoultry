@@ -5,6 +5,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using static SmartPoultry.App;
 
 namespace SmartPoultry
 {
@@ -43,7 +44,7 @@ namespace SmartPoultry
             EditBtn.Visibility = Visibility.Hidden;
             CancelBtn.Visibility = Visibility.Hidden;
 
-            mainWindow = window;
+            mainWindow = UserContext.mainWindow;
         }
 
         public Add_Delivery(Deliveries itemrow, MainWindow window)
@@ -70,7 +71,7 @@ namespace SmartPoultry
                 toReceiveRadio.IsChecked = true;
             }
 
-            mainWindow = window;
+            mainWindow = UserContext.mainWindow;
             confirmBtn.Content = "DELIVERED";
 
             if(itemrow.type == "To Receive")
@@ -235,7 +236,7 @@ namespace SmartPoultry
                 }
                 else
                 {
-                    MessageBox.Show("Unable to access the MainWindow.");
+                    MessageBox.Show("Unable to access the MainWindow. add delivery");
                 }
             }
             else

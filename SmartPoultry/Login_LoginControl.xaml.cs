@@ -72,6 +72,7 @@ namespace SmartPoultry
                     Application.Current.MainWindow = window;
                     window.Show();
                     loginWindow.SuccessLogin();
+                    UserContext.mainWindow = window;
                     int user_id = UserContext.CurrentUserId;
                     bool isRecorded = userLogsServices.Create(user_id, "LOGIN");
                     if (!isRecorded) 

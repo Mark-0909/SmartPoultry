@@ -79,7 +79,7 @@ namespace SmartPoultry
         {
             try
             {
-                MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
+                MainWindow mainWindow = UserContext.mainWindow;
                 for (int i = 0; i < Productvaridlist.Count; i++)
                 {
                     ProductVariations product = productvariationsServices.GetProductVariationById(int.Parse(Productvaridlist[i]));
@@ -228,7 +228,7 @@ namespace SmartPoultry
 
                 MinusStocksProduct(StringProductList, StringQuantityList);
 
-                MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
+                MainWindow mainWindow = UserContext.mainWindow;
 
                 if (mainWindow != null)
                 {
@@ -239,7 +239,7 @@ namespace SmartPoultry
                 }
                 else
                 {
-                    MessageBox.Show("Unable to access the MainWindow.");
+                    MessageBox.Show("Unable to access the MainWindow. home");
                 }
             }
             else
@@ -499,7 +499,7 @@ namespace SmartPoultry
         {
             if (orderPanel.Children.Count > 0)
             {
-                MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
+                MainWindow mainWindow = UserContext.mainWindow;
                 Home_Checkout checkout = new Home_Checkout(totalPiceLabel.Content.ToString(), this, mainWindow, Productvaridlist, QuantityList, VarSpecification, PriceList, ProductnameList);
 
 
@@ -509,7 +509,7 @@ namespace SmartPoultry
                 }
                 else
                 {
-                    MessageBox.Show("Unable to access the MainWindow.");
+                    MessageBox.Show("Unable to access the MainWindow. home");
                 }
                 checkout.ShowDialog();
 

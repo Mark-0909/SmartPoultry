@@ -18,7 +18,7 @@
                        Content="Unpaid" HorizontalAlignment="Left" Margin="177,0,0,0" VerticalAlignment="Center" FontSize="13" />
                 <Label x:Name="TotalpriceLabel" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" 
                        Content="000000" HorizontalAlignment="Left" Margin="232,0,0,0" VerticalAlignment="Center" FontSize="13" />
-                <Button HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="27" Margin="291,0,0,0" 
+                <Button HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="27" Margin="284,0,0,0" 
                         Background="Transparent" BorderBrush="Transparent" Click="DropDown_Clicked">
                     <Image Height="17" Width="14" Source="/Images/dropdown.png"/>
                 </Button>

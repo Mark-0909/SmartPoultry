@@ -24,6 +24,7 @@ namespace SmartPoultry
         public UserLogsServices userLogsServices;
         public MainWindow()
         {
+            UserContext.mainWindow = this;
             InitializeComponent();
             MainWindowOverlay.Visibility = Visibility.Hidden;
             userLogsServices = new UserLogsServices(context);
