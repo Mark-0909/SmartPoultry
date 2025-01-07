@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartPoultry"
         mc:Ignorable="d"
-        Title="Home_Checkout" Height="568" Width="300" 
+        Title="Home_Checkout" Height="601" Width="300" 
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" 
         WindowStyle="None" Background="Transparent" 
         Foreground="Transparent" AllowsTransparency="True">
     <Grid>
-        <Border CornerRadius="10 10 10 10" BorderBrush="#FF2C6E5D" Background="White" BorderThickness="2" RenderTransformOrigin="0.5,0.5" Height="568" VerticalAlignment="Center" Margin="-1,0,1,0">
+        <Border CornerRadius="10 10 10 10" BorderBrush="#FF2C6E5D" Background="White" BorderThickness="2" RenderTransformOrigin="0.5,0.5" Height="601" VerticalAlignment="Center" Margin="-1,0,1,0">
             <Border.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -23,21 +23,21 @@
                 <Label HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center" Content="ORDER INFORMATION" FontSize="20" FontWeight="Bold"/>
             </Border>
         </Border>
-        <Label Content="TOTAL AMOUNT:" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="38" Margin="10,441,0,0" VerticalAlignment="Top" Width="150" FontWeight="Bold"/>
-        <Label Content="₱" HorizontalAlignment="Center" VerticalContentAlignment="Center" Height="38" Margin="0,439,0,0" VerticalAlignment="Top" Width="26" FontSize="16"/>
-        <Label x:Name="totalPricelabel" Content="PRICE" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Height="30" Margin="0,445,12,0" VerticalAlignment="Top" Width="103"/>
-        <Button x:Name="CloseButton" Click="CloseWindow_Click" HorizontalAlignment="Left" Height="30" Margin="273,0,0,0" VerticalAlignment="Top" Width="27" Background="Transparent" BorderBrush="Transparent">
+        <Label Content="TOTAL AMOUNT:" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="38" Margin="10,403,0,0" VerticalAlignment="Top" Width="150" FontWeight="Bold"/>
+        <Label Content="₱" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="38" Margin="147,403,0,0" VerticalAlignment="Top" Width="26" FontSize="16"/>
+        <Label x:Name="totalPricelabel" Content="PRICE" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Height="30" Margin="0,407,11,0" VerticalAlignment="Top" Width="102"/>
+        <Button x:Name="CloseButton" Click="CloseWindow_Click" HorizontalAlignment="Left" Height="30" Margin="269,6,0,0" VerticalAlignment="Top" Width="26" Background="Transparent" BorderBrush="Transparent">
             <Image Height="22" Width="24" Source="/Images/close.png"/>
         </Button>
-        <Border BorderBrush="#FF2C6E5D" CornerRadius="0 0 10 10" BorderThickness="1" HorizontalAlignment="Center" Height="38" VerticalAlignment="Top" Width="300" Background="#FF2C6E5D" Margin="0,529,0,0">
+        <Border BorderBrush="#FF2C6E5D" CornerRadius="0 0 10 10" BorderThickness="1" HorizontalAlignment="Center" Height="38" VerticalAlignment="Top" Width="300" Background="#FF2C6E5D" Margin="0,562,0,0">
             <Button x:Name="ConfirmBtn" Click="Confirm_Click" Content="Confirm" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Width="166" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D" Foreground="White" FontWeight="Bold" FontSize="20"/>
         </Border>
         <Label Content="Order ID:" HorizontalAlignment="Left" Height="38" Margin="5,44,0,0" VerticalAlignment="Top" Width="90" FontSize="14" FontWeight="Bold"/>
-        <Label Content="Item" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="38" Margin="43,70,0,0" VerticalAlignment="Top" Width="70" FontWeight="Bold"/>
-        <Label Content="Price" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="38" Margin="207,70,0,0" VerticalAlignment="Top" Width="82" FontWeight="Bold"/>
-        <Label Content="Qty" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="38" Margin="113,70,0,0" VerticalAlignment="Top" Width="94" FontWeight="Bold"/>
+        <Label Content="Item" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="38" Margin="43,95,0,0" VerticalAlignment="Top" Width="70" FontWeight="Bold"/>
+        <Label Content="Price" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="38" Margin="207,95,0,0" VerticalAlignment="Top" Width="82" FontWeight="Bold"/>
+        <Label Content="Qty" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="38" Margin="113,95,0,0" VerticalAlignment="Top" Width="94" FontWeight="Bold"/>
 
-        <ScrollViewer x:Name="OrderScroller"  HorizontalAlignment="Center" Height="318" Margin="0,106,0,0" VerticalAlignment="Top" Width="281">
+        <ScrollViewer x:Name="OrderScroller"  HorizontalAlignment="Center" Height="276" Margin="0,127,0,0" VerticalAlignment="Top" Width="280">
             <WrapPanel x:Name="OrderWPanel" Margin="0,0,0,0" Width="270">
                 <Border x:Name="OrderBorder" BorderBrush="Transparent" BorderThickness="1" Height="35" Width="255">
                     <WrapPanel>
@@ -51,7 +51,19 @@
                 </Border>
             </WrapPanel>
         </ScrollViewer>
-        <Label x:Name="OrderIdLabel" Content="Order ID:" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="38" Margin="198,44,0,0" VerticalAlignment="Top" Width="90" FontSize="14"/>
+        <Label x:Name="OrderIdLabel" Content="Order ID:" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="26" Margin="138,44,0,0" VerticalAlignment="Top" Width="150" FontSize="14"/>
+        <Label Content="Payment Method:" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="10,441,0,0" VerticalAlignment="Top" Width="150" FontWeight="Bold" FontSize="11"/>
+        <Label Content="Payment Status:" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="10,469,0,0" VerticalAlignment="Top" Width="150" FontWeight="Bold" FontSize="11"/>
+        <Label Content="Purchase Method:" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="10,496,0,0" VerticalAlignment="Top" Width="150" FontWeight="Bold" FontSize="11"/>
+
+        <Label x:Name="PayMethodLabel" HorizontalContentAlignment="Left" Content="Payment Method" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="113,441,0,0" VerticalAlignment="Top" Width="104" FontSize="11"/>
+        <Label x:Name="PaymentStatusLabel" HorizontalContentAlignment="Left" Content="Payment status" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="113,469,0,0" VerticalAlignment="Top" Width="104" FontSize="11"/>
+        <Label x:Name="PurchaseMethodlabel" HorizontalContentAlignment="Left" Content="purchase method" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="113,496,0,0" VerticalAlignment="Top" Width="104" FontSize="11"/>
+        <Button x:Name="VoidBtn" Click="VoidBtn_Click" HorizontalAlignment="Left" Height="30" Margin="263,495,0,0" VerticalAlignment="Top" Width="32" Background="#FFFDD2D2" BorderBrush="Transparent" Content="Void"/>
+        <Label Content="Cashier:" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="10,524,0,0" VerticalAlignment="Top" Width="150" FontWeight="Bold" FontSize="11"/>
+        <Label x:Name="CashierLabel" HorizontalContentAlignment="Left" Content="cashier" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="113,524,0,0" VerticalAlignment="Top" Width="104" FontSize="11"/>
+        <Label Content="Purchase Date:" HorizontalAlignment="Left" Height="38" Margin="5,70,0,0" VerticalAlignment="Top" Width="108" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="PurchaseDatelabel" Content="Purchase Date" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="26" Margin="138,70,0,0" VerticalAlignment="Top" Width="151" FontSize="14" RenderTransformOrigin="0.445,1.553"/>
     </Grid>
 
 

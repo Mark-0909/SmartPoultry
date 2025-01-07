@@ -26,11 +26,23 @@ namespace SmartPoultry
         public AppDbContext context = new AppDbContext();
         public ProductServices productServices;
         public ProductVariationServices productVariationServices;
+        public UserServices userServices;
         MainWindow mainWindow;
         public Sales_OrderInfo(Sales sales, MainWindow window)
         {
             InitializeComponent();
             
+            userServices = new UserServices(context);
+            
+            OrderIdLabel.Content = sales.receipt_id;
+            totalPricelabel.Content = sales.total_price.ToString("N2");
+            PayMethodLabel.Content = sales.payment_mode.ToString().ToUpper();
+            PaymentStatusLabel.Content = sales.status.ToString().ToUpper();
+            PurchaseMethodlabel.Content = sales.purchase_method.ToString().ToUpper();
+            PurchaseDatelabel.Content = sales.purchase_date.ToString();
+
+            CashierLabel.Content = userServices.GetUser(sales.employee_incharge).Username.ToString(); 
+
             productServices = new ProductServices(context);
             productVariationServices = new ProductVariationServices(context);
 
@@ -118,6 +130,11 @@ namespace SmartPoultry
         {
             mainWindow.ActiveOverlay(false);
             this.Close();
+        }
+
+        private void VoidBtn_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
