@@ -40,6 +40,9 @@ namespace SmartPoultry
             salesServices = new SalesServices(context);
             financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
             
+            EditBtn.Visibility = Visibility.Hidden;
+            CancelBtn.Visibility = Visibility.Hidden;
+
             mainWindow = window;
         }
 
@@ -296,12 +299,12 @@ namespace SmartPoultry
 
         private void PaidRadio_IsChecked(object sender, RoutedEventArgs e)
         {
-            status = "Paid";
+            status = "paid";
         }
 
         private void UnpaidRadio_IsChecked(object sender, RoutedEventArgs e)
         {
-            status = "Nnpaid";
+            status = "unpaid";
         }
 
         private void ContactsTextBox_TextChanged(object sender, TextChangedEventArgs e)
