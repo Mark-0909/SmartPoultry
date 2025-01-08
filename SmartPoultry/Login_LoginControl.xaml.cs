@@ -48,17 +48,17 @@ namespace SmartPoultry
 
             if (string.IsNullOrWhiteSpace(username) || username == "Enter Username...")
             {
-                MessageBox.Show("Please enter a username.");
+                loginWindow.PopUpNotif("alert", "Please enter a username.");
                 return;
             }
             else if (string.IsNullOrWhiteSpace(password))
             {
-                MessageBox.Show("Please enter a password.");
+                loginWindow.PopUpNotif("alert", "Please enter a password.");
                 return;
             }
             else if (username == "Enter Username..." && string.IsNullOrWhiteSpace(password))
             {
-                MessageBox.Show("Form is empty.");
+                loginWindow.PopUpNotif("alert", "Form is empty.");
                 return;
             }
 
@@ -77,18 +77,18 @@ namespace SmartPoultry
                     bool isRecorded = userLogsServices.Create(user_id, "LOGIN");
                     if (!isRecorded) 
                     {
-                        MessageBox.Show("Not Recorded");
+                        loginWindow.PopUpNotif("alert", "Not Recorded");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Incorrect username or password. Please try again.");
+                    loginWindow.PopUpNotif("alert", "Incorrect username or password");
                 }
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"An error occurred: {ex.Message}");
-                MessageBox.Show("An error occurred while processing your login. Please try again later.");
+                loginWindow.PopUpNotif("alert", "An error occurred while processing your login.");
             }
         }
         private void TB_KeyDown(Object sender, KeyEventArgs e)
@@ -135,7 +135,7 @@ namespace SmartPoultry
                     tb.Foreground = Brushes.Black;
                 }
             }
-            else // When the TextBox loses focus
+            else 
             {
                 if (string.IsNullOrWhiteSpace(tb.Text))
                 {

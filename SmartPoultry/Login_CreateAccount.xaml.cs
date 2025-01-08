@@ -46,7 +46,7 @@ namespace SmartPoultry
         {
             if (usernameTB.Text == "Username..." || string.IsNullOrWhiteSpace(passwordTB.Password) || string.IsNullOrWhiteSpace(confirmpassTB.Password) || q1TB.Text == "Pet's name..." || q2TB.Text == "Favorite color..." || q3TB.Text == "Book or movie...")
             {
-                MessageBox.Show("Please complete all the necessary field.");
+                loginWindow.PopUpNotif("alert", "Please complete all the necessary field.");
                 return;
             }
 
@@ -54,7 +54,7 @@ namespace SmartPoultry
 
             if (isUsernamePresent)
             {
-                MessageBox.Show("Username is not available. Create a new one.");
+                loginWindow.PopUpNotif("alert", "Username is not available. Create a new one.");
                 usernameTB.Text = "Username...";
                 usernameTB.Foreground = Brushes.Gray;
                 return;
@@ -73,7 +73,7 @@ namespace SmartPoultry
             }
             else
             {
-                MessageBox.Show("Password does not match!");
+                loginWindow.PopUpNotif("alert", "Password does not match!");
                 return;
             }
             string q1 = q1TB.Text;
@@ -83,10 +83,10 @@ namespace SmartPoultry
             bool issuccess = userServices.CreateAccount(username, password, q1, q2, q3, role);
             if (!issuccess)
             {
-                MessageBox.Show("Create account unsuccessful.");
+                loginWindow.PopUpNotif("alert", "Create account unsuccessful.");
                 return;
             }
-            MessageBox.Show("Account creation complete.");
+            loginWindow.PopUpNotif("notif", "Account creation complete.");
             ClearTextBoxes();
         }
         public void DisableLogin(bool istheradmin)

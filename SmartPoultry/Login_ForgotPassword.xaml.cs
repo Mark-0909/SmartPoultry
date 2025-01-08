@@ -44,13 +44,13 @@ namespace SmartPoultry
         {
             if (string.IsNullOrWhiteSpace(createNewPassTB.Password) || string.IsNullOrWhiteSpace(confirmNewPassTB.Password))
             {
-                MessageBox.Show("Please fill all required fields.");
+                loginWindow.PopUpNotif("alert", "Please fill all required fields.");
                 return;
             }
 
             if (createNewPassTB.Password != confirmNewPassTB.Password)
             {
-                MessageBox.Show("Passwords do not match.");
+                loginWindow.PopUpNotif("alert", "Passwords do not match.");
                 return;
             }
 
@@ -59,17 +59,18 @@ namespace SmartPoultry
                 bool passwordChanged = UserServices.UpdatePassword(usernameTB.Text, confirmNewPassTB.Password);
                 if (!passwordChanged)
                 {
-                    MessageBox.Show("Password change failed. User not found.");
+                    loginWindow.PopUpNotif("alert", "Password change failed. User not found.");
                     return;
                 }
 
-                MessageBox.Show("Password changed successfully.");
+                loginWindow.PopUpNotif("notif", "Password changed successfully.");
                 ClearTextBoxes();
 
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred: {ex.Message}");
+                Console.WriteLine(ex.Message);
+                loginWindow.PopUpNotif("alert", "An error occurred");
             }
         }
 
@@ -86,13 +87,14 @@ namespace SmartPoultry
 
             if (string.IsNullOrWhiteSpace(usernameTB.Text) || string.IsNullOrWhiteSpace(QuestionTB.Text))
             {
-                MessageBox.Show("Please fill all required field.");
+                loginWindow.PopUpNotif("alert", "Please fill all required field.");
                 return;
             }
 
             bool isverified = UserServices.ForgotPassVerification(username, question, answer);
             if (isverified)
             {
+                loginWindow.PopUpNotif("notif", "Verified. You can change password.");
                 createNewPassTB.IsEnabled = true;
                 confirmNewPassTB.IsEnabled = true;
                 ChangePassBtn.IsEnabled = true;
@@ -101,7 +103,7 @@ namespace SmartPoultry
             }
             else
             {
-                MessageBox.Show("Not Verified");
+                loginWindow.PopUpNotif("alert", "Not Verified");
                 return;
             }
         }

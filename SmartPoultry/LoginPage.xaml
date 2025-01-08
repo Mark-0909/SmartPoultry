@@ -12,7 +12,7 @@
         <local:Login_ForgotPassword x:Name="forgotControl" HorizontalAlignment="Left" Margin="512,0,0,0" VerticalAlignment="Center"/>
         <local:Login_LoginControl x:Name="loginControl" HorizontalAlignment="Left" Margin="512,0,0,0" VerticalAlignment="Center"/>
         <Rectangle HorizontalAlignment="Left" 
-           Height="658" 
+           Height="660" 
            Stroke="White" 
            VerticalAlignment="Center" 
            Width="484" 
@@ -21,6 +21,12 @@
                 <ImageBrush ImageSource="Images/loginslogan.png" />
             </Rectangle.Fill>
         </Rectangle>
+        <Border x:Name="NotifPopup"  CornerRadius="10" BorderBrush="#FFCCE6D3" BorderThickness="1" HorizontalAlignment="Center" Height="46" Margin="0,9,0,0" VerticalAlignment="Top" Width="330" Background="#FFCCE6D3">
+            <WrapPanel>
+                <Label x:Name="NotifMessage"  Content="Invalid Credentials" VerticalContentAlignment="Center" Padding="20 0 0 0" Height="43" Width="279" Foreground="#FF666666"/>
+                <Button x:Name="NotifCloseBtn" Content="Button" Height="44" Width="49" Click="NotifCloseBtn_Click"/>
+            </WrapPanel>
+        </Border>
 
 
     </Grid>

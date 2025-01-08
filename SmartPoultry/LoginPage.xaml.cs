@@ -15,6 +15,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using System.Windows.Media.Animation;
 
 
 namespace SmartPoultry
@@ -42,9 +44,57 @@ namespace SmartPoultry
 
             userServices = new UserServices(context);
             Initialization();
+
+            NotifPopup.Visibility = Visibility.Hidden;
         }
 
+        public void PopUpNotif(string type, string message)
+        {
+            NotifPopup.Visibility = Visibility.Visible;
+            Panel.SetZIndex(NotifPopup, int.MaxValue);
+            if (type == "notif")
+            {
+                NotifPopup.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFCCE6D3"));
+                NotifPopup.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFCCE6D3"));
+            }
+            else
+            {
+                NotifPopup.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFD2D2"));
+                NotifPopup.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFD2D2"));
+            }
 
+            NotifMessage.Content = message;
+
+            DoubleAnimation fadeIn = new DoubleAnimation
+            {
+                From = 0.0,
+                To = 1.0,
+                Duration = TimeSpan.FromMilliseconds(500) 
+            };
+
+            DoubleAnimation fadeOut = new DoubleAnimation
+            {
+                From = 1.0,
+                To = 0.0,
+                BeginTime = TimeSpan.FromSeconds(4.5), 
+                Duration = TimeSpan.FromMilliseconds(500) 
+            };
+
+            Storyboard storyboard = new Storyboard();
+            storyboard.Children.Add(fadeIn);
+            storyboard.Children.Add(fadeOut);
+
+            Storyboard.SetTarget(fadeIn, NotifPopup);
+            Storyboard.SetTarget(fadeOut, NotifPopup);
+            Storyboard.SetTargetProperty(fadeIn, new PropertyPath("Opacity"));
+            Storyboard.SetTargetProperty(fadeOut, new PropertyPath("Opacity"));
+
+            storyboard.Completed += (sender, args) =>
+            {
+                NotifPopup.Visibility = Visibility.Collapsed;
+            };
+            storyboard.Begin();
+        }
 
         public void Initialization()
         {
@@ -131,7 +181,9 @@ namespace SmartPoultry
             }
         }
 
-        
-
+        private void NotifCloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NotifPopup.Visibility = Visibility.Hidden;
+        }
     }
 }
