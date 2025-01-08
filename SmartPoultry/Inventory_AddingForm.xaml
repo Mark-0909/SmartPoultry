@@ -306,7 +306,7 @@
             <TextBox x:Name="ProductNameTextBox" GotFocus="ProductName_GotFocus" LostFocus="ProductName_LostFocus" 
          HorizontalAlignment="Center" TextWrapping="Wrap" 
          Text="Enter text here..." VerticalAlignment="Center" 
-         Width="325" Height="26" FontSize="18" Foreground="#FF585858">
+         Width="325" Height="26" FontSize="18" Foreground="#FF585858" TextChanged="ProductNameTextBox_TextChanged">
                 <TextBox.Style>
                     <Style TargetType="{x:Type TextBox}">
                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>

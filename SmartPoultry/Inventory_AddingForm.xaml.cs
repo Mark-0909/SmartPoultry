@@ -926,8 +926,22 @@ namespace SmartPoultry
             this.Background = Brushes.Transparent;
         }
 
-        
+        private void ProductNameTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (sender is TextBox textBox)
+            {
+                int caretPosition = textBox.CaretIndex;
 
-        
+                string newText = textBox.Text.Replace(",", "");
+
+                if (newText != textBox.Text)
+                {
+                    textBox.Text = newText;
+
+                    textBox.CaretIndex = Math.Min(caretPosition, newText.Length);
+                }
+            }
+        }
+
     }
 }

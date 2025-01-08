@@ -64,7 +64,7 @@
         <Label x:Name="CashierLabel" HorizontalContentAlignment="Left" Content="cashier" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="113,524,0,0" VerticalAlignment="Top" Width="104" FontSize="11"/>
         <Label Content="Purchase Date:" HorizontalAlignment="Left" Height="38" Margin="5,70,0,0" VerticalAlignment="Top" Width="108" FontSize="14" FontWeight="Bold"/>
         <Label x:Name="PurchaseDatelabel" Content="Purchase Date" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="26" Margin="138,70,0,0" VerticalAlignment="Top" Width="151" FontSize="14" RenderTransformOrigin="0.445,1.553"/>
-        <Button x:Name="VoidBtn_Copy" Click="VoidBtn_Click" HorizontalAlignment="Left" Height="30" Margin="257,527,0,0" VerticalAlignment="Top" Width="32" Background="#FFA6C897" BorderBrush="Transparent" Content="RCt"/>
+        <Button x:Name="GenerateReceiptBtn" Click="GenerateReceiptBtn_Click" HorizontalAlignment="Left" Height="30" Margin="257,527,0,0" VerticalAlignment="Top" Width="32" Background="#FFA6C897" BorderBrush="Transparent" Content="RCt"/>
     </Grid>
 
 

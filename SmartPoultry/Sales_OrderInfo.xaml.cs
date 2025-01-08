@@ -31,11 +31,14 @@ namespace SmartPoultry
         public ProductServices productServices;
         public ProductVariationServices productVariationServices;
         public UserServices userServices;
+        public SalesServices salesServices;
         MainWindow mainWindow;
+        Sales sale;
         public Sales_OrderInfo(Sales sales, MainWindow window)
         {
             InitializeComponent();
             
+            sale = sales;
             userServices = new UserServices(context);
             
             OrderIdLabel.Content = sales.receipt_id;
@@ -49,6 +52,7 @@ namespace SmartPoultry
 
             productServices = new ProductServices(context);
             productVariationServices = new ProductVariationServices(context);
+            salesServices = new SalesServices(context);
 
             List<string> productvarids = sales.product_list.Split(',').ToList();
             List<string> pricelist = sales.price_list.Split(',').ToList();
@@ -145,7 +149,10 @@ namespace SmartPoultry
         {
 
         }
-
+        private void GenerateReceiptBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DisplayReceipt(sale.receipt_id, salesServices, context);
+        }
         public static void DisplayReceipt(long salesid, SalesServices salesServices, AppDbContext context)
         {
             try
@@ -355,5 +362,7 @@ namespace SmartPoultry
                 MessageBox.Show($"Error generating receipt: {e.Message}");
             }
         }
+
+        
     }
 }
