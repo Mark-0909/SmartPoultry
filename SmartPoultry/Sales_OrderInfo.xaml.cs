@@ -32,6 +32,8 @@ namespace SmartPoultry
         public ProductVariationServices productVariationServices;
         public UserServices userServices;
         public SalesServices salesServices;
+        public DeliveriesServices deliveryServices;
+        public FinancialLiabilitiesServices financialLiabilitiesServices;
         MainWindow mainWindow;
         Sales sale;
         Add_FinancialLiabilities financeform;
@@ -83,6 +85,8 @@ namespace SmartPoultry
             productServices = new ProductServices(context);
             productVariationServices = new ProductVariationServices(context);
             salesServices = new SalesServices(context);
+            deliveryServices = new DeliveriesServices(context);
+            financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
 
             List<string> productvarids = sales.product_list.Split(',').ToList();
             List<string> pricelist = sales.price_list.Split(',').ToList();
@@ -185,6 +189,14 @@ namespace SmartPoultry
 
         private void VoidBtn_Click(object sender, RoutedEventArgs e)
         {
+            bool isVoidedSales = salesServices.MarkAsVoided(long.Parse(OrderIdLabel.Content.ToString()));
+            bool isVoidedDeliver = deliveryServices.MarkAsVoided(long.Parse(OrderIdLabel.Content.ToString()));
+            bool isVoidedFinance = financialLiabilitiesServices.MarkAsVoided(long.Parse(OrderIdLabel.Content.ToString()));
+
+            if(!isVoidedSales || !isVoidedDeliver || !isVoidedFinance)
+            {
+                MessageBox.Show("Void unsuccessful.");
+            }
 
         }
 

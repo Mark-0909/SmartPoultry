@@ -16,7 +16,29 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+        public bool MarkAsVoided(long receiptid)
+        {
+            try
+            {
+                var delivery = _context.Deliveries.FirstOrDefault(p => p.order_id == receiptid);
 
+                if (delivery == null)
+                {
+                    return true;
+                }
+
+                delivery.delivery_status = "voided";
+
+
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
         public Deliveries GetByReceiptId(long Id)
         {
             var itemrow = _context.Deliveries.FirstOrDefault(x => x.order_id == Id);
@@ -86,7 +108,7 @@ namespace SmartPoultry.DataServices
 
         public List<Deliveries> GetList(string filter) {
             _context.ChangeTracker.Clear();
-            List<Deliveries> list = _context.Deliveries.Where(p => p.delivery_status != "delivered" && p.type == filter).OrderBy(p => p.delivery_date).ToList();
+            List<Deliveries> list = _context.Deliveries.Where(p => p.delivery_status != "delivered" && p.delivery_status != "voided" && p.type == filter).OrderBy(p => p.delivery_date).ToList();
             return list;
         }
         public int CountDeliveries()

@@ -17,6 +17,31 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+
+        public bool MarkAsVoided(long receiptid)
+        {
+            try
+            {
+                var finance = _context.FinancialLiabilities.FirstOrDefault(p => p.order_id == receiptid);
+
+                if (finance == null)
+                {
+                    return true;
+                }
+
+                finance.status = "voided";
+
+                
+
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
         public bool EditPayment(int id, string name, decimal price, string type, string paymentmode, DateTime date, string contacts)
         {
             try
@@ -69,7 +94,7 @@ namespace SmartPoultry.DataServices
         {
             _context.ChangeTracker.Clear(); 
             List<FinancialLiabilities> financialLiabilities = _context.FinancialLiabilities
-                .Where(p => p.status != "paid" && p.type == filter)
+                .Where(p => p.status != "paid" && p.status != "voided" && p.type == filter)
                 .OrderBy(p => p.due_date)
                 .ToList();
 
