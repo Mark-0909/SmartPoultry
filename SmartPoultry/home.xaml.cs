@@ -127,7 +127,7 @@ namespace SmartPoultry
             AllButton_Click(animalAllBtn, args);
             TypeAllButton_Click(typeAllBtn, args);
         }
-        private void DropOrderBtn_Click(object sender, RoutedEventArgs e)
+        public void DropOrderBtn_Click(object sender, RoutedEventArgs e)
         {
             if (isOrderConfirmed)
             {

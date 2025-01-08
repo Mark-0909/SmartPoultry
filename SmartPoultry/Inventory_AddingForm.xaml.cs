@@ -527,6 +527,15 @@ namespace SmartPoultry
                     posprod.Productname.Content = ProductNameTextBox.Text;
                     posprod.StocksLabel.Content = stocklisting.Content.ToString();
                 }
+                home homewindow = UserContext.homewindow;
+                if (homewindow.orderPanel.Children.Count > 0)
+                {
+                    Button button = homewindow.DropOrderBtn;
+                    var args = new RoutedEventArgs(Button.ClickEvent);
+
+                    homewindow.DropOrderBtn_Click(button, args);
+                }
+                
                 
             }
             catch (Exception ex)

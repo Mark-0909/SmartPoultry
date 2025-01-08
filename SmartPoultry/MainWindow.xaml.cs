@@ -26,6 +26,7 @@ namespace SmartPoultry
         {
             UserContext.mainWindow = this;
             InitializeComponent();
+            UserContext.homewindow = homeControl;
             MainWindowOverlay.Visibility = Visibility.Hidden;
             userLogsServices = new UserLogsServices(context);
         }
