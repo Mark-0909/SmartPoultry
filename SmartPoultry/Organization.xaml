@@ -60,7 +60,7 @@
                         <Label x:Name="NameLabel" Content="name" Height="39" Width="443"/>
                         <Label x:Name="RoleLabel" Content="Role" Height="39" Width="443"/>
                         <ScrollViewer Height="283" Width="443">
-                            <WrapPanel Height="283" Width="424"/>
+                            <WrapPanel x:Name="UserLogsList"  Height="283" Width="424"/>
                         </ScrollViewer>
                     </WrapPanel>
                 </Border>

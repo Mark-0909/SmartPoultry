@@ -21,6 +21,12 @@ namespace SmartPoultry.DataServices
             var list = _context.UserLogs.OrderByDescending(p => p.timestamp).ToList();
             return list;
         }
+
+        public List<UserLogs> GetListOfMember(int id)
+        {
+            var list = _context.UserLogs.Where(p => p.user_id == id).OrderByDescending(p => p.timestamp).ToList();
+            return list;
+        }
         public bool Create(int userId, string action)
         {
             try
