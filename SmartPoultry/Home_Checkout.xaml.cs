@@ -271,6 +271,7 @@ namespace SmartPoultry
             if (string.IsNullOrWhiteSpace(ChargeTB.Text) || !decimal.TryParse(ChargeTB.Text, out decimal charge))
             {
                 totalPricelabel.Content = priceamount.ToString("N2");
+                RemoveExistingChargeBorder();
                 return;
             }
 
@@ -282,7 +283,84 @@ namespace SmartPoultry
 
             decimal total = priceamount + charge;
             totalPricelabel.Content = total.ToString("N2");
+
+            Border existingBorder = OrderWPanel.Children.OfType<Border>().FirstOrDefault(b => b.Name == "ChargeBorderControlList");
+
+            if (existingBorder != null)
+            {
+                WrapPanel existingWrapPanel = existingBorder.Child as WrapPanel;
+                if (existingWrapPanel != null)
+                {
+                    Label priceLabel = existingWrapPanel.Children.OfType<Label>().LastOrDefault(); 
+                    if (priceLabel != null)
+                    {
+                        priceLabel.Content = charge.ToString("N2");
+                    }
+                }
+            }
+            else
+            {
+                Border orderBorder = new Border
+                {
+                    Name = "ChargeBorderControlList",
+                    BorderBrush = Brushes.Transparent,
+                    BorderThickness = new Thickness(1),
+                    Height = 35,
+                    Width = 255
+                };
+
+                WrapPanel wrapPanel = new WrapPanel();
+
+                Label itemNameLabel = new Label
+                {
+                    Content = "Delivery Fee:",
+                    Height = 33,
+                    Width = 126,
+                    HorizontalContentAlignment = HorizontalAlignment.Center,
+                    VerticalContentAlignment = VerticalAlignment.Center,
+                    Background = Brushes.Transparent
+                };
+
+                Label qtyLabel = new Label
+                {
+                    Content = "",
+                    Height = 33,
+                    Width = 43,
+                    HorizontalContentAlignment = HorizontalAlignment.Center,
+                    VerticalContentAlignment = VerticalAlignment.Center,
+                    Background = Brushes.Transparent
+                };
+
+                Label priceLabel = new Label
+                {
+                    Content = charge.ToString("N2"),
+                    Height = 33,
+                    Width = 83,
+                    HorizontalContentAlignment = HorizontalAlignment.Right,
+                    VerticalContentAlignment = VerticalAlignment.Center,
+                    Background = Brushes.Transparent
+                };
+
+                wrapPanel.Children.Add(itemNameLabel);
+                wrapPanel.Children.Add(qtyLabel);
+                wrapPanel.Children.Add(priceLabel);
+
+                orderBorder.Child = wrapPanel;
+
+                OrderWPanel.Children.Add(orderBorder);
+            }
         }
+
+
+        private void RemoveExistingChargeBorder()
+        {
+            Border existingBorder = OrderWPanel.Children.OfType<Border>().FirstOrDefault(b => b.Name == "ChargeBorderControlList");
+            if (existingBorder != null)
+            {
+                OrderWPanel.Children.Remove(existingBorder);
+            }
+        }
+
 
 
 

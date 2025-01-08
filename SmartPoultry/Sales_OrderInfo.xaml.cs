@@ -161,8 +161,66 @@ namespace SmartPoultry
                 orderBorder.Child = wrapPanel;
 
                 OrderWPanel.Children.Add(orderBorder);
+
+                if(sale.purchase_method == "to deliver")
+                {
+                    decimal charge = deliveryServices.GetByReceiptId(sale.receipt_id).charges;
+                    AddDeliveryCharge(charge);
+                }
             }
         }
+        public void AddDeliveryCharge(decimal deliveryCharge)
+        {
+            Border orderBorder = new Border
+            {
+                BorderBrush = Brushes.Transparent,
+                BorderThickness = new Thickness(1),
+                Height = 35,
+                Width = 255
+            };
+
+            WrapPanel wrapPanel = new WrapPanel();
+
+            Label itemNameLabel = new Label
+            {
+                Content = $"Delivery Fee:",
+                Height = 33,
+                Width = 126,
+                HorizontalContentAlignment = HorizontalAlignment.Center,
+                VerticalContentAlignment = VerticalAlignment.Center,
+                Background = Brushes.Transparent
+            };
+
+            Label qtyLabel = new Label
+            {
+                Content = "",
+                Height = 33,
+                Width = 43,
+                HorizontalContentAlignment = HorizontalAlignment.Center,
+                VerticalContentAlignment = VerticalAlignment.Center,
+                Background = Brushes.Transparent
+            };
+
+            
+
+            Label priceLabel = new Label
+            {
+                Content = deliveryCharge.ToString("N2"),
+                Height = 33,
+                Width = 83,
+                HorizontalContentAlignment = HorizontalAlignment.Right,
+                VerticalContentAlignment = VerticalAlignment.Center,
+                Background = Brushes.Transparent
+            };
+            wrapPanel.Children.Add(itemNameLabel);
+            wrapPanel.Children.Add(qtyLabel);
+            wrapPanel.Children.Add(priceLabel);
+
+            orderBorder.Child = wrapPanel;
+
+            OrderWPanel.Children.Add(orderBorder);
+        }
+
 
         private void Confirm_Click(object sender, RoutedEventArgs e)
         {
