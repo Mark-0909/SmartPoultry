@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Title="Add_Delivery" Height="487" Width="432" WindowStartupLocation="CenterScreen" Background="Transparent" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True">
     <Grid>
+        <Border x:Name="Overlay" BorderBrush="#FFA7A7A7" Background="#FFA7A7A7" CornerRadius="10" Opacity=".5" BorderThickness="1" HorizontalAlignment="Center" Height="480" VerticalAlignment="Center" Width="432"/>
         <Border CornerRadius="10" BorderBrush="#FF2C6E5D" Background="White" BorderThickness="1">
             <Border CornerRadius="10 10 0 0" BorderBrush="#FF2C6E5D" BorderThickness="1" HorizontalAlignment="Center" Height="38" Margin="0,-1,0,0" VerticalAlignment="Top" Width="432" Background="#FF2C6E5D">
                 <Button Click="Close_Click" HorizontalAlignment="Left" Height="27" Margin="394,0,0,0" VerticalAlignment="Center" Width="31" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
@@ -29,7 +30,7 @@
         <Label Content="Status: " HorizontalAlignment="Left" Height="30" Margin="216,166,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
         <RadioButton x:Name="PaidRadio" Checked="PaidRadio_IsChecked"  IsChecked="True" GroupName="Status"  VerticalContentAlignment="Center" Content="Paid" HorizontalAlignment="Left" Height="21" Margin="216,195,0,0" VerticalAlignment="Top" Width="90" FontSize="14"/>
         <RadioButton x:Name="UnpaidRadio" Checked="UnpaidRadio_IsChecked"   GroupName="Status"  VerticalContentAlignment="Center" Content="Unpaid" HorizontalAlignment="Left" Height="21" Margin="278,195,0,0" VerticalAlignment="Top" Width="90" FontSize="14"/>
-        <Label Content="Delivery Man: " HorizontalAlignment="Left" Height="30" Margin="217,284,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
+        <Label Content="Delivery Man: " HorizontalAlignment="Left" Height="30" Margin="221,284,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
         <Label Content="Charge: " HorizontalAlignment="Left" Height="29" Margin="12,349,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
         <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="12,314,0,0" VerticalAlignment="Top" Width="204">
             <TextBox x:Name="ContactsTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="Contact..." VerticalAlignment="Center" Width="192" BorderBrush="Transparent" Foreground="Gray" GotFocus="ContactsTB_GotFocus" LostFocus="ContactsTB_LostFocus" FontSize="14">
@@ -166,7 +167,7 @@
                 </TextBox.Style>
             </TextBox>
         </Border>
-        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="216,314,0,0" VerticalAlignment="Top" Width="182">
+        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="221,314,0,0" VerticalAlignment="Top" Width="182">
             <TextBox x:Name="DeliveryManTextBox" Tag="Delivery Man..." VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="22" TextWrapping="Wrap" Text="Delivery Man..." VerticalAlignment="Center" Width="175" BorderBrush="Transparent" Foreground="Gray" GotFocus="DeliveryManTB_GotFocus" LostFocus="DeliveryManTB_LostFocus" FontSize="14">
                 <TextBox.Style>
                     <Style TargetType="TextBox">
@@ -185,6 +186,9 @@
         </Border>
         <Button x:Name="EditBtn" Content="EDIT" HorizontalAlignment="Left" Height="38" Margin="8,412,0,0" VerticalAlignment="Top" Width="85" Click="EditBtn_Click"/>
         <Button x:Name="CancelBtn" Content="CANCEL" HorizontalAlignment="Left" Height="37" Margin="98,413,0,0" VerticalAlignment="Top" Width="85" Click="CancelBtn_Click"/>
+        <Label x:Name="orderIdLabel" Content="Order ID:  " HorizontalAlignment="Left" Height="29" Margin="210,364,0,0" VerticalAlignment="Top" Width="79" FontSize="14"/>
+        <Label x:Name="OrderId" Content="25010838347" HorizontalAlignment="Left" Height="28" Margin="278,364,0,0" VerticalAlignment="Top" Width="100" FontSize="14"/>
+        <Button x:Name="OrderDetailsBtn" Content="orderInfo" HorizontalAlignment="Left" Height="31" Margin="372,362,0,0" VerticalAlignment="Top" Width="44" Click="OrderInfo_Click" />
 
     </Grid>
 </Window>

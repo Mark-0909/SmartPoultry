@@ -34,13 +34,43 @@ namespace SmartPoultry
         public SalesServices salesServices;
         MainWindow mainWindow;
         Sales sale;
+        Add_FinancialLiabilities financeform;
+        Add_Delivery deliveryForm;
+
+        string openedby = "default";
         public Sales_OrderInfo(Sales sales, MainWindow window)
         {
             InitializeComponent();
-            
+
+            ToInitialize(sales, window);
+        }
+
+        public Sales_OrderInfo(Sales sales, MainWindow window, string openedBY, Add_FinancialLiabilities paymentform)
+        {
+            InitializeComponent();
+
+            ToInitialize(sales, window);
+
+            openedby = openedBY;
+
+            financeform = paymentform;
+        }
+        public Sales_OrderInfo(Sales sales, MainWindow window, string openedBY, Add_Delivery deliveryform)
+        {
+            InitializeComponent();
+
+            ToInitialize(sales, window);
+
+            openedby = openedBY;
+
+            deliveryForm = deliveryform;
+        }
+        public void ToInitialize(Sales sales, MainWindow window)
+        {
+
             sale = sales;
             userServices = new UserServices(context);
-            
+
             OrderIdLabel.Content = sales.receipt_id;
             totalPricelabel.Content = sales.total_price.ToString("N2");
             PayMethodLabel.Content = sales.payment_mode.ToString().ToUpper();
@@ -48,7 +78,7 @@ namespace SmartPoultry
             PurchaseMethodlabel.Content = sales.purchase_method.ToString().ToUpper();
             PurchaseDatelabel.Content = sales.purchase_date.ToString();
 
-            CashierLabel.Content = userServices.GetUser(sales.employee_incharge).Username.ToString(); 
+            CashierLabel.Content = userServices.GetUser(sales.employee_incharge).Username.ToString();
 
             productServices = new ProductServices(context);
             productVariationServices = new ProductVariationServices(context);
@@ -59,7 +89,7 @@ namespace SmartPoultry
             List<string> qtylist = sales.quantity_list.Split(',').ToList();
             List<string> varlist = sales.variation_list.Split(',').ToList();
             List<string> prodname = new List<string>();
-            for(int i = 0; i < productvarids.Count; i++)
+            for (int i = 0; i < productvarids.Count; i++)
             {
                 int prodid = productVariationServices.GetProductVariationById(int.Parse(productvarids[i])).product_id;
                 string name = productServices.FetchProduct(prodid).product_name;
@@ -68,7 +98,8 @@ namespace SmartPoultry
             GenerateList(productvarids, qtylist, varlist, pricelist, prodname);
 
             mainWindow = UserContext.mainWindow;
-        }
+        } 
+
 
         public void GenerateList(List<string> prodvarid, List<string> qty, List<string> varSpec, List<string> priceList, List<string> prodname)
         {
@@ -136,6 +167,18 @@ namespace SmartPoultry
 
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
+            if(openedby == "delivery")
+            {
+                deliveryForm.ActiveOverlay(false);
+                this.Close();
+                return;
+            }
+            if (openedby == "payment")
+            {
+                financeform.ActiveOverlay(false);
+                this.Close();
+                return;
+            }
             mainWindow.ActiveOverlay(false);
             this.Close();
         }
@@ -153,6 +196,7 @@ namespace SmartPoultry
         {
             DisplayReceipt(sale.receipt_id, salesServices, context);
         }
+        
         public static void DisplayReceipt(long salesid, SalesServices salesServices, AppDbContext context)
         {
             try

@@ -45,6 +45,10 @@ namespace SmartPoultry
             EditBtn.Visibility = Visibility.Collapsed;
             CancelBtn.Visibility = Visibility.Collapsed;
 
+            orderIdLabel.Visibility = Visibility.Collapsed;
+            OrderDetailsBtn.Visibility = Visibility.Collapsed;
+            OrderId.Visibility = Visibility.Collapsed;
+
             mainWindow = UserContext.mainWindow;
         }
         public Add_FinancialLiabilities(FinancialLiabilities itemrow, MainWindow mainwindow)
@@ -53,7 +57,18 @@ namespace SmartPoultry
             financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
             salesServices = new SalesServices(context);
             deliveriesServices = new DeliveriesServices(context);
-            
+
+            if (itemrow.order_id != 0) 
+            {
+                OrderId.Content = itemrow.order_id.ToString();
+            }
+            else
+            {
+                orderIdLabel.Visibility = Visibility.Collapsed;
+                OrderDetailsBtn.Visibility = Visibility.Collapsed;
+                OrderId.Visibility = Visibility.Collapsed;
+            }
+
             NameTextBox.Text = itemrow.name;
             finance = itemrow;
 
@@ -294,6 +309,31 @@ namespace SmartPoultry
             }
         }
 
-        
+        private void OrderDetailsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Sales sale = salesServices.GetSales(long.Parse(OrderId.Content.ToString()));
+            MainWindow main = UserContext.mainWindow;
+            Sales_OrderInfo window = new Sales_OrderInfo(sale, main, "payment", this);
+
+            ActiveOverlay(true);
+            window.ShowDialog();
+
+            
+
+        }
+        public void ActiveOverlay(bool isActive)
+        {
+            if (isActive)
+            {
+                Overlay.Visibility = Visibility.Visible;
+
+                Panel.SetZIndex(Overlay, 99);
+            }
+            else
+            {
+                Overlay.Visibility = Visibility.Collapsed;
+                Panel.SetZIndex(Overlay, 0);
+            }
+        }
     }
 }

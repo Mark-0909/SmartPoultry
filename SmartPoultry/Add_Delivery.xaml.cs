@@ -62,7 +62,19 @@ namespace SmartPoultry
             ContactsTextBox.Text = itemrow.contact_no;
             ChargeTextBox.Text = itemrow.charges.ToString("N2");
 
-            if(itemrow.payment_status == "unpaid")
+            if (itemrow.order_id != 0)
+            {
+                OrderId.Content = itemrow.order_id.ToString();
+            }
+            else
+            {
+                orderIdLabel.Visibility = Visibility.Collapsed;
+                OrderDetailsBtn.Visibility = Visibility.Collapsed;
+                OrderId.Visibility = Visibility.Collapsed;
+            }
+
+
+            if (itemrow.payment_status == "unpaid")
             {
                 UnpaidRadio.IsChecked = true;
             }
@@ -414,6 +426,29 @@ namespace SmartPoultry
             }
         }
 
-        
+        private void OrderInfo_Click(object sender, RoutedEventArgs e)
+        {
+            Sales sale = salesServices.GetSales(long.Parse(OrderId.Content.ToString()));
+            MainWindow main = UserContext.mainWindow;
+            Sales_OrderInfo window = new Sales_OrderInfo(sale, main, "delivery", this);
+
+            ActiveOverlay(true);
+            window.ShowDialog();
+        }
+
+        public void ActiveOverlay(bool isActive)
+        {
+            if (isActive)
+            {
+                Overlay.Visibility = Visibility.Visible;
+
+                Panel.SetZIndex(Overlay, 99);
+            }
+            else
+            {
+                Overlay.Visibility = Visibility.Collapsed;
+                Panel.SetZIndex(Overlay, 0);
+            }
+        }
     }
 }
