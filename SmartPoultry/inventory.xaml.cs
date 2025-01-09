@@ -78,7 +78,7 @@ namespace SmartPoultry
         private void OpenAddForm_Click(object sender, RoutedEventArgs e)
         {
             MainWindow? mainWindow = UserContext.mainWindow;
-            Inventory_AddingForm addForm = new Inventory_AddingForm(mainWindow);
+            Inventory_AddingForm addForm = new Inventory_AddingForm();
             if (mainWindow != null)
             {
                 

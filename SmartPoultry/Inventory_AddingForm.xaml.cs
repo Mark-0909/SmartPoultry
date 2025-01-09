@@ -18,6 +18,7 @@ using iTextSharp.xmp.impl;
 using Org.BouncyCastle.Math;
 using static iTextSharp.text.pdf.XfaForm;
 using System.Text;
+using System.Windows.Media.Animation;
 
 namespace SmartPoultry
 {
@@ -53,7 +54,7 @@ namespace SmartPoultry
         string Agenda = "Add";
 
         Products prod;
-        public Inventory_AddingForm(MainWindow mainwindow)
+        public Inventory_AddingForm()
         {
             InitializeComponent();
             SetRoundedCorners();
@@ -78,7 +79,57 @@ namespace SmartPoultry
             SupplierCBox.SelectedItem = "-- Select a Supplier --";
             windowName.Content = "ADD PRODUCT";
 
-            mainWindow = mainwindow;
+            NotifPopup.Visibility = Visibility.Hidden;
+
+            mainWindow = UserContext.mainWindow;
+        }
+
+        public void PopUpNotif(string type, string message)
+        {
+            NotifPopup.Visibility = Visibility.Visible;
+            Panel.SetZIndex(NotifPopup, int.MaxValue);
+            if (type == "notif")
+            {
+                NotifPopup.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFCCE6D3"));
+                NotifPopup.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFCCE6D3"));
+            }
+            else
+            {
+                NotifPopup.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFD2D2"));
+                NotifPopup.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFD2D2"));
+            }
+
+            NotifMessage.Content = message;
+
+            DoubleAnimation fadeIn = new DoubleAnimation
+            {
+                From = 0.0,
+                To = 1.0,
+                Duration = TimeSpan.FromMilliseconds(500)
+            };
+
+            DoubleAnimation fadeOut = new DoubleAnimation
+            {
+                From = 1.0,
+                To = 0.0,
+                BeginTime = TimeSpan.FromSeconds(4.5),
+                Duration = TimeSpan.FromMilliseconds(500)
+            };
+
+            Storyboard storyboard = new Storyboard();
+            storyboard.Children.Add(fadeIn);
+            storyboard.Children.Add(fadeOut);
+
+            Storyboard.SetTarget(fadeIn, NotifPopup);
+            Storyboard.SetTarget(fadeOut, NotifPopup);
+            Storyboard.SetTargetProperty(fadeIn, new PropertyPath("Opacity"));
+            Storyboard.SetTargetProperty(fadeOut, new PropertyPath("Opacity"));
+
+            storyboard.Completed += (sender, args) =>
+            {
+                NotifPopup.Visibility = Visibility.Collapsed;
+            };
+            storyboard.Begin();
         }
         private void AddSUpplier_Click(object sender, RoutedEventArgs e)
         {
@@ -123,7 +174,7 @@ namespace SmartPoultry
             }
             else
             {
-                MessageBox.Show("Supplier not found for the given ID.");
+                PopUpNotif("alert", "Supplier not found for the given ID.");
             }
 
             AnimalList = product.animal_type.Split(',').Select(animal => animal.Trim()).ToList();
@@ -155,6 +206,7 @@ namespace SmartPoultry
             AdjustAnimalButtons();
             AdjustTypeButtons();
             DisableForm(false);
+            NotifPopup.Visibility = Visibility.Hidden;
         }
 
         private void DisplayProductImage(byte[] imageData)
@@ -175,7 +227,7 @@ namespace SmartPoultry
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Error loading image: {ex.Message}", "Image Load Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Console.WriteLine($"Error loading image: {ex.Message}", "Image Load Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     SelectedImage.Source = null;
                 }
             }
@@ -501,7 +553,7 @@ namespace SmartPoultry
 
                     if (!isUpdated)
                     {
-                        MessageBox.Show("Failed to update product variation.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                        PopUpNotif("alert", "Failed to update product variation.");
                         return;
                     }
                 }
@@ -509,12 +561,11 @@ namespace SmartPoultry
                 bool isProductUpdated = productService.EditProduct(prod.product_id, name, animallist, typelist, supplierid, stocks, selectedFilePath);
                 if (!isProductUpdated)
                 {
-                    MessageBox.Show("Failed to update product details.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    PopUpNotif("alert", "Failed to update product details.");
                     return;
                 }
 
-                
-                MessageBox.Show("Product updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                PopUpNotif("notif", "Product updated successfully.");
                 DisableForm(false);
                 inventoryControl.Productname.Content = ProductNameTextBox.Text;
                 inventoryControl.Productstock.Content = stocklisting.Content.ToString();
@@ -540,7 +591,7 @@ namespace SmartPoultry
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Console.WriteLine($"An error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -559,19 +610,20 @@ namespace SmartPoultry
         {
             if (imagePath == SelectedImage.Source || ProductNameTextBox.Text == "Enter text here..." || unitsWPanel.Children.Count == 1 || AnimalList.Count == 0 || ProductTypeList.Count == 0 || SupplierCBox.Text == "-- Select a Supplier --")
             {
-                MessageBox.Show("Incomplete Details.");
+                PopUpNotif("alert", "Incomplete Details.");
                 return;
             }
 
             if (!isEditing)
             {
                 string animaltypelist = string.Join(",", AnimalList);
+           
                 string producttypelist = string.Join(",", ProductTypeList);
                 decimal stocks;
 
                 if (!decimal.TryParse(stocklisting.Content.ToString(), out stocks))
                 {
-                    MessageBox.Show("Invalid stock value. Please enter a numeric value.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    PopUpNotif("alert", "Invalid stock value. Please enter a numeric value.");
                     return;
                 }
 
@@ -584,7 +636,7 @@ namespace SmartPoultry
 
                 if (id == 0)
                 {
-                    MessageBox.Show("Failed to save product.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    PopUpNotif("alert", "Failed to save product.");
                     return;
                 }
                 else
@@ -595,17 +647,17 @@ namespace SmartPoultry
 
                     if (!isRecorded)
                     {
-                        MessageBox.Show("Not Recorded");
+                        PopUpNotif("alert", "Not Recorded");
                         return;
                     }
-
-                    mainWindow.DynamicReload();
+                    mainWindow.PopUpNotif("notif", "Product added successfully.");
                     mainWindow.ActiveOverlay(false);
+                    mainWindow.DynamicReload();
                 }
             }
             else
             {
-                MessageBox.Show("Submit for edit.");
+                PopUpNotif("notif", "Submit for edit.");
             }
         }
 
@@ -633,7 +685,7 @@ namespace SmartPoultry
                 this.Close();
             }
             catch (Exception ex) {
-                MessageBox.Show($"Error creating product: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Console.WriteLine($"Error creating product: {ex.Message}");
             }
             
             
@@ -887,7 +939,7 @@ namespace SmartPoultry
             }
             else
             {
-                MessageBox.Show("Button or Border not found.");
+                Console.WriteLine("Button or Border not found.");
             }
         }
 
@@ -915,7 +967,7 @@ namespace SmartPoultry
             }
             else
             {
-                MessageBox.Show("Button or Border not found.");
+                Console.WriteLine("Button or Border not found.");
             }
         }
 
@@ -943,5 +995,9 @@ namespace SmartPoultry
             }
         }
 
+        private void NotifCloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NotifPopup.Visibility = Visibility.Hidden;
+        }
     }
 }
