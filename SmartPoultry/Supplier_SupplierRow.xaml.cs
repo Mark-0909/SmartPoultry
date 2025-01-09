@@ -59,26 +59,26 @@ namespace SmartPoultry
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
 
-            Supplier_InfoUserControl supplierInfoControl = new Supplier_InfoUserControl();
+            //Supplier_InfoUserControl supplierInfoControl = new Supplier_InfoUserControl();
 
 
-            supplierInfoControl.DataContext = Supplier;
+            //supplierInfoControl.DataContext = Supplier;
 
 
-            Window editWindow = new Window  // gawa ka nalang bagong window sa solution explorer
-            {
-                Title = "Edit Supplier Details",
-                Content = supplierInfoControl,
-                Width = 400,
-                Height = 300,
-                ResizeMode = ResizeMode.NoResize,
-                WindowStartupLocation = WindowStartupLocation.CenterScreen,
-                Owner = Window.GetWindow(this) 
-            };
+            //Window editWindow = new Window  // gawa ka nalang bagong window sa solution explorer
+            //{
+            //    Title = "Edit Supplier Details",
+            //    Content = supplierInfoControl,
+            //    Width = 400,
+            //    Height = 300,
+            //    ResizeMode = ResizeMode.NoResize,
+            //    WindowStartupLocation = WindowStartupLocation.CenterScreen,
+            //    Owner = Window.GetWindow(this) 
+            //};
 
-            MainWindow mainWindow = UserContext.mainWindow;
-            mainWindow.ActiveOverlay(true);
-            editWindow.ShowDialog();
+            //MainWindow mainWindow = UserContext.mainWindow;
+            //mainWindow.ActiveOverlay(true);
+            //editWindow.ShowDialog();
         }
     }
 }
