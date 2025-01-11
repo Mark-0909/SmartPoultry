@@ -335,16 +335,15 @@
             BorderThickness="1" 
             BorderBrush="#FF66C265" 
             Background="#FFC0E4BE" 
-            Height="55" 
-            Width="56" 
-            Margin="1,4,0,0" 
-            VerticalAlignment="Top">
+            Height="44" 
+            Width="45" 
+            VerticalAlignment="Center">
                 <Button Margin="3,4,3,4" 
                 Click="AddUnitPopup_Click" 
                 BorderBrush="#FFC0E4BE" 
                 Background="#FFC0E4BE" 
                 Style="{StaticResource NoHoverButton}">
-                    <Image Height="39" Width="33" Source="/Images/addbaseunit.png"/>
+                    <Image Height="24" Width="30" Source="/Images/addbaseunit.png"/>
                 </Button>
             </Border>
         </WrapPanel>

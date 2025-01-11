@@ -330,12 +330,7 @@ namespace SmartPoultry
                     type = "base";
                 }
 
-                inventoryAdd_variationscontrol? control = new inventoryAdd_variationscontrol(unitlist[i], pricelist[i], conversionlist[i], type, stocklisting.Content.ToString(), unitlist[0], i, this)
-                {
-                    Height = 166,
-                    Width = 60,
-                    VerticalAlignment = VerticalAlignment.Center
-                };
+                inventoryAdd_variationscontrol? control = new inventoryAdd_variationscontrol(unitlist[i], pricelist[i], conversionlist[i], type, stocklisting.Content.ToString(), unitlist[0], i, this);
 
                 unitsWPanel.Children.Add(control);
 
@@ -410,12 +405,7 @@ namespace SmartPoultry
                     type = "base";
                 }
 
-                inventoryAdd_variationscontrol? control = new inventoryAdd_variationscontrol(unitlist[i], pricelist[i], conversionlist[i], type, stockupdate, unitlist[0], i, this)
-                {
-                    Height = 166,
-                    Width = 60,
-                    VerticalAlignment = VerticalAlignment.Center
-                };
+                inventoryAdd_variationscontrol? control = new inventoryAdd_variationscontrol(unitlist[i], pricelist[i], conversionlist[i], type, stockupdate, unitlist[0], i, this);
 
                 unitsWPanel.Children.Add(control);
 
@@ -441,12 +431,7 @@ namespace SmartPoultry
                 type = i == 0 ? "base" : "sub";
 
                 inventoryAdd_variationscontrol? control = new inventoryAdd_variationscontrol(
-                    unitlist[i], pricelist[i], conversionlist[i], type, stockupdate, unitlist[0], i, this)
-                {
-                    Height = 166,
-                    Width = 60,
-                    VerticalAlignment = VerticalAlignment.Center
-                };
+                    unitlist[i], pricelist[i], conversionlist[i], type, stockupdate, unitlist[0], i, this);
 
                 unitsWPanel.Children.Add(control);
             }
@@ -463,15 +448,9 @@ namespace SmartPoultry
                 baseUnit = true;
                 baseUnitValue = name;
             }
-          
 
-            inventoryAdd_variationscontrol? control = new inventoryAdd_variationscontrol(name, price, conversion, type, stocks, baseUnitValue, position, this)
-            {
-                Height = 166,
-                Width = 60,
-                VerticalAlignment = VerticalAlignment.Center
-            };
-
+            inventoryAdd_variationscontrol? control = new inventoryAdd_variationscontrol(name, price, conversion, type, stocks, baseUnitValue, position, this);
+            
             unitsWPanel.Children.Remove(addUnitBtn);
             unitsWPanel.Children.Add(control);
             unitsWPanel.Children.Add(addUnitBtn);

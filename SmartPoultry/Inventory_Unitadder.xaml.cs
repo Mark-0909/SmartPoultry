@@ -167,6 +167,7 @@ namespace SmartPoultry
             if (inventoryAddForm.unitlist[positionlist] == UnitCB.Text)
             {
                 unitcontrol.EditUnit(UnitCB.Text, priceTextBox.Text, "1", stocksTextBox.Text, baseunit, positionlist);
+                UpdateConversionForAllUserControls();
             }
             else if (inventoryAddForm.unitlist.Contains(UnitCB.Text))
             {
@@ -180,9 +181,23 @@ namespace SmartPoultry
             }
 
             this.Close();
+            inventoryAddForm.stockunit.Content = UnitCB.Text;
             inventoryAddForm.ActiveOverlay(false);
         }
 
+        public void UpdateConversionForAllUserControls()
+        {
+            if (inventoryAddForm.unitsWPanel != null)
+            {
+                foreach (UIElement element in inventoryAddForm.unitsWPanel.Children)
+                {
+                    if (element is inventoryAdd_variationscontrol control)
+                    {
+                        control.UpdateBaseUnit(UnitCB.Text);
+                    }
+                }
+            }
+        }
         private void HandleEditSubUnit()
         {
             if (inventoryAddForm.unitlist[positionlist] == UnitCB.Text)

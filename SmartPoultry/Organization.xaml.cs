@@ -70,6 +70,7 @@ namespace SmartPoultry
             List<User> users = userServices.GetUserList(status);
 
             int userid = UserContext.CurrentUserId;
+            int evenodd = 0;
             for (int i = 0; i < users.Count; i++) 
             {
                 if (users[i].Id == userid || users[i].Id == 1) 
@@ -78,7 +79,18 @@ namespace SmartPoultry
                 }
                 string name = users[i].Username;
                 string role = users[i].Role;
-                Organization_UserControl userControl = new Organization_UserControl(users[i], this);
+
+                
+                Organization_UserControl userControl = new Organization_UserControl(users[i], this, evenodd);
+
+                if(evenodd == 0)
+                {
+                    evenodd = 1;
+                }
+                else
+                {
+                    evenodd = 0;
+                }
                 UserPanel.Children.Add(userControl);
             }
         }
