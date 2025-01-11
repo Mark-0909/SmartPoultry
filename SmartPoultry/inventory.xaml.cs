@@ -603,9 +603,12 @@ namespace SmartPoultry
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void OrderToSupplier_Click(object sender, RoutedEventArgs e)
         {
-
+            MainWindow mainWindow = UserContext.mainWindow;
+            Inventory_OrderToSupplier window = new Inventory_OrderToSupplier();
+            mainWindow.ActiveOverlay(true);
+            window.ShowDialog();
         }
     }
 }
