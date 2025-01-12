@@ -1,4 +1,7 @@
-﻿using System;
+﻿using SmartPoultry.DataAccess;
+using SmartPoultry.DataServices;
+using SmartPoultry.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,10 +23,54 @@ namespace SmartPoultry
     /// </summary>
     public partial class Inventory_OrderToSupplier : Window
     {
+        public AppDbContext context = new AppDbContext();
+        public ProductServices productServices;
         public Inventory_OrderToSupplier()
         {
             InitializeComponent();
+            productServices = new ProductServices(context);
+            DisplayOutOfStocks();
         }
+
+        public void DisplayOutOfStocks()
+        {
+            List<Products> products = GetOutOfStockProducts();
+            if (products == null || products.Count == 0)
+            {
+                return;
+            }
+
+            Dictionary<int, Inventory_OrderSupplyControl> existingControls = new Dictionary<int, Inventory_OrderSupplyControl>();
+
+            foreach (UIElement element in Wpanel.Children)
+            {
+                if (element is Inventory_OrderSupplyControl control)
+                {
+                    existingControls[control.supplierID] = control;
+                }
+            }
+
+            foreach (Products product in products)
+            {
+                if (existingControls.TryGetValue(product.supplier_id, out Inventory_OrderSupplyControl control))
+                {
+                    control.AddProduct(product);
+                }
+                else
+                {
+                    Inventory_OrderSupplyControl newControl = new Inventory_OrderSupplyControl(product.supplier_id, product, this);
+                    Wpanel.Children.Add(newControl);
+                    existingControls[product.supplier_id] = newControl;
+                }
+            }
+        }
+        
+        public List<Products> GetOutOfStockProducts()
+        {
+            return productServices.GetLowStockProducts("", "", "");
+        }
+
+
 
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {

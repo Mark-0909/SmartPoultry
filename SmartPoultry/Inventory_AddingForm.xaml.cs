@@ -83,7 +83,76 @@ namespace SmartPoultry
 
             mainWindow = UserContext.mainWindow;
         }
+        public Inventory_AddingForm(Products product, MainWindow window, Inventory_ProductControl productcontrol)
+        {
+            InitializeComponent();
+            mainWindow = window;
+            inventoryControl = productcontrol;
 
+            prod = product;
+            windowName.Content = "PRODUCT DETAILS";
+            isEditing = true;
+            AddingFormOverlay.Visibility = Visibility.Hidden;
+            imagePath = SelectedImage.Source;
+
+            context = new AppDbContext();
+            productService = new ProductServices(context);
+            productVariationService = new ProductVariationServices(context);
+            supplierServices = new SupplierServices(context);
+
+            PopulateSupplierList("edit");
+
+            SelectedImage.Height = SelectImageBtn.Height;
+            SelectedImage.Width = SelectImageBtn.Width;
+
+            DisplayProductImage(product.image);
+
+            stocklisting.Content = productcontrol.Productstock.Content.ToString();
+            stockunit.Content = productVariationService.GetBaseUnit(product.product_id);
+
+            ProductNameTextBox.Text = product.product_name;
+
+            var supplier = supplierServices.FindSupplier(product.supplier_id);
+            if (supplier != null)
+            {
+                SupplierCBox.SelectedItem = supplier.Name.ToString();
+            }
+            else
+            {
+                PopUpNotif("alert", "Supplier not found for the given ID.");
+            }
+
+            AnimalList = product.animal_type.Split(',').Select(animal => animal.Trim()).ToList();
+            ProductTypeList = product.product_type.Split(',').Select(type => type.Trim()).ToList();
+
+            List<ProductVariations> productvarlist = productVariationService.GetAllProductVariations(product.product_id);
+
+            var baseUnit = productvarlist.FirstOrDefault(pv => pv.isBaseUnit == true);
+            if (baseUnit != null)
+            {
+                unitlist.Add(baseUnit.variant_type.ToString());
+                pricelist.Add(baseUnit.price.ToString());
+                conversionlist.Add(baseUnit.conversion_rate.ToString());
+                variationIDlist.Add(baseUnit.id);
+            }
+
+            for (int i = 0; i < productvarlist.Count; i++)
+            {
+                if (productvarlist[i] != baseUnit)
+                {
+                    unitlist.Add(productvarlist[i].variant_type.ToString());
+                    pricelist.Add(productvarlist[i].price.ToString());
+                    conversionlist.Add(productvarlist[i].conversion_rate.ToString());
+                    variationIDlist.Add(productvarlist[i].id);
+                }
+            }
+
+            DisplayVariation();
+            AdjustAnimalButtons();
+            AdjustTypeButtons();
+            DisableForm(false);
+            NotifPopup.Visibility = Visibility.Hidden;
+        }
         public void PopUpNotif(string type, string message)
         {
             NotifPopup.Visibility = Visibility.Visible;
@@ -138,76 +207,7 @@ namespace SmartPoultry
             window.ShowDialog();
         }
 
-        public Inventory_AddingForm(Products product, MainWindow window, Inventory_ProductControl productcontrol)
-        {
-            InitializeComponent();
-            mainWindow = window;
-            inventoryControl = productcontrol;
-
-            prod = product;
-            windowName.Content = "PRODUCT DETAILS";
-            isEditing = true;
-            AddingFormOverlay.Visibility = Visibility.Hidden;
-            imagePath = SelectedImage.Source;
-
-            context = new AppDbContext();
-            productService = new ProductServices(context);
-            productVariationService = new ProductVariationServices(context);
-            supplierServices = new SupplierServices(context);
-
-            PopulateSupplierList("edit");
-
-            SelectedImage.Height = SelectImageBtn.Height;
-            SelectedImage.Width = SelectImageBtn.Width;
-
-            DisplayProductImage(product.image);
-
-            stocklisting.Content = product.stocks.ToString();
-            stockunit.Content = productVariationService.GetBaseUnit(product.product_id);
-
-            ProductNameTextBox.Text = product.product_name;
-
-            var supplier = supplierServices.FindSupplier(product.supplier_id);
-            if (supplier != null)
-            {
-                SupplierCBox.SelectedItem = supplier.Name.ToString();
-            }
-            else
-            {
-                PopUpNotif("alert", "Supplier not found for the given ID.");
-            }
-
-            AnimalList = product.animal_type.Split(',').Select(animal => animal.Trim()).ToList();
-            ProductTypeList = product.product_type.Split(',').Select(type => type.Trim()).ToList();
-
-            List<ProductVariations> productvarlist = productVariationService.GetAllProductVariations(product.product_id);
-
-            var baseUnit = productvarlist.FirstOrDefault(pv => pv.isBaseUnit == true);
-            if (baseUnit != null)
-            {
-                unitlist.Add(baseUnit.variant_type.ToString());
-                pricelist.Add(baseUnit.price.ToString());
-                conversionlist.Add(baseUnit.conversion_rate.ToString());
-                variationIDlist.Add(baseUnit.id);
-            }
-
-            for (int i = 0; i < productvarlist.Count; i++)
-            {
-                if (productvarlist[i] != baseUnit)
-                {
-                    unitlist.Add(productvarlist[i].variant_type.ToString());
-                    pricelist.Add(productvarlist[i].price.ToString());
-                    conversionlist.Add(productvarlist[i].conversion_rate.ToString());
-                    variationIDlist.Add(productvarlist[i].id);
-                }
-            }
-
-            DisplayVariation();
-            AdjustAnimalButtons();
-            AdjustTypeButtons();
-            DisableForm(false);
-            NotifPopup.Visibility = Visibility.Hidden;
-        }
+        
 
         private void DisplayProductImage(byte[] imageData)
         {
@@ -556,6 +556,9 @@ namespace SmartPoultry
                     posprod.Productimage.Source = SelectedImage.Source;
                     posprod.Productname.Content = ProductNameTextBox.Text;
                     posprod.StocksLabel.Content = stocklisting.Content.ToString();
+                    posprod.origstock = decimal.Parse(stocklisting.Content.ToString());
+
+                    posprod.AdjustStocks(0);
                 }
                 home homewindow = UserContext.homewindow;
                 if (homewindow.orderPanel.Children.Count > 0)

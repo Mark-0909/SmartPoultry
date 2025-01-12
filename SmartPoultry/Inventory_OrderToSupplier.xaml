@@ -28,9 +28,7 @@
                 <Button Content="Button" Height="28" Width="63"/>
             </WrapPanel>
             <ScrollViewer Height="345" Width="408">
-                <WrapPanel Height="346" Width="382">
-                    <Border BorderBrush="Black" BorderThickness="1" Height="116" Width="382"/>
-                </WrapPanel>
+                <WrapPanel x:Name="Wpanel"  Width="382"/>
             </ScrollViewer>
         </StackPanel>
 

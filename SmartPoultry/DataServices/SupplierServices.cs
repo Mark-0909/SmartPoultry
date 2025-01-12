@@ -48,7 +48,6 @@ namespace SmartPoultry.DataServices
             }
             catch (Exception ex)
             {
-                // Log exception for debugging (example: log to a file or console)
                 Console.WriteLine("Error finding supplier: " + ex.Message);
                 return null;
             }
