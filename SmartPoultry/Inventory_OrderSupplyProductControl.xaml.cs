@@ -21,11 +21,52 @@ namespace SmartPoultry
     /// </summary>
     public partial class Inventory_OrderSupplyProductControl : UserControl
     {
-        public Inventory_OrderSupplyProductControl(Products products)
+        public string ProductId;
+
+        Inventory_OrderSupplyControl form;
+        public Inventory_OrderSupplyProductControl(Products products, Inventory_OrderSupplyControl formControl)
         {
             InitializeComponent();
             NameLabel.Content = products.product_name;
             StocksLabel.Content = products.stocks.ToString();
+
+            ProductId = products.product_id.ToString();
+            form = formControl;
+        }
+
+        private void Remove_Clicked(object sender, RoutedEventArgs e)
+        {
+            if (this.Parent is Panel parentPanel)
+            {
+                parentPanel.Children.Remove(this);
+                form.CheckPresentProducts();
+            }
+            else
+            {
+                MessageBox.Show("Parent container not found or is not a valid panel.");
+            }
+        }
+
+        private void AddBtn_Click(object sender, RoutedEventArgs e)
+        {
+            int qtyvalue = int.Parse(QTYLabel.Content.ToString());
+            int todisplay = qtyvalue + 1;
+
+            QTYLabel.Content = todisplay.ToString();
+        }
+
+        private void minusBtn_Click(object sender, RoutedEventArgs e)
+        {
+            int qtyvalue = int.Parse(QTYLabel.Content.ToString());
+
+            if (qtyvalue == 1) 
+            {
+                return;
+            }
+            int todisplay = qtyvalue - 1;
+
+            QTYLabel.Content = todisplay.ToString();
+
         }
     }
 }

@@ -28,8 +28,15 @@
                     <Border BorderBrush="Transparent" BorderThickness="1" Background="Transparent">
                         <Label Content="Contact: " Height="33" Width="92"/>
                     </Border>
-                    <Border BorderBrush="Transparent" BorderThickness="1" Background="Transparent">
+                    <Border BorderBrush="Transparent" BorderThickness="1" Background="Transparent" Width="244">
                         <Label x:Name="ContactLabel" Content="Contact" Height="33" Width="92"/>
+                    </Border>
+                    <Border BorderBrush="Transparent" BorderThickness="1" Background="Transparent" Width="93">
+                        <Label x:Name="ContactLabel1_Copy" Content="Delivery Date: " Height="33" Width="92" Margin="0,0,-1,0"/>
+                    </Border>
+                    <Border BorderBrush="Transparent" BorderThickness="1" Background="Transparent" Width="93">
+                        <DatePicker x:Name="datePicker" Loaded="DatePicker_Loaded"/>
+
                     </Border>
 
                     <!-- Product Info Header -->
