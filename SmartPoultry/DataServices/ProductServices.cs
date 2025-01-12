@@ -18,10 +18,15 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
-        public bool EditProduct(int id, string name, string animaltype, string producttype, int supplierid, decimal stocks, string image)
+        public bool EditProduct(int id, string name, string animaltype, string producttype, int supplierid, decimal stocks, string image, Inventory_AddingForm form)
         {
             try
             {
+                if (CheckName(name))
+                {
+                    form.PopUpNotif("alert", "Product name already existed.");
+                    return false;
+                }
                 var product = _context.Products.FirstOrDefault(x => x.product_id == id);
                 if (product == null)
                 {
@@ -229,17 +234,21 @@ namespace SmartPoultry.DataServices
             }
         }
 
-        public int Create(string product_name, string animal_type, string product_type, int employee_incharge, int supplierId, decimal stocks, string image)
+        public int Create(string product_name, string animal_type, string product_type, int employee_incharge, int supplierId, decimal stocks, string image, Inventory_AddingForm form)
         {
             try
             {
                 if (!File.Exists(image))
                 {
-                    MessageBox.Show("Image file not found at the specified path.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    form.PopUpNotif("alert", "Image file not found at the specified path.");
                     return 0;
                 }
-
-                // Read the image as binary data
+                if (CheckName(product_name))
+                {
+                    form.PopUpNotif("alert", "Product name already existed.");
+                    return 0;
+                }
+                
                 byte[] imageData = File.ReadAllBytes(image);
 
                 var newProduct = new Products
@@ -262,19 +271,25 @@ namespace SmartPoultry.DataServices
             }
             catch (FileNotFoundException ex)
             {
-                MessageBox.Show($"Image not found: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                form.PopUpNotif("alert", "Image file not found at the specified path.");
                 return 0;
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error creating product: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Console.WriteLine(ex.ToString());
                 return 0;
             }
         }
-
-
-
-
+        public bool CheckName(string name)
+        {
+            if(_context.Products.Any(p => p.product_name == name))
+            {
+                return true;
+            }else
+            {
+                return false;
+            }
+        }
     }
 
 }

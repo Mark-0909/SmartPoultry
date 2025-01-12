@@ -23,7 +23,7 @@
             <WrapPanel Height="48" Width="408">
                 <Label Content="Label" Height="38" Width="175"/>
                 <Border BorderBrush="Black" BorderThickness="1" Height="38" Width="147">
-                    <TextBox HorizontalAlignment="Center" Height="18" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="115"/>
+                    <TextBox x:Name="AddOrderProductTB" HorizontalAlignment="Center" Height="18" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="115" TextChanged="AddOrderProductTB_TextChanged"/>
                 </Border>
                 <Button Content="Button" Height="28" Width="63"/>
             </WrapPanel>

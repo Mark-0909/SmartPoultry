@@ -31,7 +31,10 @@ namespace SmartPoultry
             productServices = new ProductServices(context);
             DisplayOutOfStocks();
         }
-
+        private void AddOrderProductTB_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            
+        }
         public void DisplayOutOfStocks()
         {
             List<Products> products = GetOutOfStockProducts();
@@ -83,5 +86,7 @@ namespace SmartPoultry
             this.Close();
             mainWindow.ActiveOverlay(false);
         }
+
+        
     }
 }

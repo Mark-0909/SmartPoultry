@@ -537,7 +537,7 @@ namespace SmartPoultry
                     }
                 }
 
-                bool isProductUpdated = productService.EditProduct(prod.product_id, name, animallist, typelist, supplierid, stocks, selectedFilePath);
+                bool isProductUpdated = productService.EditProduct(prod.product_id, name, animallist, typelist, supplierid, stocks, selectedFilePath, this);
                 if (!isProductUpdated)
                 {
                     PopUpNotif("alert", "Failed to update product details.");
@@ -614,7 +614,7 @@ namespace SmartPoultry
 
                 string imagePath = new Uri(SelectedImage.Source.ToString()).LocalPath;
 
-                int id = productService.Create(ProductNameTextBox.Text, animaltypelist, producttypelist, employeeId, supplierid, stocks, imagePath);
+                int id = productService.Create(ProductNameTextBox.Text, animaltypelist, producttypelist, employeeId, supplierid, stocks, imagePath, this);
 
                 if (id == 0)
                 {
