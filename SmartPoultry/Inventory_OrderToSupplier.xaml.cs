@@ -32,58 +32,111 @@ namespace SmartPoultry
             productServices = new ProductServices(context);
             DisplayOutOfStocks();
 
-            ProductSuggestionsListBox = new ListBox
-            {
-                Visibility = Visibility.Collapsed,
-                Width = 408
-            };
-
-
-            Wpanel.Children.Add(ProductSuggestionsListBox);
+            InitializeComboBoxItems();
         }
 
-        private void AddOrderProductTB_TextChanged(object sender, TextChangedEventArgs e)
+        public void InitializeComboBoxItems()
         {
-            if (ProductSuggestionsListBox == null)
+            SearchCBox.Items.Clear();
+            SearchCBox.Items.Add("Search Product...");
+
+            List<Products> products = productServices.GetAllProducts();
+
+            foreach (var product in products)
             {
-                return; 
+                SearchCBox.Items.Add(product.product_name);
             }
 
+            SearchCBox.SelectedIndex = 0;
+        }
 
-            if (string.IsNullOrWhiteSpace(AddOrderProductTB.Text) ||
-                (AddOrderProductTB.Tag != null && AddOrderProductTB.Tag.ToString() == AddOrderProductTB.Text))
+        private void SearchCBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            string searchText = SearchCBox.Text + e.Text;
+
+            // Clear previous items and add the placeholder
+            SearchCBox.Items.Clear();
+            SearchCBox.Items.Add("Search Product...");
+
+            
+            List<Products> products = productServices.GetAllProducts();
+            foreach (var product in products)
             {
-                ProductSuggestionsListBox.ItemsSource = null;
-                ProductSuggestionsListBox.Visibility = Visibility.Collapsed;
+                if (product.product_name.ToLower().Contains(searchText.ToLower()))
+                {
+                    SearchCBox.Items.Add(product.product_name);
+                }
+            }
+
+            
+            SearchCBox.IsDropDownOpen = SearchCBox.Items.Count > 1;
+
+            
+            SearchCBox.SelectedIndex = -1; 
+        }
+
+        private void SearchCBox_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            
+            if (SearchCBox.SelectedIndex != -1)
+            {
+                SearchCBox.SelectedIndex = -1;
+                SearchCBox.Text = string.Empty;  
+            }
+        }
+
+        private void SearchCBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                AddProductToControl(SearchCBox.Text);
+
+                RoutedEventArgs routedEventArgs = new RoutedEventArgs();
+                SearchCBox_LostFocus(SearchCBox, routedEventArgs);
+            }
+        }
+
+        private void SearchCBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (SearchCBox.SelectedIndex == -1 || string.IsNullOrWhiteSpace(SearchCBox.Text))
+            {
+                SearchCBox.SelectedIndex = 0;
+                SearchCBox.Text = "Search Product...";
+            }
+        }
+
+        public void AddProductToControl(string item)
+        {
+            Products product = productServices.GetProductByName(item);
+            if (product == null) 
+            {
+                MessageBox.Show("Product not found");
                 return;
             }
 
-            productServices ??= new ProductServices(context);
-            List<Products> products = productServices.SearchProducts(AddOrderProductTB.Text, "", "");
+            foreach(UIElement element in Wpanel.Children)
+            {
+                if(element is Inventory_OrderSupplyControl control)
+                {
+                    bool isPresent = control.IsProductIdPresent(product.product_id);
+                    if (isPresent)
+                    {
+                        MessageBox.Show("Product is already listed.");
+                        return;
+                    }
 
-            if (products != null && products.Any())
-            {
-                ProductSuggestionsListBox.ItemsSource = products;
-                ProductSuggestionsListBox.Visibility = Visibility.Visible;
+                }
             }
-            else
-            {
-                ProductSuggestionsListBox.ItemsSource = null;
-                ProductSuggestionsListBox.Visibility = Visibility.Collapsed;
-            }
+
+            Inventory_OrderSupplyControl orderControl = new Inventory_OrderSupplyControl(product.supplier_id, product, this);
+
+            Wpanel.Children.Add(orderControl);
+
+
         }
 
 
 
-
-        private void ProductSuggestionsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (ProductSuggestionsListBox.SelectedItem is Products selectedProduct)
-            {
-                AddOrderProductTB.Text = selectedProduct.product_name;
-                ProductSuggestionsListBox.Visibility = Visibility.Collapsed;
-            }
-        }
 
 
 

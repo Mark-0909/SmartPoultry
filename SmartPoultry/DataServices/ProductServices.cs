@@ -33,6 +33,21 @@ namespace SmartPoultry.DataServices
                 return false;
             }
         }
+
+        public Products GetProductByName(string name)
+        {
+            try
+            {
+                var product = _context.Products.FirstOrDefault(p => p.product_name.ToLower() == name.ToLower());
+                return product;
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine($"{ex.Message}");
+                return null;
+            }
+            
+        }
         public bool EditProduct(int id, string name, string animaltype, string producttype, int supplierid, decimal stocks, string image, Inventory_AddingForm form)
         {
             try

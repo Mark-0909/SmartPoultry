@@ -34,7 +34,7 @@ namespace SmartPoultry
         public Inventory_OrderSupplyControl(int supplierid, Products product, Inventory_OrderToSupplier OrderForm)
         {
             InitializeComponent();
-            supplierServices = new SupplierServices(context); 
+            supplierServices = new SupplierServices(context);
             supplierOrdersServices = new SupplierOrdersServices(context);
             productServices = new ProductServices(context);
             supplierID = supplierid;
@@ -148,7 +148,7 @@ namespace SmartPoultry
         {
             if (this.Parent is Panel parentPanel)
             {
-                parentPanel.Children.Remove(this); 
+                parentPanel.Children.Remove(this);
             }
             else
             {
@@ -180,6 +180,19 @@ namespace SmartPoultry
             {
                 datePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, today.AddDays(-1)));
             }
+
+        }
+        public bool IsProductIdPresent(int id)
+        {
+            foreach (UIElement element in Wpanel.Children)
+            {
+                if (element is Inventory_OrderSupplyProductControl control && int.Parse(control.ProductId) == id)
+                {
+                    return true;
+                }
+
+            }
+            return false;
         }
     }
 }

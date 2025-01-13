@@ -21,7 +21,8 @@ namespace SmartPoultry
     /// </summary>
     public partial class Inventory_OrderSupplyProductControl : UserControl
     {
-        public string ProductId;
+        public string ProductId { get; set; }
+
 
         Inventory_OrderSupplyControl form;
         public Inventory_OrderSupplyProductControl(Products products, Inventory_OrderSupplyControl formControl)
