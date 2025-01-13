@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:SmartPoultry"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Width="1104" Height="582" Background="#FFE3E3E3">
-    <Grid>
+    <Grid x:Name="RootGrid">
+        <!-- Added x:Name for dynamic popup usage -->
         <Grid.RowDefinitions>
             <RowDefinition Height="11*"/>
             <RowDefinition Height="439*"/>
@@ -73,8 +74,10 @@
         <Label HorizontalContentAlignment="Center" Content="NAME" HorizontalAlignment="Left" Height="32" Margin="34,44,0,0" VerticalAlignment="Top" Width="138" Grid.Row="1"/>
         <Label HorizontalContentAlignment="Center" Content="CONTACT PERSON" HorizontalAlignment="Left" Height="28" Margin="199,44,0,0" VerticalAlignment="Top" Width="144" Grid.Row="1"/>
         <Label HorizontalContentAlignment="Center" Content="CONTACT INFO" HorizontalAlignment="Left" Height="28" Margin="377,44,0,0" VerticalAlignment="Top" Width="144" Grid.Row="1"/>
+
+        <!-- Placeholder for Dynamic Popup Overlay -->
+        <!-- The popup overlay will be dynamically added here at runtime -->
     </Grid>
 </UserControl>
-
 
 

@@ -21,6 +21,7 @@ namespace SmartPoultry
         }
 
         public event Action<SupplierList> SupplierClicked;
+        public Supplier_InfoUserControl infoUserControl;
 
         public SupplierList Supplier { get; set; }
 
@@ -47,7 +48,7 @@ namespace SmartPoultry
         {
             if (IsSelected)
             {
-                HighlightBorder.Background = new SolidColorBrush(Colors.LightBlue); // Selected color
+                HighlightBorder.Background = new SolidColorBrush(Colors.LightGreen); // Selected color
             }
             else
             {
@@ -57,26 +58,70 @@ namespace SmartPoultry
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            // Create an instance of Supplier_InfoUserControl
-            Supplier_InfoUserControl supplierInfoControl = new Supplier_InfoUserControl();
-
-            // Set the DataContext to the current supplier so the form can auto-fill
-            supplierInfoControl.DataContext = Supplier;
-
-            // Display the control in a new window or popup
-            Window editWindow = new Window
+            // Create the overlay (semi-transparent background)
+            var overlay = new Grid
             {
-                Title = "Edit Supplier Details",
-                Content = supplierInfoControl,
-                Width = 400,
-                Height = 300,
-                ResizeMode = ResizeMode.NoResize,
-                WindowStartupLocation = WindowStartupLocation.CenterScreen,
-                Owner = Window.GetWindow(this) // Associate with the current window
+                Background = new SolidColorBrush(Color.FromArgb(128, 0, 0, 0)), // 50% black opacity
+                HorizontalAlignment = HorizontalAlignment.Stretch,
+                VerticalAlignment = VerticalAlignment.Stretch
             };
 
-            // Show the window modally to block interaction with other UI elements
-            editWindow.ShowDialog();
+            // Create the popup container
+            var popupContainer = new Border
+            {
+                Background = new SolidColorBrush(Colors.White),
+                BorderBrush = new SolidColorBrush(Colors.Gray),
+                BorderThickness = new Thickness(1),
+                CornerRadius = new CornerRadius(5),
+                Width = 400, // Set your desired popup width
+                Height = 350, // Set your desired popup height
+                HorizontalAlignment = HorizontalAlignment.Center,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            // Create the Supplier_InfoUserControl and set its DataContext
+            var supplierInfoControl = new Supplier_InfoUserControl
+            {
+                DataContext = Supplier
+            };
+
+            // Add the control to the popup container
+            popupContainer.Child = supplierInfoControl;
+
+            // Add the popup container to the overlay
+            overlay.Children.Add(popupContainer);
+
+            // Find the parent container (e.g., Grid)
+            var parentGrid = FindParent<Grid>(this);
+            if (parentGrid == null)
+            {
+                MessageBox.Show("Parent container not found.");
+                return;
+            }
+
+            // Add the overlay to the parent container
+            parentGrid.Children.Add(overlay);
+
+            // Handle the close action from Supplier_InfoUserControl
+            supplierInfoControl.Closed += (s, args) =>
+            {
+                // Remove the overlay from the parent container
+                parentGrid.Children.Remove(overlay);
+            };
+        }
+
+
+        // Helper method to find the parent Grid
+        private static T FindParent<T>(DependencyObject child) where T : DependencyObject
+        {
+            DependencyObject parent = VisualTreeHelper.GetParent(child);
+
+            while (parent != null && !(parent is T))
+            {
+                parent = VisualTreeHelper.GetParent(parent);
+            }
+
+            return parent as T;
         }
     }
 }
