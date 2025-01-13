@@ -114,9 +114,11 @@ namespace SmartPoultry
                 return;
             }
 
+            
+
             foreach(UIElement element in Wpanel.Children)
             {
-                if(element is Inventory_OrderSupplyControl control)
+                if(element is Inventory_OrderSupplyControl control && control.supplierID == product.supplier_id)
                 {
                     bool isPresent = control.IsProductIdPresent(product.product_id);
                     if (isPresent)
@@ -125,6 +127,8 @@ namespace SmartPoultry
                         return;
                     }
 
+                    control.AddProduct(product);
+                    return;
                 }
             }
 

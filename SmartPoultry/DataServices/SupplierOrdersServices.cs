@@ -16,7 +16,7 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
-        public bool Create(int supplierID, string productList, string productQTY, DateTime delivery_date)
+        public int Create(int supplierID, string productList, string productQTY, DateTime delivery_date)
         {
             try
             {
@@ -31,12 +31,12 @@ namespace SmartPoultry.DataServices
                 };
                 _context.SupplierOrders.Add(Order);
                 _context.SaveChanges();
-                return true;
+                return Order.id;
             }
             catch (Exception ex) 
             {
                 Console.WriteLine(ex.ToString());
-                return false;
+                return -1;
             }
             
         }

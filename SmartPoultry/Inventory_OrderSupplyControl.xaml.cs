@@ -31,18 +31,24 @@ namespace SmartPoultry
         public SupplierOrdersServices supplierOrdersServices;
         public Inventory_OrderToSupplier orderForm;
         public ProductServices productServices;
+        public DeliveriesServices deliveriesServices;
+
+        SupplierList supplierrow;
         public Inventory_OrderSupplyControl(int supplierid, Products product, Inventory_OrderToSupplier OrderForm)
         {
             InitializeComponent();
             supplierServices = new SupplierServices(context);
             supplierOrdersServices = new SupplierOrdersServices(context);
             productServices = new ProductServices(context);
+            deliveriesServices = new DeliveriesServices(context);
             supplierID = supplierid;
 
             GetSupplier(supplierid);
             AddProduct(product);
 
             orderForm = OrderForm;
+
+
         }
 
         public void ConfirmOrder()
@@ -69,9 +75,16 @@ namespace SmartPoultry
             string qtyList = string.Join(",", qty);
             DateTime deliveryDate = datePicker.SelectedDate.Value;
 
-            bool added = supplierOrdersServices.Create(supplierID, productList, qtyList, deliveryDate);
+            int added = supplierOrdersServices.Create(supplierID, productList, qtyList, deliveryDate);
 
-            if (!added)
+            if (added == -1)
+            {
+                MessageBox.Show("Order Unsuccessful.");
+                return;
+            }
+            bool DelilveryAdded = deliveriesServices.Create(added, supplierrow.Name, "To Receive", 0, supplierrow.Location, "pending", supplierrow.Contact, deliveryDate, "", 0);
+
+            if (!DelilveryAdded) 
             {
                 MessageBox.Show("Order Unsuccessful.");
                 return;
@@ -128,7 +141,7 @@ namespace SmartPoultry
         public void GetSupplier(int id)
         {
             SupplierList supplier = supplierServices.FindSupplier(id);
-
+            supplierrow = supplier;
             SupplierNameLabel.Content = supplier.Name;
             ContactPersonLabel.Content = supplier.Contact_Person;
             ContactLabel.Content = $"{supplier.Contact} / {supplier.Email}";
@@ -190,7 +203,6 @@ namespace SmartPoultry
                 {
                     return true;
                 }
-
             }
             return false;
         }
