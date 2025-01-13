@@ -34,5 +34,7 @@ namespace SmartPoultry.Models
 
         [MaxLength(100)]
         public string added_date { get; set; }
+
+        public bool hasOrder { get; set; }
     }
 }

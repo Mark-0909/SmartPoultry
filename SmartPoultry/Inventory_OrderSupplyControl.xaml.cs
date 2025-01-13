@@ -5,6 +5,7 @@ using SmartPoultry.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -29,11 +30,13 @@ namespace SmartPoultry
         public SupplierServices supplierServices;
         public SupplierOrdersServices supplierOrdersServices;
         public Inventory_OrderToSupplier orderForm;
+        public ProductServices productServices;
         public Inventory_OrderSupplyControl(int supplierid, Products product, Inventory_OrderToSupplier OrderForm)
         {
             InitializeComponent();
             supplierServices = new SupplierServices(context); 
             supplierOrdersServices = new SupplierOrdersServices(context);
+            productServices = new ProductServices(context);
             supplierID = supplierid;
 
             GetSupplier(supplierid);
@@ -44,19 +47,62 @@ namespace SmartPoultry
 
         public void ConfirmOrder()
         {
+            if (datePicker.SelectedDate == null)
+            {
+                MessageBox.Show("Please select a valid date.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                throw new InvalidOperationException("Date is required.");  // Throw an exception to stop further processing
+            }
+
             List<string> productid = new List<string>();
             List<string> qty = new List<string>();
+
             foreach (UIElement element in Wpanel.Children)
             {
-                if(element is Inventory_OrderSupplyProductControl control)
+                if (element is Inventory_OrderSupplyProductControl control)
                 {
                     productid.Add(control.ProductId);
-                    qty.Add(control.QTYLabel.ToString());
+                    qty.Add(control.QTYLabel.Content.ToString());
                 }
             }
-            
 
+            string productList = string.Join(",", productid);
+            string qtyList = string.Join(",", qty);
+            DateTime deliveryDate = datePicker.SelectedDate.Value;
+
+            bool added = supplierOrdersServices.Create(supplierID, productList, qtyList, deliveryDate);
+
+            if (!added)
+            {
+                MessageBox.Show("Order Unsuccessful.");
+                return;
+            }
+
+            for (int i = 0; i < productid.Count; i++)
+            {
+                bool ChangeHasOrder = productServices.UpdateHasOrder(int.Parse(productid[i]));
+                if (!ChangeHasOrder)
+                {
+                    return;
+                }
+            }
+
+            if (this.Parent is Panel parentPanel)
+            {
+                parentPanel.Children.Remove(this);
+            }
+            else
+            {
+                throw new InvalidOperationException("This control does not have a valid parent container.");
+            }
+
+            MessageBox.Show("Order Confirmed Successfully!");
         }
+
+
+
+
+
+
         public void CheckPresentProducts()
         {
             bool hasProductControl = Wpanel.Children.OfType<Inventory_OrderSupplyProductControl>().Any();

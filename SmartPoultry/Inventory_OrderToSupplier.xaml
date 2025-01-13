@@ -20,17 +20,35 @@
             <Button x:Name="confirmBtn" Content="CONFIRM" HorizontalAlignment="Center" Height="27" VerticalAlignment="Center" Width="412" BorderBrush="#FF2C6E5D" Background="#FF2C6E5D" FontSize="15" Click="ConfirmButton_Click" Foreground="White" FontWeight="Bold"/>
         </Border>
         <StackPanel HorizontalAlignment="Center" Height="397" Margin="0,53,0,0" VerticalAlignment="Top" Width="412">
+            <!-- Search Section -->
             <WrapPanel Height="48" Width="408">
-                <Label Content="Label" Height="38" Width="175"/>
+                <Label Content="Search Product:" Height="38" Width="175" />
                 <Border BorderBrush="Black" BorderThickness="1" Height="38" Width="147">
-                    <TextBox x:Name="AddOrderProductTB" HorizontalAlignment="Center" Height="18" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Center" Width="115" TextChanged="AddOrderProductTB_TextChanged"/>
+                    <TextBox x:Name="AddOrderProductTB" Tag="Add Product..." HorizontalAlignment="Center" Height="18" 
+                     TextWrapping="Wrap" Text="Add Product..." VerticalAlignment="Center" Width="115" 
+                     TextChanged="AddOrderProductTB_TextChanged" />
                 </Border>
-                <Button Content="Button" Height="28" Width="63"/>
+                <Button Content="Search" Height="28" Width="63" />
             </WrapPanel>
-            <ScrollViewer Height="345" Width="408">
-                <WrapPanel x:Name="Wpanel"  Width="382"/>
+
+            <!-- Suggestions ListBox -->
+            <ListBox x:Name="ProductSuggestionsListBox" Height="100" Width="408" Margin="0,5,0,0" 
+             Visibility="Collapsed" SelectionChanged="ProductSuggestionsListBox_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding ProductName}" />
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <!-- Scrollable Content -->
+            <ScrollViewer Height="345" Width="408" Margin="0,10,0,0">
+                <WrapPanel x:Name="Wpanel" Width="382" />
             </ScrollViewer>
         </StackPanel>
+
+
+
 
     </Grid>
 </Window>

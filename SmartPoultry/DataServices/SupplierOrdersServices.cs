@@ -1,9 +1,11 @@
 ﻿using SmartPoultry.DataAccess;
+using SmartPoultry.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static SmartPoultry.App;
 
 namespace SmartPoultry.DataServices
 {
@@ -14,7 +16,30 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
-
+        public bool Create(int supplierID, string productList, string productQTY, DateTime delivery_date)
+        {
+            try
+            {
+                SupplierOrders Order = new SupplierOrders()
+                {
+                    supplierID = supplierID,
+                    productList = productList,
+                    orderQty = productQTY,
+                    Added_Date = DateTime.Now,
+                    Delivery_Date = delivery_date,
+                    employee_incharge = UserContext.CurrentUserId
+                };
+                _context.SupplierOrders.Add(Order);
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
+            
+        }
 
     }
 }

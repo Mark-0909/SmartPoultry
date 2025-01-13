@@ -18,6 +18,21 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+        public bool UpdateHasOrder(int Id)
+        {
+            try
+            {
+                var product = _context.Products.FirstOrDefault(p => p.product_id == Id);
+                product.hasOrder = true;
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
         public bool EditProduct(int id, string name, string animaltype, string producttype, int supplierid, decimal stocks, string image, Inventory_AddingForm form)
         {
             try
@@ -262,6 +277,7 @@ namespace SmartPoultry.DataServices
                     image = imageData,
                     status = "active",
                     added_date = DateTime.Now.ToString("MM-dd-yyyy")
+                    
                 };
 
                 _context.Products.Add(newProduct);
