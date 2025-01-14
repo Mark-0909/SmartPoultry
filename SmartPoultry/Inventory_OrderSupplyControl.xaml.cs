@@ -55,8 +55,7 @@ namespace SmartPoultry
         {
             if (datePicker.SelectedDate == null)
             {
-                MessageBox.Show("Please select a valid date.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                throw new InvalidOperationException("Date is required.");  // Throw an exception to stop further processing
+                throw new InvalidOperationException("Date is required.");  
             }
 
             List<string> productid = new List<string>();

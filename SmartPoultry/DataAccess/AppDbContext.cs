@@ -24,6 +24,8 @@ namespace SmartPoultry.DataAccess
 
         public DbSet<Models.SupplierOrders> SupplierOrders { get; set; }
 
+        public DbSet<Models.Expenses> Expenses { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             string folderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Data");

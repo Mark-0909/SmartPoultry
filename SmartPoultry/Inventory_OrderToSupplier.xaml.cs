@@ -54,7 +54,6 @@ namespace SmartPoultry
         {
             string searchText = SearchCBox.Text + e.Text;
 
-            // Clear previous items and add the placeholder
             SearchCBox.Items.Clear();
             SearchCBox.Items.Add("Search Product...");
 

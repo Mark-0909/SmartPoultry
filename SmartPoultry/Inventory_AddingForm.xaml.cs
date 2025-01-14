@@ -256,7 +256,12 @@ namespace SmartPoultry
 
         private void PhaseOutBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            bool isPhaseOut = productService.ProductPhaseOut(prod.product_id);
+            if (isPhaseOut) 
+            {
+                PopUpNotif("alert", $"{prod.product_name} Phased out unsuccessful.");
+            }
+            PopUpNotif("notif", $"{prod.product_name} was Phased out successfully.");
         }
         public void DisableForm(bool isEnabled)
         {

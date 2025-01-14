@@ -33,7 +33,7 @@ namespace SmartPoultry
             InitializeComponent();
             Namelabel.Content = finace.name;
             DueDateLabel.Content = finace.due_date;
-            AmountLabel.Content = finace.amount;
+            AmountLabel.Content = finace.amount.ToString("N2");
             ID = finace.Id;
             financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
 

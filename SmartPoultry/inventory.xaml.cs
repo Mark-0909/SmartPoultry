@@ -36,6 +36,8 @@ namespace SmartPoultry
         public string filteranimal = "";
         public string filtertype = "";
 
+        bool OutOfStock = false;
+        bool Phaseout = false;
         
         public inventory()
         {
@@ -202,27 +204,37 @@ namespace SmartPoultry
         }
         private void OutOfStock_Clicked(object sender, RoutedEventArgs e)
         {
-            if(ProductListWPanel.Children.Count > 0)
+            if (!OutOfStock)
             {
-                ProductListWPanel.Children.Clear();
+                OutOfStock = true;
+
+                if (ProductListWPanel.Children.Count > 0)
+                {
+                    ProductListWPanel.Children.Clear();
+                }
+
+                List<Products> products = productService.GetLowStockProducts("", "", "");
+
+
+                foreach (var product in products)
+                {
+
+                    Inventory_ProductControl productControl = new Inventory_ProductControl(
+                        product.product_id,
+                        product.product_name,
+                        product.stocks,
+                        product.image
+                    );
+
+
+                    ProductListWPanel.Children.Add(productControl);
+                }
             }
-
-            List<Products> products = productService.GetLowStockProducts("", "", "");
-
-
-            foreach (var product in products)
+            else 
             {
-
-                Inventory_ProductControl productControl = new Inventory_ProductControl(
-                    product.product_id,
-                    product.product_name,
-                    product.stocks,
-                    product.image
-                );
-
-
-                ProductListWPanel.Children.Add(productControl);
+                OutOfStock = false;
             }
+            
         }
 
         //Inventory Buttons Click Functions (Animal type)
@@ -609,6 +621,11 @@ namespace SmartPoultry
             Inventory_OrderToSupplier window = new Inventory_OrderToSupplier();
             mainWindow.ActiveOverlay(true);
             window.ShowDialog();
+        }
+
+        private void PhaseOut_Clicked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

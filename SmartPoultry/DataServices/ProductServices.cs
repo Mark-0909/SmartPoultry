@@ -18,6 +18,21 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+        public bool ProductPhaseOut(int id)
+        {
+            try
+            {
+                var product = _context.Products.FirstOrDefault(p => p.product_id == id);
+                product.status = "inactive";
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex) 
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
         public bool UpdateHasOrder(int Id)
         {
             try
