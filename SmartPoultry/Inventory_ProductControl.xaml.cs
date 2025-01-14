@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using SmartPoultry.DataAccess;
 using SmartPoultry.DataServices;
 using SmartPoultry.Models;
+using static SmartPoultry.App;
 
 namespace SmartPoultry
 {
@@ -69,7 +70,7 @@ namespace SmartPoultry
 
         private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
+            MainWindow? mainWindow = UserContext.mainWindow;
             if (mainWindow != null)
             {
 
@@ -78,7 +79,7 @@ namespace SmartPoultry
             }
             else
             {
-                MessageBox.Show("Unable to access the MainWindow.");
+                MessageBox.Show("Unable to access the MainWindow.  inventory product control");
             }
             Products product = productservices.FetchProduct(prodid);
 

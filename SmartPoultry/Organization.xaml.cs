@@ -26,16 +26,40 @@ namespace SmartPoultry
     {
         public AppDbContext context = new AppDbContext();
         public UserServices userServices;
+        public UserLogsServices logServices;
         public Organization()
         {
             InitializeComponent();
             userServices = new UserServices(context);
+            logServices = new UserLogsServices(context);
             GetUserList("active");
         }
         public void ViewUser(User user)
         {
             NameLabel.Content = user.Username;
             RoleLabel.Content = user.Role;
+
+            if(UserLogsList.Children.Count > 0)
+            {
+                UserLogsList.Children.Clear();
+            }
+
+            List<UserLogs> userLogs = logServices.GetListOfMember(user.Id);
+            int evenodd = 0;
+            for (int i = 0; i < userLogs.Count; i++) 
+            {
+                
+                Organization_UserLogs control = new Organization_UserLogs(userLogs[i], evenodd);
+                UserLogsList.Children.Add(control);
+                if(evenodd == 0)
+                {
+                    evenodd = 1;
+                }
+                else
+                {
+                    evenodd = 0;
+                }
+            }
         }
         public void GetUserList(string status)
         {
@@ -46,6 +70,7 @@ namespace SmartPoultry
             List<User> users = userServices.GetUserList(status);
 
             int userid = UserContext.CurrentUserId;
+            int evenodd = 0;
             for (int i = 0; i < users.Count; i++) 
             {
                 if (users[i].Id == userid || users[i].Id == 1) 
@@ -54,7 +79,18 @@ namespace SmartPoultry
                 }
                 string name = users[i].Username;
                 string role = users[i].Role;
-                Organization_UserControl userControl = new Organization_UserControl(users[i], this);
+
+                
+                Organization_UserControl userControl = new Organization_UserControl(users[i], this, evenodd);
+
+                if(evenodd == 0)
+                {
+                    evenodd = 1;
+                }
+                else
+                {
+                    evenodd = 0;
+                }
                 UserPanel.Children.Add(userControl);
             }
         }

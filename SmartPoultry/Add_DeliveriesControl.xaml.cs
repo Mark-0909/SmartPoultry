@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static SmartPoultry.App;
 
 namespace SmartPoultry
 {
@@ -73,7 +74,7 @@ namespace SmartPoultry
             Deliveries var = deliveriesServices.GetById(ID);
 
 
-            MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
+            MainWindow? mainWindow = UserContext.mainWindow;
 
             Add_Delivery window = new Add_Delivery(var, mainWindow);
             if (mainWindow != null)
@@ -85,7 +86,7 @@ namespace SmartPoultry
             }
             else
             {
-                MessageBox.Show("Unable to access the MainWindow.");
+                MessageBox.Show("Unable to access the MainWindow. add deliveries control");
             }
         }
     }

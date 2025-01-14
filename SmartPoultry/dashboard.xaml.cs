@@ -16,6 +16,7 @@ using Microsoft.VisualBasic;
 using SmartPoultry.DataAccess;
 using SmartPoultry.DataServices;
 using SmartPoultry.Models;
+using static SmartPoultry.App;
 
 namespace SmartPoultry
 {
@@ -31,12 +32,14 @@ namespace SmartPoultry
         Add_FinancialLiabilities add_FinancialLiabilities;
         Add_Delivery Add_Delivery;
 
-
+        MainWindow mainWindow;
         
 
         public dashboard()
         {
             InitializeComponent();
+
+            mainWindow = UserContext.mainWindow;
 
             var context = new AppDbContext();
             salesServices = new SalesServices(context);
@@ -199,7 +202,7 @@ namespace SmartPoultry
             OrderListPanel.Children.Clear();
             int evenodd = 0;
             List<Sales> salesList = salesServices.GetSalesList();
-
+       
             foreach (Sales sales in salesList) { 
                 string refid = sales.receipt_id.ToString();
                 string mode = sales.payment_mode.ToString();
@@ -223,7 +226,6 @@ namespace SmartPoultry
         }
         private void AddFinancialLiabilities_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
 
             if (mainWindow != null)
             {
@@ -233,13 +235,12 @@ namespace SmartPoultry
             }
             else
             {
-                MessageBox.Show("Unable to access the MainWindow.");
+                MessageBox.Show("Unable to access the MainWindow. dashboard3");
             }
         }
 
         private void AddDelivery_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
 
             if (mainWindow != null)
             {
@@ -249,7 +250,7 @@ namespace SmartPoultry
             }
             else
             {
-                MessageBox.Show("Unable to access the MainWindow.");
+                MessageBox.Show("Unable to access the MainWindow. dashboard1");
             }
             
             

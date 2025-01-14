@@ -35,7 +35,8 @@ namespace SmartPoultry
             string productname = ProductServices.FetchProduct(productid).product_name.ToString();
             string name = UserServices.GetUser(userid).Username.ToString();
 
-            ProductName.Content = name;
+            ProductName.Content = productname;
+            EmployeeLabel.Content = name;
             DateLabel.Content = date.ToString("MM-dd-yyyy");
             ActionLabel.Content = action;
             RemarksLabel.Content = remarks;

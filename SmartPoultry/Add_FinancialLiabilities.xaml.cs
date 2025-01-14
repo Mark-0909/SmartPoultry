@@ -14,7 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-
+using static SmartPoultry.App;
 namespace SmartPoultry
 {
     /// <summary>
@@ -45,7 +45,11 @@ namespace SmartPoultry
             EditBtn.Visibility = Visibility.Collapsed;
             CancelBtn.Visibility = Visibility.Collapsed;
 
-            mainWindow = window;
+            orderIdLabel.Visibility = Visibility.Collapsed;
+            OrderDetailsBtn.Visibility = Visibility.Collapsed;
+            OrderId.Visibility = Visibility.Collapsed;
+
+            mainWindow = UserContext.mainWindow;
         }
         public Add_FinancialLiabilities(FinancialLiabilities itemrow, MainWindow mainwindow)
         {
@@ -53,7 +57,18 @@ namespace SmartPoultry
             financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
             salesServices = new SalesServices(context);
             deliveriesServices = new DeliveriesServices(context);
-            
+
+            if (itemrow.order_id != 0) 
+            {
+                OrderId.Content = itemrow.order_id.ToString();
+            }
+            else
+            {
+                orderIdLabel.Visibility = Visibility.Collapsed;
+                OrderDetailsBtn.Visibility = Visibility.Collapsed;
+                OrderId.Visibility = Visibility.Collapsed;
+            }
+
             NameTextBox.Text = itemrow.name;
             finance = itemrow;
 
@@ -69,7 +84,7 @@ namespace SmartPoultry
             datePicker.SelectedDate = itemrow.due_date;
             ContactsTextBox.Text = itemrow.contacts;
             ConfirmBtn.Content = "PAID";
-            mainWindow = mainwindow;
+            mainWindow = UserContext.mainWindow;
 
             EnabledForm(false);
         }
@@ -220,7 +235,7 @@ namespace SmartPoultry
             }
             else
             {
-                MessageBox.Show("Unable to access the MainWindow.");
+                MessageBox.Show("Unable to access the MainWindow. add financial");
             }
             this.Close();
             mainWindow.ActiveOverlay(false);
@@ -294,6 +309,31 @@ namespace SmartPoultry
             }
         }
 
-        
+        private void OrderDetailsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Sales sale = salesServices.GetSales(long.Parse(OrderId.Content.ToString()));
+            MainWindow main = UserContext.mainWindow;
+            Sales_OrderInfo window = new Sales_OrderInfo(sale, main, "payment", this);
+
+            ActiveOverlay(true);
+            window.ShowDialog();
+
+            
+
+        }
+        public void ActiveOverlay(bool isActive)
+        {
+            if (isActive)
+            {
+                Overlay.Visibility = Visibility.Visible;
+
+                Panel.SetZIndex(Overlay, 99);
+            }
+            else
+            {
+                Overlay.Visibility = Visibility.Collapsed;
+                Panel.SetZIndex(Overlay, 0);
+            }
+        }
     }
 }

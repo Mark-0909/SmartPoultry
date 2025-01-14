@@ -39,9 +39,12 @@ namespace SmartPoultry
         public inventoryAdd_variationscontrol(string unitname, string price, string conversion, string type, string stocks, string basevalue, int position, Inventory_AddingForm form)
         {
             InitializeComponent();
+            decimal priceconv = decimal.Parse(price);
             nameBtn.Content = unitname;
-            priceLabel.Content = price;
-            conversionLabel.Content = conversion;
+            priceLabel.Content = $"₱ {priceconv.ToString("N2")}";
+
+
+            conversionLabel.Content = $"{conversion}/{basevalue}";
 
             namevar = unitname;
             pricevar = price;
@@ -53,7 +56,49 @@ namespace SmartPoultry
             positionlist = position;
 
             addingform = form;
+
+            if(unitname == basevalue)
+            {
+                conversionTemplate.Visibility = Visibility.Hidden;
+            }
+
+            AdjustSizesAndMargins();
         }
+
+        public void UpdateBaseUnit(string BaseUnit)
+        {
+            basevaluevar = BaseUnit;
+            conversionLabel.Content = $"{conversionvar}/{BaseUnit}";
+        }
+
+        private void AdjustSizesAndMargins()
+        {
+            double unitWidth = MeasureContentWidth(nameBtn);
+            double priceWidth = MeasureContentWidth(priceLabel);
+            double conversionWidth = MeasureContentWidth(conversionLabel);
+
+            double maxWidth = Math.Max(unitWidth, Math.Max(priceWidth, conversionWidth));
+
+            unitTemplate.Width = maxWidth;
+            priceTemplate.Width = maxWidth;
+            conversionTemplate.Width = maxWidth;
+
+            this.Width = maxWidth + 10;
+
+            var currentMargin = this.Margin;
+            this.Margin = new Thickness(-5, currentMargin.Top, 0, currentMargin.Bottom);
+        }
+
+        private double MeasureContentWidth(FrameworkElement content)
+        {
+            if (content != null)
+            {
+                content.Measure(new Size(double.PositiveInfinity, double.PositiveInfinity));
+                return content.DesiredSize.Width + 10; 
+            }
+            return 0;
+        }
+
         private void NameBtn_Click(object sender, RoutedEventArgs e)
         {
             if (typevar == "base")

@@ -23,7 +23,7 @@ namespace SmartPoultry
     {
         Organization organization;
         User useinfo;
-        public Organization_UserControl(User user, Organization org)
+        public Organization_UserControl(User user, Organization org, int evenodd)
         {
             InitializeComponent();
             NameLabel.Content = user.Username;
@@ -31,6 +31,10 @@ namespace SmartPoultry
 
             organization = org;
             useinfo = user;
+            if(evenodd == 1) 
+            {
+                ControlBorder.Background = Brushes.White;
+            }
         }
 
         private void UserControl_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)

@@ -110,6 +110,15 @@
         <Label Content="Address:" HorizontalAlignment="Left" Height="27" Margin="311,348,0,0" VerticalAlignment="Top" Width="74" FontSize="14"/>
         <Label Content="Contacts:" HorizontalAlignment="Left" Height="27" Margin="311,407,0,0" VerticalAlignment="Top" Width="74" FontSize="14"/>
         <Label Content="Charge Fee:" HorizontalAlignment="Left" Height="27" Margin="311,466,0,0" VerticalAlignment="Top" Width="85" FontSize="14"/>
+
+        <Border x:Name="NotifPopup"  CornerRadius="10" BorderBrush="#FFCCE6D3" BorderThickness="1" HorizontalAlignment="Left" Height="46" Margin="134,19,0,0" VerticalAlignment="Top" Width="330" Background="#FFCCE6D3">
+            <WrapPanel>
+                <Label x:Name="NotifMessage"  Content="Invalid Credentials" VerticalContentAlignment="Center" Padding="20 0 0 0" Height="43" Width="302" Foreground="#FF666666"/>
+                <Button x:Name="NotifCloseBtn" BorderBrush="Transparent" Background="Transparent" Height="20" Width="21" Click="NotifCloseBtn_Click">
+                    <Image Height="16" Width="10" Source="/Images/closegray.png"/>
+                </Button>
+            </WrapPanel>
+        </Border>
     </Grid>
 
 

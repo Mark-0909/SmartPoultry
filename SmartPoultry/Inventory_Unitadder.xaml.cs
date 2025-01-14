@@ -12,6 +12,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Xml.Linq;
@@ -47,7 +48,7 @@ namespace SmartPoultry
             SetRoundedCorners();
            
             InitializeUnitAdder(mode, action, null, null, null, baseUnitValue, null, null, position, form);
-
+            NotifPopup.Visibility = Visibility.Hidden;
         }
 
         public Inventory_Unitadder(string mode, string action, string name, string price, string conversion, string baseUnitvalue, string stocks, inventoryAdd_variationscontrol control, int position, Inventory_AddingForm form)
@@ -57,10 +58,57 @@ namespace SmartPoultry
 
             
             InitializeUnitAdder(mode, action, name, price, conversion, baseUnitvalue, stocks, control, position, form);
+            NotifPopup.Visibility = Visibility.Hidden;
 
-            
         }
 
+        public void PopUpNotif(string type, string message)
+        {
+            NotifPopup.Visibility = Visibility.Visible;
+            Panel.SetZIndex(NotifPopup, int.MaxValue);
+            if (type == "notif")
+            {
+                NotifPopup.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFCCE6D3"));
+                NotifPopup.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFCCE6D3"));
+            }
+            else
+            {
+                NotifPopup.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFD2D2"));
+                NotifPopup.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFD2D2"));
+            }
+
+            NotifMessage.Content = message;
+
+            DoubleAnimation fadeIn = new DoubleAnimation
+            {
+                From = 0.0,
+                To = 1.0,
+                Duration = TimeSpan.FromMilliseconds(500)
+            };
+
+            DoubleAnimation fadeOut = new DoubleAnimation
+            {
+                From = 1.0,
+                To = 0.0,
+                BeginTime = TimeSpan.FromSeconds(4.5),
+                Duration = TimeSpan.FromMilliseconds(500)
+            };
+
+            Storyboard storyboard = new Storyboard();
+            storyboard.Children.Add(fadeIn);
+            storyboard.Children.Add(fadeOut);
+
+            Storyboard.SetTarget(fadeIn, NotifPopup);
+            Storyboard.SetTarget(fadeOut, NotifPopup);
+            Storyboard.SetTargetProperty(fadeIn, new PropertyPath("Opacity"));
+            Storyboard.SetTargetProperty(fadeOut, new PropertyPath("Opacity"));
+
+            storyboard.Completed += (sender, args) =>
+            {
+                NotifPopup.Visibility = Visibility.Collapsed;
+            };
+            storyboard.Begin();
+        }
         private void InitializeUnitAdder(string? mode, string? action, string? name, string? price, string? conversion, string? baseUnitvalue, string? stocks, inventoryAdd_variationscontrol control, int position, Inventory_AddingForm form)
         {
             inventoryAddForm = form;
@@ -127,13 +175,13 @@ namespace SmartPoultry
         {
             if (UnitCB.Text == "Select Unit Below..." || priceTextBox.Text == "Price...")
             {
-                MessageBox.Show("Incomplete Details.");
+                PopUpNotif("alert", "Incomplete Details.");
                 return;
             }
 
             if (inventoryAddForm.unitlist.Contains(UnitCB.Text) && actionDeclaration == "add")
             {
-                MessageBox.Show("Unit has been added! Choose another one.");
+                PopUpNotif("alert", "Unit has been added! Choose another one.");
                 return;
             }
             if (actionDeclaration == "add")
@@ -167,10 +215,11 @@ namespace SmartPoultry
             if (inventoryAddForm.unitlist[positionlist] == UnitCB.Text)
             {
                 unitcontrol.EditUnit(UnitCB.Text, priceTextBox.Text, "1", stocksTextBox.Text, baseunit, positionlist);
+                UpdateConversionForAllUserControls();
             }
             else if (inventoryAddForm.unitlist.Contains(UnitCB.Text))
             {
-                MessageBox.Show("Unit has been added! Choose another one.");
+                PopUpNotif("alert", "Unit has been added! Choose another one.");
                 return;
             }
             else
@@ -180,9 +229,23 @@ namespace SmartPoultry
             }
 
             this.Close();
+            inventoryAddForm.stockunit.Content = UnitCB.Text;
             inventoryAddForm.ActiveOverlay(false);
         }
 
+        public void UpdateConversionForAllUserControls()
+        {
+            if (inventoryAddForm.unitsWPanel != null)
+            {
+                foreach (UIElement element in inventoryAddForm.unitsWPanel.Children)
+                {
+                    if (element is inventoryAdd_variationscontrol control)
+                    {
+                        control.UpdateBaseUnit(UnitCB.Text);
+                    }
+                }
+            }
+        }
         private void HandleEditSubUnit()
         {
             if (inventoryAddForm.unitlist[positionlist] == UnitCB.Text)
@@ -191,7 +254,7 @@ namespace SmartPoultry
             }
             else if (inventoryAddForm.unitlist.Contains(UnitCB.Text))
             {
-                MessageBox.Show("Unit has been added! Choose another one.");
+                PopUpNotif("alert", "Unit has been added! Choose another one.");
                 return;
             }
             else
@@ -323,5 +386,9 @@ namespace SmartPoultry
             }
         }
 
+        private void NotifCloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NotifPopup.Visibility = Visibility.Hidden;
+        }
     }
 }

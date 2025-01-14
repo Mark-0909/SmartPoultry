@@ -132,6 +132,8 @@ namespace SmartPoultry
                 {
                     animalAllBorder.Opacity = 0.5;
                     animalAllBtn.Opacity = 0.5;
+                    animalAllBorder.IsEnabled = false;
+                    animalAllBtn.IsEnabled = false;
                 }
 
                 animalAllBtn.Click += (sender, e) => VarButton_Click(sender, e, variation.id, prodname);

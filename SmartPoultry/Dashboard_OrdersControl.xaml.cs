@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static SmartPoultry.App;
 
 namespace SmartPoultry
 {
@@ -40,13 +41,21 @@ namespace SmartPoultry
                 thisBorder.Background = new SolidColorBrush(Colors.White);
             }
             id = long.Parse(refid);
+
         }
 
         private void DropDown_Clicked(object sender, RoutedEventArgs e)
         {
-            //Dashboard_DisplayOrderDetails orderWindow = new Dashboard_DisplayOrderDetails(id);
-            //orderWindow.ShowDialog();
 
+            Sales sales = salesServices.GetSales(long.Parse(ReferenceIdlabel.Content.ToString()));
+            
+
+            MainWindow mainWindow = UserContext.mainWindow;
+            Sales_OrderInfo window = new Sales_OrderInfo(sales, mainWindow);
+
+            mainWindow.ActiveOverlay(true);
+            window.ShowDialog();
+            
         }
 
         

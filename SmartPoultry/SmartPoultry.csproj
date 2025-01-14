@@ -22,6 +22,7 @@
     <None Remove="Images\blacktext.png" />
     <None Remove="Images\clipicon.png" />
     <None Remove="Images\close.png" />
+    <None Remove="Images\closegray.png" />
     <None Remove="Images\dashboardgreen.png" />
     <None Remove="Images\dashboardgrey.png" />
     <None Remove="Images\dropdown.png" />
@@ -58,6 +59,7 @@
     <Resource Include="Images\addbutton.png" />
     <Resource Include="Images\addbuttonproduct.png" />
     <Resource Include="Images\addbuttonsupplier.png" />
+    <Resource Include="Images\closegray.png" />
     <Resource Include="Images\schedulegray.png" />
     <Resource Include="Images\schedulegreen.png" />
   </ItemGroup>

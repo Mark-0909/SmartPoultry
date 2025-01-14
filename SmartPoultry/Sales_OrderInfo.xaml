@@ -1,0 +1,71 @@
+﻿<Window x:Class="SmartPoultry.Sales_OrderInfo"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SmartPoultry"
+        mc:Ignorable="d"
+        Title="Home_Checkout" Height="601" Width="300" 
+        ResizeMode="NoResize" WindowStartupLocation="CenterScreen" 
+        WindowStyle="None" Background="Transparent" 
+        Foreground="Transparent" AllowsTransparency="True">
+    <Grid>
+        <Border CornerRadius="10 10 10 10" BorderBrush="#FF2C6E5D" Background="White" BorderThickness="2" RenderTransformOrigin="0.5,0.5" Height="601" VerticalAlignment="Center" Margin="-1,0,1,0">
+            <Border.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="0.182"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="0.506"/>
+                </TransformGroup>
+            </Border.RenderTransform>
+            <Border BorderBrush="#FF2C6E5D" CornerRadius="10 10 0 0" BorderThickness="1" HorizontalAlignment="Center" Height="41" Margin="0,-2,0,0" VerticalAlignment="Top" Width="301" Background="#FF2C6E5D">
+                <Label HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center" Content="ORDER INFORMATION" FontSize="20" FontWeight="Bold"/>
+            </Border>
+        </Border>
+        <Label Content="TOTAL AMOUNT:" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="38" Margin="10,403,0,0" VerticalAlignment="Top" Width="150" FontWeight="Bold"/>
+        <Label Content="₱" HorizontalAlignment="Left" VerticalContentAlignment="Center" Height="38" Margin="147,403,0,0" VerticalAlignment="Top" Width="26" FontSize="16"/>
+        <Label x:Name="totalPricelabel" Content="PRICE" HorizontalAlignment="Right" HorizontalContentAlignment="Right" Height="30" Margin="0,407,11,0" VerticalAlignment="Top" Width="102"/>
+        <Button x:Name="CloseButton" Click="CloseWindow_Click" HorizontalAlignment="Left" Height="30" Margin="269,6,0,0" VerticalAlignment="Top" Width="26" Background="Transparent" BorderBrush="Transparent">
+            <Image Height="22" Width="24" Source="/Images/close.png"/>
+        </Button>
+        <Border BorderBrush="#FF2C6E5D" CornerRadius="0 0 10 10" BorderThickness="1" HorizontalAlignment="Center" Height="38" VerticalAlignment="Top" Width="300" Background="#FF2C6E5D" Margin="0,562,0,0">
+            <Button x:Name="ConfirmBtn"  Content="Confirm" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Width="166" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D" Foreground="White" FontWeight="Bold" FontSize="20" Click="ConfirmBtn_Click"/>
+        </Border>
+        <Label Content="Order ID:" HorizontalAlignment="Left" Height="38" Margin="5,44,0,0" VerticalAlignment="Top" Width="90" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Item" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="38" Margin="43,95,0,0" VerticalAlignment="Top" Width="70" FontWeight="Bold"/>
+        <Label Content="Price" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="38" Margin="207,95,0,0" VerticalAlignment="Top" Width="82" FontWeight="Bold"/>
+        <Label Content="Qty" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="38" Margin="113,95,0,0" VerticalAlignment="Top" Width="94" FontWeight="Bold"/>
+
+        <ScrollViewer x:Name="OrderScroller"  HorizontalAlignment="Center" Height="276" Margin="0,127,0,0" VerticalAlignment="Top" Width="280">
+            <WrapPanel x:Name="OrderWPanel" Margin="0,0,0,0" Width="270">
+                <Border x:Name="OrderBorder" BorderBrush="Transparent" BorderThickness="1" Height="35" Width="255">
+                    <WrapPanel>
+                        <Label x:Name="itemNameLabel"  Content="Label" Height="33" Width="127" HorizontalContentAlignment="Center"
+                   VerticalContentAlignment="Center" Background="Transparent"/>
+                        <Label x:Name="QtyLabel" Content="Label" Height="33" Width="43" HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center" Background="Transparent"/>
+                        <Label x:Name="PriceLabel" Content="Label" Height="33" Width="83" HorizontalContentAlignment="Right"
+                VerticalContentAlignment="Center" Background="Transparent"/>
+                    </WrapPanel>
+                </Border>
+            </WrapPanel>
+        </ScrollViewer>
+        <Label x:Name="OrderIdLabel" Content="Order ID:" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="26" Margin="138,44,0,0" VerticalAlignment="Top" Width="150" FontSize="14"/>
+        <Label Content="Payment Method:" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="10,441,0,0" VerticalAlignment="Top" Width="150" FontWeight="Bold" FontSize="11"/>
+        <Label Content="Payment Status:" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="10,469,0,0" VerticalAlignment="Top" Width="150" FontWeight="Bold" FontSize="11"/>
+        <Label Content="Purchase Method:" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="10,496,0,0" VerticalAlignment="Top" Width="150" FontWeight="Bold" FontSize="11"/>
+
+        <Label x:Name="PayMethodLabel" HorizontalContentAlignment="Left" Content="Payment Method" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="113,441,0,0" VerticalAlignment="Top" Width="104" FontSize="11"/>
+        <Label x:Name="PaymentStatusLabel" HorizontalContentAlignment="Left" Content="Payment status" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="113,469,0,0" VerticalAlignment="Top" Width="104" FontSize="11"/>
+        <Label x:Name="PurchaseMethodlabel" HorizontalContentAlignment="Left" Content="purchase method" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="113,496,0,0" VerticalAlignment="Top" Width="104" FontSize="11"/>
+        <Button x:Name="VoidBtn" Click="VoidBtn_Click" HorizontalAlignment="Left" Height="30" Margin="216,527,0,0" VerticalAlignment="Top" Width="32" Background="#FFFDD2D2" BorderBrush="Transparent" Content="Void"/>
+        <Label Content="Cashier:" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="10,524,0,0" VerticalAlignment="Top" Width="150" FontWeight="Bold" FontSize="11"/>
+        <Label x:Name="CashierLabel" HorizontalContentAlignment="Left" Content="cashier" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="113,524,0,0" VerticalAlignment="Top" Width="104" FontSize="11"/>
+        <Label Content="Purchase Date:" HorizontalAlignment="Left" Height="38" Margin="5,70,0,0" VerticalAlignment="Top" Width="108" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="PurchaseDatelabel" Content="Purchase Date" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="26" Margin="138,70,0,0" VerticalAlignment="Top" Width="151" FontSize="14" RenderTransformOrigin="0.445,1.553"/>
+        <Button x:Name="GenerateReceiptBtn" Click="GenerateReceiptBtn_Click" HorizontalAlignment="Left" Height="30" Margin="257,527,0,0" VerticalAlignment="Top" Width="32" Background="#FFA6C897" BorderBrush="Transparent" Content="RCt"/>
+    </Grid>
+
+
+</Window>

@@ -10,6 +10,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
@@ -48,6 +49,7 @@ namespace SmartPoultry
             DisableTextBoxes();
 
             priceamount = decimal.Parse(price);
+            NotifPopup.Visibility = Visibility.Hidden;
         }
         public void DisableTextBoxes()
         {
@@ -175,21 +177,21 @@ namespace SmartPoultry
             if (purchasemethod == "to deliver" && status == "unpaid" &&
                 (NameTB.Text == NameTB.Tag.ToString() || ContactsTB.Text == ContactsTB.Tag.ToString() || ChargeTB.Text == ChargeTB.Tag.ToString() || AddressTB.Text == AddressTB.Tag.ToString()))
             {
-                MessageBox.Show("Incomplete Details");
+                PopUpNotif("alert", "Incomplete Details");
                 return false;
             }
 
             if (status == "unpaid" &&
                 (NameTB.Text == NameTB.Tag.ToString() || ContactsTB.Text == ContactsTB.Tag.ToString()))
             {
-                MessageBox.Show("Incomplete Details");
+                PopUpNotif("alert", "Incomplete Details");
                 return false;
             }
 
             if (purchasemethod == "to deliver" &&
                 (NameTB.Text == NameTB.Tag.ToString() || ContactsTB.Text == ContactsTB.Tag.ToString() || ChargeTB.Text == ChargeTB.Tag.ToString() || AddressTB.Text == AddressTB.Tag.ToString()))
             {
-                MessageBox.Show("Incomplete Details");
+                PopUpNotif("alert", "Incomplete Details");
                 return false;
             }
             return true;
@@ -271,6 +273,7 @@ namespace SmartPoultry
             if (string.IsNullOrWhiteSpace(ChargeTB.Text) || !decimal.TryParse(ChargeTB.Text, out decimal charge))
             {
                 totalPricelabel.Content = priceamount.ToString("N2");
+                RemoveExistingChargeBorder();
                 return;
             }
 
@@ -282,7 +285,84 @@ namespace SmartPoultry
 
             decimal total = priceamount + charge;
             totalPricelabel.Content = total.ToString("N2");
+
+            Border existingBorder = OrderWPanel.Children.OfType<Border>().FirstOrDefault(b => b.Name == "ChargeBorderControlList");
+
+            if (existingBorder != null)
+            {
+                WrapPanel existingWrapPanel = existingBorder.Child as WrapPanel;
+                if (existingWrapPanel != null)
+                {
+                    Label priceLabel = existingWrapPanel.Children.OfType<Label>().LastOrDefault(); 
+                    if (priceLabel != null)
+                    {
+                        priceLabel.Content = charge.ToString("N2");
+                    }
+                }
+            }
+            else
+            {
+                Border orderBorder = new Border
+                {
+                    Name = "ChargeBorderControlList",
+                    BorderBrush = Brushes.Transparent,
+                    BorderThickness = new Thickness(1),
+                    Height = 35,
+                    Width = 255
+                };
+
+                WrapPanel wrapPanel = new WrapPanel();
+
+                Label itemNameLabel = new Label
+                {
+                    Content = "Delivery Fee:",
+                    Height = 33,
+                    Width = 126,
+                    HorizontalContentAlignment = HorizontalAlignment.Center,
+                    VerticalContentAlignment = VerticalAlignment.Center,
+                    Background = Brushes.Transparent
+                };
+
+                Label qtyLabel = new Label
+                {
+                    Content = "",
+                    Height = 33,
+                    Width = 43,
+                    HorizontalContentAlignment = HorizontalAlignment.Center,
+                    VerticalContentAlignment = VerticalAlignment.Center,
+                    Background = Brushes.Transparent
+                };
+
+                Label priceLabel = new Label
+                {
+                    Content = charge.ToString("N2"),
+                    Height = 33,
+                    Width = 83,
+                    HorizontalContentAlignment = HorizontalAlignment.Right,
+                    VerticalContentAlignment = VerticalAlignment.Center,
+                    Background = Brushes.Transparent
+                };
+
+                wrapPanel.Children.Add(itemNameLabel);
+                wrapPanel.Children.Add(qtyLabel);
+                wrapPanel.Children.Add(priceLabel);
+
+                orderBorder.Child = wrapPanel;
+
+                OrderWPanel.Children.Add(orderBorder);
+            }
         }
+
+
+        private void RemoveExistingChargeBorder()
+        {
+            Border existingBorder = OrderWPanel.Children.OfType<Border>().FirstOrDefault(b => b.Name == "ChargeBorderControlList");
+            if (existingBorder != null)
+            {
+                OrderWPanel.Children.Remove(existingBorder);
+            }
+        }
+
 
 
 
@@ -340,6 +420,56 @@ namespace SmartPoultry
                 }
             }
         }
+        public void PopUpNotif(string type, string message)
+        {
+            NotifPopup.Visibility = Visibility.Visible;
+            Panel.SetZIndex(NotifPopup, int.MaxValue);
+            if (type == "notif")
+            {
+                NotifPopup.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFCCE6D3"));
+                NotifPopup.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFCCE6D3"));
+            }
+            else
+            {
+                NotifPopup.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFD2D2"));
+                NotifPopup.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFD2D2"));
+            }
 
+            NotifMessage.Content = message;
+
+            DoubleAnimation fadeIn = new DoubleAnimation
+            {
+                From = 0.0,
+                To = 1.0,
+                Duration = TimeSpan.FromMilliseconds(500)
+            };
+
+            DoubleAnimation fadeOut = new DoubleAnimation
+            {
+                From = 1.0,
+                To = 0.0,
+                BeginTime = TimeSpan.FromSeconds(4.5),
+                Duration = TimeSpan.FromMilliseconds(500)
+            };
+
+            Storyboard storyboard = new Storyboard();
+            storyboard.Children.Add(fadeIn);
+            storyboard.Children.Add(fadeOut);
+
+            Storyboard.SetTarget(fadeIn, NotifPopup);
+            Storyboard.SetTarget(fadeOut, NotifPopup);
+            Storyboard.SetTargetProperty(fadeIn, new PropertyPath("Opacity"));
+            Storyboard.SetTargetProperty(fadeOut, new PropertyPath("Opacity"));
+
+            storyboard.Completed += (sender, args) =>
+            {
+                NotifPopup.Visibility = Visibility.Collapsed;
+            };
+            storyboard.Begin();
+        }
+        private void NotifCloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NotifPopup.Visibility = Visibility.Hidden;
+        }
     }
 }

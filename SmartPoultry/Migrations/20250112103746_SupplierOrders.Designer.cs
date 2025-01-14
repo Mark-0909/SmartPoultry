@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SmartPoultry.DataAccess;
 
@@ -10,9 +11,11 @@ using SmartPoultry.DataAccess;
 namespace SmartPoultry.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250112103746_SupplierOrders")]
+    partial class SupplierOrders
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.10");
@@ -209,9 +212,6 @@ namespace SmartPoultry.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<int>("employee_incharge")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<bool>("hasOrder")
                         .HasColumnType("INTEGER");
 
                     b.Property<byte[]>("image")

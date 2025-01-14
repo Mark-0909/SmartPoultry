@@ -60,6 +60,8 @@ namespace SmartPoultry
 
         public string filterAnimal = "";
         public string filterProduct = "";
+
+        MainWindow mainWindow1 = UserContext.mainWindow;
         public home()
         {
             InitializeComponent();
@@ -79,7 +81,7 @@ namespace SmartPoultry
         {
             try
             {
-                MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
+                MainWindow mainWindow = UserContext.mainWindow;
                 for (int i = 0; i < Productvaridlist.Count; i++)
                 {
                     ProductVariations product = productvariationsServices.GetProductVariationById(int.Parse(Productvaridlist[i]));
@@ -104,7 +106,7 @@ namespace SmartPoultry
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                Console.WriteLine(ex.ToString());
             }
             
         }
@@ -122,10 +124,12 @@ namespace SmartPoultry
 
         public void DynamicReload()
         {
-            posPrdocutsPanel.Children.Clear();
-            DisplayProducts();
+            var args = new RoutedEventArgs(Button.ClickEvent);
+
+            AllButton_Click(animalAllBtn, args);
+            TypeAllButton_Click(typeAllBtn, args);
         }
-        private void DropOrderBtn_Click(object sender, RoutedEventArgs e)
+        public void DropOrderBtn_Click(object sender, RoutedEventArgs e)
         {
             if (isOrderConfirmed)
             {
@@ -180,7 +184,7 @@ namespace SmartPoultry
             {
                 if (!decimal.TryParse(charge, out chargefee))
                 {
-                    MessageBox.Show("Invalid charge value.");
+                    mainWindow1.PopUpNotif("alert", "Invalid charge value.");
                     return;
                 }
             }
@@ -209,7 +213,7 @@ namespace SmartPoultry
                     financialLiabilitiesServices.Create(name, addingSales, price, "To Receive", paymentMode, actualPaymentDate, contacts);
                 }
                 AdjustStocksInventory();
-                MessageBox.Show("Order confirmed successfully!");
+                mainWindow1.PopUpNotif("notif", "Order confirmed successfully!");
                 
                 isOrderConfirmed = true;
 
@@ -226,7 +230,7 @@ namespace SmartPoultry
 
                 MinusStocksProduct(StringProductList, StringQuantityList);
 
-                MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
+                MainWindow mainWindow = UserContext.mainWindow;
 
                 if (mainWindow != null)
                 {
@@ -237,12 +241,12 @@ namespace SmartPoultry
                 }
                 else
                 {
-                    MessageBox.Show("Unable to access the MainWindow.");
+                    mainWindow1.PopUpNotif("alert", "Unable to access the MainWindow. home");
                 }
             }
             else
             {
-                MessageBox.Show("Failed to confirm the order.");
+                mainWindow1.PopUpNotif("alert", "Failed to confirm the order.");
             }
         }
 
@@ -272,7 +276,7 @@ namespace SmartPoultry
                 catch (Exception ex)
                 {
 
-                    MessageBox.Show(ex.Message);
+                    Console.WriteLine(ex.Message);
                 }
 
             }
@@ -485,7 +489,7 @@ namespace SmartPoultry
             }
             catch (Exception e)
             {
-                MessageBox.Show($"Error generating receipt: {e.Message}");
+                Console.WriteLine($"Error generating receipt: {e.Message}");
             }
         }
 
@@ -497,7 +501,7 @@ namespace SmartPoultry
         {
             if (orderPanel.Children.Count > 0)
             {
-                MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
+                MainWindow mainWindow = UserContext.mainWindow;
                 Home_Checkout checkout = new Home_Checkout(totalPiceLabel.Content.ToString(), this, mainWindow, Productvaridlist, QuantityList, VarSpecification, PriceList, ProductnameList);
 
 
@@ -507,14 +511,14 @@ namespace SmartPoultry
                 }
                 else
                 {
-                    MessageBox.Show("Unable to access the MainWindow.");
+                    mainWindow1.PopUpNotif("alert", "Unable to access the MainWindow. home");
                 }
                 checkout.ShowDialog();
 
             }
             else
             {
-                MessageBox.Show("Empty order!");
+                mainWindow1.PopUpNotif("alert", "Empty order!");
             }
 
 
@@ -612,6 +616,7 @@ namespace SmartPoultry
 
             List<Products> products = productServices.GetAllProducts();
 
+            posPrdocutsPanel.Children.Clear();
 
             foreach (Products product in products)
             {
@@ -730,7 +735,7 @@ namespace SmartPoultry
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error recreating orders: {ex.Message}");
+                Console.WriteLine($"Error recreating orders: {ex.Message}");
             }
         }
 
@@ -738,9 +743,12 @@ namespace SmartPoultry
         {
             try
             {
+                
                 posPrdocutsPanel.Children.Clear();
 
-                List<Products> products = await Task.Run(() => productServices.FilterProducts(type, animal));
+                AppDbContext context = new AppDbContext();
+                ProductServices prodservices = new ProductServices(context);
+                List<Products> products = prodservices.FilterProducts(type, animal);
 
                 foreach (var product in products)
                 {
@@ -769,7 +777,7 @@ namespace SmartPoultry
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error filtering products: {ex.Message}");
+                Console.WriteLine($"Error filtering products: {ex.Message}");
             }
         }
 
@@ -804,7 +812,7 @@ namespace SmartPoultry
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error searching products: {ex.Message}");
+                Console.WriteLine($"Error searching products: {ex.Message}");
             }
         }
 
@@ -1206,7 +1214,7 @@ namespace SmartPoultry
             }
             else
             {
-                MessageBox.Show("Button or Border not found.");
+                Console.WriteLine("Button or Border not found.");
             }
 
         }
@@ -1227,7 +1235,7 @@ namespace SmartPoultry
             }
             else
             {
-                MessageBox.Show("Button or Border not found.");
+                Console.WriteLine("Button or Border not found.");
             }
 
 

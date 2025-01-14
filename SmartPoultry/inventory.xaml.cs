@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using SmartPoultry.DataAccess;
+using static SmartPoultry.App;
 
 namespace SmartPoultry
 {
@@ -47,8 +48,10 @@ namespace SmartPoultry
         }
         public void DynamicReload()
         {
-            ProductListWPanel.Children.Clear();
-            LoadProducts();
+            var args = new RoutedEventArgs(Button.ClickEvent); 
+
+            AllButton_Click(animalAllBtn, args);
+            TypeAllButton_Click(typeAllBtn, args);
         }
         private void LoadProducts()
         {
@@ -74,8 +77,8 @@ namespace SmartPoultry
 
         private void OpenAddForm_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow? mainWindow = Window.GetWindow(this) as MainWindow;
-            Inventory_AddingForm addForm = new Inventory_AddingForm(mainWindow);
+            MainWindow? mainWindow = UserContext.mainWindow;
+            Inventory_AddingForm addForm = new Inventory_AddingForm();
             if (mainWindow != null)
             {
                 
@@ -85,7 +88,7 @@ namespace SmartPoultry
             }
             else
             {
-                MessageBox.Show("Unable to access the MainWindow.");
+                MessageBox.Show("Unable to access the MainWindow. inventory");
             }
             
             
@@ -140,8 +143,10 @@ namespace SmartPoultry
                 ProductListWPanel.Children.Clear();
 
 
-                List<Products> products = productService.FilterProducts(type, animal);
-                
+                AppDbContext context = new AppDbContext();
+                ProductServices prodservices = new ProductServices(context);
+                List<Products> products = prodservices.FilterProducts(type, animal);
+
                 foreach (Products product in products)
                 {
 
@@ -195,7 +200,30 @@ namespace SmartPoultry
                 MessageBox.Show($"Error filtering products: {ex.Message}");
             }
         }
-        
+        private void OutOfStock_Clicked(object sender, RoutedEventArgs e)
+        {
+            if(ProductListWPanel.Children.Count > 0)
+            {
+                ProductListWPanel.Children.Clear();
+            }
+
+            List<Products> products = productService.GetLowStockProducts("", "", "");
+
+
+            foreach (var product in products)
+            {
+
+                Inventory_ProductControl productControl = new Inventory_ProductControl(
+                    product.product_id,
+                    product.product_name,
+                    product.stocks,
+                    product.image
+                );
+
+
+                ProductListWPanel.Children.Add(productControl);
+            }
+        }
 
         //Inventory Buttons Click Functions (Animal type)
         private void AllButton_Click(object sender, RoutedEventArgs e)
@@ -575,8 +603,12 @@ namespace SmartPoultry
 
         }
 
-
-
-    
-}
+        private void OrderToSupplier_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = UserContext.mainWindow;
+            Inventory_OrderToSupplier window = new Inventory_OrderToSupplier();
+            mainWindow.ActiveOverlay(true);
+            window.ShowDialog();
+        }
+    }
 }
