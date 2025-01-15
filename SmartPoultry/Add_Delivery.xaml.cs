@@ -5,6 +5,7 @@ using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using static SmartPoultry.App;
 
 namespace SmartPoultry
@@ -104,6 +105,54 @@ namespace SmartPoultry
             
             EnableForm(false);
         }
+
+        public void PopUpNotif(string type, string message)
+        {
+            NotifPopup.Visibility = Visibility.Visible;
+            Panel.SetZIndex(NotifPopup, int.MaxValue);
+            if (type == "notif")
+            {
+                NotifPopup.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFCCE6D3"));
+                NotifPopup.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFCCE6D3"));
+            }
+            else
+            {
+                NotifPopup.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFD2D2"));
+                NotifPopup.BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFFFD2D2"));
+            }
+
+            NotifMessage.Content = message;
+
+            DoubleAnimation fadeIn = new DoubleAnimation
+            {
+                From = 0.0,
+                To = 1.0,
+                Duration = TimeSpan.FromMilliseconds(500)
+            };
+
+            DoubleAnimation fadeOut = new DoubleAnimation
+            {
+                From = 1.0,
+                To = 0.0,
+                BeginTime = TimeSpan.FromSeconds(4.5),
+                Duration = TimeSpan.FromMilliseconds(500)
+            };
+
+            Storyboard storyboard = new Storyboard();
+            storyboard.Children.Add(fadeIn);
+            storyboard.Children.Add(fadeOut);
+
+            Storyboard.SetTarget(fadeIn, NotifPopup);
+            Storyboard.SetTarget(fadeOut, NotifPopup);
+            Storyboard.SetTargetProperty(fadeIn, new PropertyPath("Opacity"));
+            Storyboard.SetTargetProperty(fadeOut, new PropertyPath("Opacity"));
+
+            storyboard.Completed += (sender, args) =>
+            {
+                NotifPopup.Visibility = Visibility.Collapsed;
+            };
+            storyboard.Begin();
+        }
         public void EnableForm(bool isEnabled)
         {
             NameTextBox.IsEnabled = isEnabled;
@@ -141,7 +190,7 @@ namespace SmartPoultry
             }
             else
             {
-                MessageBox.Show("Unexpected button action. Please check the button state.");
+                PopUpNotif("alert", "Unexpected button action. Please check the button state.");
             }
         }
 
@@ -151,7 +200,7 @@ namespace SmartPoultry
             {
                 if (string.IsNullOrWhiteSpace(PriceTextBox.Text) || PriceTextBox.Text == PriceTextBox.Tag.ToString() || PriceTextBox.Text == "0.00")
                 {
-                    MessageBox.Show("Fill up the price.");
+                    PopUpNotif("alert", "Fill up the price.");
                     return;
                 }
                 if(status == "unpaid")
@@ -168,14 +217,14 @@ namespace SmartPoultry
 
                     if (!isCreated) 
                     {
-                        MessageBox.Show("FInance add unsuccessfull");
+                        PopUpNotif("alert", "Finance add unsuccessful");
                         return;
                     }
                 }
             }
             if (DeliveryManTextBox.Text == DeliveryManTextBox.Tag.ToString())
             {
-                MessageBox.Show("Add Delivery Man");
+                PopUpNotif("alert", "Add Delivery Man");
                 return;
             }
 
@@ -190,9 +239,10 @@ namespace SmartPoultry
             
             if (!updatedelivery || !updateSale) 
             {
-                MessageBox.Show("Unsuccessfull.");
+                PopUpNotif("alert", "Unsuccessful.");
                 return;
             }
+
             if(deliveries.order_id != 0 && deliveries.payment_status == "unpaid")
             {
                 FinancialLiabilities finance = financialLiabilitiesServices.GetByReceipt(deliveries.order_id);
@@ -209,6 +259,7 @@ namespace SmartPoultry
             this.Close();
             mainWindow.ActiveOverlay(false);
             mainWindow.ScheduleUpdateReload();
+            mainWindow.PopUpNotif("notif", "Order Delivered!");
         }
         public void EditDelivery()
         {
@@ -228,10 +279,10 @@ namespace SmartPoultry
 
             if (!UpdateDelivery) 
             {
-                MessageBox.Show("Update Unsuccessfull");
+                PopUpNotif("alert", "Update Unsuccessful");
                 return;
             }
-            MessageBox.Show("Update Successfull");
+            PopUpNotif("notif", "Update Successful");
             mainWindow.ScheduleUpdateReload();
             EnableForm(false);
             Agenda = "Update";
@@ -275,14 +326,14 @@ namespace SmartPoultry
             else
             {
 
-                MessageBox.Show("Please select a date.");
+                PopUpNotif("alert", "Please select a date.");
                 return;
             }
 
             decimal charge;
             if (!decimal.TryParse(ChargeTextBox.Text, out charge))
             {
-                MessageBox.Show("Please enter a valid charge.");
+                PopUpNotif("alert", "Please enter a valid charge.");
                 return;
             }
 
@@ -291,7 +342,7 @@ namespace SmartPoultry
             bool added = deliveriesServices.Create(orderId, name, type, decimal.Parse(price), address, status, contacts, dateTime, deliveryman, charge);
             if (added)
             {
-                MessageBox.Show("Successful!");
+                PopUpNotif("notif", "Successful!");
 
                 this.Close();
                 if (mainWindow != null)
@@ -301,12 +352,12 @@ namespace SmartPoultry
                 }
                 else
                 {
-                    MessageBox.Show("Unable to access the MainWindow. add delivery");
+                    PopUpNotif("alert", "Unable to access the MainWindow. add delivery");
                 }
             }
             else
             {
-                MessageBox.Show("Unsuccessful!");
+                PopUpNotif("alert", "Unsuccessful!");
             }
         }
 
@@ -511,6 +562,11 @@ namespace SmartPoultry
                 Overlay.Visibility = Visibility.Collapsed;
                 Panel.SetZIndex(Overlay, 0);
             }
+        }
+
+        private void NotifCloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NotifPopup.Visibility = Visibility.Hidden;
         }
     }
 }

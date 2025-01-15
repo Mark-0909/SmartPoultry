@@ -190,5 +190,14 @@
         <Label x:Name="OrderId" Content="25010838347" HorizontalAlignment="Left" Height="28" Margin="278,364,0,0" VerticalAlignment="Top" Width="100" FontSize="14"/>
         <Button x:Name="OrderDetailsBtn" Content="orderInfo" HorizontalAlignment="Left" Height="31" Margin="372,362,0,0" VerticalAlignment="Top" Width="44" Click="OrderInfo_Click" />
 
+
+        <Border x:Name="NotifPopup"  CornerRadius="10" BorderBrush="#FFCCE6D3" BorderThickness="1" HorizontalAlignment="Center" Height="46" Margin="0,24,0,0" VerticalAlignment="Top" Width="330" Background="#FFCCE6D3">
+            <WrapPanel>
+                <Label x:Name="NotifMessage"  Content="Invalid Credentials" VerticalContentAlignment="Center" Padding="20 0 0 0" Height="43" Width="302" Foreground="#FF666666"/>
+                <Button x:Name="NotifCloseBtn" BorderBrush="Transparent" Background="Transparent" Height="20" Width="21" Click="NotifCloseBtn_Click">
+                    <Image Height="16" Width="10" Source="/Images/closegray.png"/>
+                </Button>
+            </WrapPanel>
+        </Border>
     </Grid>
 </Window>
