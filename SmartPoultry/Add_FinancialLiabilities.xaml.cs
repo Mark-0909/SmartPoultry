@@ -252,9 +252,16 @@ namespace SmartPoultry
             bool financeupdate = financialLiabilitiesServices.MarkAsPaid(finance.Id);
             if (finance.order_id != 0)
             {
+                bool salesupdate = true;
+                bool deliveryupdate = true;
 
-                bool salesupdate = salesServices.MarkAsPaid(finance.order_id);
-                bool deliveryupdate = deliveriesServices.MarkAsPaid(finance.order_id);
+                if (finance.type == "To Pay" || finance.order_id != 0)
+                {
+                    salesupdate = salesServices.MarkAsPaid(finance.order_id);
+                    deliveryupdate = deliveriesServices.MarkAsPaid(finance.order_id);
+                } 
+                
+                
                 if (!financeupdate || !salesupdate || !deliveryupdate)
                 {
                     PopUpNotif("alert", "Error");
@@ -292,6 +299,7 @@ namespace SmartPoultry
             this.Close();
             mainWindow.ActiveOverlay(false);
             mainWindow.PopUpNotif("notif", "Payment schedule added successfully.");
+            mainWindow.ScheduleUpdateReload();
         }
 
 
