@@ -29,9 +29,6 @@
         <Button x:Name="CloseButton" Click="CloseWindow_Click" HorizontalAlignment="Left" Height="30" Margin="269,6,0,0" VerticalAlignment="Top" Width="26" Background="Transparent" BorderBrush="Transparent">
             <Image Height="22" Width="24" Source="/Images/close.png"/>
         </Button>
-        <Border BorderBrush="#FF2C6E5D" CornerRadius="0 0 10 10" BorderThickness="1" HorizontalAlignment="Center" Height="38" VerticalAlignment="Top" Width="300" Background="#FF2C6E5D" Margin="0,562,0,0">
-            <Button x:Name="ConfirmBtn"  Content="Confirm" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Width="166" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D" Foreground="White" FontWeight="Bold" FontSize="20" Click="ConfirmBtn_Click"/>
-        </Border>
         <Label Content="Order ID:" HorizontalAlignment="Left" Height="38" Margin="5,44,0,0" VerticalAlignment="Top" Width="90" FontSize="14" FontWeight="Bold"/>
         <Label Content="Item" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="38" Margin="43,95,0,0" VerticalAlignment="Top" Width="70" FontWeight="Bold"/>
         <Label Content="Price" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="38" Margin="207,95,0,0" VerticalAlignment="Top" Width="82" FontWeight="Bold"/>

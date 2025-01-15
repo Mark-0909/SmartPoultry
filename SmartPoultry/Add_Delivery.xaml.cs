@@ -45,6 +45,7 @@ namespace SmartPoultry
             EditBtn.Visibility = Visibility.Hidden;
             CancelBtn.Visibility = Visibility.Hidden;
 
+            
             mainWindow = UserContext.mainWindow;
         }
 
@@ -76,6 +77,9 @@ namespace SmartPoultry
                 OrderId.Visibility = Visibility.Collapsed;
             }
 
+            Status.Visibility = Visibility.Hidden;
+            PaidRadio.Visibility = Visibility.Hidden;
+            UnpaidRadio.Visibility = Visibility.Hidden;
 
             if (itemrow.payment_status == "unpaid")
             {
@@ -84,6 +88,9 @@ namespace SmartPoultry
             if(itemrow.type == "To Receive")
             {
                 toReceiveRadio.IsChecked = true;
+                Status.Visibility = Visibility.Visible;
+                PaidRadio.Visibility = Visibility.Visible;
+                UnpaidRadio.Visibility = Visibility.Visible;
             }
 
             mainWindow = UserContext.mainWindow;
@@ -94,8 +101,7 @@ namespace SmartPoultry
                 DeliveryManTextBox.Text = itemrow.name;
             }
 
-            PaidRadio.IsEnabled = false;
-            UnpaidRadio.IsEnabled = false;
+            
             EnableForm(false);
         }
         public void EnableForm(bool isEnabled)

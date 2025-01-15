@@ -254,8 +254,24 @@ namespace SmartPoultry
             if(!isVoidedSales || !isVoidedDeliver || !isVoidedFinance)
             {
                 MessageBox.Show("Void unsuccessful.");
+                return;
             }
 
+            mainWindow.ScheduleUpdateReload();
+            if (financeform != null)
+            {
+                financeform.ActiveOverlay(false);
+                financeform.Close();
+            }
+            else
+            {
+                deliveryForm.ActiveOverlay(false);
+                deliveryForm.Close();
+            }
+
+            this.Close();
+            mainWindow.ActiveOverlay(false);
+            mainWindow.PopUpNotif("notif", "Void successful.");
         }
 
         private void ConfirmBtn_Click(object sender, RoutedEventArgs e)
