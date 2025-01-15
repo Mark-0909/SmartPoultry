@@ -151,7 +151,7 @@
             </TextBox>
         </Border>
         <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="216,249,0,0" VerticalAlignment="Top" Width="185">
-            <TextBox x:Name="PriceTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="22" TextWrapping="Wrap" Text="Price..." VerticalAlignment="Center" Width="175" BorderBrush="Transparent" Foreground="Gray" GotFocus="PriceTB_GotFocus" LostFocus="PriceTB_LostFocus" FontSize="14">
+            <TextBox x:Name="PriceTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="22" Tag="Price..." TextWrapping="Wrap" Text="Price..." VerticalAlignment="Center" Width="175" BorderBrush="Transparent" Foreground="Gray" GotFocus="PriceTB_GotFocus" LostFocus="PriceTB_LostFocus" FontSize="14" >
                 <TextBox.Style>
                     <Style TargetType="TextBox">
                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>

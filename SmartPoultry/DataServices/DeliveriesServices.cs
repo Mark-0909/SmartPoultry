@@ -83,12 +83,13 @@ namespace SmartPoultry.DataServices
                 return false;
             }
         }
-        public bool UpdateDelivered(int id)
+        public bool UpdateDelivered(int id, string deliveryman)
         {
             try
             {
                 var row = _context.Deliveries.FirstOrDefault(x => x.Id == id);
                 row.delivery_status = "delivered";
+                row.delivery_man = deliveryman;
                 _context.SaveChanges();
 
                 return true;

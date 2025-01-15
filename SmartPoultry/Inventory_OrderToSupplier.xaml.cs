@@ -219,7 +219,8 @@ namespace SmartPoultry
             {
                 RemoveControl(control);  
             }
-
+            MainWindow main = UserContext.mainWindow;
+            main.ScheduleUpdateReload();
             MessageBox.Show("All orders have been confirmed successfully.", "Confirmation", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 

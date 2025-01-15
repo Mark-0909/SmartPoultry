@@ -112,10 +112,18 @@ namespace SmartPoultry
             toDeliverRadio.IsEnabled = isEnabled;
             toReceiveRadio.IsEnabled = isEnabled;
             datePicker.IsEnabled = isEnabled;
+            
             PriceTextBox.IsEnabled = isEnabled;
             ContactsTextBox.IsEnabled = isEnabled;
             ChargeTextBox.IsEnabled = isEnabled;
             DeliveryManTextBox.IsEnabled = !isEnabled;
+
+
+            if (deliveries.type == "To Receive")
+            {
+                PriceTextBox.IsEnabled = true;
+                datePicker.IsEnabled = true;
+            }
         }
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)
         {
@@ -139,13 +147,47 @@ namespace SmartPoultry
 
         public void MarkAsDelivered()
         {
-            if(DeliveryManTextBox.Text == DeliveryManTextBox.Tag.ToString())
+            if (deliveries.payment_status == "pending")
+            {
+                if (string.IsNullOrWhiteSpace(PriceTextBox.Text) || PriceTextBox.Text == PriceTextBox.Tag.ToString() || PriceTextBox.Text == "0.00")
+                {
+                    MessageBox.Show("Fill up the price.");
+                    return;
+                }
+                if(status == "unpaid")
+                {
+                    bool isCreated = financialLiabilitiesServices.Create(
+                        NameTextBox.Text,
+                        long.Parse(deliveries.order_id.ToString()),
+                        decimal.Parse(PriceTextBox.Text),
+                        "To Pay",
+                        "Cash",
+                        datePicker.SelectedDate.Value,
+                        ContactsTextBox.Text
+                    );
+
+                    if (!isCreated) 
+                    {
+                        MessageBox.Show("FInance add unsuccessfull");
+                        return;
+                    }
+                }
+            }
+            if (DeliveryManTextBox.Text == DeliveryManTextBox.Tag.ToString())
             {
                 MessageBox.Show("Add Delivery Man");
                 return;
             }
-            bool updatedelivery = deliveriesServices.UpdateDelivered(deliveries.Id);
-            bool updateSale = salesServices.UpdateDelivered(deliveries.order_id);
+
+
+            bool updatedelivery = deliveriesServices.UpdateDelivered(deliveries.Id, DeliveryManTextBox.Text);
+
+            bool updateSale = true;
+            if (deliveries.type == "To Deliver")
+            {
+                updateSale = salesServices.UpdateDelivered(deliveries.order_id);
+            }
+            
             if (!updatedelivery || !updateSale) 
             {
                 MessageBox.Show("Unsuccessfull.");
@@ -161,10 +203,12 @@ namespace SmartPoultry
                 mainWindow.ScheduleUpdateReload();
                 return;
             }
+
+
+            
             this.Close();
             mainWindow.ActiveOverlay(false);
             mainWindow.ScheduleUpdateReload();
-
         }
         public void EditDelivery()
         {
