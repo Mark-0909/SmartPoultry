@@ -52,6 +52,7 @@ namespace SmartPoultry
             OrderId.Visibility = Visibility.Collapsed;
 
             mainWindow = UserContext.mainWindow;
+            NotifPopup.Visibility = Visibility.Hidden;
         }
         public Add_FinancialLiabilities(FinancialLiabilities itemrow, MainWindow mainwindow)
         {
@@ -90,6 +91,7 @@ namespace SmartPoultry
             mainWindow = UserContext.mainWindow;
 
             EnabledForm(false);
+            NotifPopup.Visibility = Visibility.Hidden;
         }
         public void PopUpNotif(string type, string message)
         {

@@ -48,6 +48,7 @@ namespace SmartPoultry
 
             
             mainWindow = UserContext.mainWindow;
+            NotifPopup.Visibility = Visibility.Hidden;
         }
 
         public Add_Delivery(Deliveries itemrow, MainWindow window)
@@ -104,6 +105,7 @@ namespace SmartPoultry
 
             
             EnableForm(false);
+            NotifPopup.Visibility = Visibility.Hidden;
         }
 
         public void PopUpNotif(string type, string message)
