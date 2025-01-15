@@ -16,6 +16,21 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+        public SupplierOrders GetById(int id)
+        {
+            try
+            {
+                var suppOrder = _context.SupplierOrders.FirstOrDefault(p => p.id == id);
+
+                return suppOrder;
+            }
+            catch(Exception ex) 
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+            
+        }
         public int Create(int supplierID, string productList, string productQTY, DateTime delivery_date)
         {
             try

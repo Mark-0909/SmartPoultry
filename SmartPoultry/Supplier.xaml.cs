@@ -23,7 +23,6 @@ namespace SmartPoultry
     /// </summary>
     public partial class Supplier : UserControl
     {
-        private SupplierList _selectedSupplier;
         private SupplierServices SupplierServices;
         
 

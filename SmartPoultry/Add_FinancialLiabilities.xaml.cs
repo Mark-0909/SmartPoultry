@@ -25,6 +25,7 @@ namespace SmartPoultry
         FinancialLiabilitiesServices financialLiabilitiesServices;
         SalesServices salesServices;
         DeliveriesServices deliveriesServices;
+        SupplierOrdersServices supplierOrdersServices;
         AppDbContext context = new AppDbContext();
 
         FinancialLiabilities finance;
@@ -57,6 +58,7 @@ namespace SmartPoultry
             financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
             salesServices = new SalesServices(context);
             deliveriesServices = new DeliveriesServices(context);
+            supplierOrdersServices = new SupplierOrdersServices(context);
 
             if (itemrow.order_id != 0) 
             {
@@ -311,15 +313,21 @@ namespace SmartPoultry
 
         private void OrderDetailsBtn_Click(object sender, RoutedEventArgs e)
         {
-            Sales sale = salesServices.GetSales(long.Parse(OrderId.Content.ToString()));
             MainWindow main = UserContext.mainWindow;
-            Sales_OrderInfo window = new Sales_OrderInfo(sale, main, "payment", this);
-
-            ActiveOverlay(true);
-            window.ShowDialog();
-
-            
-
+            if (finance.type == "To Receive")
+            {
+                Sales sale = salesServices.GetSales(long.Parse(OrderId.Content.ToString()));
+                Sales_OrderInfo window = new Sales_OrderInfo(sale, main, "payment", this);
+                ActiveOverlay(true);
+                window.ShowDialog();
+            }
+            else 
+            {
+                SupplierOrders supp = supplierOrdersServices.GetById(int.Parse(OrderId.Content.ToString()));
+                Supplier_OrderInfo window = new Supplier_OrderInfo(supp, this);
+                ActiveOverlay(true);
+                window.ShowDialog();
+            }
         }
         public void ActiveOverlay(bool isActive)
         {
