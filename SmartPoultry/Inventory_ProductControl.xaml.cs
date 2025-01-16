@@ -85,10 +85,13 @@ namespace SmartPoultry
 
             viewproduct = new Inventory_AddingForm(product, mainWindow, this);
 
-            viewproduct.ShowDialog();
-
-            
-            
+            viewproduct.ShowDialog();   
+        }
+        public void AdustStocksAfterSupplierorder(decimal stocks)
+        {
+            decimal origStocks = decimal.Parse(Productstock.ToString());
+            decimal newStocks = origStocks + stocks;
+            Productstock.Content = newStocks;
         }
     }
 }

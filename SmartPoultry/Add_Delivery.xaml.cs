@@ -198,6 +198,12 @@ namespace SmartPoultry
 
         public void MarkAsDelivered()
         {
+            if (DeliveryManTextBox.Text == DeliveryManTextBox.Tag.ToString())
+            {
+                PopUpNotif("alert", "Add Delivery Man");
+                return;
+            }
+
             if (deliveries.payment_status == "pending")
             {
                 if (string.IsNullOrWhiteSpace(PriceTextBox.Text) || PriceTextBox.Text == PriceTextBox.Tag.ToString() || PriceTextBox.Text == "0.00")
@@ -224,11 +230,7 @@ namespace SmartPoultry
                     }
                 }
             }
-            if (DeliveryManTextBox.Text == DeliveryManTextBox.Tag.ToString())
-            {
-                PopUpNotif("alert", "Add Delivery Man");
-                return;
-            }
+            
 
 
             bool updatedelivery = deliveriesServices.UpdateDelivered(deliveries.Id, DeliveryManTextBox.Text);
@@ -255,8 +257,17 @@ namespace SmartPoultry
                 mainWindow.ScheduleUpdateReload();
                 return;
             }
+            string SupplierOrderId = deliveries.order_id.ToString();
+            SupplierOrders order = supplierOrdersServices.GetById(int.Parse(SupplierOrderId));
 
+            List<string> ids = order.productList.Split(",").ToList();
+            List<string> qty = order.orderQty.Split(",").ToList();
 
+            for(int i = 0; i < ids.Count; i++)
+            {
+                mainWindow.inventoryControl.UpdateStocksAfterSupplierDeliver(int.Parse(ids[i]), decimal.Parse(qty[i]));
+                mainWindow.homeControl.UpdateStocksAfterSupplierDeliver(int.Parse(ids[i]), decimal.Parse(qty[i]));
+            }
             
             this.Close();
             mainWindow.ActiveOverlay(false);

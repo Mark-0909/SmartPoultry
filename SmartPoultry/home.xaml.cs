@@ -76,6 +76,21 @@ namespace SmartPoultry
             DropOrderBtn.IsEnabled = false;
             DisplayProducts();
         }
+        public void UpdateStocksAfterSupplierDeliver(int prodId, decimal newStock) 
+        {
+            if(orderPanel.Children != null)
+            {
+                var args = new RoutedEventArgs(Button.ClickEvent);
+                DropOrderBtn_Click(DropOrderBtn, args);
+            }
+            foreach(UIElement element in posPrdocutsPanel.Children)
+            {
+                if(element is home_POSproduct control && control.productId == prodId)
+                {
+                    control.AdjustStocks(newStock);
+                }
+            }
+        }
 
         public void AdjustStocksInventory()
         {

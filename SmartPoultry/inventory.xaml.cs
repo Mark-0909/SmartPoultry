@@ -75,7 +75,18 @@ namespace SmartPoultry
                 ProductListWPanel.Children.Add(productControl);
             }
         }
-        
+        public void UpdateStocksAfterSupplierDeliver(int prodId, decimal newStock)
+        {
+            
+            foreach (UIElement element in ProductListWPanel.Children)
+
+            {
+                if (element is Inventory_ProductControl control && control.prodid == prodId)
+                {
+                    control.AdustStocksAfterSupplierorder(newStock);
+                }
+            }
+        }
 
         private void OpenAddForm_Click(object sender, RoutedEventArgs e)
         {
