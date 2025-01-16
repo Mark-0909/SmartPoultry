@@ -76,7 +76,7 @@ namespace SmartPoultry
             DropOrderBtn.IsEnabled = false;
             DisplayProducts();
         }
-        public void UpdateStocksAfterSupplierDeliver(int prodId, decimal newStock) 
+        public void UpdateStocksAfterSupplierDeliver(int prodId, decimal stocks) 
         {
             if(orderPanel.Children != null)
             {
@@ -87,7 +87,8 @@ namespace SmartPoultry
             {
                 if(element is home_POSproduct control && control.productId == prodId)
                 {
-                    control.AdjustStocks(newStock);
+                    control.StocksLabel.Content = stocks.ToString();
+                    break;
                 }
             }
         }

@@ -19,6 +19,7 @@ namespace SmartPoultry
         SalesServices salesServices;
         FinancialLiabilitiesServices financialLiabilitiesServices;
         SupplierOrdersServices supplierOrdersServices;
+        ProductServices productServices;
         public AppDbContext context = new AppDbContext();
 
         Deliveries deliveries;
@@ -41,6 +42,7 @@ namespace SmartPoultry
             toReceiveRadio.IsChecked = true;
             deliveriesServices = new DeliveriesServices(context);
             salesServices = new SalesServices(context);
+            productServices = new ProductServices(context);
             financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
             
             EditBtn.Visibility = Visibility.Hidden;
@@ -58,6 +60,7 @@ namespace SmartPoultry
             salesServices = new SalesServices(context);
             financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
             supplierOrdersServices = new SupplierOrdersServices(context);
+            productServices = new ProductServices(context);
             
             deliveries = itemrow;
 
@@ -263,12 +266,25 @@ namespace SmartPoultry
             List<string> ids = order.productList.Split(",").ToList();
             List<string> qty = order.orderQty.Split(",").ToList();
 
-            for(int i = 0; i < ids.Count; i++)
+            for (int i = 0; i < ids.Count; i++)
             {
-                mainWindow.inventoryControl.UpdateStocksAfterSupplierDeliver(int.Parse(ids[i]), decimal.Parse(qty[i]));
-                mainWindow.homeControl.UpdateStocksAfterSupplierDeliver(int.Parse(ids[i]), decimal.Parse(qty[i]));
+                int productId = int.Parse(ids[i]);
+                decimal quantity = decimal.Parse(qty[i]);
+
+                decimal newStock = productServices.UpdateStockAfterDelivery(productId, quantity);
+
+                if (newStock == -1) 
+                {
+                    PopUpNotif("alert", "Product Stock update unsuccessful.");
+                    continue;
+                }
+
+                mainWindow.inventoryControl.UpdateStocksAfterSupplierDeliver(productId, newStock);
+                mainWindow.homeControl.UpdateStocksAfterSupplierDeliver(productId, newStock);
             }
-            
+
+
+
             this.Close();
             mainWindow.ActiveOverlay(false);
             mainWindow.ScheduleUpdateReload();

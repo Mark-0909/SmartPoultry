@@ -537,15 +537,15 @@ namespace SmartPoultry
 
                     if (!isUpdated)
                     {
-                        PopUpNotif("alert", "Failed to update product variation.");
+                        PopUpNotif("alert", "Failed to update product variation. 1");
                         return;
                     }
                 }
 
-                bool isProductUpdated = productService.EditProduct(prod.product_id, name, animallist, typelist, supplierid, stocks, selectedFilePath, this);
-                if (!isProductUpdated)
+                string isProductUpdated = productService.EditProduct(prod.product_id, name, animallist, typelist, supplierid, stocks, selectedFilePath, this);
+                if (isProductUpdated != "true")
                 {
-                    PopUpNotif("alert", "Failed to update product details.");
+                    MessageBox.Show(isProductUpdated);
                     return;
                 }
 
@@ -623,7 +623,7 @@ namespace SmartPoultry
 
                 if (id == 0)
                 {
-                    PopUpNotif("alert", "Failed to save product.");
+                    PopUpNotif("alert", "Failed to save product. 3");
                     return;
                 }
                 else

@@ -63,19 +63,19 @@ namespace SmartPoultry.DataServices
             }
             
         }
-        public bool EditProduct(int id, string name, string animaltype, string producttype, int supplierid, decimal stocks, string image, Inventory_AddingForm form)
+        public string EditProduct(int id, string name, string animaltype, string producttype, int supplierid, decimal stocks, string image, Inventory_AddingForm form)
         {
             try
             {
-                if (CheckName(name))
+                if (CheckName(name, id))
                 {
                     form.PopUpNotif("alert", "Product name already existed.");
-                    return false;
+                    return "false";
                 }
                 var product = _context.Products.FirstOrDefault(x => x.product_id == id);
                 if (product == null)
                 {
-                    return false; 
+                    return "false"; 
                 }
 
                 product.product_name = name;
@@ -92,12 +92,12 @@ namespace SmartPoultry.DataServices
                 }
 
                 _context.SaveChanges();
-                return true;
+                return "true";
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error updating product: {ex.Message}");
-                return false;
+                return ex.ToString();
             }
         }
 
@@ -178,6 +178,24 @@ namespace SmartPoultry.DataServices
             }
         }
 
+        public decimal UpdateStockAfterDelivery(int id, decimal stocksToAdd)
+        {
+            try
+            {
+                var product = _context.Products.FirstOrDefault(p => p.product_id == id);
+                decimal newstocks = product.stocks + stocksToAdd;
+                product.stocks = newstocks;
+
+                _context.SaveChanges();
+                return newstocks;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"{ex.Message}");
+                return -1;
+            }
+        }
         public Products FetchProduct(int id)
         {
             try
@@ -288,7 +306,7 @@ namespace SmartPoultry.DataServices
                     form.PopUpNotif("alert", "Image file not found at the specified path.");
                     return 0;
                 }
-                if (CheckName(product_name))
+                if (CheckName(product_name, -1))
                 {
                     form.PopUpNotif("alert", "Product name already existed.");
                     return 0;
@@ -326,16 +344,33 @@ namespace SmartPoultry.DataServices
                 return 0;
             }
         }
-        public bool CheckName(string name)
+        public bool CheckName(string name, int id)
         {
-            if(_context.Products.Any(p => p.product_name == name))
+            if(id == -1)
             {
-                return true;
-            }else
-            {
-                return false;
+                if (_context.Products.Any(p => p.product_name == name))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
+            else
+            {
+                if (_context.Products.Any(p => p.product_name == name && p.product_id != id))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            
         }
+
     }
 
 }

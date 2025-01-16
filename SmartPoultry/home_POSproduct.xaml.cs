@@ -189,6 +189,12 @@ namespace SmartPoultry
 
             this.origstock = products.stocks;
         }
+        public void AdjustStocksAfterSupplierOrder(int id)
+        {
+            decimal stocks = productServices.FetchProduct(id).stocks;
 
+            StocksLabel.Content = stocks.ToString();
+
+        }
     }
 }

@@ -87,11 +87,13 @@ namespace SmartPoultry
 
             viewproduct.ShowDialog();   
         }
-        public void AdustStocksAfterSupplierorder(decimal stocks)
+        public void AdjustStocksAfterSupplierOrder(int id)
         {
-            decimal origStocks = decimal.Parse(Productstock.ToString());
-            decimal newStocks = origStocks + stocks;
-            Productstock.Content = newStocks;
+            decimal stocks = productservices.FetchProduct(id).stocks;
+
+            Productstock.Content = stocks.ToString();
+
         }
+
     }
 }

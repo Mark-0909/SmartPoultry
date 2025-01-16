@@ -75,7 +75,7 @@ namespace SmartPoultry
                 ProductListWPanel.Children.Add(productControl);
             }
         }
-        public void UpdateStocksAfterSupplierDeliver(int prodId, decimal newStock)
+        public void UpdateStocksAfterSupplierDeliver(int prodId, decimal stocks)
         {
             
             foreach (UIElement element in ProductListWPanel.Children)
@@ -83,7 +83,8 @@ namespace SmartPoultry
             {
                 if (element is Inventory_ProductControl control && control.prodid == prodId)
                 {
-                    control.AdustStocksAfterSupplierorder(newStock);
+                    control.Productstock.Content = stocks.ToString();
+                    break;
                 }
             }
         }
