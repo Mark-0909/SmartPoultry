@@ -3,12 +3,13 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using SmartPoultry.Models;
+using static SmartPoultry.App;
 
 namespace SmartPoultry
 {
     public partial class Supplier_SupplierControl : UserControl
     {
-        private bool _isSelected;
+        public bool _isSelected;
 
         public bool IsSelected
         {
@@ -37,15 +38,52 @@ namespace SmartPoultry
 
         private void Supplier_SupplierControl_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            // Set the current control as selected
             IsSelected = true;
             SupplierClicked?.Invoke(Supplier);
+
+            // Get the main window and update the visual states for all controls
+            MainWindow mainWindow = UserContext.mainWindow;
+
+            // Helper function to reset all `Supplier_SupplierControl` instances
+            ResetAllSupplierControls(mainWindow, this);
         }
 
-        private void UpdateVisualState()
+        private void ResetAllSupplierControls(MainWindow mainWindow, Supplier_SupplierControl selectedControl)
+        {
+            // Loop through all panels or areas that might contain Supplier_SupplierControl
+            var allContainers = new List<Panel>
+        {
+            mainWindow.supplierControl.SupplierListPanel,
+       
+        };
+
+            foreach (Panel container in allContainers)
+            {
+                foreach (UIElement element in container.Children)
+                {
+                    if (element is Supplier_SupplierControl control)
+                    {
+                        // Update the IsSelected state: true for the current, false for all others
+                        control.IsSelected = control == selectedControl;
+
+                        // Update the visual state for every control
+                        control.UpdateVisualState();
+                    }
+                }
+            }
+        }
+
+        public void UpdateVisualState()
         {
             HighlightBorder.Background = IsSelected
                 ? new SolidColorBrush(Colors.LightGreen)
                 : new SolidColorBrush(Colors.White);
+        }
+
+        private void ReturnVisualState()
+        {
+
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
