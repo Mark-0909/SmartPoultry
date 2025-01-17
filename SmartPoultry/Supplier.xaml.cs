@@ -1,57 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Collections.Generic;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using SmartPoultry.DataAccess;
 using SmartPoultry.DataServices;
 using SmartPoultry.Models;
 
 namespace SmartPoultry
 {
-    /// <summary>
-    /// Interaction logic for Supplier.xaml
-    /// </summary>
     public partial class Supplier : UserControl
     {
-        private SupplierServices SupplierServices;
-        
+        private readonly SupplierServices _supplierServices;
 
         public Supplier()
         {
             InitializeComponent();
-            AppDbContext context = new AppDbContext();
-            SupplierServices = new SupplierServices(context);
-            RetrieveSupplierList(SupplierServices);
+            _supplierServices = new SupplierServices(new AppDbContext());
+            RetrieveSupplierList();
         }
 
-        private void AddSupplier_Click(object sender, RoutedEventArgs e)
+        private void AddSupplier_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            string name = SupplierName.Text;
-            string contactperson = ContactPerson.Text;
-            string phone = Phone.Text;
-            string email = Email.Text;
-            string address = Address.Text;
-
-            bool success = SupplierServices.Create(name,contactperson, phone, email, address);
+            bool success = _supplierServices.Create(
+                SupplierName.Text,
+                ContactPerson.Text,
+                Phone.Text,
+                Email.Text,
+                Address.Text
+            );
 
             if (success)
             {
-                RetrieveSupplierList(SupplierServices); //this will refresh the list after adding
+                RetrieveSupplierList();
+                ClearInputFields();
             }
-
             else
             {
-                MessageBox.Show("Failed to add the supplier");
+                System.Windows.MessageBox.Show("Failed to add the supplier.");
             }
         }
 
@@ -64,47 +47,27 @@ namespace SmartPoultry
             Address.Clear();
         }
 
-        private void EditSupplier_Click(object sender, RoutedEventArgs e)
+        private void RetrieveSupplierList()
         {
-            string name = SupplierName.Text;
-            string contactperson = ContactPerson.Text;
-            string phone = Phone.Text;
-            string email = Email.Text;
-            string address = Address.Text;
-        }
+            List<SupplierList> supplierLists = _supplierServices.ListSuppliers();
 
-        private void DeleteSupplier_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
+            SupplierListPanel.Children.Clear();
 
-        public void RetrieveSupplierList(SupplierServices supplierServices)
-        {
-            List<SupplierList> supplierLists = supplierServices.ListSuppliers();
-
-            SupplierListPanel.Children.Clear(); // Ensure we clear the list before adding new items
-
-            foreach (SupplierList list in supplierLists)
+            foreach (var supplier in supplierLists)
             {
-                // Updated constructor to remove the MainWindow parameter
-                Supplier_SupplierControl control = new Supplier_SupplierControl(list);
-
+                var control = new Supplier_SupplierControl(supplier);
                 SupplierListPanel.Children.Add(control);
 
-                // Subscribe to the SupplierClicked event
                 control.SupplierClicked += Supplier_SupplierControl_SupplierClicked;
             }
         }
 
-        public void Supplier_SupplierControl_SupplierClicked(SupplierList supplier)
+        private void Supplier_SupplierControl_SupplierClicked(SupplierList supplier)
         {
-
-
-            // Populate the form with the selected supplier's data
             SupplierName.Text = supplier.Name;
             ContactPerson.Text = supplier.Contact_Person;
             Phone.Text = supplier.Contact;
-            Email.Text = supplier.Contact;
+            Email.Text = supplier.Email;
             Address.Text = supplier.Location;
         }
     }
