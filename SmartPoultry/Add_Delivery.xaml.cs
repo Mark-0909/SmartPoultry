@@ -297,8 +297,9 @@ namespace SmartPoultry
                     continue;
                 }
 
-                UpdateStocksInUI(productId, newStock);
+                mainWindow.inventoryControl.UpdateStocksAfterSupplierDeliver(productId, newStock);
             }
+            mainWindow.homeControl.DynamicReload();
 
             this.Close();
             mainWindow.ActiveOverlay(false);
@@ -306,11 +307,6 @@ namespace SmartPoultry
             mainWindow.PopUpNotif("notif", "Order Delivered!");
         }
 
-        private void UpdateStocksInUI(int productId, decimal newStock)
-        {
-            mainWindow.inventoryControl.UpdateStocksAfterSupplierDeliver(productId, newStock);
-            mainWindow.homeControl.DynamicReload();
-        }
 
         public void EditDelivery()
         {

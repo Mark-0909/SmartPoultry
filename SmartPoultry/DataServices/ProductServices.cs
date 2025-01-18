@@ -183,19 +183,35 @@ namespace SmartPoultry.DataServices
             try
             {
                 var product = _context.Products.FirstOrDefault(p => p.product_id == id);
-                decimal newstocks = product.stocks + stocksToAdd;
-                product.stocks = newstocks;
 
-                _context.SaveChanges();
-                return newstocks;
+                if (product == null)
+                {
+                    Console.WriteLine($"Product with ID {id} not found.");
+                    return -1;
+                }
 
+                decimal newStocks = product.stocks + stocksToAdd;
+
+                Console.WriteLine($"Old Stock: {product.stocks}, Stocks to Add: {stocksToAdd}, New Stock: {newStocks}");
+
+                product.stocks = newStocks;
+
+                int rowsAffected = _context.SaveChanges();
+                if (rowsAffected == 0)
+                {
+                    Console.WriteLine("No rows were updated in the database.");
+                    return -1;
+                }
+
+                return newStocks;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"{ex.Message}");
+                Console.WriteLine($"Error: {ex.Message}");
                 return -1;
             }
         }
+
         public Products FetchProduct(int id)
         {
             try

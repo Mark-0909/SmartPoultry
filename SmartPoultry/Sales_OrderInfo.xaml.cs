@@ -39,6 +39,9 @@ namespace SmartPoultry
         Add_FinancialLiabilities financeform;
         Add_Delivery deliveryForm;
 
+        List<string> provarid;
+        List<string> qtys;
+
         string openedby = "default";
         public Sales_OrderInfo(Sales sales, MainWindow window)
         {
@@ -102,6 +105,8 @@ namespace SmartPoultry
             GenerateList(productvarids, qtylist, varlist, pricelist, prodname);
 
             mainWindow = UserContext.mainWindow;
+            provarid = productvarids;
+            qtys = qtylist;
         } 
 
 
@@ -219,13 +224,6 @@ namespace SmartPoultry
 
             OrderWPanel.Children.Add(orderBorder);
         }
-
-
-        private void Confirm_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
             if(openedby == "delivery")
@@ -250,7 +248,7 @@ namespace SmartPoultry
             bool isVoidedDeliver = deliveryServices.MarkAsVoided(long.Parse(OrderIdLabel.Content.ToString()));
             bool isVoidedFinance = financialLiabilitiesServices.MarkAsVoided(long.Parse(OrderIdLabel.Content.ToString()));
 
-            if(!isVoidedSales || !isVoidedDeliver || !isVoidedFinance)
+            if (!isVoidedSales || !isVoidedDeliver || !isVoidedFinance)
             {
                 MessageBox.Show("Void unsuccessful.");
                 return;
@@ -262,16 +260,45 @@ namespace SmartPoultry
                 financeform.ActiveOverlay(false);
                 financeform.Close();
             }
-            else
+            else if(deliveryForm != null)
             {
                 deliveryForm.ActiveOverlay(false);
                 deliveryForm.Close();
             }
 
+
+            MessageBoxResult result = MessageBox.Show(
+                "Do you want to bring the stocks back?",
+                "Confirmation",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question
+            );
+
+            if (result == MessageBoxResult.Yes)
+            {
+                for (int i = 0; i < provarid.Count; i++) 
+                {
+                    ProductVariations productVariation = productVariationServices.GetProductVariationById(int.Parse(provarid[i].ToString()));
+
+                    decimal toAdd = (1m / productVariation.conversion_rate) * decimal.Parse(qtys[i].ToString());
+
+                    decimal stocks = productServices.UpdateStockAfterDelivery(productVariation.product_id, toAdd);
+
+                    mainWindow.inventoryControl.UpdateStocksAfterSupplierDeliver(productVariation.product_id, stocks);
+                }
+                mainWindow.homeControl.DynamicReload();
+            }
+            mainWindow.dashboardControl.DynamicOrderDisplay();
+
             this.Close();
             mainWindow.ActiveOverlay(false);
             mainWindow.PopUpNotif("notif", "Void successful.");
         }
+
+
+
+
+
 
         private void ConfirmBtn_Click(object sender, RoutedEventArgs e)
         {
