@@ -236,7 +236,7 @@ namespace SmartPoultry
             DateTime date = datePicker.SelectedDate.Value;
             string contacts = ContactsTextBox.Text;
 
-            bool isUpdated = financialLiabilitiesServices.EditPayment(finance.Id, name, price, type, paymode, date, contacts);
+            bool isUpdated = financialLiabilitiesServices.EditPayment(finance.Id, name, price, type, paymode, date, contacts, "");
             if (!isUpdated) 
             {
                 PopUpNotif("alert", "Update Unsuccessfull");
@@ -249,7 +249,7 @@ namespace SmartPoultry
         }
         public void MarkAsPaid()
         {
-            bool financeupdate = financialLiabilitiesServices.MarkAsPaid(finance.Id);
+            bool financeupdate = financialLiabilitiesServices.MarkAsPaid(finance.Id, "Mark as Paid");
             if (finance.order_id != 0)
             {
                 bool salesupdate = true;
@@ -257,8 +257,8 @@ namespace SmartPoultry
 
                 if (finance.type == "To Pay" || finance.order_id != 0)
                 {
-                    salesupdate = salesServices.MarkAsPaid(finance.order_id);
-                    deliveryupdate = deliveriesServices.MarkAsPaid(finance.order_id);
+                    salesupdate = salesServices.MarkAsPaid(finance.order_id, "Mark as Paid");
+                    deliveryupdate = deliveriesServices.MarkAsPaid(finance.order_id, "Mark as Paid");
                 } 
                 
                 

@@ -241,8 +241,8 @@ namespace SmartPoultry
                 }
             }
 
-            bool updatedDelivery = deliveriesServices.UpdateDelivered(deliveries.Id, DeliveryManTextBox.Text);
-            bool updateSale = deliveries.type != "To Deliver" || salesServices.UpdateDelivered(deliveries.order_id);
+            bool updatedDelivery = deliveriesServices.UpdateDelivered(deliveries.Id, DeliveryManTextBox.Text, "Update Delivery");
+            bool updateSale = deliveries.type != "To Deliver" || salesServices.UpdateDelivered(deliveries.order_id, "Update Delivery");
 
             if (!updatedDelivery || !updateSale)
             {
@@ -322,7 +322,7 @@ namespace SmartPoultry
             string contacts = ContactsTextBox.Text;
             decimal charge = decimal.Parse(ChargeTextBox.Text);
 
-            bool UpdateDelivery = deliveriesServices.UpdateDelivery(deliveries.Id, name, address, type, date, price, contacts, charge);
+            bool UpdateDelivery = deliveriesServices.UpdateDelivery(deliveries.Id, name, address, type, date, price, contacts, charge, "Delivery Edit");
 
             if (!UpdateDelivery) 
             {

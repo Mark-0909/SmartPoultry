@@ -255,9 +255,9 @@ namespace SmartPoultry
             {
                 return;
             }
-            bool isVoidedSales = salesServices.MarkAsVoided(long.Parse(OrderIdLabel.Content.ToString()));
-            bool isVoidedDeliver = deliveryServices.MarkAsVoided(long.Parse(OrderIdLabel.Content.ToString()));
-            bool isVoidedFinance = financialLiabilitiesServices.MarkAsVoided(long.Parse(OrderIdLabel.Content.ToString()));
+            bool isVoidedSales = salesServices.MarkAsVoided(long.Parse(OrderIdLabel.Content.ToString()), "Mark as Void.");
+            bool isVoidedDeliver = deliveryServices.MarkAsVoided(long.Parse(OrderIdLabel.Content.ToString()), "Void Sales");
+            bool isVoidedFinance = financialLiabilitiesServices.MarkAsVoided(long.Parse(OrderIdLabel.Content.ToString()), "Mark as Void.");
 
             if (!isVoidedSales || !isVoidedDeliver || !isVoidedFinance)
             {

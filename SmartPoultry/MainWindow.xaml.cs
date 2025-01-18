@@ -295,11 +295,12 @@ namespace SmartPoultry
                 Application.Current.MainWindow = loginWindow;
                 loginWindow.Show();
                 this.Close();
-                bool ifRecorded = userLogsServices.Create(UserContext.CurrentUserId, "LOGOUT");
+
+                bool ifRecorded = userLogsServices.Create(UserContext.CurrentUserId, "LOGOUT", "LOGOUT");
 
                 if (!ifRecorded) 
                 {
-                    MessageBox.Show("Unsuccesful");
+                    MessageBox.Show("Unsuccesful.");
                 }
             }
         }

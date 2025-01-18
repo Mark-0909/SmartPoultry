@@ -27,7 +27,7 @@ namespace SmartPoultry.DataServices
             var list = _context.UserLogs.Where(p => p.user_id == id).OrderByDescending(p => p.timestamp).ToList();
             return list;
         }
-        public bool Create(int userId, string action)
+        public bool Create(int userId, string action, string remarks)
         {
             try
             {
@@ -35,7 +35,8 @@ namespace SmartPoultry.DataServices
                 {
                     user_id = userId,
                     action = action,
-                    timestamp = DateTime.Now
+                    timestamp = DateTime.Now,
+                    Remarks = remarks
                 };
                 _context.Add(row);
                 _context.SaveChanges();

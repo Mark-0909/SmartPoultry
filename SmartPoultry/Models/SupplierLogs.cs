@@ -13,7 +13,7 @@ namespace SmartPoultry.Models
     {
         [Key]
         public int Id { get; set; }
-
+        public int order_id { get; set; }
         public int Supplier_id { get; set; }
         public string action { get; set; }
         [MaxLength(255)]

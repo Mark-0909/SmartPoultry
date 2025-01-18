@@ -75,7 +75,7 @@ namespace SmartPoultry
                     UserContext.mainWindow = window;
                     window.PopUpNotif("notif", $"Good Day! {usernameTB.Text}!");
                     int user_id = UserContext.CurrentUserId;
-                    bool isRecorded = userLogsServices.Create(user_id, "LOGIN");
+                    bool isRecorded = userLogsServices.Create(user_id, "LOGIN", "LOGIN");
                     if (!isRecorded) 
                     {
                         loginWindow.PopUpNotif("alert", "Not Recorded");

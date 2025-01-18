@@ -16,7 +16,7 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
-        public bool MarkAsVoided(long receiptid)
+        public bool MarkAsVoided(long receiptid, string remarks)
         {
             try
             {
@@ -28,6 +28,7 @@ namespace SmartPoultry.DataServices
                 }
 
                 delivery.delivery_status = "voided";
+                delivery.Remarks = remarks;
 
 
                 _context.SaveChanges();
@@ -44,7 +45,7 @@ namespace SmartPoultry.DataServices
             var itemrow = _context.Deliveries.FirstOrDefault(x => x.order_id == Id);
             return itemrow;
         }
-        public bool UpdateDelivery(int id, string name, string address, string type, DateTime date, decimal price, string contacts, decimal charge)
+        public bool UpdateDelivery(int id, string name, string address, string type, DateTime date, decimal price, string contacts, decimal charge, string remarks)
         {
             try
             {
@@ -56,6 +57,7 @@ namespace SmartPoultry.DataServices
                 delivery.price = price;
                 delivery.contact_no = contacts;
                 delivery.charges = charge;
+                delivery.Remarks = remarks;
 
                 _context.SaveChanges();
 
@@ -67,12 +69,13 @@ namespace SmartPoultry.DataServices
                 return false;
             }   
         }
-        public bool MarkAsPaid(long orderid)
+        public bool MarkAsPaid(long orderid, string remarks)
         {
             try
             {
                 var itemrow = _context.Deliveries.FirstOrDefault(p => p.order_id == orderid);
                 itemrow.payment_status = "paid";
+                itemrow.Remarks = remarks;
                 _context.SaveChanges();
                 return true;
 
@@ -83,13 +86,14 @@ namespace SmartPoultry.DataServices
                 return false;
             }
         }
-        public bool UpdateDelivered(int id, string deliveryman)
+        public bool UpdateDelivered(int id, string deliveryman, string remarks)
         {
             try
             {
                 var row = _context.Deliveries.FirstOrDefault(x => x.Id == id);
                 row.delivery_status = "delivered";
                 row.delivery_man = deliveryman;
+                row.Remarks = remarks;
                 _context.SaveChanges();
 
                 return true;
@@ -151,7 +155,8 @@ namespace SmartPoultry.DataServices
                     delivery_man = deliveryman,
                     added_date = DateTime.Now,
                     charges = charge,
-                    employee_incharge = 1
+                    employee_incharge = 1,
+                    Remarks = "Add New Delivery."
                 };
                 _context.Deliveries.Add(newDelivery);
                 _context.SaveChanges();

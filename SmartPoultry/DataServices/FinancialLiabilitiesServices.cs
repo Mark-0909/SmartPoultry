@@ -18,7 +18,7 @@ namespace SmartPoultry.DataServices
             _context = context;
         }
 
-        public bool MarkAsVoided(long receiptid)
+        public bool MarkAsVoided(long receiptid, string remarks)
         {
             try
             {
@@ -30,6 +30,7 @@ namespace SmartPoultry.DataServices
                 }
 
                 finance.status = "voided";
+                finance.Remarks = remarks;
 
                 
 
@@ -42,7 +43,7 @@ namespace SmartPoultry.DataServices
                 return false;
             }
         }
-        public bool EditPayment(int id, string name, decimal price, string type, string paymentmode, DateTime date, string contacts)
+        public bool EditPayment(int id, string name, decimal price, string type, string paymentmode, DateTime date, string contacts, string remarks)
         {
             try
             {
@@ -53,6 +54,7 @@ namespace SmartPoultry.DataServices
                 payment.payment_mode = paymentmode;
                 payment.due_date = date;
                 payment.contacts = contacts;
+                payment.Remarks = remarks;
 
                 _context.SaveChanges();
                 return true;
@@ -63,12 +65,13 @@ namespace SmartPoultry.DataServices
                 return false;
             }
         }
-        public bool MarkAsPaid(int id)
+        public bool MarkAsPaid(int id, string remarks)
         {
             try
             {
                 var itemrow = _context.FinancialLiabilities.FirstOrDefault(p => p.Id == id);
                 itemrow.status = "paid";
+                itemrow.Remarks = remarks;
                 _context.SaveChanges();
                 return true;
 
