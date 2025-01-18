@@ -298,6 +298,7 @@ namespace SmartPoultry
             }
 
             mainWindow.PopUpNotif("notif", "Role updated successfully.");
+            GetUserList(ListType);
         }
 
     }
