@@ -243,8 +243,10 @@ namespace SmartPoultry
 
             bool updatedDelivery = deliveriesServices.UpdateDelivered(deliveries.Id, DeliveryManTextBox.Text, "Update Delivery");
             bool updateSale = deliveries.type != "To Deliver" || salesServices.UpdateDelivered(deliveries.order_id, "Update Delivery");
+            bool IsPriceUpdated = supplierOrdersServices.UpdatePrice(int.Parse(OrderId.Content.ToString()), decimal.Parse(PriceTextBox.Text.ToString()));
+           
 
-            if (!updatedDelivery || !updateSale)
+            if (!updatedDelivery || !updateSale || !IsPriceUpdated)
             {
                 PopUpNotif("alert", "Unsuccessful.");
                 return;
@@ -268,6 +270,16 @@ namespace SmartPoultry
             {
                 PopUpNotif("alert", "Invalid Order ID.");
                 return;
+            }
+
+            if(status == "paid")
+            {
+                bool isCreatedExpense = expensesServices.Create(NameTextBox.Text, "SUPPLY", "DONE", UserContext.CurrentUserId, "Order supply delivered.", decimal.Parse(PriceTextBox.Text), int.Parse(deliveries.order_id.ToString()));
+                if (!isCreatedExpense)
+                {
+                    PopUpNotif("alert", "Creating expense row unsuccessful.");
+                    return;
+                }
             }
 
             SupplierOrders order = supplierOrdersServices.GetById(int.Parse(orderId.ToString()));
@@ -301,10 +313,14 @@ namespace SmartPoultry
             }
             mainWindow.homeControl.DynamicReload();
 
+            
+
             this.Close();
             mainWindow.ActiveOverlay(false);
             mainWindow.ScheduleUpdateReload();
             mainWindow.PopUpNotif("notif", "Order Delivered!");
+ 
+            
         }
 
 

@@ -188,7 +188,7 @@
         <Button x:Name="CancelBtn" Content="CANCEL" HorizontalAlignment="Left" Height="37" Margin="98,413,0,0" VerticalAlignment="Top" Width="85" Click="CancelBtn_Click"/>
         <Label x:Name="orderIdLabel" Content="Order ID:  " HorizontalAlignment="Left" Height="29" Margin="210,364,0,0" VerticalAlignment="Top" Width="79" FontSize="14"/>
         <Label x:Name="OrderId" Content="25010838347" HorizontalAlignment="Left" Height="28" Margin="278,364,0,0" VerticalAlignment="Top" Width="100" FontSize="14"/>
-        <Button x:Name="OrderDetailsBtn" Content="orderInfo" HorizontalAlignment="Left" Height="31" Margin="372,362,0,0" VerticalAlignment="Top" Width="44" Click="OrderInfo_Click" />
+        <Button x:Name="OrderDetailsBtn" Content="orderInfo" Height="31" Margin="372,362,16,0" VerticalAlignment="Top" Click="OrderInfo_Click" />
 
 
         <Border x:Name="NotifPopup"  CornerRadius="10" BorderBrush="#FFCCE6D3" BorderThickness="1" HorizontalAlignment="Center" Height="46" Margin="0,24,0,0" VerticalAlignment="Top" Width="330" Background="#FFCCE6D3">

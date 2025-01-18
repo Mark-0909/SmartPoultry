@@ -27,6 +27,7 @@ namespace SmartPoultry
         SalesServices salesServices;
         DeliveriesServices deliveriesServices;
         SupplierOrdersServices supplierOrdersServices;
+        ExpensesServices expensesServices;
         AppDbContext context = new AppDbContext();
 
         FinancialLiabilities finance;
@@ -61,6 +62,7 @@ namespace SmartPoultry
             salesServices = new SalesServices(context);
             deliveriesServices = new DeliveriesServices(context);
             supplierOrdersServices = new SupplierOrdersServices(context);
+            expensesServices = new ExpensesServices(context);
 
             if (itemrow.order_id != 0) 
             {
@@ -254,15 +256,17 @@ namespace SmartPoultry
             {
                 bool salesupdate = true;
                 bool deliveryupdate = true;
+                bool CreateExpense = true;
 
                 if (finance.type == "To Pay" || finance.order_id != 0)
                 {
                     salesupdate = salesServices.MarkAsPaid(finance.order_id, "Mark as Paid");
                     deliveryupdate = deliveriesServices.MarkAsPaid(finance.order_id, "Mark as Paid");
+                    CreateExpense = expensesServices.Create(NameTextBox.Text, "BILL", "DONE", UserContext.CurrentUserId, "Payment done.", decimal.Parse(finance.amount.ToString()), int.Parse(finance.order_id.ToString()));
                 } 
                 
                 
-                if (!financeupdate || !salesupdate || !deliveryupdate)
+                if (!financeupdate || !salesupdate || !deliveryupdate || !CreateExpense)
                 {
                     PopUpNotif("alert", "Error");
                     return;
