@@ -315,7 +315,7 @@ namespace SmartPoultry
         {
             if (stocksTextBox.IsFocused) // Only filter when the user is typing
             {
-                HandleNumericInput(stocksTextBox, false);
+                HandleNumericInput(stocksTextBox, true);
             }
         }
 

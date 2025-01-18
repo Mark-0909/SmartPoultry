@@ -28,6 +28,7 @@ namespace SmartPoultry.Models
         public string payment_mode { get; set;}
         public int employee_incharge { get; set;}
 
-
+        [MaxLength(255)]
+        public string Remarks { get; set; }
     }
 }
