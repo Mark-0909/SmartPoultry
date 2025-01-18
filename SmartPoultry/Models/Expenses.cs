@@ -14,7 +14,8 @@ namespace SmartPoultry.Models
         [Key]
         public int Id { get; set; }
         public string Name { get; set; }
-
+        [Column(TypeName = "decimal(10,2)")]
+        public decimal price { get; set; }
         public DateTime Added_Date { get; set; }
         [MaxLength(100)]
         public string Category {  get; set; }

@@ -33,151 +33,94 @@ namespace SmartPoultry
             salesServices = new SalesServices(context);
             userLogsServices = new UserLogsServices(context);
             inventoryLogsServices = new InventoryLogsServices(context);
-            FetchSales();
+            
+            HideAllControls();
+            SalesControl.Visibility = Visibility.Visible;
         }
-        public void FetchSales()
+        private void HideAllControls()
         {
-            if(SalesPanel.Children != null)
-            {
-                SalesPanel.Children.Clear();
-            }
-            List<Sales> sales = salesServices.GetAllSales();
-            int evenodd = 0;
-            for (int i = 0; i < sales.Count; i++) { 
-                
-                Records_SalesControl control = new Records_SalesControl(sales[i].receipt_id, evenodd);
-                
-                SalesPanel.Children.Add(control);
-                if(evenodd == 0)
-                {
-                    evenodd = 1;
-                }
-                else
-                {
-                    evenodd = 0;
-                }
-            }
-        }
-        public void FetchInventoryLogs()
-        {
-            if (SalesPanel.Children != null)
-            {
-                SalesPanel.Children.Clear();
-            }
-            List<InventoryLogs> inventory = inventoryLogsServices.GetList();
-            int evenodd = 0;
-            for (int i = 0; i < inventory.Count; i++)
-            {
-
-                Records_InventoryControl control = new Records_InventoryControl(inventory[i].product_id, inventory[i].employee_incharge, inventory[i].action, inventory[i].timestamp, inventory[i].reason, evenodd);
-
-                SalesPanel.Children.Add(control);
-                if (evenodd == 0)
-                {
-                    evenodd = 1;
-                }
-                else
-                {
-                    evenodd = 0;
-                }
-            }
-        }
-        public void FetchUserLogs()
-        {
-            if (SalesPanel.Children != null)
-            {
-                SalesPanel.Children.Clear();
-            }
-            List<UserLogs> logs = userLogsServices.GetList();
-            int evenodd = 0;
-            for (int i = 0; i < logs.Count; i++)
-            {
-
-                Records_LogsControl control = new Records_LogsControl(logs[i].user_id, logs[i].action, logs[i].timestamp, evenodd);
-
-                SalesPanel.Children.Add(control);
-                if (evenodd == 0)
-                {
-                    evenodd = 1;
-                }
-                else
-                {
-                    evenodd = 0;
-                }
-            }
-        }
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
+            LogsControl.Visibility = Visibility.Collapsed;
+            ExpensesControl.Visibility = Visibility.Collapsed;
+            OrdersControl.Visibility = Visibility.Collapsed;
+            DeliveryControl.Visibility = Visibility.Collapsed;
+            PaymentsControl.Visibility = Visibility.Collapsed;
+            InventoryControl.Visibility = Visibility.Collapsed;
+            SalesControl.Visibility = Visibility.Collapsed;
         }
 
+        
         private void Sales_Clicked(object sender, RoutedEventArgs e)
         {
             HandleButtonDesign(SalesBtn);
-            FetchSales();
+            HideAllControls();
+            SalesControl.Visibility = Visibility.Visible;
         }
 
         private void Inventory_Clicked(object sender, RoutedEventArgs e)
         {
             HandleButtonDesign(InventoryBtn);
-            FetchInventoryLogs();
+            HideAllControls();
+            InventoryControl.Visibility = Visibility.Visible;
         }
 
         private void Logs_Clicked(object sender, RoutedEventArgs e)
         {
             HandleButtonDesign(LogsBtn);
-            FetchUserLogs();
+            HideAllControls();
+            LogsControl.Visibility = Visibility.Visible;
         }
-        public void HandleButtonDesign(Button button)
+        private void Payments_Clicked(object sender, RoutedEventArgs e)
         {
-            SolidColorBrush activecolor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2C6E5D"));
-            SolidColorBrush inactivecolor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFDCEDD5"));
-            if (button == SalesBtn)
-            {
-                button.Background = activecolor;
-                button.BorderBrush = activecolor;
-                button.Foreground = Brushes.White;
-
-                InventoryBtn.Foreground = Brushes.Gray;
-                LogsBtn.Foreground = Brushes.Gray;
-
-                InventoryBtn.Background = inactivecolor;
-                LogsBtn.Background = inactivecolor;
-                InventoryBtn.BorderBrush = inactivecolor;
-                LogsBtn.BorderBrush = inactivecolor;
-            }
-            else if(button == InventoryBtn)
-            {
-                button.Background = activecolor;
-                button.BorderBrush = activecolor;
-                button.Foreground = Brushes.White;
-
-                SalesBtn.Foreground = Brushes.Gray;
-                LogsBtn.Foreground = Brushes.Gray;
-
-                SalesBtn.Background = inactivecolor;
-                LogsBtn.Background = inactivecolor;
-                SalesBtn.BorderBrush = inactivecolor;
-                LogsBtn.BorderBrush = inactivecolor;
-            }else
-            {
-                button.Background = activecolor;
-                button.BorderBrush = activecolor;
-                button.Foreground = Brushes.White;
-
-                SalesBtn.Foreground = Brushes.Gray;
-                InventoryBtn.Foreground = Brushes.Gray;
-
-                SalesBtn.Background = inactivecolor;
-                InventoryBtn.Background = inactivecolor;
-                SalesBtn.BorderBrush = inactivecolor;
-                InventoryBtn.BorderBrush = inactivecolor;
-            }
+            HandleButtonDesign(PaymentsBtn);
+            HideAllControls();
+            PaymentsControl.Visibility = Visibility.Visible;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Delivery_Clicked(object sender, RoutedEventArgs e)
         {
-
+            HandleButtonDesign(DeliveryBtn);
+            HideAllControls();
+            DeliveryControl.Visibility = Visibility.Visible;
         }
+
+        private void Orders_Clicked(object sender, RoutedEventArgs e)
+        {
+            HandleButtonDesign(OrdersBtn);
+            HideAllControls();
+            OrdersControl.Visibility = Visibility.Visible;
+        }
+
+        private void Expenses_Clicked(object sender, RoutedEventArgs e)
+        {
+            HandleButtonDesign(ExpensesBtn);
+            HideAllControls();
+            ExpensesControl.Visibility = Visibility.Visible;
+        }
+        public void HandleButtonDesign(Button activeButton)
+        {
+            // Define active and inactive colors
+            SolidColorBrush activeColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF2C6E5D"));
+            SolidColorBrush inactiveColor = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFDCEDD5"));
+
+            // List of all buttons to manage
+            var buttons = new List<Button> { SalesBtn, InventoryBtn, LogsBtn, PaymentsBtn, DeliveryBtn, OrdersBtn, ExpensesBtn};
+
+            // Reset all buttons to inactive state
+            foreach (var button in buttons)
+            {
+                button.Background = inactiveColor;
+                button.BorderBrush = inactiveColor;
+                button.Foreground = Brushes.Gray;
+            }
+
+            // Set the clicked button to active state
+            activeButton.Background = activeColor;
+            activeButton.BorderBrush = activeColor;
+            activeButton.Foreground = Brushes.White;
+        }
+
+
+
+
     }
 }
