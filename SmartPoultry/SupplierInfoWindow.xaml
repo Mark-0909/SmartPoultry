@@ -67,7 +67,7 @@
                 <!-- Header -->
                 <Border Background="#FF2C6E5D" CornerRadius="10,10,0,0" Height="40" VerticalAlignment="Top" Margin="-20,-20,-20,0">
                     <Grid>
-                        <Label Content="Supplier Information" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="White"/>
+                        <Label Content="Edit Supplier Information" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontWeight="Bold" Foreground="White"/>
                         <Button Click="ExitButton_Click" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Right" VerticalAlignment="Center" Width="30" Height="30">
                             <Image Source="/Images/close.png"/>
                         </Button>
