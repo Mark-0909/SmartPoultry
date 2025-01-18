@@ -35,5 +35,8 @@ namespace SmartPoultry.Models
         [Column(TypeName = "decimal(10,2)")]
         public decimal charges { get; set; }
         public int employee_incharge { get; set; }
+
+        [MaxLength(255)]
+        public string Remarks { get; set; }
     }
 }

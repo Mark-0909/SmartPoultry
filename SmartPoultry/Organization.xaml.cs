@@ -27,17 +27,48 @@ namespace SmartPoultry
         public AppDbContext context = new AppDbContext();
         public UserServices userServices;
         public UserLogsServices logServices;
+
+        public int SelectedID;
+        public string Role;
+        public string Status;
+        public string ListType = "active";
+
+        User SelectedUser;
+
+        MainWindow mainWindow;
         public Organization()
         {
             InitializeComponent();
             userServices = new UserServices(context);
             logServices = new UserLogsServices(context);
             GetUserList("active");
+
+            NameLabel.Visibility = Visibility.Hidden;
+            BanBtn.Visibility = Visibility.Hidden;
+            RoleCBox.Visibility = Visibility.Hidden;
+            ClearBtn.Visibility = Visibility.Hidden;
+            SaveChangesBtn.Visibility = Visibility.Hidden;
+
+
         }
         public void ViewUser(User user)
         {
+            Clear(true);
             NameLabel.Content = user.Username;
-            RoleLabel.Content = user.Role;
+            if(user.Role == "admin")
+            {
+                RoleCBox.SelectedIndex = 0;
+            }
+            else
+            {
+                RoleCBox.SelectedIndex = 1;
+            }
+
+            SelectedID = user.Id;
+            Role = user.Role;
+            Status = user.Status;
+
+            mainWindow = UserContext.mainWindow;
 
             if(UserLogsList.Children.Count > 0)
             {
@@ -60,7 +91,31 @@ namespace SmartPoultry
                     evenodd = 0;
                 }
             }
+            SaveChangesBtn.Visibility = Visibility.Hidden;
         }
+
+        public void Clear(bool isVisible)
+        {
+            User currentUser = userServices.GetUser(UserContext.CurrentUserId);
+            bool isSuperAdmin = currentUser.Id == 1;
+
+            BanBtn.Visibility = isSuperAdmin && isVisible ? Visibility.Visible : Visibility.Collapsed;
+            SaveChangesBtn.Visibility = isVisible ? Visibility.Hidden : Visibility.Collapsed;
+
+            NameLabel.Visibility = isVisible ? Visibility.Visible : Visibility.Hidden;
+            RoleCBox.Visibility = isVisible ? Visibility.Visible : Visibility.Hidden;
+            ClearBtn.Visibility = isVisible ? Visibility.Visible : Visibility.Hidden;
+
+            if (!isVisible && UserLogsList.Children.Count > 0)
+            {
+                UserLogsList.Children.Clear();
+            }
+
+            RoleCBox.IsEnabled = isSuperAdmin && ListType != "inactive";
+        }
+
+
+
         public void GetUserList(string status)
         {
             if(UserPanel.Children.Count > 0)
@@ -98,12 +153,16 @@ namespace SmartPoultry
         {
             HandleButtonDesign(ActiveBtn);
             GetUserList("active");
+            ListType = "active";
+            Clear(false);
         }
 
         private void Inactive_Clicked(object sender, RoutedEventArgs e)
         {
             HandleButtonDesign(InactiveBtn);
             GetUserList("inactive");
+            ListType = "inactive";
+            Clear(false);
         }
 
         public void HandleButtonDesign(Button button)
@@ -147,6 +206,100 @@ namespace SmartPoultry
                 InactiveBtn.BorderBrush = inactivecolor;
             }
         }
-        
+
+        private void BanBtn_Click(object sender, RoutedEventArgs e)
+        {
+            
+            if (Status == "active") 
+            {
+                MessageBoxResult result = MessageBox.Show(
+                "Are you sure you want to Ban this User?",
+                "Confirmation",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question
+            );
+                if (result == MessageBoxResult.No)
+                {
+                    return;
+                }
+
+                bool isUpdated = userServices.UpdateStatusUser(SelectedID, "ban");
+                if (!isUpdated)
+                {
+                    mainWindow.PopUpNotif("alert", "Ban unsuccessful.");
+                    return;
+                }
+                mainWindow.PopUpNotif("notif", "Ban successfully.");
+            }
+            else
+            {
+                MessageBoxResult result = MessageBox.Show(
+                "Are you sure you want to Unban this User?",
+                "Confirmation",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question
+            );
+                if (result == MessageBoxResult.No)
+                {
+                    return;
+                }
+
+                bool isUpdated = userServices.UpdateStatusUser(SelectedID, "unban");
+                if (!isUpdated)
+                {
+                    mainWindow.PopUpNotif("alert", "Unban unsuccessful.");
+                    return;
+                }
+                mainWindow.PopUpNotif("notif", "Unban successfully.");
+            }
+            UserPanel.Children.Clear();
+            GetUserList(Status);
+
+        }
+
+        private void RoleCBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selectedItem = RoleCBox.SelectedItem as ComboBoxItem;
+
+            if (selectedItem != null && selectedItem.Content.ToString().Equals(Role, StringComparison.OrdinalIgnoreCase))
+            {
+                SaveChangesBtn.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                SaveChangesBtn.Visibility = Visibility.Visible;
+            }
+        }
+
+
+
+        private void ClearBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Clear(false);
+        }
+
+        private void SaveChangesBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedItem = RoleCBox.SelectedItem as ComboBoxItem;
+            string selectedRole = selectedItem?.Content.ToString();
+
+            if (string.IsNullOrEmpty(selectedRole))
+            {
+                mainWindow.PopUpNotif("alert", "No role selected.");
+                return;
+            }
+
+            bool isUpdated = userServices.UpdateRole(SelectedID, selectedRole);
+
+            if (!isUpdated)
+            {
+                mainWindow.PopUpNotif("alert", "Role update unsuccessful.");
+                return;
+            }
+
+            mainWindow.PopUpNotif("notif", "Role updated successfully.");
+            GetUserList(ListType);
+        }
+
     }
 }

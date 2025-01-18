@@ -238,6 +238,19 @@ namespace SmartPoultry
             mainWindow.ActiveOverlay(false);
         }
 
-        
+        private void SearchBTN_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(SearchCBox.Text))
+            {
+                MessageBox.Show("Empty searchbox");
+                return;
+            }
+            AddProductToControl(SearchCBox.Text);
+
+            RoutedEventArgs routedEventArgs = new RoutedEventArgs();
+            SearchCBox_LostFocus(SearchCBox, routedEventArgs);
+        }
+
+       
     }
 }

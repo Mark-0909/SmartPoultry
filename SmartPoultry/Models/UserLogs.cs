@@ -18,5 +18,7 @@ namespace SmartPoultry.Models
         public string action { get; set; }
 
         public DateTime timestamp { get; set; }
+        [MaxLength(255)]
+        public string Remarks { get; set; }
     }
 }

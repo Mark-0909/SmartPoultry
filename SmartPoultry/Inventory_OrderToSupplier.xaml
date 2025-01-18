@@ -26,16 +26,16 @@
 
 
 
-                <Border BorderBrush="Black" BorderThickness="1" Height="38" Width="147">
+                <Border CornerRadius="5" BorderBrush="Black" BorderThickness="1" Height="38" Width="147">
                     <WrapPanel>
-                        <ComboBox x:Name="SearchCBox" Tag="Search Product..." 
-                  PreviewTextInput="SearchCBox_PreviewTextInput" IsEditable="True" 
-                  IsDropDownOpen="False" Height="28" Width="135" PreviewMouseDown="SearchCBox_PreviewMouseDown" KeyDown="SearchCBox_KeyDown" LostFocus="SearchCBox_LostFocus"/>
+                        <ComboBox x:Name="SearchCBox" Tag="Search Product..." BorderBrush="White"
+                  PreviewTextInput="SearchCBox_PreviewTextInput" IsEditable="True"  Margin="3"
+                  IsDropDownOpen="False" Height="28" Width="135" PreviewMouseDown="SearchCBox_PreviewMouseDown" KeyDown="SearchCBox_KeyDown" LostFocus="SearchCBox_LostFocus" />
 
-                        <Button Width="25" Height="25" Background="White" 
+                        <Button x:Name="SearchBTN" Width="25" Height="25" Background="White" 
                 VerticalAlignment="Center" HorizontalAlignment="Right" 
                 Margin="-27,0,0,0" BorderBrush="Transparent" 
-                >
+                Click="SearchBTN_Click">
                             <Image Height="22" Width="20" Source="/Images/2946467-200.png"/>
                         </Button>
                     </WrapPanel>

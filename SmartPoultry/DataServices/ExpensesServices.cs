@@ -16,7 +16,7 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
-        public bool Create(string name, string category, string status, DateTime Updated_Date, int employee, string remarks)
+        public bool Create(string name, string category, string status, int employee, string remarks, decimal price, int orderid)
         {
             try
             {
@@ -25,9 +25,12 @@ namespace SmartPoultry.DataServices
                     Name = name,
                     Category = category,
                     Status = status,
-                    Updated_Time = Updated_Date,
+                    Updated_Time = DateTime.Now,
                     Employee_Incharge = employee,
-                    Remarks = remarks
+                    Remarks = remarks,
+                    price = price,
+                    Order_ID = orderid,
+                    Added_Date = DateTime.Now
                 };
                 _context.Expenses.Add(expenses);
                 _context.SaveChanges();

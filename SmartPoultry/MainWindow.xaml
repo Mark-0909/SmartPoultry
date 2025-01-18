@@ -3,50 +3,49 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         xmlns:local="clr-namespace:SmartPoultry"
         mc:Ignorable="d"
-        Title="SmartPoultry" Height="716" Width="1229" WindowStartupLocation="CenterScreen" Background="#FFE3E3E3" ResizeMode="NoResize" Icon="/Images/smartpoultryicon.ico">
-    <Grid x:Name="MainGrid">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="435*"/>
-            <ColumnDefinition Width="794*"/>
-        </Grid.ColumnDefinitions>
+        Title="SmartPoultry" Height="716" Width="1229" WindowStartupLocation="CenterScreen" Background="#FFE3E3E3" ResizeMode="CanMinimize" Icon="/Images/smartpoultryicon.ico">
 
-
-
-
-
-        <Rectangle x:Name="MainWindowOverlay" Opacity=".5"  Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="700" Stroke="#00000000" VerticalAlignment="Center" Width="1232" Fill="#FFA7A7A7"/>
-
-
-        <local:Schedule x:Name="scheduleControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="602" Margin="106,92,0,0" VerticalAlignment="Top" Width="1123"/>
-
-
-        <local:Supplier x:Name="supplierControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,92,0,0" VerticalAlignment="Top" Height="598" Width="1113"/>
-
-
-        <local:Organization x:Name="organizationControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123"/>
-
-
-        <local:records x:Name="recordsControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1109"/>
-
-
-        <local:inventory x:Name="inventoryControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123"/>
-
-
-        <local:home x:Name="homeControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123"/>
-
-
-        <local:dashboard x:Name="dashboardControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Width="1123" Height="603"/>
+    <Grid x:Name="MainGrid" HorizontalAlignment="Left" Width="1229">
 
 
 
 
 
 
-        <StackPanel HorizontalAlignment="Left" Height="649" Margin="0,92,0,0" VerticalAlignment="Top" Width="101" Background="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}"/>
+        <Rectangle x:Name="MainWindowOverlay" Opacity=".5"  Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="700" Stroke="#00000000" VerticalAlignment="Top" Width="1232" Fill="#FFA7A7A7" Margin="0,20,0,0" Grid.RowSpan="3"/>
+
+
+        <local:Schedule x:Name="scheduleControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="602" Margin="106,92,0,0" VerticalAlignment="Top" Width="1123" Grid.RowSpan="3"/>
+
+
+        <local:Supplier x:Name="supplierControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,92,0,0" VerticalAlignment="Top" Height="598" Width="1113" Grid.RowSpan="3"/>
+
+
+        <local:Organization x:Name="organizationControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123" Grid.RowSpan="3"/>
+
+
+        <local:records x:Name="recordsControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1109" Grid.RowSpan="3"/>
+
+
+        <local:inventory x:Name="inventoryControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123" Grid.RowSpan="3"/>
+
+
+        <local:home x:Name="homeControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Height="603" Width="1123" Grid.RowSpan="3"/>
+
+
+        <local:dashboard x:Name="dashboardControl" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="106,97,0,0" VerticalAlignment="Top" Width="1123" Height="603" Grid.RowSpan="3"/>
+
+
+
+
+
+
+        <StackPanel HorizontalAlignment="Left" Height="649" Margin="0,92,0,0" VerticalAlignment="Top" Width="101" Background="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}" Grid.RowSpan="3"/>
         <Rectangle HorizontalAlignment="Left" Height="92" VerticalAlignment="Top" Width="1229" Fill="#FFF4F7FC" Grid.ColumnSpan="2"/>
-        <Rectangle HorizontalAlignment="Left" Height="608" Margin="0,92,0,0" VerticalAlignment="Top" Width="92" Fill="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}"/>
+        <Rectangle HorizontalAlignment="Left" Height="608" Margin="0,92,0,0" VerticalAlignment="Top" Width="92" Fill="{DynamicResource {x:Static SystemColors.InactiveBorderBrushKey}}" Grid.RowSpan="3"/>
         <Image HorizontalAlignment="Left" Height="86" Margin="8,7,0,0" VerticalAlignment="Top" Width="240" Source="Images/logo.png"/>
 
 
@@ -150,42 +149,7 @@
             </Button.Template>
             <Image x:Name="inventoryIcon" Height="55" Width="63" Source="Images/inventorygrey.png"/>
         </Button>
-
-
-
-        <Button x:Name="recordsButton" HorizontalAlignment="Left" Margin="10,306,0,0" VerticalAlignment="Top" Height="65" Width="82" Click="RecordsButton_Click" Foreground="#FF66C265" Background="#FFF4F7FC">
-            <Button.Template>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border Background="{TemplateBinding Background}" BorderBrush="#FFF4F7FC" BorderThickness="1" CornerRadius="5" x:Name="recordsBorder">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Trigger.EnterActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="recordsBorder" 
-                                                 Storyboard.TargetProperty="Opacity" 
-                                                 To="0.5" Duration="0:0:0.3" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.EnterActions>
-                            <Trigger.ExitActions>
-                                <BeginStoryboard>
-                                    <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="recordsBorder" 
-                                                 Storyboard.TargetProperty="Opacity" 
-                                                 To="1.0" Duration="0:0:0.3" />
-                                    </Storyboard>
-                                </BeginStoryboard>
-                            </Trigger.ExitActions>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Button.Template>
-            <Image x:Name="recordsIcon" Height="59" Width="59" Source="Images/recordsgrey.png"/>
-        </Button>
-        <Button x:Name="organizationButton" HorizontalAlignment="Left" Margin="10,379,0,0" VerticalAlignment="Top" Height="66" Width="82" Click="OrganizationButton_Click" Foreground="#FF66C265" Background="#FFF4F7FC">
+        <Button x:Name="organizationButton" HorizontalAlignment="Left" Margin="10,447,0,0" VerticalAlignment="Top" Height="66" Width="82" Click="OrganizationButton_Click" Foreground="#FF66C265" Background="#FFF4F7FC">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" BorderBrush="#FFF4F7FC" BorderThickness="1" CornerRadius="5" x:Name="organizationBorder">
@@ -217,7 +181,7 @@
             </Button.Template>
             <Image x:Name="organizationIcon" Height="66" Width="72" Source="/Images/organizationgrey.png"/>
         </Button>
-        <Button x:Name="supplierButton" HorizontalAlignment="Left" Margin="10,459,0,0" VerticalAlignment="Top" Height="65" Width="82" Click="SupplierButton_Click" Foreground="#FF66C265" Background="#FFF4F7FC">
+        <Button x:Name="supplierButton" HorizontalAlignment="Left" Margin="8,376,0,0" VerticalAlignment="Top" Height="66" Width="82" Click="SupplierButton_Click" Foreground="#FF66C265" Background="#FFF4F7FC">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" BorderBrush="#FFF4F7FC" BorderThickness="1" CornerRadius="5" x:Name="supplierBorder">
@@ -249,10 +213,10 @@
             </Button.Template>
             <Image x:Name="supplierIcon" Height="61" Width="67" Source="/Images/suppliergrey.png"/>
         </Button>
-        <Button x:Name="LogoutBtn" Click="LogoutBtn_Clicked" HorizontalAlignment="Left" Height="44" Margin="720,24,0,0" VerticalAlignment="Top" Width="48" Background="Transparent" BorderBrush="Transparent" Grid.Column="1">
+        <Button x:Name="LogoutBtn" Click="LogoutBtn_Clicked" HorizontalAlignment="Left" Height="44" Margin="1140,24,0,0" VerticalAlignment="Top" Width="48" Background="Transparent" BorderBrush="Transparent">
             <Image Height="38" Width="45" Source="/Images/logouticon.png"/>
         </Button>
-        <Button x:Name="scheduleButton" HorizontalAlignment="Left" Margin="10,529,0,0" VerticalAlignment="Top" Height="65" Width="82" Click="ScheduleButton_Click" Foreground="#FF66C265" Background="#FFF4F7FC">
+        <Button x:Name="scheduleButton" HorizontalAlignment="Left" Margin="10,518,0,0" VerticalAlignment="Top" Height="66" Width="82" Click="ScheduleButton_Click" Foreground="#FF66C265" Background="#FFF4F7FC">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Border Background="{TemplateBinding Background}" BorderBrush="#FFF4F7FC" BorderThickness="1" CornerRadius="5" x:Name="scheduleBorder">
@@ -285,7 +249,7 @@
             <Image x:Name="scheduleIcon" Height="61" Width="67" Source="/Images/schedulegray.png"/>
         </Button>
 
-        <Border x:Name="NotifPopup"  CornerRadius="10" BorderBrush="#FFCCE6D3" BorderThickness="1" HorizontalAlignment="Left" Height="46" Margin="16,19,0,0" VerticalAlignment="Top" Width="330" Background="#FFCCE6D3" Grid.Column="1">
+        <Border x:Name="NotifPopup"  CornerRadius="10" BorderBrush="#FFCCE6D3" BorderThickness="1" HorizontalAlignment="Center" Height="46" Margin="0,23,0,0" VerticalAlignment="Top" Width="330" Background="#FFCCE6D3">
             <WrapPanel>
                 <Label x:Name="NotifMessage"  Content="Invalid Credentials" VerticalContentAlignment="Center" Padding="20 0 0 0" Height="43" Width="302" Foreground="#FF666666"/>
                 <Button x:Name="NotifCloseBtn" BorderBrush="Transparent" Background="Transparent" Height="20" Width="21" Click="NotifCloseBtn_Click">
@@ -293,6 +257,38 @@
                 </Button>
             </WrapPanel>
         </Border>
+        <Button x:Name="recordsButton" HorizontalAlignment="Left" Margin="10,306,0,0" VerticalAlignment="Top" Height="65" Width="82" Click="RecordsButton_Click" Foreground="#FF66C265" Background="#FFF4F7FC" Grid.RowSpan="2">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="#FFF4F7FC" BorderThickness="1" CornerRadius="5" x:Name="recordsBorder">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="recordsBorder" 
+                                                 Storyboard.TargetProperty="Opacity" 
+                                                 To="0.5" Duration="0:0:0.3" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="recordsBorder" 
+                                                 Storyboard.TargetProperty="Opacity" 
+                                                 To="1.0" Duration="0:0:0.3" />
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+            <Image x:Name="recordsIcon" Height="59" Width="59" Source="Images/recordsgrey.png"/>
+        </Button>
 
     </Grid>
 </Window>

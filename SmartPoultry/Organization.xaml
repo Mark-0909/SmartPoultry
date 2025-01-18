@@ -56,14 +56,34 @@
                     </ScrollViewer>
                 </WrapPanel>
                 <Border BorderBrush="Black" BorderThickness="1" Height="384" Width="463">
-                    <WrapPanel HorizontalAlignment="Center" Height="361" Margin="0,9,0,0" VerticalAlignment="Top" Width="443">
-                        <Label x:Name="NameLabel" Content="name" Height="39" Width="443"/>
-                        <Label x:Name="RoleLabel" Content="Role" Height="39" Width="443"/>
-                        <ScrollViewer Height="283" Width="443">
-                            <WrapPanel x:Name="UserLogsList"  Height="283" Width="424"/>
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <WrapPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0,5,0,5">
+                            <Label x:Name="NameLabel" Content="Name" Height="30" Width="310" VerticalAlignment="Center" />
+                            <Button x:Name="BanBtn" Content="Ban" Height="30" Width="50" Click="BanBtn_Click" />
+                            <Button x:Name="ClearBtn" Content="Clear" Height="30" Width="50" Margin="5,0" Click="ClearBtn_Click" />
+                        </WrapPanel>
+
+                        <ScrollViewer Grid.Row="1" Margin="0,59,0,10" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                            <WrapPanel x:Name="UserLogsList" Width="Auto" />
                         </ScrollViewer>
-                    </WrapPanel>
+
+
+                        <WrapPanel HorizontalAlignment="Left" Margin="0,0,0,278" Grid.Row="1" Width="407">
+                            <ComboBox x:Name="RoleCBox" Height="30" Width="150" Margin="5,0" SelectionChanged="RoleCBox_SelectionChanged">
+                                <ComboBoxItem Content="admin" />
+                                <ComboBoxItem Content="employee" />
+                            </ComboBox>
+                            <Button x:Name="SaveChangesBtn" Content="Check" Height="30" Width="50" Margin="5,0" Click="SaveChangesBtn_Click" />
+                        </WrapPanel>
+                    </Grid>
                 </Border>
+
             </WrapPanel>
         </Border>
         <Button x:Name="InactiveBtn" Content="INACTIVE" HorizontalAlignment="Left" Height="60" Margin="557,59,0,0" VerticalAlignment="Top" Width="534" FontSize="20" FontWeight="Bold" BorderBrush="#FFDCEDD5" Foreground="Gray" Background="#FFDCEDD5" Click="Inactive_Clicked" Style="{StaticResource NoHoverButton}"/>

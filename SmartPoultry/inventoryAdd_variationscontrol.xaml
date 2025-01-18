@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
-             mc:Ignorable="d" Background="#FFDDDDDD" Width="58" Height="121">
+             mc:Ignorable="d" Background="#FFDDDDDD" Width="58" Height="150">
     <UserControl.Resources>
         <Style x:Key="NoHoverButton" TargetType="Button">
             <Setter Property="Background" Value="White"/>
@@ -52,7 +52,7 @@
                 BorderThickness="1" 
                 BorderBrush="#FF66C265" 
                 Background="#FFC0E4BE" 
-                Margin="0,4,0,81" 
+                Margin="0,-25,0,81" 
                 Height="36">
             <Button x:Name="nameBtn" 
                     Margin="3" 
@@ -74,7 +74,7 @@
                 BorderBrush="#FF66C265" 
                 BorderThickness="1" 
                 Background="#FFC0E4BE" 
-                Margin="0,42,0,43" 
+                Margin="0,25,0,43" 
                 Height="36">
             <Label x:Name="priceLabel" 
                    Content="Price" 
@@ -93,7 +93,7 @@
                 BorderBrush="#FF66C265" 
                 BorderThickness="1" 
                 Background="#FFC0E4BE" 
-                Margin="0,80,0,5" 
+                Margin="0,75,0,5" 
                 Height="36">
             <Label x:Name="conversionLabel" 
                    Content="conv." 

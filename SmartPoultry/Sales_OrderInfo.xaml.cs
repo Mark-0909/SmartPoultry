@@ -39,6 +39,9 @@ namespace SmartPoultry
         Add_FinancialLiabilities financeform;
         Add_Delivery deliveryForm;
 
+        List<string> provarid;
+        List<string> qtys;
+
         string openedby = "default";
         public Sales_OrderInfo(Sales sales, MainWindow window)
         {
@@ -80,6 +83,11 @@ namespace SmartPoultry
             PurchaseMethodlabel.Content = sales.purchase_method.ToString().ToUpper();
             PurchaseDatelabel.Content = sales.purchase_date.ToString();
 
+            if(sales.status == "voided")
+            {
+                VoidBtn.Visibility = Visibility.Collapsed;
+            }
+
             CashierLabel.Content = userServices.GetUser(sales.employee_incharge).Username.ToString();
 
             productServices = new ProductServices(context);
@@ -88,10 +96,10 @@ namespace SmartPoultry
             deliveryServices = new DeliveriesServices(context);
             financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
 
-            List<string> productvarids = sales.product_list.Split(',').ToList();
-            List<string> pricelist = sales.price_list.Split(',').ToList();
-            List<string> qtylist = sales.quantity_list.Split(',').ToList();
-            List<string> varlist = sales.variation_list.Split(',').ToList();
+            List<string> productvarids = sales.product_list.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+            List<string> pricelist = sales.price_list.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+            List<string> qtylist = sales.quantity_list.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+            List<string> varlist = sales.variation_list.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
             List<string> prodname = new List<string>();
             for (int i = 0; i < productvarids.Count; i++)
             {
@@ -102,6 +110,8 @@ namespace SmartPoultry
             GenerateList(productvarids, qtylist, varlist, pricelist, prodname);
 
             mainWindow = UserContext.mainWindow;
+            provarid = productvarids;
+            qtys = qtylist;
         } 
 
 
@@ -161,12 +171,11 @@ namespace SmartPoultry
                 orderBorder.Child = wrapPanel;
 
                 OrderWPanel.Children.Add(orderBorder);
-
-                if(sale.purchase_method == "to deliver")
-                {
-                    decimal charge = deliveryServices.GetByReceiptId(sale.receipt_id).charges;
-                    AddDeliveryCharge(charge);
-                }
+            }
+            if (sale.purchase_method == "to deliver")
+            {
+                decimal charge = deliveryServices.GetByReceiptId(sale.receipt_id).charges;
+                AddDeliveryCharge(charge);
             }
         }
         public void AddDeliveryCharge(decimal deliveryCharge)
@@ -220,13 +229,6 @@ namespace SmartPoultry
 
             OrderWPanel.Children.Add(orderBorder);
         }
-
-
-        private void Confirm_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void CloseWindow_Click(object sender, RoutedEventArgs e)
         {
             if(openedby == "delivery")
@@ -247,11 +249,17 @@ namespace SmartPoultry
 
         private void VoidBtn_Click(object sender, RoutedEventArgs e)
         {
-            bool isVoidedSales = salesServices.MarkAsVoided(long.Parse(OrderIdLabel.Content.ToString()));
-            bool isVoidedDeliver = deliveryServices.MarkAsVoided(long.Parse(OrderIdLabel.Content.ToString()));
-            bool isVoidedFinance = financialLiabilitiesServices.MarkAsVoided(long.Parse(OrderIdLabel.Content.ToString()));
+            MessageBoxResult isToProceed = MessageBox.Show("Are you sure you want to Void this Order?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            if(!isVoidedSales || !isVoidedDeliver || !isVoidedFinance)
+            if(isToProceed != MessageBoxResult.Yes)
+            {
+                return;
+            }
+            bool isVoidedSales = salesServices.MarkAsVoided(long.Parse(OrderIdLabel.Content.ToString()), "Mark as Void.");
+            bool isVoidedDeliver = deliveryServices.MarkAsVoided(long.Parse(OrderIdLabel.Content.ToString()), "Void Sales");
+            bool isVoidedFinance = financialLiabilitiesServices.MarkAsVoided(long.Parse(OrderIdLabel.Content.ToString()), "Mark as Void.");
+
+            if (!isVoidedSales || !isVoidedDeliver || !isVoidedFinance)
             {
                 MessageBox.Show("Void unsuccessful.");
                 return;
@@ -263,16 +271,46 @@ namespace SmartPoultry
                 financeform.ActiveOverlay(false);
                 financeform.Close();
             }
-            else
+            else if(deliveryForm != null)
             {
                 deliveryForm.ActiveOverlay(false);
                 deliveryForm.Close();
             }
 
+
+            MessageBoxResult result = MessageBox.Show(
+                "Do you want to bring the stocks back?",
+                "Confirmation",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question
+            );
+
+
+            if (result == MessageBoxResult.Yes)
+            {
+                for (int i = 0; i < provarid.Count; i++) 
+                {
+                    ProductVariations productVariation = productVariationServices.GetProductVariationById(int.Parse(provarid[i].ToString()));
+
+                    decimal toAdd = (1m / productVariation.conversion_rate) * decimal.Parse(qtys[i].ToString());
+
+                    decimal stocks = productServices.UpdateStockAfterDelivery(productVariation.product_id, toAdd);
+
+                    mainWindow.inventoryControl.UpdateStocksAfterSupplierDeliver(productVariation.product_id, stocks);
+                }
+                mainWindow.homeControl.DynamicReload();
+            }
+            mainWindow.dashboardControl.DynamicOrderDisplay();
+
             this.Close();
             mainWindow.ActiveOverlay(false);
             mainWindow.PopUpNotif("notif", "Void successful.");
         }
+
+
+
+
+
 
         private void ConfirmBtn_Click(object sender, RoutedEventArgs e)
         {

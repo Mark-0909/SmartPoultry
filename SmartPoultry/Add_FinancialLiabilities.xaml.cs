@@ -27,6 +27,7 @@ namespace SmartPoultry
         SalesServices salesServices;
         DeliveriesServices deliveriesServices;
         SupplierOrdersServices supplierOrdersServices;
+        ExpensesServices expensesServices;
         AppDbContext context = new AppDbContext();
 
         FinancialLiabilities finance;
@@ -61,6 +62,7 @@ namespace SmartPoultry
             salesServices = new SalesServices(context);
             deliveriesServices = new DeliveriesServices(context);
             supplierOrdersServices = new SupplierOrdersServices(context);
+            expensesServices = new ExpensesServices(context);
 
             if (itemrow.order_id != 0) 
             {
@@ -236,7 +238,7 @@ namespace SmartPoultry
             DateTime date = datePicker.SelectedDate.Value;
             string contacts = ContactsTextBox.Text;
 
-            bool isUpdated = financialLiabilitiesServices.EditPayment(finance.Id, name, price, type, paymode, date, contacts);
+            bool isUpdated = financialLiabilitiesServices.EditPayment(finance.Id, name, price, type, paymode, date, contacts, "");
             if (!isUpdated) 
             {
                 PopUpNotif("alert", "Update Unsuccessfull");
@@ -249,20 +251,22 @@ namespace SmartPoultry
         }
         public void MarkAsPaid()
         {
-            bool financeupdate = financialLiabilitiesServices.MarkAsPaid(finance.Id);
+            bool financeupdate = financialLiabilitiesServices.MarkAsPaid(finance.Id, "Mark as Paid");
             if (finance.order_id != 0)
             {
                 bool salesupdate = true;
                 bool deliveryupdate = true;
+                bool CreateExpense = true;
 
                 if (finance.type == "To Pay" || finance.order_id != 0)
                 {
-                    salesupdate = salesServices.MarkAsPaid(finance.order_id);
-                    deliveryupdate = deliveriesServices.MarkAsPaid(finance.order_id);
+                    salesupdate = salesServices.MarkAsPaid(finance.order_id, "Mark as Paid");
+                    deliveryupdate = deliveriesServices.MarkAsPaid(finance.order_id, "Mark as Paid");
+                    CreateExpense = expensesServices.Create(NameTextBox.Text, "BILL", "DONE", UserContext.CurrentUserId, "Payment done.", decimal.Parse(finance.amount.ToString()), int.Parse(finance.order_id.ToString()));
                 } 
                 
                 
-                if (!financeupdate || !salesupdate || !deliveryupdate)
+                if (!financeupdate || !salesupdate || !deliveryupdate || !CreateExpense)
                 {
                     PopUpNotif("alert", "Error");
                     return;

@@ -13,14 +13,20 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
-        public bool MarkAsVoided(long receiptid)
+        public bool MarkAsVoided(long receiptid, string remarks)
         {
             try
             {
+                if (receiptid == 0)
+                {
+                    return true;
+                }
+
                 var sale = _context.Sales.FirstOrDefault(p => p.receipt_id == receiptid);
                 sale.purchase_method = "voided";
                 sale.status = "voided";
                 sale.payment_mode = "voided";
+                sale.Remarks = remarks;
 
                 _context.SaveChanges();
                 return true;
@@ -31,12 +37,17 @@ namespace SmartPoultry.DataServices
                 return false;
             }
         }
-        public bool MarkAsPaid(long orderid)
+        public bool MarkAsPaid(long orderid, string remarks)
         {
             try
             {
+                if (orderid == 0 || orderid.ToString().Length != 11)
+                {
+                    return true;
+                }
                 var itemrow = _context.Sales.FirstOrDefault(p => p.receipt_id == orderid);
                 itemrow.status = "paid";
+                itemrow.Remarks = remarks;
                 _context.SaveChanges();
                 return true;
 
@@ -47,7 +58,7 @@ namespace SmartPoultry.DataServices
                 return false;
             }
         }
-        public bool UpdateDelivered(long id)
+        public bool UpdateDelivered(long id, string remarks)
         {
             try
             {
@@ -58,6 +69,7 @@ namespace SmartPoultry.DataServices
 
                 var row = _context.Sales.FirstOrDefault(x => x.receipt_id == id);
                 row.purchase_method = "delivered";
+                row.Remarks = remarks;
                 _context.SaveChanges();
 
                 return true;
@@ -142,7 +154,8 @@ namespace SmartPoultry.DataServices
                     status = status,
                     purchase_method = purchaseMethod,
                     total_price = totalPrice,
-                    employee_incharge = 1 
+                    employee_incharge = 1,
+                    Remarks = "Order Processed."
                 };
 
                 

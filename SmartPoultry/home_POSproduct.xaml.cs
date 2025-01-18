@@ -8,6 +8,7 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static SmartPoultry.App;
 
 namespace SmartPoultry
 {
@@ -21,6 +22,7 @@ namespace SmartPoultry
         public AppDbContext context = new AppDbContext();
 
         public ProductServices productServices;
+        public ProductVariationServices productVariationServices;
 
         public string prodname;
 
@@ -30,6 +32,7 @@ namespace SmartPoultry
             InitializeComponent();
 
             productServices = new ProductServices(context);
+            productVariationServices = new ProductVariationServices(context);
 
             homeControl = homecontrol;
 
@@ -169,6 +172,7 @@ namespace SmartPoultry
             }
         }
 
+
         public void AdjustStocks(decimal amount)
         {
             vartypesPanel.Children.Clear();
@@ -191,10 +195,42 @@ namespace SmartPoultry
         }
         public void AdjustStocksAfterSupplierOrder(int id)
         {
-            decimal stocks = productServices.FetchProduct(id).stocks;
+            MainWindow mainWindow = UserContext.mainWindow;
+            var product = productServices.FetchProduct(id);
 
-            StocksLabel.Content = stocks.ToString();
+            if (product == null)
+            {
+                mainWindow.PopUpNotif("alert", $"Product with ID {id} not found.");
+                return;
+            }
 
+            List<ProductVariations> productVariations = productVariationServices.GetAllProductVariations(id);
+
+            if (productVariations == null || !productVariations.Any())
+            {
+                mainWindow.PopUpNotif("alert", $"No variations found for Product ID: {id}");
+                return;
+            }
+
+            UpdateStocksLabel(product.stocks);
+
+            Initialize(productVariations, product.stocks);
+            MessageBox.Show($"{product.product_name} was fetched.");
         }
+
+        private void UpdateStocksLabel(decimal stocks)
+        {
+            if (StocksLabel.Dispatcher.CheckAccess())
+            {
+                StocksLabel.Content = stocks.ToString();
+            }
+            else
+            {
+                StocksLabel.Dispatcher.Invoke(() => StocksLabel.Content = stocks.ToString());
+            }
+        }
+
+
+
     }
 }
