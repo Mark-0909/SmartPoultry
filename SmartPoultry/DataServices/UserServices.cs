@@ -19,6 +19,21 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+        public bool UpdateRole(int id, string role)
+        {
+            try
+            {
+                var user = _context.Users.FirstOrDefault(x => x.Id == id);
+                user.Role = role;
+                _context.SaveChanges();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         public bool UpdateStatusUser(int id, string status)
         {
             try

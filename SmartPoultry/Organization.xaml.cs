@@ -39,11 +39,22 @@ namespace SmartPoultry
             userServices = new UserServices(context);
             logServices = new UserLogsServices(context);
             GetUserList("active");
+
+            Clear(false);
+            SaveChangesBtn.Visibility = Visibility.Hidden;
         }
         public void ViewUser(User user)
         {
+            Clear(true);
             NameLabel.Content = user.Username;
-            RoleCBox.SelectedValue = user.Role;
+            if(user.Role == "admin")
+            {
+                RoleCBox.SelectedIndex = 0;
+            }
+            else
+            {
+                RoleCBox.SelectedIndex = 1;
+            }
 
             SelectedID = user.Id;
             Role = user.Role;
@@ -73,6 +84,30 @@ namespace SmartPoultry
                 }
             }
             SaveChangesBtn.Visibility = Visibility.Hidden;
+        }
+        public void Clear(bool isVisible)
+        {
+            if (isVisible)
+            {
+                NameLabel.Visibility = Visibility.Visible;
+                BanBtn.Visibility = Visibility.Visible;
+                RoleCBox.Visibility = Visibility.Visible;
+                ClearBtn.Visibility = Visibility.Visible;
+                
+                
+            } else 
+            {
+                NameLabel.Visibility = Visibility.Hidden;
+                BanBtn.Visibility = Visibility.Hidden;
+                RoleCBox.Visibility = Visibility.Hidden;
+                ClearBtn.Visibility = Visibility.Hidden;
+                SaveChangesBtn.Visibility = Visibility.Hidden;
+                if (UserLogsList.Children.Count != 0)
+                {
+                    UserLogsList.Children.Clear();
+                }
+                
+            }
         }
         public void GetUserList(string status)
         {
@@ -111,12 +146,14 @@ namespace SmartPoultry
         {
             HandleButtonDesign(ActiveBtn);
             GetUserList("active");
+            Clear(false);
         }
 
         private void Inactive_Clicked(object sender, RoutedEventArgs e)
         {
             HandleButtonDesign(InactiveBtn);
             GetUserList("inactive");
+            Clear(false);
         }
 
         public void HandleButtonDesign(Button button)
@@ -213,13 +250,46 @@ namespace SmartPoultry
 
         private void RoleCBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(RoleCBox.Text != Role)
+            var selectedItem = RoleCBox.SelectedItem as ComboBoxItem;
+
+            if (selectedItem != null && selectedItem.Content.ToString().Equals(Role, StringComparison.OrdinalIgnoreCase))
+            {
+                SaveChangesBtn.Visibility = Visibility.Hidden;
+            }
+            else
             {
                 SaveChangesBtn.Visibility = Visibility.Visible;
+            }
+        }
+
+
+
+        private void ClearBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Clear(false);
+        }
+
+        private void SaveChangesBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedItem = RoleCBox.SelectedItem as ComboBoxItem;
+            string selectedRole = selectedItem?.Content.ToString();
+
+            if (string.IsNullOrEmpty(selectedRole))
+            {
+                mainWindow.PopUpNotif("alert", "No role selected.");
                 return;
             }
-            SaveChangesBtn.Visibility = Visibility.Hidden;
-            
+
+            bool isUpdated = userServices.UpdateRole(SelectedID, selectedRole);
+
+            if (!isUpdated)
+            {
+                mainWindow.PopUpNotif("alert", "Role update unsuccessful.");
+                return;
+            }
+
+            mainWindow.PopUpNotif("notif", "Role updated successfully.");
         }
+
     }
 }
