@@ -31,6 +31,9 @@ namespace SmartPoultry
         public int SelectedID;
         public string Role;
         public string Status;
+        public string ListType = "active";
+
+        User SelectedUser;
 
         MainWindow mainWindow;
         public Organization()
@@ -40,8 +43,13 @@ namespace SmartPoultry
             logServices = new UserLogsServices(context);
             GetUserList("active");
 
-            Clear(false);
+            NameLabel.Visibility = Visibility.Hidden;
+            BanBtn.Visibility = Visibility.Hidden;
+            RoleCBox.Visibility = Visibility.Hidden;
+            ClearBtn.Visibility = Visibility.Hidden;
             SaveChangesBtn.Visibility = Visibility.Hidden;
+
+
         }
         public void ViewUser(User user)
         {
@@ -85,30 +93,29 @@ namespace SmartPoultry
             }
             SaveChangesBtn.Visibility = Visibility.Hidden;
         }
+
         public void Clear(bool isVisible)
         {
-            if (isVisible)
+            User currentUser = userServices.GetUser(UserContext.CurrentUserId);
+            bool isSuperAdmin = currentUser.Id == 1;
+
+            BanBtn.Visibility = isSuperAdmin && isVisible ? Visibility.Visible : Visibility.Collapsed;
+            SaveChangesBtn.Visibility = isVisible ? Visibility.Hidden : Visibility.Collapsed;
+
+            NameLabel.Visibility = isVisible ? Visibility.Visible : Visibility.Hidden;
+            RoleCBox.Visibility = isVisible ? Visibility.Visible : Visibility.Hidden;
+            ClearBtn.Visibility = isVisible ? Visibility.Visible : Visibility.Hidden;
+
+            if (!isVisible && UserLogsList.Children.Count > 0)
             {
-                NameLabel.Visibility = Visibility.Visible;
-                BanBtn.Visibility = Visibility.Visible;
-                RoleCBox.Visibility = Visibility.Visible;
-                ClearBtn.Visibility = Visibility.Visible;
-                
-                
-            } else 
-            {
-                NameLabel.Visibility = Visibility.Hidden;
-                BanBtn.Visibility = Visibility.Hidden;
-                RoleCBox.Visibility = Visibility.Hidden;
-                ClearBtn.Visibility = Visibility.Hidden;
-                SaveChangesBtn.Visibility = Visibility.Hidden;
-                if (UserLogsList.Children.Count != 0)
-                {
-                    UserLogsList.Children.Clear();
-                }
-                
+                UserLogsList.Children.Clear();
             }
+
+            RoleCBox.IsEnabled = isSuperAdmin && ListType != "inactive";
         }
+
+
+
         public void GetUserList(string status)
         {
             if(UserPanel.Children.Count > 0)
@@ -146,6 +153,7 @@ namespace SmartPoultry
         {
             HandleButtonDesign(ActiveBtn);
             GetUserList("active");
+            ListType = "active";
             Clear(false);
         }
 
@@ -153,6 +161,7 @@ namespace SmartPoultry
         {
             HandleButtonDesign(InactiveBtn);
             GetUserList("inactive");
+            ListType = "inactive";
             Clear(false);
         }
 
