@@ -20,6 +20,7 @@ namespace SmartPoultry
         FinancialLiabilitiesServices financialLiabilitiesServices;
         SupplierOrdersServices supplierOrdersServices;
         ProductServices productServices;
+        ExpensesServices expensesServices;
         public AppDbContext context = new AppDbContext();
 
         Deliveries deliveries;
@@ -44,6 +45,7 @@ namespace SmartPoultry
             salesServices = new SalesServices(context);
             productServices = new ProductServices(context);
             financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
+            expensesServices = new ExpensesServices(context);
             
             EditBtn.Visibility = Visibility.Hidden;
             CancelBtn.Visibility = Visibility.Hidden;
@@ -61,7 +63,8 @@ namespace SmartPoultry
             financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
             supplierOrdersServices = new SupplierOrdersServices(context);
             productServices = new ProductServices(context);
-            
+            expensesServices = new ExpensesServices(context);
+
             deliveries = itemrow;
 
             NameTextBox.Text = itemrow.name;
@@ -201,7 +204,8 @@ namespace SmartPoultry
 
         public void MarkAsDelivered()
         {
-            if (DeliveryManTextBox.Text == DeliveryManTextBox.Tag.ToString())
+            if (string.IsNullOrWhiteSpace(DeliveryManTextBox.Text) ||
+                DeliveryManTextBox.Text == DeliveryManTextBox.Tag?.ToString())
             {
                 PopUpNotif("alert", "Add Delivery Man");
                 return;
@@ -209,87 +213,105 @@ namespace SmartPoultry
 
             if (deliveries.payment_status == "pending")
             {
-                if (string.IsNullOrWhiteSpace(PriceTextBox.Text) || PriceTextBox.Text == PriceTextBox.Tag.ToString() || PriceTextBox.Text == "0.00")
+                if (string.IsNullOrWhiteSpace(PriceTextBox.Text) ||
+                    PriceTextBox.Text == PriceTextBox.Tag?.ToString() ||
+                    PriceTextBox.Text == "0.00")
                 {
                     PopUpNotif("alert", "Fill up the price.");
                     return;
                 }
-                if(status == "unpaid")
+
+                if (status == "unpaid")
                 {
                     bool isCreated = financialLiabilitiesServices.Create(
                         NameTextBox.Text,
-                        long.Parse(deliveries.order_id.ToString()),
-                        decimal.Parse(PriceTextBox.Text),
+                        deliveries.order_id,
+                        decimal.TryParse(PriceTextBox.Text, out var price) ? price : 0,
                         "To Pay",
                         "Cash",
-                        datePicker.SelectedDate.Value,
+                        datePicker.SelectedDate ?? DateTime.Now,
                         ContactsTextBox.Text
                     );
 
-                    if (!isCreated) 
+                    if (!isCreated)
                     {
                         PopUpNotif("alert", "Finance add unsuccessful");
                         return;
                     }
                 }
             }
-            
 
+            bool updatedDelivery = deliveriesServices.UpdateDelivered(deliveries.Id, DeliveryManTextBox.Text);
+            bool updateSale = deliveries.type != "To Deliver" || salesServices.UpdateDelivered(deliveries.order_id);
 
-            bool updatedelivery = deliveriesServices.UpdateDelivered(deliveries.Id, DeliveryManTextBox.Text);
-
-            bool updateSale = true;
-            if (deliveries.type == "To Deliver")
-            {
-                updateSale = salesServices.UpdateDelivered(deliveries.order_id);
-            }
-            
-            if (!updatedelivery || !updateSale) 
+            if (!updatedDelivery || !updateSale)
             {
                 PopUpNotif("alert", "Unsuccessful.");
                 return;
             }
 
-            if(deliveries.order_id != 0 && deliveries.payment_status == "unpaid")
+            if (deliveries.order_id != 0 && deliveries.payment_status == "unpaid")
             {
                 FinancialLiabilities finance = financialLiabilitiesServices.GetByReceipt(deliveries.order_id);
+                if (finance != null)
+                {
+                    var payment = new Add_FinancialLiabilities(finance, mainWindow);
+                    payment.Show();
+                }
 
-                Add_FinancialLiabilities payment = new Add_FinancialLiabilities(finance, mainWindow);
-                payment.Show();
                 this.Close();
                 mainWindow.ScheduleUpdateReload();
                 return;
             }
-            string SupplierOrderId = deliveries.order_id.ToString();
-            SupplierOrders order = supplierOrdersServices.GetById(int.Parse(SupplierOrderId));
 
-            List<string> ids = order.productList.Split(",").ToList();
-            List<string> qty = order.orderQty.Split(",").ToList();
+            if (!long.TryParse(deliveries.order_id.ToString(), out var orderId))
+            {
+                PopUpNotif("alert", "Invalid Order ID.");
+                return;
+            }
+
+            SupplierOrders order = supplierOrdersServices.GetById(int.Parse(orderId.ToString()));
+            if (order == null)
+            {
+                PopUpNotif("alert", "Order not found.");
+                return;
+            }
+
+            List<string> ids = order.productList.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList();
+            List<string> qty = order.orderQty.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList();
 
             for (int i = 0; i < ids.Count; i++)
             {
-                int productId = int.Parse(ids[i]);
-                decimal quantity = decimal.Parse(qty[i]);
-
-                decimal newStock = productServices.UpdateStockAfterDelivery(productId, quantity);
-
-                if (newStock == -1) 
+                if (!int.TryParse(ids[i], out var productId) ||
+                    !decimal.TryParse(qty[i], out var quantity))
                 {
-                    PopUpNotif("alert", "Product Stock update unsuccessful.");
+                    PopUpNotif("alert", $"Invalid product or quantity for ID: {ids[i]}.");
                     continue;
                 }
 
-                mainWindow.inventoryControl.UpdateStocksAfterSupplierDeliver(productId, newStock);
-                mainWindow.homeControl.UpdateStocksAfterSupplierDeliver(productId, newStock);
+                decimal newStock = productServices.UpdateStockAfterDelivery(productId, quantity);
+
+                if (newStock == -1)
+                {
+                    PopUpNotif("alert", $"Stock update failed for Product ID: {productId}");
+                    continue;
+                }
+
+                UpdateStocksInUI(productId, newStock);
             }
-
-
 
             this.Close();
             mainWindow.ActiveOverlay(false);
             mainWindow.ScheduleUpdateReload();
             mainWindow.PopUpNotif("notif", "Order Delivered!");
         }
+
+        private void UpdateStocksInUI(int productId, decimal newStock)
+        {
+            mainWindow.inventoryControl.UpdateStocksAfterSupplierDeliver(productId, newStock);
+            mainWindow.homeControl.DynamicReload();
+        }
+
         public void EditDelivery()
         {
             string name = NameTextBox.Text;

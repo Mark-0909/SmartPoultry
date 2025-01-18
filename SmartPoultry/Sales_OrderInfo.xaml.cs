@@ -88,10 +88,10 @@ namespace SmartPoultry
             deliveryServices = new DeliveriesServices(context);
             financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
 
-            List<string> productvarids = sales.product_list.Split(',').ToList();
-            List<string> pricelist = sales.price_list.Split(',').ToList();
-            List<string> qtylist = sales.quantity_list.Split(',').ToList();
-            List<string> varlist = sales.variation_list.Split(',').ToList();
+            List<string> productvarids = sales.product_list.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+            List<string> pricelist = sales.price_list.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+            List<string> qtylist = sales.quantity_list.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
+            List<string> varlist = sales.variation_list.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
             List<string> prodname = new List<string>();
             for (int i = 0; i < productvarids.Count; i++)
             {
@@ -161,12 +161,11 @@ namespace SmartPoultry
                 orderBorder.Child = wrapPanel;
 
                 OrderWPanel.Children.Add(orderBorder);
-
-                if(sale.purchase_method == "to deliver")
-                {
-                    decimal charge = deliveryServices.GetByReceiptId(sale.receipt_id).charges;
-                    AddDeliveryCharge(charge);
-                }
+            }
+            if (sale.purchase_method == "to deliver")
+            {
+                decimal charge = deliveryServices.GetByReceiptId(sale.receipt_id).charges;
+                AddDeliveryCharge(charge);
             }
         }
         public void AddDeliveryCharge(decimal deliveryCharge)

@@ -17,6 +17,11 @@ namespace SmartPoultry.DataServices
         {
             try
             {
+                if (receiptid == 0)
+                {
+                    return true;
+                }
+
                 var sale = _context.Sales.FirstOrDefault(p => p.receipt_id == receiptid);
                 sale.purchase_method = "voided";
                 sale.status = "voided";
@@ -35,6 +40,10 @@ namespace SmartPoultry.DataServices
         {
             try
             {
+                if (orderid == 0 || orderid.ToString().Length != 11)
+                {
+                    return true;
+                }
                 var itemrow = _context.Sales.FirstOrDefault(p => p.receipt_id == orderid);
                 itemrow.status = "paid";
                 _context.SaveChanges();

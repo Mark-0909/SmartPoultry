@@ -114,7 +114,7 @@ namespace SmartPoultry
                 Border orderBorder = new Border
                 {
                     BorderBrush = Brushes.Transparent,
-                    BorderThickness = new Thickness(1),
+                    BorderThickness = new Thickness(0, 0, 0, 1),
                     Height = 35,
                     Width = 255
                 };
@@ -128,7 +128,9 @@ namespace SmartPoultry
                     Width = 126,
                     HorizontalContentAlignment = HorizontalAlignment.Center,
                     VerticalContentAlignment = VerticalAlignment.Center,
-                    Background = Brushes.Transparent
+                    Background = Brushes.Transparent,
+                    BorderThickness = new Thickness (0, 0, 0, 1)
+                    
                 };
 
                 Label qtyLabel = new Label
@@ -138,7 +140,8 @@ namespace SmartPoultry
                     Width = 43,
                     HorizontalContentAlignment = HorizontalAlignment.Center,
                     VerticalContentAlignment = VerticalAlignment.Center,
-                    Background = Brushes.Transparent
+                    Background = Brushes.Transparent,
+                    BorderThickness = new Thickness(0, 0, 0, 1)
                 };
 
                 string formattedPrice = decimal.TryParse(priceList[i], out decimal price)
@@ -152,7 +155,8 @@ namespace SmartPoultry
                     Width = 83,
                     HorizontalContentAlignment = HorizontalAlignment.Right,
                     VerticalContentAlignment = VerticalAlignment.Center,
-                    Background = Brushes.Transparent
+                    Background = Brushes.Transparent,
+                    BorderThickness = new Thickness(0, 0, 0, 1)
                 };
                 wrapPanel.Children.Add(itemNameLabel);
                 wrapPanel.Children.Add(qtyLabel);

@@ -301,7 +301,7 @@
 
 
         <Label Content="Supplier:" HorizontalAlignment="Left" Margin="225,147,0,0" VerticalAlignment="Top" FontSize="20"/>
-        <Label Content="Variations: " HorizontalAlignment="Left" Margin="17,467,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label Content="Variations: " HorizontalAlignment="Left" Margin="17,456,0,0" VerticalAlignment="Top" FontSize="15"/>
         <Border CornerRadius="10                 " BorderBrush="#FFDDDDDD" BorderThickness="1" Margin="225,96,20,555" Background="White">
             <TextBox x:Name="ProductNameTextBox" GotFocus="ProductName_GotFocus" LostFocus="ProductName_LostFocus" 
          HorizontalAlignment="Center" TextWrapping="Wrap" 
@@ -327,8 +327,8 @@
             BorderThickness="1" BorderBrush="#FF077C5E" Background="#FF077C5E">
             <Button x:Name="SubmitBtn" Content="Submit" Margin="9,-1,26,-1" Click="Submit_Click" Background="#FF077C5E" Foreground="White" FontWeight="Bold" FontSize="20" BorderThickness="0" Style="{StaticResource NoHoverButton}"/>
         </Border>
-        <Label Content="Prices: " HorizontalAlignment="Left" Margin="17,518,0,0" VerticalAlignment="Top" FontSize="15"/>
-        <Label Content="Conversion: " HorizontalAlignment="Left" Margin="17,565,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label Content="Prices: " HorizontalAlignment="Left" Margin="17,500,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label Content="Conversion: " HorizontalAlignment="Left" Margin="17,547,0,0" VerticalAlignment="Top" FontSize="15"/>
         <WrapPanel x:Name="unitsWPanel" Margin="119,450,124,76" Orientation="Horizontal">
             <Border x:Name="addUnitBtn" 
             CornerRadius="10" 
@@ -342,12 +342,12 @@
                 Click="AddUnitPopup_Click" 
                 BorderBrush="#FFC0E4BE" 
                 Background="#FFC0E4BE" 
-                Style="{StaticResource NoHoverButton}">
-                    <Image Height="24" Width="30" Source="/Images/addbaseunit.png"/>
+                Style="{StaticResource NoHoverButton}" RenderTransformOrigin="0.527,1.208">
+                    <Image Height="24" Width="30" Source="/Images/addbaseunit.png" RenderTransformOrigin="0.448,1.86"/>
                 </Button>
             </Border>
         </WrapPanel>
-        <Label Content="Stocks: " HorizontalAlignment="Left" Margin="23,621,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label Content="Stocks: " HorizontalAlignment="Left" Margin="23,621,0,0" VerticalAlignment="Top" FontSize="15" RenderTransformOrigin="0.482,-0.021"/>
         <Label x:Name="stocklisting" Content="stocks " HorizontalAlignment="Left" Margin="113,621,0,0" VerticalAlignment="Top" FontSize="15"/>
         <Label x:Name="stockunit" Content="stocks " HorizontalAlignment="Left" Margin="203,621,0,0" VerticalAlignment="Top" FontSize="15"/>
         <Button x:Name="editBtn"  Content="edit" HorizontalAlignment="Left" Height="30" Margin="448,622,0,0" VerticalAlignment="Top" Width="66" Click="EditBtn_Click"/>
