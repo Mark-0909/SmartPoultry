@@ -83,6 +83,11 @@ namespace SmartPoultry
             PurchaseMethodlabel.Content = sales.purchase_method.ToString().ToUpper();
             PurchaseDatelabel.Content = sales.purchase_date.ToString();
 
+            if(sales.status == "voided")
+            {
+                VoidBtn.Visibility = Visibility.Collapsed;
+            }
+
             CashierLabel.Content = userServices.GetUser(sales.employee_incharge).Username.ToString();
 
             productServices = new ProductServices(context);
@@ -244,6 +249,12 @@ namespace SmartPoultry
 
         private void VoidBtn_Click(object sender, RoutedEventArgs e)
         {
+            MessageBoxResult isToProceed = MessageBox.Show("Are you sure you want to Void this Order?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if(isToProceed != MessageBoxResult.Yes)
+            {
+                return;
+            }
             bool isVoidedSales = salesServices.MarkAsVoided(long.Parse(OrderIdLabel.Content.ToString()));
             bool isVoidedDeliver = deliveryServices.MarkAsVoided(long.Parse(OrderIdLabel.Content.ToString()));
             bool isVoidedFinance = financialLiabilitiesServices.MarkAsVoided(long.Parse(OrderIdLabel.Content.ToString()));
@@ -273,6 +284,7 @@ namespace SmartPoultry
                 MessageBoxButton.YesNo,
                 MessageBoxImage.Question
             );
+
 
             if (result == MessageBoxResult.Yes)
             {

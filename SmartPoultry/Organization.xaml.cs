@@ -27,6 +27,12 @@ namespace SmartPoultry
         public AppDbContext context = new AppDbContext();
         public UserServices userServices;
         public UserLogsServices logServices;
+
+        public int SelectedID;
+        public string Role;
+        public string Status;
+
+        MainWindow mainWindow;
         public Organization()
         {
             InitializeComponent();
@@ -37,7 +43,13 @@ namespace SmartPoultry
         public void ViewUser(User user)
         {
             NameLabel.Content = user.Username;
-            RoleLabel.Content = user.Role;
+            RoleCBox.SelectedValue = user.Role;
+
+            SelectedID = user.Id;
+            Role = user.Role;
+            Status = user.Status;
+
+            mainWindow = UserContext.mainWindow;
 
             if(UserLogsList.Children.Count > 0)
             {
@@ -60,6 +72,7 @@ namespace SmartPoultry
                     evenodd = 0;
                 }
             }
+            SaveChangesBtn.Visibility = Visibility.Hidden;
         }
         public void GetUserList(string status)
         {
@@ -147,6 +160,66 @@ namespace SmartPoultry
                 InactiveBtn.BorderBrush = inactivecolor;
             }
         }
-        
+
+        private void BanBtn_Click(object sender, RoutedEventArgs e)
+        {
+            
+            if (Status == "active") 
+            {
+                MessageBoxResult result = MessageBox.Show(
+                "Are you sure you want to Ban this User?",
+                "Confirmation",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question
+            );
+                if (result == MessageBoxResult.No)
+                {
+                    return;
+                }
+
+                bool isUpdated = userServices.UpdateStatusUser(SelectedID, "ban");
+                if (!isUpdated)
+                {
+                    mainWindow.PopUpNotif("alert", "Ban unsuccessful.");
+                    return;
+                }
+                mainWindow.PopUpNotif("notif", "Ban successfully.");
+            }
+            else
+            {
+                MessageBoxResult result = MessageBox.Show(
+                "Are you sure you want to Unban this User?",
+                "Confirmation",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question
+            );
+                if (result == MessageBoxResult.No)
+                {
+                    return;
+                }
+
+                bool isUpdated = userServices.UpdateStatusUser(SelectedID, "unban");
+                if (!isUpdated)
+                {
+                    mainWindow.PopUpNotif("alert", "Unban unsuccessful.");
+                    return;
+                }
+                mainWindow.PopUpNotif("notif", "Unban successfully.");
+            }
+            UserPanel.Children.Clear();
+            GetUserList(Status);
+
+        }
+
+        private void RoleCBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(RoleCBox.Text != Role)
+            {
+                SaveChangesBtn.Visibility = Visibility.Visible;
+                return;
+            }
+            SaveChangesBtn.Visibility = Visibility.Hidden;
+            
+        }
     }
 }
