@@ -17,6 +17,9 @@ using SmartPoultry.DataAccess;
 using SmartPoultry.DataServices;
 using SmartPoultry.Models;
 using static SmartPoultry.App;
+using LiveCharts;
+using LiveCharts.Wpf;
+using System.Linq;
 
 namespace SmartPoultry
 {
@@ -30,11 +33,12 @@ namespace SmartPoultry
         readonly DeliveriesServices deliveryServices;
         readonly ProductServices productServices;
         Add_FinancialLiabilities add_FinancialLiabilities;
+        ExpensesServices expensesServices;
         Add_Delivery Add_Delivery;
 
         MainWindow mainWindow;
-        
 
+        
         public dashboard()
         {
             InitializeComponent();
@@ -46,6 +50,7 @@ namespace SmartPoultry
             financialLiabilities = new FinancialLiabilitiesServices(context);
             deliveryServices = new DeliveriesServices(context);
             productServices = new ProductServices(context);
+            expensesServices = new ExpensesServices(context);
 
             
             DisplaySales();
@@ -71,9 +76,77 @@ namespace SmartPoultry
             {
                 DisplayDeliveries(DeliveryCBox.Text);
             }
+            GenerateRevenueAndCostComboChart();
         }
 
-        
+        public ChartValues<decimal> RevenueValues { get; set; }
+        public ChartValues<decimal> ExpenseValues { get; set; }
+        public List<string> DateLabels { get; set; }
+
+        public void GenerateRevenueAndCostComboChart()
+        {
+            GrowthAndTrendsAnalysis.Series.Clear();
+
+            List<Sales> sales = salesServices.GetSalesList();
+            List<Expenses> expenses = expensesServices.GetTodaysExpenses();
+
+            DateTime today = DateTime.Now.Date; 
+
+
+            decimal totalSales = sales
+                .Where(s => s.status == "paid")
+                .Sum(s => s.total_price);
+
+            decimal totalExpenses = expenses
+                .Where(e => e.Added_Date.Date == today)
+                .Sum(e => e.price);
+
+            GrowthAndTrendsAnalysis.Series = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "Revenue",
+                    Values = new ChartValues<decimal> { totalSales },
+                    Fill = Brushes.SteelBlue, 
+                },
+
+               
+                new ColumnSeries
+                {
+                    Title = "Cost",
+                    Values = new ChartValues<decimal> { totalExpenses },
+                    Fill = Brushes.Tomato, 
+                }
+            };
+
+            // Set axis labels
+            GrowthAndTrendsAnalysis.AxisX.Clear();
+            GrowthAndTrendsAnalysis.AxisX.Add(new Axis
+            {
+                Labels = new[] { "Today" }, 
+                Separator = new LiveCharts.Wpf.Separator { Step = 1 }
+            });
+
+            GrowthAndTrendsAnalysis.AxisY.Clear();
+            GrowthAndTrendsAnalysis.AxisY.Add(new Axis
+            {
+                Title = "Amount",
+                LabelFormatter = value => $"₱{value:N2}" 
+            });
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         private void FinancialCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

@@ -16,6 +16,24 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+        public List<Expenses> GetTodaysExpenses()
+        {
+            try
+            {
+                DateTime today = DateTime.Now.Date;
+
+                List<Expenses> expenses = _context.Expenses
+                    .Where(p => p.Added_Date.Date == today) 
+                    .ToList();
+
+                return expenses;
+            }
+            catch (Exception ex)
+            {
+                return new List<Expenses>();
+            }
+        }
+
         public bool Create(string name, string category, string status, int employee, string remarks, decimal price, int orderid)
         {
             try
