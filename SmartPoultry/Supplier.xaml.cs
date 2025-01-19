@@ -47,7 +47,7 @@ namespace SmartPoultry
             Address.Clear();
         }
 
-        private void RetrieveSupplierList()
+        public void RetrieveSupplierList()
         {
             List<SupplierList> supplierLists = _supplierServices.ListSuppliers();
 
@@ -62,7 +62,7 @@ namespace SmartPoultry
             }
         }
 
-        private void Supplier_SupplierControl_SupplierClicked(SupplierList supplier)
+        public void Supplier_SupplierControl_SupplierClicked(SupplierList supplier)
         {
             SupplierName.Text = supplier.Name;
             ContactPerson.Text = supplier.Contact_Person;

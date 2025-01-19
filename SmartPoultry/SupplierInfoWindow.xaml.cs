@@ -2,21 +2,26 @@
 using System.Linq;
 using System.Windows;
 using SmartPoultry.DataAccess;
+using SmartPoultry.DataServices;
 using SmartPoultry.Models;
+using static SmartPoultry.App;
 
 namespace SmartPoultry
 {
     public partial class SupplierInfoWindow : Window
     {
         private readonly AppDbContext _context;
+
+        SupplierServices supplierServices;
         public SupplierList Supplier { get; private set; }
         public bool IsUpdated { get; private set; }
-
+        MainWindow mainWindow = UserContext.mainWindow;
         public SupplierInfoWindow(SupplierList supplier)
         {
             InitializeComponent();
             _context = new AppDbContext();
             Supplier = supplier;
+            supplierServices = new SupplierServices(_context);
 
             // Populate fields with the supplier's existing data
             SupplierName.Text = supplier.Name;
@@ -28,30 +33,36 @@ namespace SmartPoultry
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            // Update supplier details
-            var existingSupplier = _context.SupplierLists.FirstOrDefault(s => s.Id == Supplier.Id);
-            if (existingSupplier != null)
+            bool isUpdated = supplierServices.UpdateSupplier(Supplier.Id, SupplierName.Text, ContactPerson.Text, Phone.Text, Address.Text, Email.Text);
+            if (!isUpdated)
             {
-                existingSupplier.Name = SupplierName.Text;
-                existingSupplier.Contact_Person = ContactPerson.Text;
-                existingSupplier.Contact = Phone.Text;
-                existingSupplier.Email = Email.Text;
-                existingSupplier.Location = Address.Text;
+                MessageBox.Show("Suuplier not updated!");
+                return;
+            }
+            MessageBox.Show("Suuplier updated!");
+            DynamicUpdate();
+        }
+        public void DynamicUpdate()
+        {
+            mainWindow.supplierControl.SupplierListPanel.Children.Clear();
+            List<SupplierList> suppliers = supplierServices.ListSuppliers();
 
-                try
-                {
-                    _context.SaveChanges();
-                    MessageBox.Show("Supplier details updated successfully.");
-                    IsUpdated = true; // Indicate changes were made
-                    this.Close();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Error updating supplier: {ex.Message}");
-                }
+            for (int i = 0; i < suppliers.Count; i++)
+            {
+                var control = new Supplier_SupplierControl(suppliers[i]);
+                mainWindow.supplierControl.SupplierListPanel.Children.Add(control);
+
+                control.SupplierClicked += Supplier_SupplierControl_SupplierClicked;
             }
         }
-
+        public void Supplier_SupplierControl_SupplierClicked(SupplierList supplier)
+        {
+            SupplierName.Text = supplier.Name;
+            ContactPerson.Text = supplier.Contact_Person;
+            Phone.Text = supplier.Contact;
+            Email.Text = supplier.Email;
+            Address.Text = supplier.Location;
+        }
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             // Confirm before deleting
@@ -80,5 +91,7 @@ namespace SmartPoultry
         {
             this.Close();
         }
+
+        
     }
 }
