@@ -142,5 +142,9 @@ namespace SmartPoultry
                 popup.ShowDialog();
             }
         }
+        public void DisableRemoveBtn() 
+        {
+            RemoveBorder.Visibility = Visibility.Collapsed;
+        }
     }
 }

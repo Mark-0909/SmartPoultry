@@ -52,6 +52,7 @@ namespace SmartPoultry
         public InventoryLogsServices InventoryLogsServices;
 
         string Agenda = "Add";
+        public bool isForEdit = false;
 
         Products prod;
         public Inventory_AddingForm()
@@ -152,6 +153,8 @@ namespace SmartPoultry
             AdjustTypeButtons();
             DisableForm(false);
             NotifPopup.Visibility = Visibility.Hidden;
+            addUnitBtn.Visibility = Visibility.Hidden;
+            isForEdit = true;
         }
         public void PopUpNotif(string type, string message)
         {
@@ -336,6 +339,7 @@ namespace SmartPoultry
                 }
 
                 inventoryAdd_variationscontrol? control = new inventoryAdd_variationscontrol(unitlist[i], pricelist[i], conversionlist[i], type, stocklisting.Content.ToString(), unitlist[0], i, this);
+                control.DisableRemoveBtn();
 
                 unitsWPanel.Children.Add(control);
 
@@ -439,6 +443,10 @@ namespace SmartPoultry
                     unitlist[i], pricelist[i], conversionlist[i], type, stockupdate, unitlist[0], i, this);
 
                 unitsWPanel.Children.Add(control);
+                if (isForEdit) 
+                {
+                    control.DisableRemoveBtn();
+                }
             }
 
             unitsWPanel.Children.Add(addUnitBtn);

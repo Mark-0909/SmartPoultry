@@ -29,6 +29,7 @@ namespace SmartPoultry
         {
             InitializeComponent();
             userLogsServices = new UserLogsServices(context);
+            FetchUserLogs();
         }
 
         public void FetchUserLogs()

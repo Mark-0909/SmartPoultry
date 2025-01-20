@@ -216,6 +216,7 @@ namespace SmartPoultry.DataServices
         {
             try
             {
+                _context.ChangeTracker.Clear();
                 var product = _context.Products.FirstOrDefault(p => p.product_id == id);
 
                 if (product == null)

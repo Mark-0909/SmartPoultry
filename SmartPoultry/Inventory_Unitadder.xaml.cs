@@ -36,6 +36,8 @@ namespace SmartPoultry
         public static String? baseunit;
         public static int positionlist;
 
+        public bool IsforProductEdit = false;
+
 
         public static inventoryAdd_variationscontrol? unitcontrol;
 
@@ -60,6 +62,17 @@ namespace SmartPoultry
             InitializeUnitAdder(mode, action, name, price, conversion, baseUnitvalue, stocks, control, position, form);
             NotifPopup.Visibility = Visibility.Hidden;
 
+        }
+
+
+        public Inventory_Unitadder(String mode, String baseUnitValue, String action, int position, Inventory_AddingForm form, bool isForProductEdit)
+        {
+            InitializeComponent();
+            SetRoundedCorners();
+
+            InitializeUnitAdder(mode, action, null, null, null, baseUnitValue, null, null, position, form);
+            NotifPopup.Visibility = Visibility.Hidden;
+            IsforProductEdit = isForProductEdit;
         }
 
         public void PopUpNotif(string type, string message)
@@ -231,6 +244,7 @@ namespace SmartPoultry
             this.Close();
             inventoryAddForm.stockunit.Content = UnitCB.Text;
             inventoryAddForm.ActiveOverlay(false);
+            
         }
 
         public void UpdateConversionForAllUserControls()

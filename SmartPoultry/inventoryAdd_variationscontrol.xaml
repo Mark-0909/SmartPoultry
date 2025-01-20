@@ -106,7 +106,7 @@
         </Border>
 
         <!-- Remove Button -->
-        <Border CornerRadius="100" 
+        <Border x:Name="RemoveBorder" CornerRadius="100" 
                 BorderBrush="#FFEC7373" 
                 BorderThickness="1" 
                 HorizontalAlignment="Right" 
