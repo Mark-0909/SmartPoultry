@@ -294,7 +294,7 @@ namespace SmartPoultry
                 UserServices userServices = new UserServices(context);
                 DeliveriesServices deliveriesServices = new DeliveriesServices(context);
 
-                
+
 
                 int employeeId = UserContext.CurrentUserId;
                 string employeename = userServices.GetUser(employeeId).Username;
@@ -314,7 +314,7 @@ namespace SmartPoultry
                 List<string> originalprice = new List<string>();
                 List<string> totalPrices = new List<string>();
 
-                float heightcalculation = 75 + (3 * itemid.Count);
+                float heightcalculation = 75 + (6 * itemid.Count);
 
                 using (MemoryStream memoryStream = new MemoryStream())
                 {
@@ -327,7 +327,8 @@ namespace SmartPoultry
                     writer.CloseStream = false;
 
                     doc.Open();
-                    Font font = new Font(Font.FontFamily.HELVETICA, 3.8f, Font.NORMAL);
+                    Font font = new Font(Font.FontFamily.HELVETICA, 5f, Font.NORMAL);
+                    Font font11 = new Font(Font.FontFamily.HELVETICA, 5f, Font.BOLD);
                     Font font2 = new Font(Font.FontFamily.HELVETICA, 3f, Font.NORMAL);
                     Font font3 = new Font(Font.FontFamily.HELVETICA, 5f, Font.BOLD);
                     Font font4 = new Font(Font.FontFamily.HELVETICA, 3.3f, Font.NORMAL);
@@ -356,12 +357,12 @@ namespace SmartPoultry
                     doc.Add(new iTextSharp.text.Paragraph($"Palo Alto, Calamba, Laguna Philippines", font2) { Alignment = Element.ALIGN_CENTER });
                     doc.Add(new iTextSharp.text.Paragraph($"+63 1234567890", font2) { Alignment = Element.ALIGN_CENTER });
                     doc.Add(new iTextSharp.text.Paragraph($"gabmigspoultrysupplies@gmail.com", font2) { Alignment = Element.ALIGN_CENTER });
-                    doc.Add(new iTextSharp.text.Paragraph("-----------------------------------------------------------", font));
+                    doc.Add(new iTextSharp.text.Paragraph("---------------------------------------------", font));
 
                     doc.Add(new iTextSharp.text.Paragraph($"Order ID: {sales.receipt_id}", font));
                     doc.Add(new iTextSharp.text.Paragraph($"Cashier: {employeename}", font));
                     doc.Add(new iTextSharp.text.Paragraph($"Payment Mode: {sales.payment_mode.ToUpper()}", font));
-                    doc.Add(new iTextSharp.text.Paragraph("-----------------------------------------------------------", font));
+                    doc.Add(new iTextSharp.text.Paragraph("---------------------------------------------", font));
                     // Generate receipt items
                     for (int i = 0; i < itemid.Count; i++)
                     {
@@ -386,20 +387,16 @@ namespace SmartPoultry
                         }
                     }
 
-                    PdfPTable table = new PdfPTable(4);
+                    PdfPTable table = new PdfPTable(2);
                     table.WidthPercentage = 100;
-                    table.SetWidths(new float[] { 1.5f, 2.8f, 2.5f, 3f });
+                    table.SetWidths(new float[] { 6f, 4f });
 
-                    table.AddCell(new PdfPCell(new Phrase("Qty", font4)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
-                    table.AddCell(new PdfPCell(new Phrase("Items", font)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
-                    table.AddCell(new PdfPCell(new Phrase("Price", font)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
-                    table.AddCell(new PdfPCell(new Phrase("Total", font)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
+                    table.AddCell(new PdfPCell(new Phrase("Items", font11)) { HorizontalAlignment = Element.ALIGN_LEFT, Border = 0 });
+                    table.AddCell(new PdfPCell(new Phrase("Total", font11)) { HorizontalAlignment = Element.ALIGN_RIGHT, Border = 0 });
 
                     for (int i = 0; i < itemnames.Count; i++)
                     {
-                        table.AddCell(new PdfPCell(new Phrase(quantitylist[i], font)) { HorizontalAlignment = Element.ALIGN_CENTER, Border = 0 });
-                        table.AddCell(new PdfPCell(new Phrase(itemnames[i], font)) { HorizontalAlignment = Element.ALIGN_LEFT, Border = 0 });
-                        table.AddCell(new PdfPCell(new Phrase(originalprice[i], font)) { HorizontalAlignment = Element.ALIGN_RIGHT, Border = 0 });
+                        table.AddCell(new PdfPCell(new Phrase($"{quantitylist[i]} {itemnames[i]} ({originalprice[i]})", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Border = 0 });
                         table.AddCell(new PdfPCell(new Phrase(totalPrices[i], font)) { HorizontalAlignment = Element.ALIGN_RIGHT, Border = 0 });
                     }
 
@@ -418,7 +415,7 @@ namespace SmartPoultry
                         doc.Add(chargeTable);
                     }
 
-                        
+
 
                     PdfPTable totalTable = new PdfPTable(2);
                     totalTable.WidthPercentage = 100;
@@ -438,7 +435,7 @@ namespace SmartPoultry
                         doc.Add(new iTextSharp.text.Paragraph($"Address: {deliveriesServices.GetByReceiptId(sales.receipt_id).address}", font));
                     }
 
-                        doc.Add(new iTextSharp.text.Paragraph("-----------------------------------------------------------", font));
+                    doc.Add(new iTextSharp.text.Paragraph("---------------------------------------------", font));
 
                     var thanksParagraph2 = new iTextSharp.text.Paragraph($"Thank you! Please come again!", font2);
                     thanksParagraph2.Alignment = Element.ALIGN_CENTER;
@@ -490,7 +487,7 @@ namespace SmartPoultry
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Error generating receipt: {e.Message}");
+                MessageBox.Show($"Error generating receipt: {e.Message}");
             }
         }
 
