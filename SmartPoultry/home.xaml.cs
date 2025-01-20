@@ -202,7 +202,7 @@ namespace SmartPoultry
 
                 if (purchasemethod == "to deliver" && status == "unpaid")
                 {
-                    financialLiabilitiesServices.Create(name, addingSales, price, "To Receive", paymentMode, actualPaymentDate, contacts);
+                    financialLiabilitiesServices.Create(name, addingSales, price, "To Receive", paymentMode, actualPaymentDate, contacts, "Added payemnt schedule.");
                     deliveriesServices.Create(addingSales, name, "To Deliver", price, address, status, contacts, actualDeliveryDate, "", chargefee);
                 }
                 else if (purchasemethod == "to deliver")
@@ -211,7 +211,7 @@ namespace SmartPoultry
                 }
                 else if (status == "unpaid")
                 {
-                    financialLiabilitiesServices.Create(name, addingSales, price, "To Receive", paymentMode, actualPaymentDate, contacts);
+                    financialLiabilitiesServices.Create(name, addingSales, price, "To Receive", paymentMode, actualPaymentDate, contacts, "Added payemnt schedule.");
                 }
                 AdjustStocksInventory();
                 mainWindow1.PopUpNotif("notif", "Order confirmed successfully!");

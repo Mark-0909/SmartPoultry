@@ -230,7 +230,8 @@ namespace SmartPoultry
                         "To Pay",
                         "Cash",
                         datePicker.SelectedDate ?? DateTime.Now,
-                        ContactsTextBox.Text
+                        ContactsTextBox.Text, 
+                        "Added Payement schedule."
                     );
 
                     if (!isCreated)

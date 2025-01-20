@@ -251,32 +251,74 @@ namespace SmartPoultry
         }
         public void MarkAsPaid()
         {
+            // Update financial liabilities
             bool financeupdate = financialLiabilitiesServices.MarkAsPaid(finance.Id, "Mark as Paid");
-            if (finance.order_id != 0)
+            if (!financeupdate)
             {
-                bool salesupdate = true;
-                bool deliveryupdate = true;
-                bool CreateExpense = true;
+                PopUpNotif("alert", "Failed to update financial liabilities.");
+                return;
+            }
 
-                if (finance.type == "To Pay" || finance.order_id != 0)
+            bool salesupdate = true;
+            bool deliveryupdate = true;
+            bool CreateExpense = true;
+
+            // Parse finance.amount safely
+            if (!decimal.TryParse(finance.amount.ToString(), out var amount))
+            {
+                PopUpNotif("alert", "Invalid finance amount.");
+                return;
+            }
+
+            // Handle 'To Pay' type or orders with IDs
+            if (finance.type == "To Pay")
+            {
+                CreateExpense = expensesServices.Create(
+                    NameTextBox.Text, "BILL", "DONE", UserContext.CurrentUserId,
+                    "Payment done.", amount, 0);
+            }
+            else if (finance.order_id != 0)
+            {
+                salesupdate = salesServices.MarkAsPaid(finance.order_id, "Mark as Paid");
+                deliveryupdate = deliveriesServices.MarkAsPaid(finance.order_id, "Mark as Paid");
+
+                if (!int.TryParse(finance.order_id.ToString(), out var orderId))
                 {
-                    salesupdate = salesServices.MarkAsPaid(finance.order_id, "Mark as Paid");
-                    deliveryupdate = deliveriesServices.MarkAsPaid(finance.order_id, "Mark as Paid");
-                    CreateExpense = expensesServices.Create(NameTextBox.Text, "BILL", "DONE", UserContext.CurrentUserId, "Payment done.", decimal.Parse(finance.amount.ToString()), int.Parse(finance.order_id.ToString()));
-                } 
-                
-                
-                if (!financeupdate || !salesupdate || !deliveryupdate || !CreateExpense)
-                {
-                    PopUpNotif("alert", "Error");
+                    PopUpNotif("alert", "Invalid order ID.");
                     return;
                 }
-                this.Close();
-                mainWindow.ActiveOverlay(false);
-                mainWindow.ScheduleUpdateReload();
-                mainWindow.PopUpNotif("notif", "Mark as paid successfully.");
+
+                CreateExpense = expensesServices.Create(
+                    NameTextBox.Text, "BILL", "DONE", UserContext.CurrentUserId,
+                    "Payment done.", amount, orderId);
             }
+
+            // Check for any failures
+            if (!salesupdate)
+            {
+                PopUpNotif("alert", "Failed to update sales.");
+                return;
+            }
+
+            if (!deliveryupdate)
+            {
+                PopUpNotif("alert", "Failed to update deliveries.");
+                return;
+            }
+
+            if (!CreateExpense)
+            {
+                PopUpNotif("alert", "Failed to create expense.");
+                return;
+            }
+
+            // Success actions
+            this.Close();
+            mainWindow.ActiveOverlay(false);
+            mainWindow.ScheduleUpdateReload();
+            mainWindow.PopUpNotif("notif", "Marked as paid successfully.");
         }
+
 
         public void AddScheduledPayment()
         {
@@ -285,7 +327,7 @@ namespace SmartPoultry
             DateTime dueDate = DateTime.Parse(datePicker.Text);
             string contacts = ContactsTextBox.Text;
 
-            bool createNewSched = financialLiabilitiesServices.Create(name, orderid, price, type, mode, dueDate, contacts);
+            bool createNewSched = financialLiabilitiesServices.Create(name, orderid, price, type, mode, dueDate, contacts, "Added payemnt schedule.");
             if (!createNewSched)
             {
                 PopUpNotif("alert", "Not Created");

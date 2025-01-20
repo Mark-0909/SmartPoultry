@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using static SmartPoultry.App;
 
 namespace SmartPoultry.DataServices
 {
@@ -119,7 +120,7 @@ namespace SmartPoultry.DataServices
                 return 0;
             }
         }
-        public bool Create(string name, long orderid, decimal amount, string type, string mode, DateTime duedate, string contacts)
+        public bool Create(string name, long orderid, decimal amount, string type, string mode, DateTime duedate, string contacts, string remarks)
         {
             try
             {
@@ -135,7 +136,8 @@ namespace SmartPoultry.DataServices
                     contacts = contacts,
                     due_date = duedate,
                     payment_mode = mode,
-                    employee_incharge = 1
+                    employee_incharge = UserContext.CurrentUserId,
+                    Remarks = remarks
                 };
                 _context.Add(newSched);
                 _context.SaveChanges();
