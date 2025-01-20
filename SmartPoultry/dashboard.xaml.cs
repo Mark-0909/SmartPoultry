@@ -83,6 +83,7 @@ namespace SmartPoultry
         public ChartValues<decimal> ExpenseValues { get; set; }
         public List<string> DateLabels { get; set; }
 
+        
         public void GenerateRevenueAndCostComboChart()
         {
             GrowthAndTrendsAnalysis.Series.Clear();
@@ -192,10 +193,16 @@ namespace SmartPoultry
             }
         }
 
+        public void DynamicUpdateCharts()
+        {
+            GenerateRevenueAndCostComboChart();
+        }
+
         public void DynamicOrderDisplay()
         {
             DisplaySales();
             CountOrders();
+
         }
 
         public void DynamicReloadDeliveries()

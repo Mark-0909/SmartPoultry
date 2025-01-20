@@ -301,10 +301,12 @@ namespace SmartPoultry
                 mainWindow.homeControl.DynamicReload();
             }
             mainWindow.dashboardControl.DynamicOrderDisplay();
+            mainWindow.dashboardControl.DynamicUpdateCharts();
 
             this.Close();
             mainWindow.ActiveOverlay(false);
             mainWindow.PopUpNotif("notif", "Void successful.");
+            mainWindow.dashboardControl.DynamicUpdateCharts();
         }
 
 

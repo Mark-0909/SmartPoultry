@@ -320,8 +320,10 @@ namespace SmartPoultry
             mainWindow.ActiveOverlay(false);
             mainWindow.ScheduleUpdateReload();
             mainWindow.PopUpNotif("notif", "Order Delivered!");
- 
-            
+            mainWindow.dashboardControl.DynamicUpdateCharts();
+
+
+
         }
 
 

@@ -115,6 +115,7 @@ namespace SmartPoultry
         {
             dashboardControl.DynamicOrderDisplay();
             dashboardControl.CountOutOfStocks();
+            dashboardControl.DynamicUpdateCharts();
         }
         public void DynamicReload()
         {

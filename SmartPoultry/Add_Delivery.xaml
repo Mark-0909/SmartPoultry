@@ -16,7 +16,7 @@
             </Border>
         </Border>
         <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="ADD DELIVERY" HorizontalAlignment="Center" Height="35" VerticalAlignment="Top" Width="220" FontSize="20" Foreground="White" FontWeight="Bold"/>
-        <Border CornerRadius="0 0 10 10" BorderBrush="#FF2C6E5D" BorderThickness="1" HorizontalAlignment="Center" Height="32" Margin="0,455,0,0" VerticalAlignment="Top" Width="432" Background="#FF2C6E5D">
+        <Border CornerRadius="0 0 10 10" BorderBrush="#FF2C6E5D" BorderThickness="1" HorizontalAlignment="Center" Margin="0,455,0,0" Width="432" Background="#FF2C6E5D">
             <Button x:Name="confirmBtn" Content="CONFIRM" HorizontalAlignment="Center" Height="27" VerticalAlignment="Center" Width="412" BorderBrush="#FF2C6E5D" Background="#FF2C6E5D" FontSize="15" Click="ConfirmButton_Click" Foreground="White" FontWeight="Bold"/>
         </Border>
         <Label Content="Name: " HorizontalAlignment="Left" Height="30" Margin="8,40,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
