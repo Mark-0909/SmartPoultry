@@ -15,6 +15,28 @@ namespace SmartPoultry.DataServices
         public SupplierServices(AppDbContext context) { 
             _context = context;
         }
+
+        public bool UpdateSupplier(int id, string name, string contactPerson, string contact, string location, string email)
+        {
+            try
+            {
+                var supp = _context.SupplierLists.FirstOrDefault(s => s.Id == id);
+                supp.Name = name;
+                supp.Contact_Person = contactPerson;
+                supp.Contact = contact;
+                supp.Location = location;
+                supp.Email = email;
+                
+                _context.SaveChanges();
+                return true;
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return false;
+            }
+        }
         public int FindSupplierByName(string name)
         {
             try
