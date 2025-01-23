@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
              mc:Ignorable="d" 
-             d:DesignHeight="577" d:DesignWidth="1104" Background="#FFE3E3E3" Width="1104" Height="577">
+             d:DesignHeight="" d:DesignWidth="1123" Background="#FFE3E3E3" Width="1104" Height="577">
     <UserControl.Resources>
         <Style x:Key="NoHoverButton" TargetType="Button">
             <Setter Property="Background" Value="White"/>
@@ -48,7 +48,7 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <Border BorderThickness="1" HorizontalAlignment="Left" Height="41" Margin="883,8,0,0" VerticalAlignment="Top" Width="210" Background="White" CornerRadius="10">
+        <Border BorderThickness="1" HorizontalAlignment="Left" Height="41" Margin="903,8,0,0" VerticalAlignment="Top" Width="210" Background="White" CornerRadius="10">
             <TextBox x:Name="SearchTB" HorizontalAlignment="Center" TextWrapping="Wrap" Text="Search Product..." VerticalAlignment="Top" Width="196" Height="32" Background="White" BorderBrush="White" TextAlignment="Justify" Padding="0,4,0,0" FontSize="14" MaxLines="1" RenderTransformOrigin="0.5,0.5" Margin="0,5,0,0" TextChanged="SearchBox_TextChanged" GotFocus="SearchTB_GotFocus" LostFocus="SearchTB_LostFocus"  Foreground="Gray">
                 <TextBox.Style>
                     <Style TargetType="TextBox">
@@ -66,13 +66,13 @@
             </TextBox>
         </Border>
         <Label Content="INVENTORY" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Margin="10,4,0,0"/>
-        <Button HorizontalAlignment="Left" Margin="844,11,0,0" VerticalAlignment="Top" Height="35" Width="34" Click="OpenAddForm_Click" BorderBrush="Transparent" Background="Transparent">
+        <Button HorizontalAlignment="Left" Margin="864,11,0,0" VerticalAlignment="Top" Height="35" Width="34" Click="OpenAddForm_Click" BorderBrush="Transparent" Background="Transparent">
             <Image Height="31" Width="30" Source="/Images/addbutton.png" Stretch="Fill"/>
         </Button>
-        <ScrollViewer HorizontalAlignment="Left" Height="428" Margin="10,150,0,0" VerticalAlignment="Top" HorizontalScrollBarVisibility="Disabled" Width="1098">
+        <ScrollViewer Height="484" Margin="10,150,0,0" VerticalAlignment="Top" HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Left" Width="1113">
             <WrapPanel x:Name="ProductListWPanel" Width="1060"/>
         </ScrollViewer>
-        <Border HorizontalAlignment="Left" Height="83" Margin="8,56,0,0" VerticalAlignment="Top" Width="1085" 
+        <Border HorizontalAlignment="Left" Height="83" Margin="8,56,0,0" VerticalAlignment="Top" Width="1115" 
             Background="White" CornerRadius="10">
 
 

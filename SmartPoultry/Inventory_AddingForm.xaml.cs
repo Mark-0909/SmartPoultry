@@ -571,7 +571,11 @@ namespace SmartPoultry
                     posprod.StocksLabel.Content = stocklisting.Content.ToString();
                     posprod.origstock = decimal.Parse(stocklisting.Content.ToString());
 
+                    List<ProductVariations> productVarList = productVariationService.GetAllProductVariations(prod.product_id);
+                    posprod.prodVarList.Clear();
+                    posprod.prodVarList = productVarList;
                     posprod.AdjustStocks(0);
+                    
                 }
                 home homewindow = UserContext.homewindow;
                 if (homewindow.orderPanel.Children.Count > 0)

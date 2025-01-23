@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
-             mc:Ignorable="d" Background="#FFE3E3E3" Height="578" Width="1109">
+             mc:Ignorable="d" Background="#FFE3E3E3" Height="644" Width="1123">
     <UserControl.Resources>
         <Style x:Key="NoHoverButton" TargetType="Button">
             <Setter Property="Background" Value="White"/>
@@ -56,7 +56,7 @@
                 <local:Records_Delivery x:Name="DeliveryControl" Visibility="Collapsed" Margin="-1,50,-1,-1"/>
                 <local:Records_Payments x:Name="PaymentsControl" Visibility="Collapsed" Margin="-1,50,-1,-1"/>
                 <local:Records_Inventory x:Name="InventoryControl" Visibility="Collapsed" Margin="-1,50,-1,-1"/>
-                <local:Records_Sales x:Name="SalesControl" Visibility="Visible" Margin="-1,50,-1,-1"/>
+                <local:Records_Sales x:Name="SalesControl" Visibility="Visible" Margin="0,50,-1,-1"/>
             </Grid>
         </Border>
 

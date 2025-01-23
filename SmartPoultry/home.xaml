@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
-             mc:Ignorable="d" Width="1104" Height="577" Background="#FFE3E3E3">
+             mc:Ignorable="d" Width="1123" Height="644" Background="#FFE3E3E3">
 
     <UserControl.Resources>
         <Style x:Key="NoHoverButton" TargetType="Button">
@@ -49,6 +49,10 @@
     </UserControl.Resources>
 
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="870*"/>
+            <ColumnDefinition Width="253*"/>
+        </Grid.ColumnDefinitions>
 
 
         <Border BorderThickness="1" HorizontalAlignment="Left" Height="41" Margin="563,8,0,0" VerticalAlignment="Top" Width="210" Background="White" CornerRadius="10">
@@ -69,10 +73,10 @@
             </TextBox>
         </Border>
 
-        <Border HorizontalAlignment="Left" Height="604" Margin="778,0,0,0" VerticalAlignment="Center" Width="348" 
-                Background="White" CornerRadius="10 0 0 0">
+        <Border HorizontalAlignment="Left" Height="682" Margin="778,5,0,0" VerticalAlignment="Top" Width="348" 
+                Background="White" CornerRadius="10 0 0 0" Grid.ColumnSpan="2">
 
-            <ScrollViewer x:Name="scroller" Margin="0,87,22,111" HorizontalAlignment="Right" Width="326"
+            <ScrollViewer x:Name="scroller" Margin="0,87,0,144" HorizontalAlignment="Center" Width="348"
                 VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Disabled" CanContentScroll="True">
                 <StackPanel x:Name="orderPanel" Margin="5,0,0,0">
 
@@ -86,10 +90,10 @@
         <Label Content="POS" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Margin="10,4,0,0"/>
 
         <Label Content="Orders" HorizontalAlignment="Left" Margin="786,4,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.128,0.014" FontSize="21"/>
-        <Rectangle HorizontalAlignment="Left" Height="5" Margin="778,44,0,0" VerticalAlignment="Top" Width="348" Fill="#FFE3E3E3"/>
+        <Rectangle HorizontalAlignment="Left" Height="5" Margin="778,44,0,0" VerticalAlignment="Top" Width="348" Fill="#FFE3E3E3" Grid.ColumnSpan="2"/>
 
-        <Button x:Name="DropOrderBtn" Click="DropOrderBtn_Click"  Content="DROP" HorizontalAlignment="Left" Margin="778,528,0,0" VerticalAlignment="Top" Height="58" Width="160" Background="#FFF0A34A" BorderBrush="#FFF0A34A" FontSize="15" Foreground="White" FontWeight="Bold" Style="{StaticResource NoHoverButton}"/>
-        <Button x:Name="CheckOutBtn" Click="CheckOutBtn_Click" Content="CHECKOUT" Margin="938,528,-4,0" VerticalAlignment="Top" Height="58" Background="#FF89D467" BorderBrush="#FF89D467" Foreground="White" FontSize="15" FontWeight="Bold" Style="{StaticResource NoHoverButton}"/>
+        <Button x:Name="DropOrderBtn" Click="DropOrderBtn_Click"  Content="DROP" HorizontalAlignment="Left" Margin="778,586,0,0" VerticalAlignment="Top" Height="58" Width="160" Background="#FFF0A34A" BorderBrush="#FFF0A34A" FontSize="15" Foreground="White" FontWeight="Bold" Style="{StaticResource NoHoverButton}" Grid.ColumnSpan="2"/>
+        <Button x:Name="CheckOutBtn" Click="CheckOutBtn_Click" Content="CHECKOUT" Margin="68,586,-4,0" VerticalAlignment="Top" Height="58" Background="#FF89D467" BorderBrush="#FF89D467" Foreground="White" FontSize="15" FontWeight="Bold" Style="{StaticResource NoHoverButton}" Grid.Column="1"/>
 
         <Border HorizontalAlignment="Left" Height="83" Margin="8,56,0,0" VerticalAlignment="Top" Width="763" 
         Background="White" CornerRadius="10">
@@ -238,13 +242,13 @@
                 </Border>
             </Grid>
         </Border>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,144,345,20">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,144,92,0">
             <WrapPanel x:Name="posPrdocutsPanel" Width="760" Margin="0,0,0,0"/>
         </ScrollViewer>
         <Label Content="Item" HorizontalAlignment="Left" Margin="817,52,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.128,0.014" FontSize="15"/>
-        <Label Content="Qty" HorizontalAlignment="Left" Margin="903,52,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.128,0.014" FontSize="15"/>
-        <Label Content="Price" HorizontalAlignment="Left" Margin="1023,52,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.128,0.014" FontSize="15"/>
-        <Label Content="Total:" HorizontalAlignment="Left" Margin="787,497,0,0" VerticalAlignment="Top" FontSize="15" FontWeight="Bold"/>
-        <Label x:Name="totalPiceLabel"  Content="0" HorizontalAlignment="Left" Margin="1000,498,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Right" Width="100" FontSize="15" FontWeight="Bold"/>
+        <Label Content="Qty" HorizontalAlignment="Left" Margin="33,52,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.128,0.014" FontSize="15" Grid.Column="1"/>
+        <Label Content="Price" HorizontalAlignment="Left" Margin="153,52,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.128,0.014" FontSize="15" Grid.Column="1"/>
+        <Label Content="Total:" HorizontalAlignment="Left" Margin="787,554,0,0" VerticalAlignment="Top" FontSize="15" FontWeight="Bold"/>
+        <Label x:Name="totalPiceLabel"  Content="0" HorizontalAlignment="Left" Margin="146,554,0,0" VerticalAlignment="Top" HorizontalContentAlignment="Right" Width="100" FontSize="15" FontWeight="Bold" Grid.Column="1"/>
     </Grid>
 </UserControl>

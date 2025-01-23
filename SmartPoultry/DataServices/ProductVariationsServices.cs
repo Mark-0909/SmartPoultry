@@ -58,6 +58,7 @@ namespace SmartPoultry.DataServices
         {
             try
             {
+                _context.ChangeTracker.Clear();
                 var productVariations = _context.ProductVariations
                                                  .Where(pv => pv.product_id == productId)
                                                  .OrderByDescending(pv => pv.isBaseUnit) 
