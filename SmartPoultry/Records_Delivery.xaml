@@ -57,6 +57,6 @@
         <Label Content="Payment Method" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="630,60,0,0" VerticalAlignment="Top" Width="120" FontSize="15"/>
         <Label Content="Status" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="437,60,0,0" VerticalAlignment="Top" Width="118" FontSize="15"/>
         <Label Content="Date" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="297,60,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
-        <Label Content="Sales" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="86,60,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
+        <Label Content="Delivery" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="86,60,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
     </Grid>
 </UserControl>

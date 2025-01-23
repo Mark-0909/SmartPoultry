@@ -28,23 +28,37 @@ namespace SmartPoultry
         public Records_Expenses()
         {
             InitializeComponent();
+
             expensesServices = new ExpensesServices(context);
+
             DisplayExpenses();
         }
         public void DisplayExpenses()
         {
-            if(SalesPanel.Children.Count != 0)
+            if(ExpensesPanel.Children.Count != 0)
             {
-                SalesPanel.Children.Clear();
+                ExpensesPanel.Children.Clear();
             }
-            List<Expenses> expenses = expensesServices.GetallExpenses();
+
+            List<Expenses> expenses = new List<Expenses>();
+
+            try
+            {
+                expenses = expensesServices.GeAllExpenses();
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
 
             int evenOdd = 0;
-            for(int i = 0; i > expenses.Count; i++)
+            for(int i = 0; i < expenses.Count; i++)
             {
+
                 Records_ExpensesControl control = new Records_ExpensesControl(expenses[i], evenOdd);
 
-                SalesPanel.Children.Add(control);   
+                ExpensesPanel.Children.Add(control);   
 
                 if (evenOdd == 0)
                 {

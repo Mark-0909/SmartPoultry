@@ -16,18 +16,12 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
-        public List<Expenses> GetallExpenses()
+        public List<Expenses> GeAllExpenses()
         {
-            try
-            {
-                var expensesList = _context.Expenses.OrderByDescending(p => p.Added_Date).ToList();
-                return expensesList;
-            }
-            catch(Exception ex) 
-            {
-                Console.WriteLine(ex.ToString());
-                return new List<Expenses>();
-            }
+            
+            List<Expenses> expensesList = _context.Expenses.OrderByDescending(p => p.Added_Date).ToList();
+            return expensesList;
+            
         }
         public List<Expenses> GetTodaysExpenses()
         {

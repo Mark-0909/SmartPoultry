@@ -32,7 +32,7 @@ namespace SmartPoultry
 
             NameLabel.Content = expenses.Name;
             DateLabel.Content = expenses.Added_Date.ToString("MM-dd-yyyy");
-            EmployeeLabel.Content = userServices.GetUser(UserContext.CurrentUserId).Username;
+            EmployeeLabel.Content = userServices.GetUser(expenses.Employee_Incharge).Username;
             PurposeLabel.Content = expenses.Category;
             AmountLabel.Content = expenses.price.ToString("N2");
 
