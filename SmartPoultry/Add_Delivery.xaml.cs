@@ -48,7 +48,6 @@ namespace SmartPoultry
             expensesServices = new ExpensesServices(context);
             
             EditBtn.Visibility = Visibility.Hidden;
-            CancelBtn.Visibility = Visibility.Hidden;
 
             
             mainWindow = UserContext.mainWindow;

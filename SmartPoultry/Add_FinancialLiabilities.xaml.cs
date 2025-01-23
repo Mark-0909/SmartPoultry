@@ -46,7 +46,6 @@ namespace SmartPoultry
             datePicker.SelectedDate = DateTime.Now.AddDays(14);
             orderid = 0;
             EditBtn.Visibility = Visibility.Collapsed;
-            CancelBtn.Visibility = Visibility.Collapsed;
 
             orderIdLabel.Visibility = Visibility.Collapsed;
             OrderDetailsBtn.Visibility = Visibility.Collapsed;
@@ -251,7 +250,6 @@ namespace SmartPoultry
         }
         public void MarkAsPaid()
         {
-            // Update financial liabilities
             bool financeupdate = financialLiabilitiesServices.MarkAsPaid(finance.Id, "Mark as Paid");
             if (!financeupdate)
             {
@@ -263,14 +261,14 @@ namespace SmartPoultry
             bool deliveryupdate = true;
             bool CreateExpense = true;
 
-            // Parse finance.amount safely
+
             if (!decimal.TryParse(finance.amount.ToString(), out var amount))
             {
                 PopUpNotif("alert", "Invalid finance amount.");
                 return;
             }
 
-            // Handle 'To Pay' type or orders with IDs
+
             if (finance.type == "To Pay")
             {
                 CreateExpense = expensesServices.Create(
@@ -282,23 +280,18 @@ namespace SmartPoultry
                 salesupdate = salesServices.MarkAsPaid(finance.order_id, "Mark as Paid");
                 deliveryupdate = deliveriesServices.MarkAsPaid(finance.order_id, "Mark as Paid");
 
-                if (!int.TryParse(finance.order_id.ToString(), out var orderId))
-                {
-                    PopUpNotif("alert", "Invalid order ID.");
-                    return;
-                }
 
+
+                
+            }
+            else if (finance.order_id == 0) 
+            {
                 CreateExpense = expensesServices.Create(
                     NameTextBox.Text, "BILL", "DONE", UserContext.CurrentUserId,
-                    "Payment done.", amount, orderId);
+                    "Payment done.", amount, long.Parse(finance.order_id.ToString()));
             }
 
-            // Check for any failures
-            if (!salesupdate)
-            {
-                PopUpNotif("alert", "Failed to update sales.");
-                return;
-            }
+            
 
             if (!deliveryupdate)
             {
@@ -312,7 +305,6 @@ namespace SmartPoultry
                 return;
             }
 
-            // Success actions
             this.Close();
             mainWindow.ActiveOverlay(false);
             mainWindow.ScheduleUpdateReload();

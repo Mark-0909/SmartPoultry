@@ -34,7 +34,7 @@ namespace SmartPoultry.DataServices
             }
         }
 
-        public bool Create(string name, string category, string status, int employee, string remarks, decimal price, int orderid)
+        public bool Create(string name, string category, string status, int employee, string remarks, decimal price, long orderid)
         {
             try
             {

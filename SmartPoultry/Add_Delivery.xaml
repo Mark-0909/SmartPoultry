@@ -6,18 +6,59 @@
         xmlns:local="clr-namespace:SmartPoultry"
         mc:Ignorable="d"
         Title="Add_Delivery" Height="487" Width="432" WindowStartupLocation="CenterScreen" Background="Transparent" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True">
+    <Window.Resources>
+        <Style x:Key="NoHoverButton" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <!-- Animation for the button itself when hovered -->
+                                            <DoubleAnimation 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            To=".7" Duration="0:0:0.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+
+                                            <DoubleAnimation 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            To="1.0" Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Border x:Name="Overlay" BorderBrush="#FFA7A7A7" Background="#FFA7A7A7" CornerRadius="10" Opacity=".5" BorderThickness="1" HorizontalAlignment="Center" Height="480" VerticalAlignment="Center" Width="432"/>
         <Border CornerRadius="10" BorderBrush="#FF2C6E5D" Background="White" BorderThickness="1">
             <Border CornerRadius="10 10 0 0" BorderBrush="#FF2C6E5D" BorderThickness="1" HorizontalAlignment="Center" Height="38" Margin="0,-1,0,0" VerticalAlignment="Top" Width="432" Background="#FF2C6E5D">
-                <Button Click="Close_Click" HorizontalAlignment="Left" Height="27" Margin="394,0,0,0" VerticalAlignment="Center" Width="31" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
+                <Button Click="Close_Click" HorizontalAlignment="Left" Height="27" Margin="394,0,0,0" VerticalAlignment="Center" Width="31" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D"  Style="{StaticResource NoHoverButton}">
                     <Image Height="24" Width="19" Source="/Images/close.png"/>
                 </Button>
             </Border>
         </Border>
         <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="ADD DELIVERY" HorizontalAlignment="Center" Height="35" VerticalAlignment="Top" Width="220" FontSize="20" Foreground="White" FontWeight="Bold"/>
         <Border CornerRadius="0 0 10 10" BorderBrush="#FF2C6E5D" BorderThickness="1" HorizontalAlignment="Center" Margin="0,455,0,0" Width="432" Background="#FF2C6E5D">
-            <Button x:Name="confirmBtn" Content="CONFIRM" HorizontalAlignment="Center" Height="27" VerticalAlignment="Center" Width="412" BorderBrush="#FF2C6E5D" Background="#FF2C6E5D" FontSize="15" Click="ConfirmButton_Click" Foreground="White" FontWeight="Bold"/>
+            <Button x:Name="confirmBtn" Content="CONFIRM" HorizontalAlignment="Center" Height="27" VerticalAlignment="Center" Width="412" BorderBrush="#FF2C6E5D" Background="#FF2C6E5D" FontSize="15" Click="ConfirmButton_Click" Foreground="White" FontWeight="Bold"  Style="{StaticResource NoHoverButton}"/>
         </Border>
         <Label Content="Name: " HorizontalAlignment="Left" Height="30" Margin="8,40,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
         <Label Content="Address:" HorizontalAlignment="Left" Height="26" Margin="8,100,0,0" VerticalAlignment="Top" Width="83" FontSize="14"/>
@@ -184,17 +225,18 @@
                 </TextBox.Style>
             </TextBox>
         </Border>
-        <Button x:Name="EditBtn" Content="EDIT" HorizontalAlignment="Left" Height="38" Margin="8,412,0,0" VerticalAlignment="Top" Width="85" Click="EditBtn_Click"/>
-        <Button x:Name="CancelBtn" Content="CANCEL" HorizontalAlignment="Left" Height="37" Margin="98,413,0,0" VerticalAlignment="Top" Width="85" Click="CancelBtn_Click"/>
-        <Label x:Name="orderIdLabel" Content="Order ID:  " HorizontalAlignment="Left" Height="29" Margin="210,364,0,0" VerticalAlignment="Top" Width="79" FontSize="14"/>
-        <Label x:Name="OrderId" Content="25010838347" HorizontalAlignment="Left" Height="28" Margin="278,364,0,0" VerticalAlignment="Top" Width="100" FontSize="14"/>
-        <Button x:Name="OrderDetailsBtn" Content="orderInfo" Height="31" Margin="372,362,16,0" VerticalAlignment="Top" Click="OrderInfo_Click" />
+        <Button x:Name="EditBtn" Content="EDIT" HorizontalAlignment="Left" Height="38" Margin="337,412,0,0" VerticalAlignment="Top" Width="85" Click="EditBtn_Click"/>
+        <Label x:Name="orderIdLabel" Content="Order ID:  " HorizontalAlignment="Left" Height="29" Margin="10,421,0,0" VerticalAlignment="Top" Width="79" FontSize="14"/>
+        <Label x:Name="OrderId" Content="25010838347" HorizontalAlignment="Left" Height="28" Margin="89,421,0,0" VerticalAlignment="Top" Width="100" FontSize="14"/>
+        <Button x:Name="OrderDetailsBtn" Height="31" Margin="185,420,216,0" VerticalAlignment="Top" Click="OrderInfo_Click"  Style="{StaticResource NoHoverButton}">
+            <Image Height="26" Width="32" Source="/Images/infoicon.png"/>
+        </Button>
 
 
         <Border x:Name="NotifPopup"  CornerRadius="10" BorderBrush="#FFCCE6D3" BorderThickness="1" HorizontalAlignment="Center" Height="46" Margin="0,24,0,0" VerticalAlignment="Top" Width="330" Background="#FFCCE6D3">
             <WrapPanel>
                 <Label x:Name="NotifMessage"  Content="Invalid Credentials" VerticalContentAlignment="Center" Padding="20 0 0 0" Height="43" Width="302" Foreground="#FF666666"/>
-                <Button x:Name="NotifCloseBtn" BorderBrush="Transparent" Background="Transparent" Height="20" Width="21" Click="NotifCloseBtn_Click">
+                <Button x:Name="NotifCloseBtn" BorderBrush="Transparent" Background="Transparent" Height="20" Width="21" Click="NotifCloseBtn_Click"  Style="{StaticResource NoHoverButton}">
                     <Image Height="16" Width="10" Source="/Images/closegray.png"/>
                 </Button>
             </WrapPanel>

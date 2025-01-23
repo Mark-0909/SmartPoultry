@@ -101,6 +101,7 @@ namespace SmartPoultry
             dashboardControl.DynamicReloadFinancialLiabilities();
             dashboardControl.CountDeliveries();
             dashboardControl.CountPayments();
+            dashboardControl.DynamicUpdateCharts();
         }
 
         public void DynamicAddDeliveries()

@@ -6,7 +6,7 @@
         xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         xmlns:local="clr-namespace:SmartPoultry"
         mc:Ignorable="d"
-        Title="SmartPoultry" Height="716" Width="1229" WindowStartupLocation="CenterScreen" Background="#FFE3E3E3" Icon="/Images/smartpoultryicon.ico">
+        Title="SmartPoultry" Height="716" Width="1229" WindowStartupLocation="CenterScreen" Background="#FFE3E3E3" Icon="/Images/smartpoultryicon.ico" WindowState="Maximized">
     <Viewbox Stretch="Fill">
         <Grid x:Name="MainGrid" HorizontalAlignment="Left" Width="1229">
 
