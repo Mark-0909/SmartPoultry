@@ -333,7 +333,7 @@ namespace SmartPoultry
                     Font font3 = new Font(Font.FontFamily.HELVETICA, 5f, Font.BOLD);
                     Font font4 = new Font(Font.FontFamily.HELVETICA, 3.3f, Font.NORMAL);
                     Font font5 = new Font(Font.FontFamily.HELVETICA, 5f, Font.BOLD);
-                    // Receipt header
+
                     doc.Add(new iTextSharp.text.Paragraph($"{sales.status.ToUpper()}", font3) { Alignment = Element.ALIGN_RIGHT });
 
                     string logoPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Images", "blacklogo.png");
@@ -363,7 +363,7 @@ namespace SmartPoultry
                     doc.Add(new iTextSharp.text.Paragraph($"Cashier: {employeename}", font));
                     doc.Add(new iTextSharp.text.Paragraph($"Payment Mode: {sales.payment_mode.ToUpper()}", font));
                     doc.Add(new iTextSharp.text.Paragraph("---------------------------------------------", font));
-                    // Generate receipt items
+
                     for (int i = 0; i < itemid.Count; i++)
                     {
                         try

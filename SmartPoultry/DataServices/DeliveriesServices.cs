@@ -16,6 +16,20 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+
+        public List<Deliveries> GetDeliveriesList()
+        {
+            try
+            {
+                var deliveris = _context.Deliveries.OrderByDescending(x => x.added_date).ToList();
+                return deliveris;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return new List<Deliveries>();
+            }
+        }
         public bool MarkAsVoided(long receiptid, string remarks)
         {
             try
