@@ -37,7 +37,7 @@
             <Label Content="Transaction" HorizontalAlignment="Left" Height="37" VerticalAlignment="Center" Width="140" Foreground="White" FontSize="20" Margin="9,0,0,0"/>
         </Border>
         <Label Content="Payment" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="130,221,0,0" VerticalAlignment="Top" Width="102"/>
-        
+
         <Label Content="Total" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="235,221,0,0" VerticalAlignment="Top" Width="55"/>
         <Label Content="ID" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="49,221,0,0" VerticalAlignment="Top" Width="35"/>
         <ComboBox x:Name="FinancialLiabilitiesCbox" HorizontalAlignment="Left" Height="20" Margin="638,388,0,0" VerticalAlignment="Top" Width="77" RenderTransformOrigin="0.508,0.582" SelectedIndex="0" SelectionChanged="FinancialCB_SelectionChanged">
@@ -90,6 +90,11 @@
         <Label x:Name="ToDeliverLabel" Content="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="70" Margin="95,111,0,0" VerticalAlignment="Top" Width="85" FontSize="40" FontWeight="Bold"/>
         <Label x:Name="ToPayLabel" Content="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="70" Margin="180,111,0,0" VerticalAlignment="Top" Width="85" FontSize="40" FontWeight="Bold"/>
         <Label x:Name="OutOfStockLabel" Content="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="70" Margin="265,111,0,0" VerticalAlignment="Top" Width="86" FontSize="40" FontWeight="Bold"/>
+        <Border CornerRadius="10" BorderBrush="#FF2C6E5D" BorderThickness="0" HorizontalAlignment="Left" Height="145" Margin="10,489,0,0" VerticalAlignment="Top" Width="341" Background="White">
+            <ScrollViewer x:Name="ExpensesList" HorizontalAlignment="Center" Height="90" Margin="0,55,0,0" VerticalAlignment="Top" Width="341" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Hidden" HorizontalContentAlignment="Center">
+                <WrapPanel x:Name="ExpensesListPanel" Width="341"/>
+            </ScrollViewer>
+        </Border>
 
 
 
@@ -100,7 +105,13 @@
                         Width="717" Height="214"
                         HorizontalAlignment="Left" VerticalAlignment="Top" Margin="375,107,0,0" />
             <Label x:Name="ChartName" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Growth Trends and Analysis" HorizontalAlignment="Left" Height="32" Margin="577,326,0,0" VerticalAlignment="Top" Width="342" FontStyle="Italic" FontWeight="Bold"/>
+            <Border CornerRadius="10 10 0 0" BorderThickness="1" HorizontalAlignment="Left" Height="33" Margin="10,480,0,0" VerticalAlignment="Top" Width="341" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
+                <Label Content="Expenses" HorizontalAlignment="Left" Height="37" VerticalAlignment="Center" Width="140" Foreground="White" FontSize="20" Margin="9,0,0,0"/>
+            </Border>
         </Grid>
+        <Label Content="Name" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="41,521,0,0" VerticalAlignment="Top" Width="52"/>
+        <Label Content="Purpose" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="115,521,0,0" VerticalAlignment="Top" Width="67"/>
+        <Label Content="Amount" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="230,521,0,0" VerticalAlignment="Top" Width="67"/>
 
 
 

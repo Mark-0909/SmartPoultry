@@ -48,26 +48,26 @@
     </UserControl.Resources>
     <Grid>
         <Label Content="RECORDS" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Margin="10,4,0,0"/>
-        <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Center" Height="505" Margin="0,59,0,0" VerticalAlignment="Top" Width="1071" Background="White">
+        <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Center" Height="575" Margin="0,59,0,0" VerticalAlignment="Top" Width="1103" Background="White">
             <Grid>
-                <local:Records_Logs x:Name="LogsControl" Visibility="Collapsed" Margin="-1,50,-1,-1"/>
-                <local:Records_Expenses x:Name="ExpensesControl" Visibility="Collapsed" Margin="-1,50,-1,-1"/>
-                <local:Records_Orders x:Name="OrdersControl" Visibility="Collapsed" Margin="-1,50,-1,-1"/>
-                <local:Records_Delivery x:Name="DeliveryControl" Visibility="Collapsed" Margin="-1,50,-1,-1"/>
-                <local:Records_Payments x:Name="PaymentsControl" Visibility="Collapsed" Margin="-1,50,-1,-1"/>
-                <local:Records_Inventory x:Name="InventoryControl" Visibility="Collapsed" Margin="-1,50,-1,-1"/>
-                <local:Records_Sales x:Name="SalesControl" Visibility="Visible" Margin="0,50,-1,-1"/>
+                <local:Records_Delivery x:Name="DeliveryControl" Visibility="Collapsed" Margin="-1,0,-1,-1"/>
+                <local:Records_Orders x:Name="OrdersControl" Visibility="Collapsed" Margin="-1,0,-1,-1"/>
+                <local:Records_Expenses x:Name="ExpensesControl" Visibility="Collapsed" Margin="-1,0,-1,-1"/>
+                <local:Records_Inventory x:Name="InventoryControl" Visibility="Collapsed" Margin="-1,0,-1,-1"/>
+                <local:Records_Logs x:Name="LogsControl" Visibility="Collapsed" Margin="-1,0,-1,-1"/>
+                <local:Records_Payments x:Name="PaymentsControl" Visibility="Collapsed" Margin="-1,0,-1,-1"/>
+                <local:Records_Sales x:Name="SalesControl" Visibility="Visible" Margin="2,0,0,-2"/>
             </Grid>
         </Border>
 
         <!-- Buttons -->
-        <Button x:Name="InventoryBtn" Content="INVENTORY" HorizontalAlignment="Left" Height="60" Margin="172,59,0,0" VerticalAlignment="Top" Width="153" FontSize="20" FontWeight="Bold" BorderBrush="#FFDCEDD5" Foreground="Gray" Background="#FFDCEDD5" Click="Inventory_Clicked" Style="{StaticResource NoHoverButton}"/>
-        <Button x:Name="LogsBtn" Content="LOGS" HorizontalAlignment="Left" Height="60" Margin="937,59,0,0" VerticalAlignment="Top" Width="153" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Logs_Clicked" Style="{StaticResource NoHoverButton}"/>
-        <Button x:Name="SalesBtn" Content="SALES" HorizontalAlignment="Left" Height="60" Margin="18,59,0,0" VerticalAlignment="Top" Width="153.28" Click="Sales_Clicked" FontSize="20" FontWeight="Bold" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D" Foreground="White" Style="{StaticResource NoHoverButton}"/>
-        <Button x:Name="PaymentsBtn" Content="PAYMENTS" HorizontalAlignment="Left" Height="60" Margin="325,59,0,0" VerticalAlignment="Top" Width="153" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Payments_Clicked" Style="{StaticResource NoHoverButton}"/>
-        <Button x:Name="DeliveryBtn" Content="DELIVERY" HorizontalAlignment="Center" Height="60" Margin="0,59,0,0" VerticalAlignment="Top" Width="153" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Delivery_Clicked" Style="{StaticResource NoHoverButton}"/>
-        <Button x:Name="OrdersBtn" Content="ORDERS" HorizontalAlignment="Left" Height="60" Margin="631,59,0,0" VerticalAlignment="Top" Width="153" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Orders_Clicked" Style="{StaticResource NoHoverButton}"/>
-        <Button x:Name="ExpensesBtn" Content="EXPENSES" HorizontalAlignment="Left" Height="60" Margin="784,59,0,0" VerticalAlignment="Top" Width="153" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Expenses_Clicked" Style="{StaticResource NoHoverButton}"/>
+        <Button x:Name="InventoryBtn" Content="INVENTORY" HorizontalAlignment="Left" Height="60" Margin="167,59,0,0" VerticalAlignment="Top" Width="162" FontSize="20" FontWeight="Bold" BorderBrush="#FFDCEDD5" Foreground="Gray" Background="#FFDCEDD5" Click="Inventory_Clicked" Style="{StaticResource NoHoverButton}"/>
+        <Button x:Name="LogsBtn" Content="LOGS" HorizontalAlignment="Left" Height="60" Margin="956,59,0,0" VerticalAlignment="Top" Width="157" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Logs_Clicked" Style="{StaticResource NoHoverButton}"/>
+        <Button x:Name="SalesBtn" Content="SALES" HorizontalAlignment="Left" Height="60" Margin="10,59,0,0" VerticalAlignment="Top" Width="157" Click="Sales_Clicked" FontSize="20" FontWeight="Bold" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D" Foreground="White" Style="{StaticResource NoHoverButton}"/>
+        <Button x:Name="PaymentsBtn" Content="PAYMENTS" HorizontalAlignment="Left" Height="60" Margin="329,59,0,0" VerticalAlignment="Top" Width="158" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Payments_Clicked" Style="{StaticResource NoHoverButton}"/>
+        <Button x:Name="DeliveryBtn" Content="DELIVERY" HorizontalAlignment="Left" Height="60" Margin="487,59,0,0" VerticalAlignment="Top" Width="157" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Delivery_Clicked" Style="{StaticResource NoHoverButton}"/>
+        <Button x:Name="OrdersBtn" Content="ORDERS" HorizontalAlignment="Left" Height="60" Margin="642,59,0,0" VerticalAlignment="Top" Width="157" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Orders_Clicked" Style="{StaticResource NoHoverButton}"/>
+        <Button x:Name="ExpensesBtn" Content="EXPENSES" HorizontalAlignment="Left" Height="60" Margin="799,59,0,0" VerticalAlignment="Top" Width="157" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Expenses_Clicked" Style="{StaticResource NoHoverButton}"/>
     </Grid>
 
 </UserControl>

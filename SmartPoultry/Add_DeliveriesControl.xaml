@@ -6,9 +6,50 @@
              xmlns:local="clr-namespace:SmartPoultry"
              mc:Ignorable="d" 
              d:DesignHeight="50" d:DesignWidth="350" Width="364" Height="50" Background="Transparent" Margin="0 0 0 5">
+    <UserControl.Resources>
+        <Style x:Key="NoHoverButton" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <!-- Animation for the button itself when hovered -->
+                                            <DoubleAnimation 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            To=".7" Duration="0:0:0.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+
+                                            <DoubleAnimation 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            To="1.0" Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Border x:Name="thisBorder" CornerRadius="5" BorderBrush="#FFDBDBDB" BorderThickness="1" Background="#FFDBDBDB">
-            <Button HorizontalAlignment="Left" Height="29" Margin="325,0,0,0" VerticalAlignment="Center" Width="31" BorderBrush="Transparent" Background="Transparent" Click="DisplayDetail_Clicked">
+            <Button HorizontalAlignment="Left" Height="29" Margin="325,0,0,0" VerticalAlignment="Center" Width="31" BorderBrush="Transparent" Background="Transparent" Click="DisplayDetail_Clicked"  Style="{StaticResource NoHoverButton}">
                 <Image Height="23.5" Width="22" Source="/Images/infoicon.png"/>
             </Button>
         </Border>

@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
-             mc:Ignorable="d" Background="#FFE3E3E3" Height="454" Width="1071">
+             mc:Ignorable="d" Background="#FFE3E3E3" Height="575" Width="1103">
     <UserControl.Resources>
         <Style x:Key="NoHoverButton" TargetType="Button">
             <Setter Property="Background" Value="White"/>
@@ -47,17 +47,16 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Center" Height="454" VerticalAlignment="Center" Width="1071" Background="White">
-            <ScrollViewer HorizontalAlignment="Center" Height="403" Margin="0,50,0,0" VerticalAlignment="Top" Width="1072">
+        <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Center" Height="574" VerticalAlignment="Center" Width="1103" Background="White">
+            <ScrollViewer HorizontalAlignment="Center" Height="465" Margin="0,98,0,0" VerticalAlignment="Top" Width="1104">
                 <WrapPanel x:Name="SalesPanel" Width="1050"/>
             </ScrollViewer>
         </Border>
-        <Label Content="Price" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="32" Margin="942,10,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
-        <Label Content="Payment Status" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="32" Margin="802,10,0,0" VerticalAlignment="Top" Width="119" FontSize="15" RenderTransformOrigin="0.531,0.299"/>
-        <Label Content="Payment Method" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="630,10,0,0" VerticalAlignment="Top" Width="120" FontSize="15"/>
-        <Label Content="Status" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="437,10,0,0" VerticalAlignment="Top" Width="118" FontSize="15"/>
-        <Label Content="Date" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="297,10,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
-        <Label Content="Sales" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="86,10,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
-
+        <Label Content="Price" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="32" Margin="942,60,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
+        <Label Content="Payment Status" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="32" Margin="802,60,0,0" VerticalAlignment="Top" Width="119" FontSize="15" RenderTransformOrigin="0.531,0.299"/>
+        <Label Content="Payment Method" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="630,60,0,0" VerticalAlignment="Top" Width="120" FontSize="15"/>
+        <Label Content="Status" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="437,60,0,0" VerticalAlignment="Top" Width="118" FontSize="15"/>
+        <Label Content="Date" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="297,60,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
+        <Label Content="Sales" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="86,60,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
     </Grid>
 </UserControl>
