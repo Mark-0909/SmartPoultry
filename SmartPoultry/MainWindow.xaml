@@ -210,8 +210,8 @@
                 </Button.Template>
                 <Image x:Name="supplierIcon" Height="61" Width="67" Source="/Images/suppliergrey.png"/>
             </Button>
-            <Button x:Name="LogoutBtn" Click="LogoutBtn_Clicked" HorizontalAlignment="Left" Height="44" Margin="1140,24,0,0" VerticalAlignment="Top" Width="48" Background="Transparent" BorderBrush="Transparent">
-                <Image Height="38" Width="45" Source="/Images/logouticon.png"/>
+            <Button x:Name="LogoutBtn" Click="LogoutBtn_Clicked" HorizontalAlignment="Left" Height="37" Margin="1183,28,0,0" VerticalAlignment="Top" Width="36" Background="Transparent" BorderBrush="Transparent">
+                <Image Height="28" Width="35" Source="/Images/logouticon.png"/>
             </Button>
 
             <Border x:Name="NotifPopup"  CornerRadius="10" BorderBrush="#FFCCE6D3" BorderThickness="1" HorizontalAlignment="Center" Height="46" Margin="0,23,0,0" VerticalAlignment="Top" Width="330" Background="#FFCCE6D3">

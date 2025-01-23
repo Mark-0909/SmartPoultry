@@ -32,7 +32,6 @@ namespace SmartPoultry
         {
             InitializeComponent();
             ReferenceIdlabel.Content = refid;
-            Modelabel.Content = mode;
             Statuslabel.Content = status;
             TotalpriceLabel.Content = price;
             salesServices = new SalesServices(context);

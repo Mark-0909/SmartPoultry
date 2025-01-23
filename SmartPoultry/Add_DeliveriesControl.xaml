@@ -5,10 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
              mc:Ignorable="d" 
-             d:DesignHeight="40" d:DesignWidth="341" Width="341" Height="40" Background="Transparent" Margin="0 0 0 5">
+             d:DesignHeight="50" d:DesignWidth="350" Width="364" Height="50" Background="Transparent" Margin="0 0 0 5">
     <Grid>
         <Border x:Name="thisBorder" CornerRadius="5" BorderBrush="#FFDBDBDB" BorderThickness="1" Background="#FFDBDBDB">
-            <Button HorizontalAlignment="Left" Height="29" Margin="299,0,0,0" VerticalAlignment="Center" Width="31" BorderBrush="Transparent" Background="Transparent" Click="DisplayDetail_Clicked">
+            <Button HorizontalAlignment="Left" Height="29" Margin="325,0,0,0" VerticalAlignment="Center" Width="31" BorderBrush="Transparent" Background="Transparent" Click="DisplayDetail_Clicked">
                 <Image Height="23.5" Width="22" Source="/Images/infoicon.png"/>
             </Button>
         </Border>

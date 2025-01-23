@@ -9,6 +9,47 @@
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" 
         WindowStyle="None" Background="Transparent" 
         Foreground="Transparent" AllowsTransparency="True">
+    <Window.Resources>
+        <Style x:Key="NoHoverButton" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <!-- Animation for the button itself when hovered -->
+                                            <DoubleAnimation 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            To=".7" Duration="0:0:0.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+
+                                            <DoubleAnimation 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            To="1.0" Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Border CornerRadius="10 10 10 10" BorderBrush="#FF2C6E5D" Background="White" BorderThickness="2" RenderTransformOrigin="0.5,0.5" Height="568" VerticalAlignment="Center" Margin="-1,0,1,0">
             <Border.RenderTransform>
@@ -29,11 +70,11 @@
         <Label Content="Payment Method:" HorizontalAlignment="Left" Height="38" Margin="313,46,0,0" VerticalAlignment="Top" Width="150" FontSize="16" FontWeight="Bold"/>
         <Label Content="Status:" HorizontalAlignment="Left" Height="33" Margin="313,108,0,0" VerticalAlignment="Top" Width="150" FontSize="16" FontWeight="Bold"/>
         <Label Content="Purchased Method:" HorizontalAlignment="Left" Height="32" Margin="313,171,0,0" VerticalAlignment="Top" Width="150" FontSize="16" FontWeight="Bold"/>
-        <Button x:Name="CloseButton" Click="CloseWindow_Click" HorizontalAlignment="Left" Height="30" Margin="554,5,0,0" VerticalAlignment="Top" Width="27" Background="Transparent" BorderBrush="Transparent">
+        <Button x:Name="CloseButton" Click="CloseWindow_Click" HorizontalAlignment="Left" Height="30" Margin="554,5,0,0" VerticalAlignment="Top" Width="27" Background="Transparent" BorderBrush="Transparent"  Style="{StaticResource NoHoverButton}">
             <Image Height="22" Width="24" Source="/Images/close.png"/>
         </Button>
         <Border BorderBrush="#FF2C6E5D" CornerRadius="0 0 10 0" BorderThickness="1" HorizontalAlignment="Left" Height="38" VerticalAlignment="Top" Width="290" Background="#FF2C6E5D" Margin="299,529,0,0">
-            <Button x:Name="ConfirmBtn" Click="Confirm_Click" Content="Confirm" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Width="166" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D" Foreground="White" FontWeight="Bold" FontSize="20"/>
+            <Button x:Name="ConfirmBtn" Click="Confirm_Click" Content="Confirm" HorizontalAlignment="Center" Height="32" VerticalAlignment="Center" Width="270" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D" Foreground="White" FontWeight="Bold" FontSize="20"  Style="{StaticResource NoHoverButton}"/>
         </Border>
 
 
@@ -71,14 +112,42 @@
         <Border x:Name="NameBorder"  BorderBrush="#FF838383" CornerRadius="5" BorderThickness="1" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="268" Background="White" Margin="311,264,0,0">
             <TextBox x:Name="NameTB" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="30" TextWrapping="Wrap"
              Text="Name..." Tag="Name..." VerticalAlignment="Center" Width="258" 
-             BorderBrush="White" Foreground="Gray" GotFocus="TB_GotFocus" LostFocus="TB_LostFocus"/>
+             BorderBrush="White" Foreground="Gray" GotFocus="TB_GotFocus" LostFocus="TB_LostFocus">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="SelectionBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+
+            </TextBox>
         </Border>
 
         <Label Content="Pay Date:" HorizontalAlignment="Left" Height="27" Margin="311,291,0,0" VerticalAlignment="Top" Width="74" FontSize="14"/>
         <Label Content="Delivery Date:" HorizontalAlignment="Left" Height="27" Margin="442,291,0,0" VerticalAlignment="Top" Width="103" FontSize="14"/>
 
         <Border x:Name="DPpaymentborder"  CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="311,318,0,0" VerticalAlignment="Top" Width="126">
-            <DatePicker x:Name="datePickerPayment" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="30" VerticalAlignment="Center" Width="119" Loaded="DatePicker_Loaded" Margin="4,0,0,0" BorderBrush="Transparent" FontSize="14" Foreground="Gray"/>
+            <DatePicker x:Name="datePickerPayment" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="30" VerticalAlignment="Center" Width="119" Loaded="DatePicker_Loaded" Margin="4,0,0,0" BorderBrush="Transparent" FontSize="14" Foreground="Gray">
+                <DatePicker.Style>
+                    <Style TargetType="DatePicker">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </DatePicker.Style>
+            </DatePicker>
         </Border>
         <Border x:Name="DPdeliverborder" CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="445,318,0,0" VerticalAlignment="Top" Width="126" RenderTransformOrigin="0.5,0.5">
             <Border.RenderTransform>
@@ -89,22 +158,77 @@
                     <TranslateTransform Y="-0.189"/>
                 </TransformGroup>
             </Border.RenderTransform>
-            <DatePicker x:Name="datePickerDelivery" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="30" VerticalAlignment="Center" Width="119" Loaded="DatePicker_Loaded" Margin="4,0,0,0" BorderBrush="Transparent" FontSize="14" Foreground="Gray"/>
+            <DatePicker x:Name="datePickerDelivery" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="30" VerticalAlignment="Center" Width="119" Loaded="DatePicker_Loaded" Margin="4,0,0,0" BorderBrush="Transparent" FontSize="14" Foreground="Gray">
+                <DatePicker.Style>
+                        <Style TargetType="DatePicker">
+                            <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                            <Setter Property="BorderBrush" Value="Transparent"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsFocused" Value="True">
+                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DatePicker.Style>
+                </DatePicker>
         </Border>
         <Border x:Name="ContactsBorder"  BorderBrush="#FF838383" CornerRadius="5" BorderThickness="1" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="268" Background="White" Margin="313,434,0,0">
             <TextBox x:Name="ContactsTB" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="30" TextWrapping="Wrap"
              Text="Contacts..." Tag="Contacts..." VerticalAlignment="Center" Width="258" 
-             BorderBrush="White" Foreground="Gray" GotFocus="TB_GotFocus" LostFocus="TB_LostFocus" />
+             BorderBrush="White" Foreground="Gray" GotFocus="TB_GotFocus" LostFocus="TB_LostFocus">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="SelectionBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
         </Border>
         <Border x:Name="AddressBorder" BorderBrush="#FF838383" CornerRadius="5" BorderThickness="1" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="268" Background="White" Margin="313,375,0,0">
             <TextBox x:Name="AddressTB" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="30" TextWrapping="Wrap"
              Text="Address..." Tag="Address..." VerticalAlignment="Center" Width="258"
-             BorderBrush="White" Foreground="Gray" GotFocus="TB_GotFocus" LostFocus="TB_LostFocus" />
+             BorderBrush="White" Foreground="Gray" GotFocus="TB_GotFocus" LostFocus="TB_LostFocus" >
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="SelectionBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
         </Border>
         <Border x:Name="ChargeBorder" BorderBrush="#FF838383" CornerRadius="5" BorderThickness="1" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="268" Background="White" Margin="311,493,0,0" >
             <TextBox x:Name="ChargeTB" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="30" TextWrapping="Wrap"
              Text="Charge Fee..." Tag="Charge Fee..." VerticalAlignment="Center" Width="258" 
-             BorderBrush="White" Foreground="Gray" GotFocus="TB_GotFocus" LostFocus="TB_LostFocus" TextChanged="ChargeFee_TextChanged"/>
+             BorderBrush="White" Foreground="Gray" GotFocus="TB_GotFocus" LostFocus="TB_LostFocus" TextChanged="ChargeFee_TextChanged">
+                <TextBox.Style>
+                    <Style TargetType="TextBox">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="SelectionBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
         </Border>
 
         <Label Content="Address:" HorizontalAlignment="Left" Height="27" Margin="311,348,0,0" VerticalAlignment="Top" Width="74" FontSize="14"/>
@@ -113,8 +237,8 @@
 
         <Border x:Name="NotifPopup"  CornerRadius="10" BorderBrush="#FFCCE6D3" BorderThickness="1" HorizontalAlignment="Left" Height="46" Margin="134,19,0,0" VerticalAlignment="Top" Width="330" Background="#FFCCE6D3">
             <WrapPanel>
-                <Label x:Name="NotifMessage"  Content="Invalid Credentials" VerticalContentAlignment="Center" Padding="20 0 0 0" Height="43" Width="302" Foreground="#FF666666"/>
-                <Button x:Name="NotifCloseBtn" BorderBrush="Transparent" Background="Transparent" Height="20" Width="21" Click="NotifCloseBtn_Click">
+                <Label x:Name="NotifMessage"  Content="Invalid Credentials" VerticalContentAlignment="Center" Padding="20 0 0 0" Height="43" Width="302" Foreground="#FF666666" />
+                <Button x:Name="NotifCloseBtn" BorderBrush="Transparent" Background="Transparent" Height="20" Width="21" Click="NotifCloseBtn_Click"  Style="{StaticResource NoHoverButton}">
                     <Image Height="16" Width="10" Source="/Images/closegray.png"/>
                 </Button>
             </WrapPanel>

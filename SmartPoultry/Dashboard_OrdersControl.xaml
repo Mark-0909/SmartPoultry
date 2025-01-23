@@ -12,12 +12,10 @@
             <Grid>
                 <Label x:Name="ReferenceIdlabel" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" 
                        Content="00000000000" HorizontalAlignment="Left" Margin="7,0,0,0" VerticalAlignment="Center" />
-                <Label x:Name="Modelabel" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" 
-                       Content="GCash" HorizontalAlignment="Left" Margin="107,0,0,0" VerticalAlignment="Center" FontSize="13" />
                 <Label x:Name="Statuslabel" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" 
-                       Content="Unpaid" HorizontalAlignment="Left" Margin="177,0,0,0" VerticalAlignment="Center" FontSize="13" />
+                       Content="Unpaid" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="13" />
                 <Label x:Name="TotalpriceLabel" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" 
-                       Content="000000" HorizontalAlignment="Left" Margin="232,0,0,0" VerticalAlignment="Center" FontSize="13" />
+                       Content="000000" HorizontalAlignment="Left" Margin="208,0,0,0" VerticalAlignment="Center" FontSize="13" Width="76" />
                 <Button HorizontalAlignment="Left" Height="25" VerticalAlignment="Center" Width="27" Margin="284,0,0,0" 
                         Background="Transparent" BorderBrush="Transparent" Click="DropDown_Clicked">
                     <Image Height="17" Width="14" Source="/Images/dropdown.png"/>
