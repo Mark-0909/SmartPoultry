@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
              mc:Ignorable="d" 
-             d:DesignHeight="" d:DesignWidth="1123" Background="#FFE3E3E3" Width="1104" Height="577">
+             d:DesignHeight="644" d:DesignWidth="1123" Background="#FFE3E3E3" Width="1104" Height="577">
     <UserControl.Resources>
         <Style x:Key="NoHoverButton" TargetType="Button">
             <Setter Property="Background" Value="White"/>
@@ -72,7 +72,7 @@
         <ScrollViewer Height="484" Margin="10,150,0,0" VerticalAlignment="Top" HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Left" Width="1113">
             <WrapPanel x:Name="ProductListWPanel" Width="1060"/>
         </ScrollViewer>
-        <Border HorizontalAlignment="Left" Height="83" Margin="8,56,0,0" VerticalAlignment="Top" Width="1115" 
+        <Border HorizontalAlignment="Center" Height="83" Margin="0,56,0,0" VerticalAlignment="Top" Width="1105" 
             Background="White" CornerRadius="10">
 
 

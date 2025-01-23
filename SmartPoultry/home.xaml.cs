@@ -779,13 +779,13 @@ namespace SmartPoultry
             }
         }
 
-        public async void SearchProducts(string searchterm)
+        public void SearchProducts(string searchterm)
         {
             try
             {
                 posPrdocutsPanel.Children.Clear();
 
-                List<Products> products = await Task.Run(() => productServices.SearchProducts(searchterm, filterProduct, filterAnimal));
+                List<Products> products = productServices.SearchProducts(searchterm, filterProduct, filterAnimal);
 
                 foreach (var product in products)
                 {
@@ -793,6 +793,8 @@ namespace SmartPoultry
                     int productId = product.product_id;
                     byte[] imagePath = product.image;
                     decimal stocks = product.stocks;
+
+                    
 
                     List<ProductVariations> variations = productvariationsServices.GetAllProductVariations(productId);
 

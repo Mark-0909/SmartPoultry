@@ -22,6 +22,7 @@ namespace SmartPoultry.DataServices
         {
             try
             {
+                _context.ChangeTracker.Clear();
                 var product = _context.Products.FirstOrDefault(p => p.product_id == id);
                 product.status = "inactive";
                 _context.SaveChanges();
@@ -37,6 +38,7 @@ namespace SmartPoultry.DataServices
         {
             try
             {
+                _context.ChangeTracker.Clear();
                 var product = _context.Products.FirstOrDefault(p => p.product_id == Id);
                 product.hasOrder = true;
                 _context.SaveChanges();
@@ -103,6 +105,7 @@ namespace SmartPoultry.DataServices
 
         public List<Products> GetLowStockProducts(string animal, string type, string searchterm)
         {
+            _context.ChangeTracker.Clear();
             var lowStockProducts = _context.Products
                 .Where(p =>
                     (p.product_type.Contains("feeds") && p.stocks <= 3) ||
@@ -262,6 +265,7 @@ namespace SmartPoultry.DataServices
         {
             try
             {
+                _context.ChangeTracker.Clear();
                 var products = _context.Products.ToList();
 
                 if (!string.IsNullOrEmpty(type))
