@@ -40,7 +40,7 @@ namespace SmartPoultry
         public void displayDetails(long receiptid) 
         {
             Sales sale = salesServices.GetSales(receiptid);
-            DateTime dateTime = DateTime.Parse(sale.purchase_date);
+            DateTime dateTime = sale.purchase_date;
             IdLabel.Content = sale.receipt_id.ToString();
             DateLabel.Content = dateTime.ToString("MM-dd-yyyy");
             StatusLabel.Content = sale.status;

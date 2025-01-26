@@ -109,11 +109,11 @@ namespace SmartPoultry.DataServices
                     .Where(p =>
                     {
                         DateTime purchaseDate;
-                        bool isValidDate = DateTime.TryParse(p.purchase_date, out purchaseDate);
+                        bool isValidDate = DateTime.TryParse(p.purchase_date.ToString(), out purchaseDate);
 
                         return isValidDate && purchaseDate >= today && purchaseDate < tomorrow;
                     })
-                    .OrderByDescending(p => DateTime.Parse(p.purchase_date))
+                    .OrderByDescending(p => p.purchase_date)
                     .ToList();
             }
             catch (Exception e)
@@ -127,6 +127,7 @@ namespace SmartPoultry.DataServices
         {
             try
             {
+                _context.ChangeTracker.Clear();
                 List<Sales> sales = _context.Sales.OrderByDescending(p => p.purchase_date).ToList();
                 return sales;
             }
@@ -148,7 +149,7 @@ namespace SmartPoultry.DataServices
                     product_list = productList,
                     price_list = priceList,
                     quantity_list = quantityList,
-                    purchase_date = DateTime.Now.ToString(),
+                    purchase_date = DateTime.Now,
                     variation_list = varList,
                     payment_mode = paymentMode,
                     status = status,

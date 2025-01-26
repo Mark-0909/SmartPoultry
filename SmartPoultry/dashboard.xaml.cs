@@ -51,7 +51,8 @@ namespace SmartPoultry
             deliveryServices = new DeliveriesServices(context);
             productServices = new ProductServices(context);
             expensesServices = new ExpensesServices(context);
-
+            FromDatePicker.SelectedDate = DateTime.Now.AddDays(-6);
+            ToDatePicker.SelectedDate = DateTime.Now;
             
             DisplaySales();
             CountDeliveries();
@@ -77,8 +78,61 @@ namespace SmartPoultry
             {
                 DisplayDeliveries(DeliveryCBox.Text);
             }
-            GenerateRevenueAndCostComboChart();
+
+            
+
+            GenerateRevenueAndCostComboChart(FromDatePicker.SelectedDate.Value, ToDatePicker.SelectedDate.Value);
+            OverAllSalesAndCostPieGraph(FromDatePicker.SelectedDate.Value, ToDatePicker.SelectedDate.Value);
+
+            //SalesAndCostPieChart.Visibility = Visibility.Hidden;
+            GrowthAndTrendsAnalysis.Visibility = Visibility.Hidden;
         }
+
+        private void FromDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (FromDatePicker.SelectedDate.HasValue)
+            {
+                DateTime fromDate = FromDatePicker.SelectedDate.Value;
+
+                ToDatePicker.BlackoutDates.Clear();
+                ToDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.MinValue, fromDate.AddDays(-1))); 
+                ToDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.Today.AddDays(1), DateTime.MaxValue));
+            }
+            else
+            {
+                ToDatePicker.BlackoutDates.Clear();
+                ToDatePicker.BlackoutDates.Add(new CalendarDateRange(DateTime.Today.AddDays(1), DateTime.MaxValue));
+            }
+
+            if (FromDatePicker.SelectedDate.HasValue && ToDatePicker.SelectedDate.HasValue)
+            {
+                GenerateRevenueAndCostComboChart(FromDatePicker.SelectedDate.Value, ToDatePicker.SelectedDate.Value);
+                OverAllSalesAndCostPieGraph(FromDatePicker.SelectedDate.Value, ToDatePicker.SelectedDate.Value);
+            }
+        }
+
+        private void ToDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ToDatePicker.SelectedDate.HasValue)
+            {
+                DateTime toDate = ToDatePicker.SelectedDate.Value;
+
+                FromDatePicker.BlackoutDates.Clear();
+                FromDatePicker.BlackoutDates.Add(new CalendarDateRange(toDate.AddDays(1), DateTime.MaxValue)); 
+            }
+            else
+            {
+                FromDatePicker.BlackoutDates.Clear();
+            }
+
+
+            if (FromDatePicker.SelectedDate.HasValue && ToDatePicker.SelectedDate.HasValue)
+            {
+                GenerateRevenueAndCostComboChart(FromDatePicker.SelectedDate.Value, ToDatePicker.SelectedDate.Value);
+                OverAllSalesAndCostPieGraph(FromDatePicker.SelectedDate.Value, ToDatePicker.SelectedDate.Value);
+            }
+        }
+
 
 
         public void DisplayTodaysExpenses()
@@ -110,64 +164,214 @@ namespace SmartPoultry
         }
 
 
-
-        public ChartValues<decimal> RevenueValues { get; set; }
-        public ChartValues<decimal> ExpenseValues { get; set; }
-        public List<string> DateLabels { get; set; }
-
-        
-        public void GenerateRevenueAndCostComboChart()
+        public void GenerateRevenueAndCostComboChart(DateTime FromDate, DateTime ToDate)
         {
             GrowthAndTrendsAnalysis.Series.Clear();
 
-            List<Sales> sales = salesServices.GetSalesList();
-            List<Expenses> expenses = expensesServices.GetTodaysExpenses();
+            List<Sales> sales = salesServices.GetAllSales();
+            List<Expenses> expenses = expensesServices.GeAllExpenses();
 
-            DateTime today = DateTime.Now.Date; 
+            List<DateTime> labels = new List<DateTime>();
+            List<decimal> revenueValues = new List<decimal>();
+            List<decimal> costValues = new List<decimal>();
 
 
-            decimal totalSales = sales
-                .Where(s => s.status == "paid")
-                .Sum(s => s.total_price);
+            bool isMoreThanOneMonth = (ToDate - FromDate).Days > 30;
 
-            decimal totalExpenses = expenses
-                .Where(e => e.Added_Date.Date == today)
-                .Sum(e => e.price);
-
-            GrowthAndTrendsAnalysis.Series = new SeriesCollection
+            if (isMoreThanOneMonth)
             {
-                new ColumnSeries
-                {
-                    Title = "Revenue",
-                    Values = new ChartValues<decimal> { totalSales },
-                    Fill = Brushes.SteelBlue, 
-                },
+                DateTime currentStartOfWeek = FromDate.Date.AddDays(-(int)FromDate.DayOfWeek);  
 
-               
-                new ColumnSeries
+                while (currentStartOfWeek <= ToDate)
                 {
-                    Title = "Cost",
-                    Values = new ChartValues<decimal> { totalExpenses },
-                    Fill = Brushes.Tomato, 
+                    DateTime currentEndOfWeek = currentStartOfWeek.AddDays(6); 
+                    if (currentEndOfWeek > ToDate)
+                    {
+                        currentEndOfWeek = ToDate;
+                    }
+
+                    labels.Add(currentStartOfWeek);
+
+                    decimal totalSales = sales
+                        .Where(s => s.status == "paid" && s.purchase_date >= currentStartOfWeek && s.purchase_date <= currentEndOfWeek)
+                        .Sum(s => s.total_price);
+
+                    decimal totalExpenses = expenses
+                        .Where(e => e.Added_Date >= currentStartOfWeek && e.Added_Date <= currentEndOfWeek)
+                        .Sum(e => e.price);
+
+                    revenueValues.Add(totalSales);
+                    costValues.Add(totalExpenses);
+
+                   
+                    currentStartOfWeek = currentStartOfWeek.AddDays(7);
                 }
-            };
+            }
+            else
+            {
+                
+                DateTime currentDate = FromDate.Date;
+                while (currentDate <= ToDate)
+                {
+                    labels.Add(currentDate);
 
-            // Set axis labels
+                    decimal totalSales = sales
+                        .Where(s => s.status == "paid" && s.purchase_date.Date == currentDate)
+                        .Sum(s => s.total_price);
+
+                    decimal totalExpenses = expenses
+                        .Where(e => e.Added_Date.Date == currentDate)
+                        .Sum(e => e.price);
+
+                    revenueValues.Add(totalSales);
+                    costValues.Add(totalExpenses);
+
+                    currentDate = currentDate.AddDays(1);
+                }
+            }
+
+            
+            GrowthAndTrendsAnalysis.Series = new SeriesCollection
+                {
+                    new ColumnSeries
+                    {
+                        Title = "Revenue",
+                        Values = new ChartValues<decimal>(revenueValues),
+                        Fill = Brushes.SteelBlue
+                    },
+                    new ColumnSeries
+                    {
+                        Title = "Cost",
+                        Values = new ChartValues<decimal>(costValues),
+                        Fill = Brushes.Tomato
+                    }
+                };
+
+            
             GrowthAndTrendsAnalysis.AxisX.Clear();
             GrowthAndTrendsAnalysis.AxisX.Add(new Axis
             {
-                Labels = new[] { "Today" }, 
-                Separator = new LiveCharts.Wpf.Separator { Step = 1 }
+                Labels = labels.Select(d => isMoreThanOneMonth ? $"{d:MM/dd} - {d.AddDays(6):MM/dd}" : $"{d:MM/dd/yyyy}").ToArray(),
+                Separator = new LiveCharts.Wpf.Separator { Step = 1 },
+                LabelsRotation = -45  
             });
 
+            
             GrowthAndTrendsAnalysis.AxisY.Clear();
             GrowthAndTrendsAnalysis.AxisY.Add(new Axis
             {
                 Title = "Amount",
-                LabelFormatter = value => $"₱{value:N2}" 
+                LabelFormatter = value => $"₱{value:N2}"
             });
         }
 
+
+        public void OverAllSalesAndCostPieGraph(DateTime FromDate, DateTime ToDate)
+        {
+            
+            List<Sales> sales = salesServices.GetAllSales();
+            List<Expenses> expenses = expensesServices.GeAllExpenses();
+            List<FinancialLiabilities> finances = financialLiabilities.GetAllPayments();
+
+            
+            List<FinancialLiabilities> unpaid = finances
+                .Where(p => p.status.Trim().Equals("Unpaid", StringComparison.OrdinalIgnoreCase) &&
+                            p.type.Trim().Equals("To Receive", StringComparison.OrdinalIgnoreCase) &&
+                            p.updated_date.Date >= FromDate.Date &&
+                            p.updated_date.Date <= ToDate.Date)
+                .ToList();
+
+            List<Sales> paid = sales
+                .Where(p => p.purchase_date.Date >= FromDate.Date &&
+                            p.purchase_date.Date <= ToDate.Date &&
+                            p.status.Trim().Equals("paid", StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            expenses = expenses
+                .Where(p => p.Added_Date.Date >= FromDate.Date &&
+                            p.Added_Date.Date <= ToDate.Date)
+                .ToList();
+
+            finances = finances
+                .Where(p => p.status.Trim().Equals("Unpaid", StringComparison.OrdinalIgnoreCase) &&
+                            p.type.Trim().Equals("To Pay", StringComparison.OrdinalIgnoreCase) &&
+                            p.updated_date.Date >= FromDate.Date &&
+                            p.updated_date.Date <= ToDate.Date)
+                .ToList();
+
+            
+            decimal totalUnpaidSales = unpaid.Any() ? unpaid.Sum(p => p.amount) : 0;
+            decimal totalPaidSales = paid.Any() ? paid.Sum(p => p.total_price) : 0;
+            decimal totalExpenses = expenses.Any() ? expenses.Sum(e => e.price) : 0;
+            decimal totalLiabilities = finances.Any() ? finances.Sum(f => f.amount) : 0;
+
+            
+            SalesAndCostPieChart.Series = new SeriesCollection
+    {
+        new PieSeries
+        {
+            Title = "Unpaid Sales",
+            Values = new ChartValues<decimal> { totalUnpaidSales },
+            Fill = Brushes.OrangeRed
+        },
+        new PieSeries
+        {
+            Title = "Paid Sales",
+            Values = new ChartValues<decimal> { totalPaidSales },
+            Fill = Brushes.Green
+        },
+        new PieSeries
+        {
+            Title = "Expenses",
+            Values = new ChartValues<decimal> { totalExpenses },
+            Fill = Brushes.CornflowerBlue
+        },
+        new PieSeries
+        {
+            Title = "Liabilities",
+            Values = new ChartValues<decimal> { totalLiabilities },
+            Fill = Brushes.Indigo
+        }
+    };
+
+            
+            RightSidePanel.Children.Clear(); 
+
+            AddLegendEntry("Unpaid Sales", totalUnpaidSales, Brushes.OrangeRed);
+            AddLegendEntry("Paid Sales", totalPaidSales, Brushes.Green);
+            AddLegendEntry("Expenses", totalExpenses, Brushes.CornflowerBlue);
+            AddLegendEntry("Liabilities", totalLiabilities, Brushes.Indigo);
+        }
+
+        
+        private void AddLegendEntry(string title, decimal amount, Brush color)
+        {
+            
+            StackPanel legendEntry = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(5) };
+
+            
+            Rectangle colorBox = new Rectangle
+            {
+                Width = 15,
+                Height = 15,
+                Fill = color,
+                Margin = new Thickness(0, 0, 5, 0)
+            };
+
+            
+            TextBlock label = new TextBlock
+            {
+                Text = $"{title}: ₱{amount:N2}",
+                VerticalAlignment = VerticalAlignment.Center
+            };
+
+            
+            legendEntry.Children.Add(colorBox);
+            legendEntry.Children.Add(label);
+
+            
+            RightSidePanel.Children.Add(legendEntry);
+        }
 
 
 
@@ -227,7 +431,7 @@ namespace SmartPoultry
 
         public void DynamicUpdateCharts()
         {
-            GenerateRevenueAndCostComboChart();
+            GenerateRevenueAndCostComboChart(FromDatePicker.SelectedDate.Value, ToDatePicker.SelectedDate.Value);
         }
 
         public void DynamicOrderDisplay()

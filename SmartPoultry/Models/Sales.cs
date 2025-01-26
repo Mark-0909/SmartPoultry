@@ -21,8 +21,8 @@ namespace SmartPoultry.Models
         public string price_list { get; set; }
         [MaxLength(255)]
         public string quantity_list { get; set; }
-        [MaxLength(255)]
-        public string purchase_date { get; set; }
+        
+        public DateTime purchase_date { get; set; }
         [MaxLength(255)]
         public string variation_list { get; set; }
         [MaxLength(100)]

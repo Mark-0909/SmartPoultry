@@ -18,7 +18,7 @@ namespace SmartPoultry.DataServices
         }
         public List<Expenses> GeAllExpenses()
         {
-            
+            _context.ChangeTracker.Clear();
             List<Expenses> expensesList = _context.Expenses.OrderByDescending(p => p.Added_Date).ToList();
             return expensesList;
             

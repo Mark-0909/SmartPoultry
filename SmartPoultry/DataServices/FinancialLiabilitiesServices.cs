@@ -22,6 +22,7 @@ namespace SmartPoultry.DataServices
         public List<FinancialLiabilities> GetAllPayments()
         {
             var lists = _context.FinancialLiabilities.OrderByDescending(p => p.added_date).ToList();
+
             return lists;
         }
         public bool MarkAsVoided(long receiptid, string remarks)
@@ -78,6 +79,7 @@ namespace SmartPoultry.DataServices
                 var itemrow = _context.FinancialLiabilities.FirstOrDefault(p => p.Id == id);
                 itemrow.status = "paid";
                 itemrow.Remarks = remarks;
+                itemrow.updated_date = DateTime.Now;
                 _context.SaveChanges();
                 return true;
 
