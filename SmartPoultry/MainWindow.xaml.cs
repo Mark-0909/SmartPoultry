@@ -1,5 +1,6 @@
 ﻿using SmartPoultry.DataAccess;
 using SmartPoultry.DataServices;
+using SmartPoultry.Models;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -23,6 +24,7 @@ namespace SmartPoultry
     {
         public AppDbContext context = new AppDbContext();
         public UserLogsServices userLogsServices;
+        public UserServices userServices;
         public MainWindow()
         {
             UserContext.mainWindow = this;
@@ -30,7 +32,10 @@ namespace SmartPoultry
             UserContext.homewindow = homeControl;
             MainWindowOverlay.Visibility = Visibility.Hidden;
             userLogsServices = new UserLogsServices(context);
+            userServices = new UserServices(context);
             NotifPopup.Visibility = Visibility.Hidden;
+
+            
         }
 
         public void PopUpNotif(string type, string message)

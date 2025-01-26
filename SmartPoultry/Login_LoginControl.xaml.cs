@@ -75,6 +75,15 @@ namespace SmartPoultry
                     UserContext.mainWindow = window;
                     window.PopUpNotif("notif", $"Good Day! {usernameTB.Text}!");
                     int user_id = UserContext.CurrentUserId;
+
+                    if(userServices.GetUser(user_id).Role != "admin")
+                    {
+                        window.organizationButton.Visibility = Visibility.Collapsed;
+                        window.dashboardControl.IfUserNotAuthorized();
+                        window.recordsControl.LogsBtn.IsEnabled = false;
+                        window.recordsControl.LogsBtn.Opacity = 0.5;
+                    }
+
                     bool isRecorded = userLogsServices.Create(user_id, "LOGIN", "LOGIN");
                     if (!isRecorded) 
                     {

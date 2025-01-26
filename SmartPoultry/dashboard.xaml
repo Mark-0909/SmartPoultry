@@ -199,8 +199,8 @@ Margin="840,130,0,0"/>
             VerticalAlignment="Top" 
             Width="109"/>
 
-            <Label Content="Filter: From" HorizontalAlignment="Left" Height="26" Margin="777,94,0,0" VerticalAlignment="Top" Width="72"/>
-            <Label Content="To" HorizontalAlignment="Left" Height="26" Margin="958,94,0,0" VerticalAlignment="Top" Width="21"/>
+            <Label x:Name="filterFrom" Content="Filter: From" HorizontalAlignment="Left" Height="26" Margin="777,94,0,0" VerticalAlignment="Top" Width="72"/>
+            <Label x:Name="filterTo" Content="To" HorizontalAlignment="Left" Height="26" Margin="958,94,0,0" VerticalAlignment="Top" Width="21"/>
         </Grid>
         <Label Content="Name" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="41,502,0,0" VerticalAlignment="Top" Width="52"/>
         <Label Content="Purpose" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="115,502,0,0" VerticalAlignment="Top" Width="67"/>

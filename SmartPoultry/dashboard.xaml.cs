@@ -103,6 +103,29 @@ namespace SmartPoultry
             GrowthAndTrendsAnalysis.Visibility = Visibility.Hidden;
             ProductPerformanceChart.Visibility = Visibility.Hidden;
         }
+
+        public void IfUserNotAuthorized()
+        {
+            SalesAndCostPieChart.Visibility = Visibility.Hidden;
+            PaidSalesAndExpensesPieChart.Visibility = Visibility.Hidden;
+            RevenueVsLiabilitiesPieChart.Visibility = Visibility.Hidden;
+            RightSidePanel.Visibility = Visibility.Hidden;
+            GrowthAndTrendsAnalysis.Visibility = Visibility.Hidden;
+            ProductPerformanceChart.Visibility = Visibility.Hidden;
+
+            LineGraphBtn.Visibility = Visibility.Hidden;
+            BarGraphBtn.Visibility = Visibility.Hidden;
+            PieGraphBtn.Visibility = Visibility.Hidden;
+            LineGraphBorder.Visibility = Visibility.Hidden;
+            BarGraphBorder.Visibility = Visibility.Hidden;
+            PieGraphBorder.Visibility = Visibility.Hidden;
+            
+            ChartName.Visibility = Visibility.Hidden;
+            filterFrom.Visibility = Visibility.Hidden;
+            FromDatePicker.Visibility = Visibility.Hidden;
+            ToDatePicker.Visibility = Visibility.Hidden;
+            filterTo.Visibility = Visibility.Hidden;
+        }
         private void FromDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             if (FromDatePicker.SelectedDate.HasValue)
