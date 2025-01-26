@@ -37,6 +37,7 @@ namespace SmartPoultry.DataServices
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex.Message);
                 return new List<Expenses>();
             }
         }

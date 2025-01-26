@@ -16,6 +16,11 @@ namespace SmartPoultry.DataServices
         {
             _context = context;
         }
+        public List<SupplierOrders> GetAllSupplierOrders()
+        {
+            var SUpplierOrders = _context.SupplierOrders.OrderByDescending(p => p.Added_Date).ToList();
+            return SUpplierOrders;
+        }
         public bool UpdatePrice(int id, decimal price)
         {
             try

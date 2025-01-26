@@ -52,11 +52,11 @@
                 <WrapPanel x:Name="SalesPanel" Width="1050"/>
             </ScrollViewer>
         </Border>
-        <Label Content="Price" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="32" Margin="942,60,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
-        <Label Content="Payment Status" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="32" Margin="802,60,0,0" VerticalAlignment="Top" Width="119" FontSize="15" RenderTransformOrigin="0.531,0.299"/>
-        <Label Content="Payment Method" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="630,60,0,0" VerticalAlignment="Top" Width="120" FontSize="15"/>
-        <Label Content="Status" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="437,60,0,0" VerticalAlignment="Top" Width="118" FontSize="15"/>
-        <Label Content="Date" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="297,60,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
-        <Label Content="Sales" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="86,60,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
+        <Label Content="Price" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="32" Margin="920,60,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
+        
+        <Label Content="Payment Method" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="575,60,0,0" VerticalAlignment="Top" Width="120" FontSize="15"/>
+        <Label Content="Status" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="370,60,0,0" VerticalAlignment="Top" Width="118" FontSize="15"/>
+        <Label Content="Date" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="210,60,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
+        <Label Content="ID" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="50,60,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
     </Grid>
 </UserControl>

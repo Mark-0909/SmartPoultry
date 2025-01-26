@@ -19,6 +19,11 @@ namespace SmartPoultry.DataServices
             _context = context;
         }
 
+        public List<FinancialLiabilities> GetAllPayments()
+        {
+            var lists = _context.FinancialLiabilities.OrderByDescending(p => p.added_date).ToList();
+            return lists;
+        }
         public bool MarkAsVoided(long receiptid, string remarks)
         {
             try

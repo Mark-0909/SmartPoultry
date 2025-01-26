@@ -348,7 +348,7 @@
             </Border>
         </WrapPanel>
         <Label Content="Stocks: " HorizontalAlignment="Left" Margin="23,621,0,0" VerticalAlignment="Top" FontSize="15" RenderTransformOrigin="0.482,-0.021"/>
-        <Label x:Name="stocklisting" Content="stocks " HorizontalAlignment="Left" Margin="113,621,0,0" VerticalAlignment="Top" FontSize="15"/>
+        <Label x:Name="stocklisting" Content="00.00" HorizontalAlignment="Left" Margin="113,621,0,0" VerticalAlignment="Top" FontSize="15" Width="56" Height="31"/>
         <Label x:Name="stockunit" Content="stocks " HorizontalAlignment="Left" Margin="203,621,0,0" VerticalAlignment="Top" FontSize="15"/>
         <Button x:Name="editBtn"  Content="edit" HorizontalAlignment="Left" Height="30" Margin="448,622,0,0" VerticalAlignment="Top" Width="66" Click="EditBtn_Click"/>
         <Button x:Name="phaseoutBtn"  Content="phaseout" Height="30" Margin="522,622,10,0" VerticalAlignment="Top" Click="PhaseOutBtn_Click"/>

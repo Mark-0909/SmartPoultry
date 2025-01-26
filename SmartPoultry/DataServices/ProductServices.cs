@@ -356,6 +356,7 @@ namespace SmartPoultry.DataServices
             }
             catch (FileNotFoundException ex)
             {
+                Console.WriteLine(ex.Message);
                 form.PopUpNotif("alert", "Image file not found at the specified path.");
                 return 0;
             }
