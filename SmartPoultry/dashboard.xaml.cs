@@ -34,6 +34,7 @@ namespace SmartPoultry
         readonly ProductServices productServices;
         Add_FinancialLiabilities add_FinancialLiabilities;
         ExpensesServices expensesServices;
+        InventoryLogsServices inventoryLogsServices;
         Add_Delivery Add_Delivery;
 
         MainWindow mainWindow;
@@ -51,6 +52,7 @@ namespace SmartPoultry
             deliveryServices = new DeliveriesServices(context);
             productServices = new ProductServices(context);
             expensesServices = new ExpensesServices(context);
+            inventoryLogsServices = new InventoryLogsServices(context); 
             FromDatePicker.SelectedDate = DateTime.Now.AddDays(-6);
             ToDatePicker.SelectedDate = DateTime.Now;
             
@@ -83,11 +85,24 @@ namespace SmartPoultry
 
             GenerateRevenueAndCostComboChart(FromDatePicker.SelectedDate.Value, ToDatePicker.SelectedDate.Value);
             OverAllSalesAndCostPieGraph(FromDatePicker.SelectedDate.Value, ToDatePicker.SelectedDate.Value);
+            DisplayProductPerformanceChart(FromDatePicker.SelectedDate.Value, ToDatePicker.SelectedDate.Value);
 
-            //SalesAndCostPieChart.Visibility = Visibility.Hidden;
-            GrowthAndTrendsAnalysis.Visibility = Visibility.Hidden;
+            HideCharts();
+            SalesAndCostPieChart.Visibility = Visibility.Visible;
+            PaidSalesAndExpensesPieChart.Visibility = Visibility.Visible;
+            RevenueVsLiabilitiesPieChart.Visibility = Visibility.Visible;
+            RightSidePanel.Visibility = Visibility.Visible;
         }
 
+        public void HideCharts()
+        {
+            SalesAndCostPieChart.Visibility = Visibility.Hidden;
+            PaidSalesAndExpensesPieChart.Visibility = Visibility.Hidden;
+            RevenueVsLiabilitiesPieChart.Visibility = Visibility.Hidden;
+            RightSidePanel.Visibility = Visibility.Hidden;
+            GrowthAndTrendsAnalysis.Visibility = Visibility.Hidden;
+            ProductPerformanceChart.Visibility = Visibility.Hidden;
+        }
         private void FromDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             if (FromDatePicker.SelectedDate.HasValue)
@@ -108,6 +123,7 @@ namespace SmartPoultry
             {
                 GenerateRevenueAndCostComboChart(FromDatePicker.SelectedDate.Value, ToDatePicker.SelectedDate.Value);
                 OverAllSalesAndCostPieGraph(FromDatePicker.SelectedDate.Value, ToDatePicker.SelectedDate.Value);
+                DisplayProductPerformanceChart(FromDatePicker.SelectedDate.Value, ToDatePicker.SelectedDate.Value);
             }
         }
 
@@ -117,8 +133,9 @@ namespace SmartPoultry
             {
                 DateTime toDate = ToDatePicker.SelectedDate.Value;
 
-                FromDatePicker.BlackoutDates.Clear();
-                FromDatePicker.BlackoutDates.Add(new CalendarDateRange(toDate.AddDays(1), DateTime.MaxValue)); 
+                GenerateRevenueAndCostComboChart(FromDatePicker.SelectedDate.Value, ToDatePicker.SelectedDate.Value);
+                OverAllSalesAndCostPieGraph(FromDatePicker.SelectedDate.Value, ToDatePicker.SelectedDate.Value);
+                DisplayProductPerformanceChart(FromDatePicker.SelectedDate.Value, ToDatePicker.SelectedDate.Value);
             }
             else
             {
@@ -175,16 +192,15 @@ namespace SmartPoultry
             List<decimal> revenueValues = new List<decimal>();
             List<decimal> costValues = new List<decimal>();
 
-
             bool isMoreThanOneMonth = (ToDate - FromDate).Days > 30;
 
             if (isMoreThanOneMonth)
             {
-                DateTime currentStartOfWeek = FromDate.Date.AddDays(-(int)FromDate.DayOfWeek);  
+                DateTime currentStartOfWeek = FromDate.Date.AddDays(-(int)FromDate.DayOfWeek);
 
                 while (currentStartOfWeek <= ToDate)
                 {
-                    DateTime currentEndOfWeek = currentStartOfWeek.AddDays(6); 
+                    DateTime currentEndOfWeek = currentStartOfWeek.AddDays(6);
                     if (currentEndOfWeek > ToDate)
                     {
                         currentEndOfWeek = ToDate;
@@ -203,13 +219,11 @@ namespace SmartPoultry
                     revenueValues.Add(totalSales);
                     costValues.Add(totalExpenses);
 
-                   
                     currentStartOfWeek = currentStartOfWeek.AddDays(7);
                 }
             }
             else
             {
-                
                 DateTime currentDate = FromDate.Date;
                 while (currentDate <= ToDate)
                 {
@@ -230,50 +244,59 @@ namespace SmartPoultry
                 }
             }
 
-            
-            GrowthAndTrendsAnalysis.Series = new SeriesCollection
-                {
-                    new ColumnSeries
-                    {
-                        Title = "Revenue",
-                        Values = new ChartValues<decimal>(revenueValues),
-                        Fill = Brushes.SteelBlue
-                    },
-                    new ColumnSeries
-                    {
-                        Title = "Cost",
-                        Values = new ChartValues<decimal>(costValues),
-                        Fill = Brushes.Tomato
-                    }
-                };
 
-            
+            GrowthAndTrendsAnalysis.Series = new SeriesCollection
+    {
+        new LineSeries
+        {
+            Title = "Revenue",
+            Values = new ChartValues<decimal>(revenueValues),
+            Stroke = Brushes.SteelBlue,
+            Fill = Brushes.Transparent,
+            PointGeometry = DefaultGeometries.Circle,
+            PointGeometrySize = 6
+        },
+        new LineSeries
+        {
+            Title = "Cost",
+            Values = new ChartValues<decimal>(costValues),
+            Stroke = Brushes.Tomato,
+            Fill = Brushes.Transparent,
+            PointGeometry = DefaultGeometries.Circle,
+            PointGeometrySize = 6
+        }
+    };
+
+
             GrowthAndTrendsAnalysis.AxisX.Clear();
             GrowthAndTrendsAnalysis.AxisX.Add(new Axis
             {
                 Labels = labels.Select(d => isMoreThanOneMonth ? $"{d:MM/dd} - {d.AddDays(6):MM/dd}" : $"{d:MM/dd/yyyy}").ToArray(),
                 Separator = new LiveCharts.Wpf.Separator { Step = 1 },
-                LabelsRotation = -45  
+                LabelsRotation = -20
             });
 
-            
+
             GrowthAndTrendsAnalysis.AxisY.Clear();
             GrowthAndTrendsAnalysis.AxisY.Add(new Axis
             {
                 Title = "Amount",
                 LabelFormatter = value => $"₱{value:N2}"
             });
+
+
+            GrowthAndTrendsAnalysis.LegendLocation = LegendLocation.Bottom;
         }
+
+
 
 
         public void OverAllSalesAndCostPieGraph(DateTime FromDate, DateTime ToDate)
         {
-            
             List<Sales> sales = salesServices.GetAllSales();
             List<Expenses> expenses = expensesServices.GeAllExpenses();
             List<FinancialLiabilities> finances = financialLiabilities.GetAllPayments();
 
-            
             List<FinancialLiabilities> unpaid = finances
                 .Where(p => p.status.Trim().Equals("Unpaid", StringComparison.OrdinalIgnoreCase) &&
                             p.type.Trim().Equals("To Receive", StringComparison.OrdinalIgnoreCase) &&
@@ -299,13 +322,12 @@ namespace SmartPoultry
                             p.updated_date.Date <= ToDate.Date)
                 .ToList();
 
-            
             decimal totalUnpaidSales = unpaid.Any() ? unpaid.Sum(p => p.amount) : 0;
             decimal totalPaidSales = paid.Any() ? paid.Sum(p => p.total_price) : 0;
             decimal totalExpenses = expenses.Any() ? expenses.Sum(e => e.price) : 0;
             decimal totalLiabilities = finances.Any() ? finances.Sum(f => f.amount) : 0;
 
-            
+            // First Pie Chart (Sales, Expenses, Liabilities)
             SalesAndCostPieChart.Series = new SeriesCollection
     {
         new PieSeries
@@ -334,22 +356,54 @@ namespace SmartPoultry
         }
     };
 
-            
-            RightSidePanel.Children.Clear(); 
+            // Second Pie Chart (Paid Sales vs Expenses)
+            PaidSalesAndExpensesPieChart.Series = new SeriesCollection
+    {
+        new PieSeries
+        {
+            Title = "Paid Sales",
+            Values = new ChartValues<decimal> { totalPaidSales },
+            Fill = Brushes.Green
+        },
+        new PieSeries
+        {
+            Title = "Expenses",
+            Values = new ChartValues<decimal> { totalExpenses },
+            Fill = Brushes.CornflowerBlue
+        }
+    };
 
+            
+            RevenueVsLiabilitiesPieChart.Series = new SeriesCollection
+    {
+        new PieSeries
+        {
+            Title = "Paid Sales",
+            Values = new ChartValues<decimal> { totalPaidSales },
+            Fill = Brushes.Green
+        },
+        new PieSeries
+        {
+            Title = "Liabilities",
+            Values = new ChartValues<decimal> { totalLiabilities },
+            Fill = Brushes.Indigo
+        }
+    };
+
+            
+            RightSidePanel.Children.Clear();
+
+            
             AddLegendEntry("Unpaid Sales", totalUnpaidSales, Brushes.OrangeRed);
             AddLegendEntry("Paid Sales", totalPaidSales, Brushes.Green);
             AddLegendEntry("Expenses", totalExpenses, Brushes.CornflowerBlue);
             AddLegendEntry("Liabilities", totalLiabilities, Brushes.Indigo);
         }
 
-        
         private void AddLegendEntry(string title, decimal amount, Brush color)
         {
-            
             StackPanel legendEntry = new StackPanel { Orientation = Orientation.Horizontal, Margin = new Thickness(5) };
 
-            
             Rectangle colorBox = new Rectangle
             {
                 Width = 15,
@@ -358,20 +412,76 @@ namespace SmartPoultry
                 Margin = new Thickness(0, 0, 5, 0)
             };
 
-            
             TextBlock label = new TextBlock
             {
                 Text = $"{title}: ₱{amount:N2}",
                 VerticalAlignment = VerticalAlignment.Center
             };
 
-            
             legendEntry.Children.Add(colorBox);
             legendEntry.Children.Add(label);
 
-            
             RightSidePanel.Children.Add(legendEntry);
         }
+
+
+
+
+
+        public void DisplayProductPerformanceChart(DateTime FromDate, DateTime ToDate)
+        {
+            List<InventoryLogs> logs = inventoryLogsServices.GetList();
+
+            var salesLogs = logs.Where(p => p.action == "SALES" &&
+                                            p.timestamp.Date >= FromDate.Date &&
+                                            p.timestamp.Date <= ToDate.Date)
+                                .ToList();
+
+            var productPerformance = salesLogs
+                .GroupBy(p => p.product_id)
+                .Select(g => new
+                {
+                    ProductId = g.Key,
+                    TotalSales = g.Where(e => int.TryParse(e.reason, out _)) 
+                                  .Sum(e => int.Parse(e.reason)) 
+                })
+                .OrderByDescending(p => p.TotalSales) 
+                .Take(20) 
+                .ToList();
+            var productNames = productPerformance.Select(p => productServices.FetchProduct(p.ProductId).product_name).ToList();
+            var salesData = productPerformance.Select(p => p.TotalSales).ToList();
+
+
+            ProductPerformanceChart.Series.Clear();
+            ProductPerformanceChart.Series = new SeriesCollection
+                {
+                    new ColumnSeries
+                    {
+                        Title = "Total Sales",
+                        Values = new ChartValues<int>(salesData) 
+                    }
+                };
+
+
+            ProductPerformanceChart.AxisX.Clear();
+            ProductPerformanceChart.AxisX.Add(new Axis
+            {
+                Title = "Products",
+                Labels = productNames, 
+                LabelsRotation = -20 
+            });
+
+
+            ProductPerformanceChart.AxisY.Clear(); 
+            ProductPerformanceChart.AxisY.Add(new Axis
+            {
+                Title = "Total Sales",
+                LabelFormatter = value => value.ToString("0") 
+            });
+        }
+
+
+
 
 
 
@@ -432,6 +542,8 @@ namespace SmartPoultry
         public void DynamicUpdateCharts()
         {
             GenerateRevenueAndCostComboChart(FromDatePicker.SelectedDate.Value, ToDatePicker.SelectedDate.Value);
+            OverAllSalesAndCostPieGraph(FromDatePicker.SelectedDate.Value, ToDatePicker.SelectedDate.Value);
+            DisplayProductPerformanceChart(FromDatePicker.SelectedDate.Value, ToDatePicker.SelectedDate.Value);
         }
 
         public void DynamicOrderDisplay()
@@ -571,7 +683,61 @@ namespace SmartPoultry
             
             
         }
-        
+
+        private void Chart1_Clicked(object sender, RoutedEventArgs e)
+        {
+            HideCharts();
+            SalesAndCostPieChart.Visibility = Visibility.Visible;
+            PaidSalesAndExpensesPieChart.Visibility = Visibility.Visible;
+            RevenueVsLiabilitiesPieChart.Visibility = Visibility.Visible;
+            RightSidePanel.Visibility = Visibility.Visible;
+            ChartName.Content = "Revenue and Cost Overview";
+
+            HandleButtonClicks(LineGraphBtn, LineGraphBorder);
+        }
+
+        private void Chart2_Clicked(object sender, RoutedEventArgs e)
+        {
+            HideCharts();
+            GrowthAndTrendsAnalysis.Visibility = Visibility.Visible;
+            ChartName.Content = "Sales and Expenses Trend";
+
+            HandleButtonClicks(PieGraphBtn, PieGraphBorder);
+        }
+
+        private void Chart3_Clicked(object sender, RoutedEventArgs e)
+        {
+            HideCharts();
+            ProductPerformanceChart.Visibility = Visibility.Visible;
+            ChartName.Content = "Product Performance";
+
+            HandleButtonClicks(BarGraphBtn, BarGraphBorder);
+        }
+
+        public void HandleButtonClicks(Button activeButton, Border activeBorder)
+        {
+            List<Button> buttons = new List<Button> { LineGraphBtn, PieGraphBtn, BarGraphBtn };
+            List<Border> borders = new List<Border> { LineGraphBorder, PieGraphBorder, BarGraphBorder };
+            int activeIndex = buttons.IndexOf(activeButton);
+            buttons.Remove(activeButton);
+            borders.RemoveAt(activeIndex);
+
+            activeButton.Background = (Brush)new BrushConverter().ConvertFrom("#FF2C6E5D");
+            activeBorder.Background = (Brush)new BrushConverter().ConvertFrom("#FF2C6E5D");
+            activeBorder.BorderBrush = (Brush)new BrushConverter().ConvertFrom("#FF2C6E5D");
+
+            foreach (var button in buttons)
+            {
+                button.Background = (Brush)new BrushConverter().ConvertFrom("#FF8DC6B7");
+            }
+
+            foreach (var border in borders)
+            {
+                border.Background = (Brush)new BrushConverter().ConvertFrom("#FF8DC6B7");
+                border.BorderBrush = (Brush)new BrushConverter().ConvertFrom("#FF8DC6B7");
+            }
+        }
+
 
     }
 }

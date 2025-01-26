@@ -8,6 +8,47 @@
     x:Class="SmartPoultry.dashboard"
     mc:Ignorable="d" 
     d:DesignHeight="644" d:DesignWidth="1123" Background="#FFE3E3E3" Width="1123" Height="644">
+    <UserControl.Resources>
+        <Style x:Key="NoHoverButton" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <!-- Animation for the button itself when hovered -->
+                                            <DoubleAnimation 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            To=".7" Duration="0:0:0.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+
+                                            <DoubleAnimation 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            To="1.0" Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Border CornerRadius="10" BorderBrush="White" BorderThickness="1" HorizontalAlignment="Left" Height="114" Margin="10,67,0,0" VerticalAlignment="Top" Width="341" Background="White"/>
 
@@ -68,9 +109,13 @@
             <Label Content="Today's Log" HorizontalAlignment="Left" Height="37" VerticalAlignment="Center" Width="140" Foreground="White" FontSize="20" Margin="9,0,0,0"/>
         </Border>
         <Border CornerRadius="10" BorderBrush="Black" BorderThickness="0" HorizontalAlignment="Left" Height="310" Margin="361,59,0,0" VerticalAlignment="Top" Width="752" Background="White">
-            <Border CornerRadius="10 10 0 0" BorderThickness="1" HorizontalAlignment="Center" Height="36" VerticalAlignment="Top" Width="752" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
-                <Label Content="Charts" HorizontalAlignment="Left" Height="37" VerticalAlignment="Center" Width="140" Foreground="White" FontSize="20" Margin="9,0,0,0"/>
+            <Border x:Name="BarGraphBorder" CornerRadius="0 10 0 0" BorderThickness="1" HorizontalAlignment="Left" Height="36" VerticalAlignment="Top" Width="248" Background="#FF8DC6B7" BorderBrush="#FF8DC6B7" Margin="504,0,0,0">
+                <Button x:Name="BarGraphBtn" Content="Product Performance" Background="Transparent" BorderBrush="Transparent" Margin="9,0,9,0" FontWeight="Bold" Click="Chart3_Clicked"  Style="{StaticResource NoHoverButton}"/>
             </Border>
+        </Border>
+
+        <Border x:Name="PieGraphBorder" CornerRadius="0 0 0 0" BorderThickness="1" HorizontalAlignment="Left" Height="36" VerticalAlignment="Top" Width="248" Background="#FF8DC6B7" BorderBrush="#FF8DC6B7" Margin="613,59,0,0">
+            <Button x:Name="PieGraphBtn" Content="Sales and Expenses Trend" Background="Transparent" BorderBrush="Transparent" Margin="9,0,9,0" FontWeight="Bold" Click="Chart2_Clicked"  Style="{StaticResource NoHoverButton}"/>
         </Border>
         <Border BorderThickness="0,0,0.5,0.5" BorderBrush="Black" HorizontalAlignment="Left" Height="16" Margin="10,95,0,0" VerticalAlignment="Top" Width="85"/>
         <Border BorderThickness="0,0,0.5,0.5" BorderBrush="Black" HorizontalAlignment="Left" Height="16" Margin="95,95,0,0" VerticalAlignment="Top" Width="85"/>
@@ -101,22 +146,40 @@
 
         <Grid Width="1123" Height="642" Margin="0,9,0,-7">
             <lvc:CartesianChart x:Name="GrowthAndTrendsAnalysis"
-                        Background="White"
-                        Width="717" Height="194"
+                        Background="Transparent"
+                        Width="717" Height="225"
                         HorizontalAlignment="Left" VerticalAlignment="Top" Margin="375,127,0,0" />
+            <lvc:CartesianChart x:Name="ProductPerformanceChart"
+            Background="Transparent"
+            Width="717" Height="235"
+            HorizontalAlignment="Left" VerticalAlignment="Top" Margin="375,127,0,0" />
 
             <lvc:PieChart x:Name="SalesAndCostPieChart"
               Background="Transparent"
-              Width="717"
+              Width="250"
               Height="194"
               HorizontalAlignment="Left"
               VerticalAlignment="Top"
-              Margin="220,127,0,0"/>
+              Margin="380,127,0,0"/>
 
-            
+            <lvc:PieChart x:Name="PaidSalesAndExpensesPieChart"
+          Background="Transparent"
+          Width="250"
+          Height="194"
+          HorizontalAlignment="Left"
+          VerticalAlignment="Top"
+          Margin="610,127,0,0"/>
+
+            <lvc:PieChart x:Name="RevenueVsLiabilitiesPieChart"
+Background="Transparent"
+Width="250"
+Height="194"
+HorizontalAlignment="Left"
+VerticalAlignment="Top"
+Margin="840,130,0,0"/>
 
 
-            <Label x:Name="ChartName" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Revenue and Cost Overview" HorizontalAlignment="Left" Height="32" Margin="577,326,0,0" VerticalAlignment="Top" Width="342" FontStyle="Italic" FontWeight="Bold"/>
+            <Label x:Name="ChartName" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="Revenue and Cost Overview" HorizontalAlignment="Left" Height="32" Margin="280,90,0,0" VerticalAlignment="Top" Width="342" FontStyle="Italic" FontWeight="Bold"/>
             <Border CornerRadius="10 10 0 0" BorderThickness="1" HorizontalAlignment="Left" Height="33" Margin="10,459,0,0" VerticalAlignment="Top" Width="341" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
                 <Label Content="Expenses" HorizontalAlignment="Left" Height="37" VerticalAlignment="Center" Width="140" Foreground="White" FontSize="20" Margin="9,0,0,0"/>
             </Border>
@@ -144,11 +207,14 @@
         <Label Content="Amount" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="230,502,0,0" VerticalAlignment="Top" Width="67"/>
 
         <StackPanel x:Name="RightSidePanel"
-            Orientation="Vertical"
+            Orientation="Horizontal"
             HorizontalAlignment="Left"
             VerticalAlignment="Top"
-            Margin="750,180,0,0">   
+            Margin="450,335,0,0">
         </StackPanel>
+        <Border x:Name="LineGraphBorder" CornerRadius="10 0 0 0" BorderThickness="1" HorizontalAlignment="Left" Height="36" VerticalAlignment="Top" Width="248" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D" Margin="361,59,0,0">
+            <Button x:Name="LineGraphBtn" Content="Revenue and Cost Overview" Background="Transparent" BorderBrush="Transparent" Margin="9,0,9,0" Foreground="White" FontWeight="Bold" Click="Chart1_Clicked"  Style="{StaticResource NoHoverButton}"/>
+        </Border>
 
 
     </Grid>

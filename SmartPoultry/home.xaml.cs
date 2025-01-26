@@ -40,6 +40,7 @@ namespace SmartPoultry
         public ProductVariationServices productvariationsServices;
         public DeliveriesServices deliveriesServices;
         public FinancialLiabilitiesServices financialLiabilitiesServices;
+        public InventoryLogsServices inventoryLogsServices;
         public AppDbContext context = new AppDbContext();
 
         home_POSproduct productControl;
@@ -72,6 +73,7 @@ namespace SmartPoultry
             userServices = new UserServices(context);
             deliveriesServices = new DeliveriesServices(context);
             financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
+            inventoryLogsServices = new InventoryLogsServices(context);
             totalPiceLabel.Visibility = Visibility.Collapsed;
             DropOrderBtn.IsEnabled = false;
             DisplayProducts();
@@ -273,6 +275,13 @@ namespace SmartPoultry
 
 
                     productServices.AdjustStocks("subtract", newstocks, product.product_id);
+                    bool ProductUpdated = inventoryLogsServices.Create(product.product_id, UserContext.CurrentUserId, "SALES", qty[i].ToString());
+
+                    if (!ProductUpdated) 
+                    {
+                        mainWindow1.PopUpNotif("alert", "Logs not added");
+                    }
+
                 }
                 catch (Exception ex)
                 {
