@@ -141,7 +141,9 @@
                 </DatePicker.Style>
             </DatePicker>
         </Border>
-        <Button x:Name="EditBtn" Content="Edit" HorizontalAlignment="Left" Height="36" Margin="370,407,0,0" VerticalAlignment="Top" Width="50" Click="EditBtn_Click" />
+        <Button x:Name="EditBtn" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Height="38" Margin="345,407,0,0" VerticalAlignment="Top" Width="44" Click="EditBtn_Click"  Style="{StaticResource NoHoverButton}">
+            <Image Height="38" Width="39" Source="/Images/editIcon.png"/>
+        </Button>
         <Label x:Name="orderIdLabel" Content="Order ID:" HorizontalAlignment="Left" Height="30" Margin="10,410,0,0" VerticalAlignment="Top" Width="80" FontSize="14"/>
         <Label x:Name="OrderId" Content="25010838347" HorizontalAlignment="Left" Height="30" Margin="90,410,0,0" VerticalAlignment="Top" Width="100" FontSize="14"/>
         <Button x:Name="OrderDetailsBtn" HorizontalAlignment="Left" Height="30" Margin="190,410,0,0" VerticalAlignment="Top" Width="35" Click="OrderDetailsBtn_Click"  Style="{StaticResource NoHoverButton}">
@@ -157,14 +159,16 @@
                 </Button>
             </WrapPanel>
         </Border>
-        <Button x:Name="RemarksBtn" Content="Button" 
+        <Button 
 HorizontalAlignment="Left" 
-Height="22" 
-Margin="294,420,0,0" 
+Height="39" 
+Margin="391,405,0,0" 
 VerticalAlignment="Top" 
-Width="28" 
+Width="33" 
 MouseEnter="Button_MouseEnter"
-MouseLeave="Button_MouseLeave"/>
+MouseLeave="Button_MouseLeave" Style="{StaticResource NoHoverButton}" Click="Button_Click">
+            <Image x:Name="RemarksBtn" Height="30" Width="29" Source="/Images/remarksIcon.png"/>
+        </Button>
 
         <TextBox x:Name="RemarksTextBox" 
  HorizontalAlignment="Left" 

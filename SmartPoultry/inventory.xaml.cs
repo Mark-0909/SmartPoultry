@@ -45,6 +45,9 @@ namespace SmartPoultry
             var context = new AppDbContext();
             productService = new ProductServices(context);
 
+
+            PhaseOutBtn.Opacity = 0.5;
+            OutOfStockBtn.Opacity = 0.5;
             LoadProducts();
 
         }
@@ -256,7 +259,7 @@ namespace SmartPoultry
             if (!OutOfStock)
             {
                 OutOfStock = true;
-                OutOfStockBtn.Background = new SolidColorBrush(Colors.Green);
+                OutOfStockBtn.Opacity = 1;
 
                 if (ProductListWPanel.Children.Count > 0)
                 {
@@ -283,7 +286,7 @@ namespace SmartPoultry
             else
             {
                 OutOfStock = false;
-                OutOfStockBtn.Background = new SolidColorBrush(Colors.White);
+                OutOfStockBtn.Opacity = 0.5;
                 if (ProductListWPanel.Children.Count > 0)
                 {
                     ProductListWPanel.Children.Clear();
@@ -301,7 +304,7 @@ namespace SmartPoultry
             if (!Phaseout)
             {
                 Phaseout = true;
-                PhaseOutBtn.Background = new SolidColorBrush(Colors.Green);
+                PhaseOutBtn.Opacity = 1;
 
                 List<Products> products = productService.GetAllProducts();
 
@@ -329,7 +332,7 @@ namespace SmartPoultry
             else
             {
                 Phaseout = false;
-                PhaseOutBtn.Background = new SolidColorBrush(Colors.White);
+                PhaseOutBtn.Opacity = 0.5;
                 if (ProductListWPanel.Children.Count > 0)
                 {
                     ProductListWPanel.Children.Clear();

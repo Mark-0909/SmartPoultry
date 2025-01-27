@@ -99,6 +99,10 @@ namespace SmartPoultry
             ToPayRBtn.IsEnabled = false;
             ToReceiveRBtn.IsEnabled = false;
             NotifPopup.Visibility = Visibility.Hidden;
+            if(finance.status == "paid")
+            {
+                Paid();
+            }
         }
         public void PopUpNotif(string type, string message)
         {
@@ -149,7 +153,22 @@ namespace SmartPoultry
         }
 
 
+        public void Paid()
+        {
+            NameTextBox.IsReadOnly = true;
+            PriceTextBox.IsReadOnly = true;
+            datePicker.IsEnabled = false;
+            ContactsTextBox.IsReadOnly = true;
 
+            ToPayRBtn.IsEnabled = false;
+            ToReceiveRBtn.IsEnabled = false;
+            
+            ConfirmBtn.Visibility = Visibility.Collapsed;
+
+            CashRBtn.IsEnabled = false;
+            GCashRBtn.IsEnabled = false;
+            EditBtn.Visibility = Visibility.Hidden;
+        }
         public void EnabledForm(bool isEnabled)
         {
             NameTextBox.IsEnabled = isEnabled;
@@ -557,6 +576,11 @@ namespace SmartPoultry
         private void PriceTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             HandleNumericInput(PriceTextBox, true, 7);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

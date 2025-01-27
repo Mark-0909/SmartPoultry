@@ -225,7 +225,9 @@
                 </TextBox.Style>
             </TextBox>
         </Border>
-        <Button x:Name="EditBtn" Content="EDIT" HorizontalAlignment="Left" Height="38" Margin="337,412,0,0" VerticalAlignment="Top" Width="85" Click="EditBtn_Click"/>
+        <Button x:Name="EditBtn" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Height="38" Margin="345,414,0,0" VerticalAlignment="Top" Width="44" Click="EditBtn_Click"  Style="{StaticResource NoHoverButton}">
+            <Image Height="38" Width="39" Source="/Images/editIcon.png"/>
+        </Button>
         <Label x:Name="orderIdLabel" Content="Order ID:  " HorizontalAlignment="Left" Height="29" Margin="10,421,0,0" VerticalAlignment="Top" Width="79" FontSize="14"/>
         <Label x:Name="OrderId" Content="25010838347" HorizontalAlignment="Left" Height="28" Margin="89,421,0,0" VerticalAlignment="Top" Width="100" FontSize="14"/>
         <Button x:Name="OrderDetailsBtn" Height="31" Margin="185,420,216,0" VerticalAlignment="Top" Click="OrderInfo_Click"  Style="{StaticResource NoHoverButton}">
@@ -242,14 +244,16 @@
             </WrapPanel>
         </Border>
 
-        <Button Content="Button" 
+        <Button 
         HorizontalAlignment="Left" 
-        Height="22" 
-        Margin="294,420,0,0" 
+        Height="39" 
+        Margin="389,412,0,0" 
         VerticalAlignment="Top" 
-        Width="28" 
+        Width="33" 
         MouseEnter="Button_MouseEnter"
-        MouseLeave="Button_MouseLeave"/>
+        MouseLeave="Button_MouseLeave" Style="{StaticResource NoHoverButton}">
+            <Image Height="30" Width="29" Source="/Images/remarksIcon.png"/>
+        </Button>
 
         <TextBox x:Name="RemarksTextBox" 
          HorizontalAlignment="Left" 

@@ -123,6 +123,12 @@ namespace SmartPoultry
             toDeliverRadio.IsEnabled = false;
             toReceiveRadio.IsEnabled = false;
             NotifPopup.Visibility = Visibility.Hidden;
+            EditBtn.Opacity = 0.5;
+
+            if(deliveries.delivery_status == "delivered") 
+            {
+                Delivered();
+            }
         }
         private void Button_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -181,6 +187,21 @@ namespace SmartPoultry
                 NotifPopup.Visibility = Visibility.Collapsed;
             };
             storyboard.Begin();
+        }
+        public void Delivered()
+        {
+            NameTextBox.IsReadOnly = true;
+            AddressTextBox.IsReadOnly = true;
+            PriceTextBox.IsReadOnly = true;
+
+            datePicker.IsEnabled = false;
+
+            PriceTextBox.IsReadOnly = true; 
+            ContactsTextBox.IsReadOnly = true;
+            ChargeTextBox.IsReadOnly = true;
+            DeliveryManTextBox.IsReadOnly = true;
+            confirmBtn.Visibility = Visibility.Hidden;
+            EditBtn.Visibility = Visibility.Hidden;
         }
         public void EnableForm(bool isEnabled)
         {
@@ -281,6 +302,7 @@ namespace SmartPoultry
             if (deliveries.type == "To Receive")
             {
                 IsPriceUpdated = supplierOrdersServices.UpdatePrice(int.Parse(OrderId.Content.ToString()), decimal.Parse(PriceTextBox.Text.ToString()));
+                deliveriesServices.UpdatePrice(deliveries.Id, decimal.Parse(PriceTextBox.Text.ToString()));
             }
             
            
@@ -444,12 +466,15 @@ namespace SmartPoultry
         {
             if (Agenda == "Update")
             {
+                EditBtn.Opacity = 1;
                 Agenda = "Edit";
                 confirmBtn.Content = "UPDATE";
                 EnableForm(true);
+                
             }
             else
             {
+                EditBtn.Opacity = 0.5;
                 Agenda = "Update";
                 confirmBtn.Content = "DELIVERED";
                 EnableForm(false);

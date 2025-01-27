@@ -89,7 +89,7 @@
             <ComboBoxItem Content="To Deliver"/>
             <ComboBoxItem Content="To Receive"/>
         </ComboBox>
-        <Button Click="AddFinancialLiabilities_Click" HorizontalAlignment="Left" Height="26" Margin="605,385,0,0" VerticalAlignment="Top" Width="28" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D">
+        <Button Click="AddFinancialLiabilities_Click" HorizontalAlignment="Left" Height="26" Margin="605,385,0,0" VerticalAlignment="Top" Width="28" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D" Style="{StaticResource NoHoverButton}">
             <Image Height="17" Width="18" Source="/Images/addicon.png" RenderTransformOrigin="0.528,0.5"/>
         </Button>
         <Label Content="Name" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="27" Margin="400,415,0,0" VerticalAlignment="Top" Width="52"/>
@@ -186,21 +186,21 @@ Margin="840,130,0,0"/>
             <DatePicker x:Name="FromDatePicker" 
             SelectedDateChanged="FromDatePicker_SelectedDateChanged" 
             HorizontalAlignment="Left" 
-            Height="29" 
-            Margin="849,93,0,0" 
+            Height="23" 
+            Margin="865,93,0,0" 
             VerticalAlignment="Top" 
             Width="109"/>
 
             <DatePicker x:Name="ToDatePicker" 
             SelectedDateChanged="ToDatePicker_SelectedDateChanged" 
             HorizontalAlignment="Left" 
-            Height="29" 
-            Margin="983,93,0,0" 
+            Height="23" 
+            Margin="999,93,0,0" 
             VerticalAlignment="Top" 
             Width="109"/>
 
-            <Label x:Name="filterFrom" Content="Filter: From" HorizontalAlignment="Left" Height="26" Margin="777,94,0,0" VerticalAlignment="Top" Width="72"/>
-            <Label x:Name="filterTo" Content="To" HorizontalAlignment="Left" Height="26" Margin="958,94,0,0" VerticalAlignment="Top" Width="21"/>
+            <Label x:Name="filterFrom" Content="Filter: From" HorizontalAlignment="Left" Height="26" Margin="795,92,0,0" VerticalAlignment="Top" Width="72"/>
+            <Label x:Name="filterTo" Content="To" HorizontalAlignment="Left" Height="26" Margin="976,92,0,0" VerticalAlignment="Top" Width="25"/>
         </Grid>
         <Label Content="Name" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="41,502,0,0" VerticalAlignment="Top" Width="52"/>
         <Label Content="Purpose" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="28" Margin="115,502,0,0" VerticalAlignment="Top" Width="67"/>

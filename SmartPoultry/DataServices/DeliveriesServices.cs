@@ -19,6 +19,12 @@ namespace SmartPoultry.DataServices
             _context = context;
         }
 
+        public void UpdatePrice(int id, decimal price)
+        {
+            var delivery = _context.Deliveries.FirstOrDefault(x => x.Id == id);
+            delivery.price = price;
+            _context.SaveChanges();
+        }
         public void UpdatePaymentStatus(int id)
         {
             var delivery = _context.Deliveries.FirstOrDefault(x => x.Id == id);
