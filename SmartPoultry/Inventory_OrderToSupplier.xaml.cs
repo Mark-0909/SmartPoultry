@@ -145,7 +145,8 @@ namespace SmartPoultry
 
         public void DisplayOutOfStocks()
         {
-            List<Products> products = GetOutOfStockProducts();
+            List<Products> products = productServices.GetLowStockProducts("", "", "");
+            
             if (products == null || products.Count == 0)
             {
                 return;

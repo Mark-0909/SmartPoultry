@@ -116,6 +116,18 @@ namespace SmartPoultry
             qtys = qtylist;
         }
 
+        private void Button_MouseEnter(object sender, MouseEventArgs e)
+        {
+            RemarksTextBox.Text = sale.Remarks;
+            RemarksTextBox.Visibility = Visibility.Visible;
+        }
+
+        private void Button_MouseLeave(object sender, MouseEventArgs e)
+        {
+            RemarksTextBox.Visibility = Visibility.Collapsed;
+        }
+
+
         public void ActiveOverlay(bool isActive)
         {
             if (isActive)

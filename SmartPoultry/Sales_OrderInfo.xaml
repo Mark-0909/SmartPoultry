@@ -108,6 +108,35 @@
         <Border CornerRadius="0, 0, 0, 10" BorderBrush="#FFFB8989" BorderThickness="1" Height="34" Margin="2,563,150,0" VerticalAlignment="Top" Background="#FFFB8989">
             <Button x:Name="VoidBtn" Click="VoidBtn_Click" HorizontalAlignment="Center" Height="34" VerticalAlignment="Center" Width="136" Background="#FFFB8989" BorderBrush="#FFFB8989" Content="VOID" FontWeight="Bold"  Style="{StaticResource NoHoverButton}"/>
         </Border>
+        <Button Content="Button" 
+        HorizontalAlignment="Left" 
+        Height="22" 
+        Margin="262,536,0,0" 
+        VerticalAlignment="Top" 
+        Width="28" 
+        MouseEnter="Button_MouseEnter"
+        MouseLeave="Button_MouseLeave"/>
+
+        <TextBox x:Name="RemarksTextBox" 
+         HorizontalAlignment="Left" 
+         VerticalAlignment="Top" 
+         Margin="90,485,0,0" 
+         Width="200" 
+         Height="50" 
+         IsReadOnly="True" 
+         Visibility="Collapsed" 
+         Background="LightYellow" 
+         BorderBrush="Goldenrod" 
+         BorderThickness="2" 
+         FontSize="14"
+         VerticalContentAlignment="Center"
+         Padding="5">
+            <TextBox.Effect>
+                <DropShadowEffect Color="Gray" Direction="315" ShadowDepth="2" BlurRadius="5" />
+            </TextBox.Effect>
+        </TextBox>
+
+
     </Grid>
 
 

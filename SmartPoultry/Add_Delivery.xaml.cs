@@ -4,6 +4,7 @@ using SmartPoultry.Models;
 using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using static SmartPoultry.App;
@@ -120,6 +121,16 @@ namespace SmartPoultry
             
             EnableForm(false);
             NotifPopup.Visibility = Visibility.Hidden;
+        }
+        private void Button_MouseEnter(object sender, MouseEventArgs e)
+        {
+            RemarksTextBox.Text = deliveries.Remarks.ToString();
+            RemarksTextBox.Visibility = Visibility.Visible;
+        }
+
+        private void Button_MouseLeave(object sender, MouseEventArgs e)
+        {
+            RemarksTextBox.Visibility = Visibility.Collapsed;
         }
 
         public void PopUpNotif(string type, string message)

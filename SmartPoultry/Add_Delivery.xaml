@@ -241,5 +241,35 @@
                 </Button>
             </WrapPanel>
         </Border>
+
+        <Button Content="Button" 
+        HorizontalAlignment="Left" 
+        Height="22" 
+        Margin="294,420,0,0" 
+        VerticalAlignment="Top" 
+        Width="28" 
+        MouseEnter="Button_MouseEnter"
+        MouseLeave="Button_MouseLeave"/>
+
+        <TextBox x:Name="RemarksTextBox" 
+         HorizontalAlignment="Left" 
+         VerticalAlignment="Top" 
+         Margin="165,360,0,0" 
+         Width="200" 
+         Height="50" 
+         IsReadOnly="True" 
+         Visibility="Collapsed" 
+         Background="LightYellow" 
+         BorderBrush="Goldenrod" 
+         BorderThickness="2" 
+         FontSize="14"
+         VerticalContentAlignment="Center"
+         Padding="5"
+         Panel.ZIndex="100">
+            <TextBox.Effect>
+                <DropShadowEffect Color="Gray" Direction="315" ShadowDepth="2" BlurRadius="5" />
+            </TextBox.Effect>
+        </TextBox>
+
     </Grid>
 </Window>

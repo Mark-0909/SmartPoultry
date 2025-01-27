@@ -21,25 +21,22 @@ namespace SmartPoultry
     /// </summary>
     public partial class Dashboard_ExpensesControl : UserControl
     {
-        public Dashboard_ExpensesControl(Expenses expenses, int evenOdd)
+        public Dashboard_ExpensesControl(Expenses expense, int evenOdd)
         {
             InitializeComponent();
 
-            Namelabel.Content = expenses.Name;
-            DueDateLabel.Content = expenses.Category;
-            AmountLabel.Content = expenses.price.ToString("N2");
+            Namelabel.Content = expense.Name;
+            DueDateLabel.Content = expense.Category;
+            AmountLabel.Content = expense.price.ToString("N2");
 
-            if(evenOdd == 1)
+            if (evenOdd == 1)
             {
-                thisBorder.Background = new SolidColorBrush(Colors.White);
+                thisBorder1.Background = new SolidColorBrush(Colors.White); 
             }
             
-
         }
 
-        private void Info_Clicked(object sender, RoutedEventArgs e)
-        {
 
-        }
+
     }
 }

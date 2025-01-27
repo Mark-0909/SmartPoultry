@@ -179,31 +179,30 @@ namespace SmartPoultry
 
         public void DisplayTodaysExpenses()
         {
-            if(ExpensesListPanel.Children.Count != 0)
-            {
-                ExpensesListPanel.Children.Clear();
-            }
+            ExpensesListPanel.Children.Clear();
 
             List<Expenses> expenses = expensesServices.GetTodaysExpenses();
+
             int evenOdd = 0;
-            for(int i = 0; i < expenses.Count; i++)
+            for (int i = 0; i < expenses.Count; i++)
             {
+                
+
                 Dashboard_ExpensesControl control = new Dashboard_ExpensesControl(expenses[i], evenOdd);
 
                 if (evenOdd == 0)
                 {
                     evenOdd = 1;
                 }
-                else 
+                else
                 {
                     evenOdd = 0;
                 }
 
-                ExpensesListPanel.Children.Add(control);
+                    ExpensesListPanel.Children.Add(control);
             }
-
-            
         }
+
 
 
         public void GenerateRevenueAndCostComboChart(DateTime FromDate, DateTime ToDate)

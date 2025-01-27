@@ -144,6 +144,9 @@ namespace SmartPoultry
             };
             storyboard.Begin();
         }
+
+
+
         public void EnabledForm(bool isEnabled)
         {
             NameTextBox.IsEnabled = isEnabled;
@@ -182,7 +185,16 @@ namespace SmartPoultry
             }
         }
 
+        private void Button_MouseEnter(object sender, MouseEventArgs e)
+        {
+            RemarksTextBox.Text = finance.Remarks.ToString();
+            RemarksTextBox.Visibility = Visibility.Visible;
+        }
 
+        private void Button_MouseLeave(object sender, MouseEventArgs e)
+        {
+            RemarksTextBox.Visibility = Visibility.Collapsed;
+        }
 
         private void Close_Click(object sender, RoutedEventArgs e)
         {
