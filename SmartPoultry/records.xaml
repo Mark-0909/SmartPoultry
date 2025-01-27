@@ -106,7 +106,7 @@
                 </TextBox.Style>
             </TextBox>
         </Border>
-        <Button x:Name="ReloadBtn" Background="Transparent" BorderBrush="Transparent" Click="ReloadBtn_Click" HorizontalAlignment="Left" Height="43" Margin="848,7,0,0" VerticalAlignment="Top" Width="50">
+        <Button x:Name="ReloadBtn" Background="Transparent" BorderBrush="Transparent" Click="ReloadBtn_Click" HorizontalAlignment="Left" Height="43" Margin="848,7,0,0" VerticalAlignment="Top" Width="50" Style="{StaticResource NoHoverButton}">
             <Image Height="43" Width="44" Source="/Images/reloadIcon.png"/>
         </Button>
     </Grid>
