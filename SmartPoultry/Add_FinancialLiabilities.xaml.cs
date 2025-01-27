@@ -96,6 +96,8 @@ namespace SmartPoultry
             mainWindow = UserContext.mainWindow;
 
             EnabledForm(false);
+            ToPayRBtn.IsEnabled = false;
+            ToReceiveRBtn.IsEnabled = false;
             NotifPopup.Visibility = Visibility.Hidden;
         }
         public void PopUpNotif(string type, string message)
@@ -154,10 +156,14 @@ namespace SmartPoultry
             PriceTextBox.IsEnabled = isEnabled;
             datePicker.IsEnabled = isEnabled;
             ContactsTextBox.IsEnabled = isEnabled;
-            ToPayRBtn.IsEnabled = isEnabled;
-            ToReceiveRBtn.IsEnabled = isEnabled;
+            
             CashRBtn.IsEnabled = isEnabled;
             GCashRBtn.IsEnabled = isEnabled;
+
+            if (finance.order_id != 0) 
+            {
+                PriceTextBox.IsEnabled = false;
+            }
         }
 
         public void DatePicker_Loaded(object sender, RoutedEventArgs e)

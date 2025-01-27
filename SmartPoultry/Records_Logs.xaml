@@ -48,16 +48,16 @@
     </UserControl.Resources>
     <Grid>
         <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Center" Height="574" VerticalAlignment="Center" Width="1103" Background="White">
-            <ScrollViewer HorizontalAlignment="Center" Height="465" Margin="0,98,0,0" VerticalAlignment="Top" Width="1104">
+            <ScrollViewer HorizontalAlignment="Center" Height="444" Margin="0,119,0,0" VerticalAlignment="Top" Width="1104">
                 <WrapPanel x:Name="SalesPanel" Width="1050"/>
             </ScrollViewer>
         </Border>
-        <Label Content="Action" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="32" Margin="915,60,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
+        <Label Content="Action" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="32" Margin="915,80,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
         
         
         
-        <Label Content="Date" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="480,60,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
-        <Label Content="Username" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="86,60,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
+        <Label Content="Date" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="480,80,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
+        <Label Content="Username" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="53,80,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
 
     </Grid>
 </UserControl>

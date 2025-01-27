@@ -157,8 +157,8 @@
                 </TextBox.Style>
             </TextBox>
         </Border>
-        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Center" Height="30" Margin="0,65,0,0" VerticalAlignment="Top" Width="412">
-            <TextBox x:Name="NameTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="Name..." VerticalAlignment="Center" Width="404" BorderBrush="Transparent" Foreground="Gray" GotFocus="NameTB_GotFocus" LostFocus="NameTB_LostFocus" FontSize="14">
+        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="8,65,0,0" VerticalAlignment="Top" Width="408">
+            <TextBox x:Name="NameTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="22" TextWrapping="Wrap" Text="Name..." VerticalAlignment="Center" Width="388" BorderBrush="Transparent" Foreground="Gray" GotFocus="NameTB_GotFocus" LostFocus="NameTB_LostFocus" FontSize="14">
                 <TextBox.Style>
                     <Style TargetType="TextBox">
                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>

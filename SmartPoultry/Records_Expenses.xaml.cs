@@ -35,9 +35,9 @@ namespace SmartPoultry
         }
         public void DisplayExpenses(string searchTerm)
         {
-            if(ExpensesPanel.Children.Count != 0)
+            if(SalesPanel.Children.Count != 0)
             {
-                ExpensesPanel.Children.Clear();
+                SalesPanel.Children.Clear();
             }
 
             List<Expenses> expenses = expensesServices.GeAllExpenses(); 
@@ -72,7 +72,7 @@ namespace SmartPoultry
 
                 Records_ExpensesControl control = new Records_ExpensesControl(expenses[i], evenOdd);
 
-                ExpensesPanel.Children.Add(control);   
+                SalesPanel.Children.Add(control);   
 
                 if (evenOdd == 0)
                 {

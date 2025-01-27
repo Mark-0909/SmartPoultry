@@ -14,7 +14,9 @@
         <Label x:Name="PriceLabel" Content="Price" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="40" Margin="767,0,0,0" VerticalAlignment="Center" Width="155" FontSize="14"/>
         <Label x:Name="StatusLabel" Content="Status" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="40" Margin="329,0,0,0" VerticalAlignment="Center" Width="155" FontSize="14"/>
         <Label x:Name="DateLabel" Content="Date" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="40" Margin="169,0,0,0" VerticalAlignment="Center" Width="155" FontSize="14"/>
-        <Button x:Name="infoDisplay" Content="Button" HorizontalAlignment="Left" Height="42" Margin="944,0,0,0" VerticalAlignment="Center" Width="86" Click="infoDisplay_Click"/>
+        <Button x:Name="infoDisplay" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Height="42" Margin="977,0,0,0" VerticalAlignment="Center" Width="53" Click="infoDisplay_Click">
+            <Image Height="33" Width="43" Source="/Images/infoicon.png"/>
+        </Button>
 
     </Grid>
 </UserControl>

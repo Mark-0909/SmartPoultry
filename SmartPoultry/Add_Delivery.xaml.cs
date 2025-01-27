@@ -120,6 +120,8 @@ namespace SmartPoultry
 
             
             EnableForm(false);
+            toDeliverRadio.IsEnabled = false;
+            toReceiveRadio.IsEnabled = false;
             NotifPopup.Visibility = Visibility.Hidden;
         }
         private void Button_MouseEnter(object sender, MouseEventArgs e)
@@ -185,8 +187,7 @@ namespace SmartPoultry
             NameTextBox.IsEnabled = isEnabled;
             AddressTextBox.IsEnabled = isEnabled;
             PriceTextBox.IsEnabled = isEnabled;
-            toDeliverRadio.IsEnabled = isEnabled;
-            toReceiveRadio.IsEnabled = isEnabled;
+            
             datePicker.IsEnabled = isEnabled;
             
             PriceTextBox.IsEnabled = isEnabled;
@@ -199,6 +200,11 @@ namespace SmartPoultry
             {
                 PriceTextBox.IsEnabled = true;
                 datePicker.IsEnabled = true;
+            }
+            if(deliveries.type == "To Deliver" && deliveries.order_id != 0)
+            {
+                PriceTextBox.IsEnabled = false;
+                DeliveryOrPaymentDate.Content = "Delivery Date:";
             }
         }
         private void ConfirmButton_Click(object sender, RoutedEventArgs e)

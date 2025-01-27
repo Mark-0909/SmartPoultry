@@ -44,7 +44,7 @@ namespace SmartPoultry
             }
         }
 
-        private void PaymentInfoBtn_Click(object sender, RoutedEventArgs e)
+        private void infoDisplay_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = UserContext.mainWindow;
             Add_FinancialLiabilities add_FinancialLiabilities = new Add_FinancialLiabilities(financialLiabilities, mainWindow);

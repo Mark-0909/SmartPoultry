@@ -48,16 +48,16 @@
     </UserControl.Resources>
     <Grid>
         <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Center" Height="574" VerticalAlignment="Center" Width="1103" Background="White">
-            <ScrollViewer HorizontalAlignment="Center" Height="465" Margin="0,98,0,0" VerticalAlignment="Top" Width="1104">
-                <WrapPanel x:Name="ExpensesPanel" Width="1050"/>
+            <ScrollViewer HorizontalAlignment="Center" Height="444" Margin="0,119,0,0" VerticalAlignment="Top" Width="1104">
+                <WrapPanel x:Name="SalesPanel" Width="1050"/>
             </ScrollViewer>
         </Border>
-        <Label Content="Price" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="32" Margin="870,60,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
-        <Label Content="Category" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="32" Margin="680,60,0,0" VerticalAlignment="Top" Width="119" FontSize="15" RenderTransformOrigin="0.531,0.299"/>
+        <Label Content="Price" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="32" Margin="870,80,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
+        <Label Content="Category" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="32" Margin="680,80,0,0" VerticalAlignment="Top" Width="119" FontSize="15" RenderTransformOrigin="0.531,0.299"/>
         
-        <Label Content="Employee" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="470,60,0,0" VerticalAlignment="Top" Width="118" FontSize="15"/>
-        <Label Content="Date" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="240,60,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
-        <Label Content="Name" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="50,60,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
+        <Label Content="Employee" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="470,80,0,0" VerticalAlignment="Top" Width="118" FontSize="15"/>
+        <Label Content="Date" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="240,80,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
+        <Label Content="Name" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="31" Margin="50,80,0,0" VerticalAlignment="Top" Width="119" FontSize="15"/>
 
     </Grid>
 </UserControl>
