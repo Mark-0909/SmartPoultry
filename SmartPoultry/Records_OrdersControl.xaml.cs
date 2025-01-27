@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static SmartPoultry.App;
 
 namespace SmartPoultry
 {
@@ -26,12 +27,14 @@ namespace SmartPoultry
         AppDbContext context = new AppDbContext();
         UserServices userServices;
         SupplierServices supplierServices;
+        SupplierOrders supplierOrders;
         public Records_OrdersControl(SupplierOrders supplierOrders, int evenOdd)
         {
             InitializeComponent();
             userServices = new UserServices(context);
             supplierServices = new SupplierServices(context);
 
+            this.supplierOrders = supplierOrders;
             NameLabel.Content = supplierOrders.id;
             DateLabel.Content = supplierServices.FindSupplier(supplierOrders.supplierID).Name;
             EmployeeLabel.Content = supplierOrders.Delivery_Date;
@@ -42,6 +45,14 @@ namespace SmartPoultry
             {
                 ThisBorder.Background = new SolidColorBrush(Colors.White);  
             }
+        }
+
+        private void OrderInfoBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = UserContext.mainWindow;
+            Supplier_OrderInfo supplier_OrdersInfo = new Supplier_OrderInfo(supplierOrders, mainWindow);
+            mainWindow.ActiveOverlay(true);
+            supplier_OrdersInfo.ShowDialog();
         }
     }
 }

@@ -467,8 +467,8 @@ namespace SmartPoultry
                 .Select(g => new
                 {
                     ProductId = g.Key,
-                    TotalSales = g.Where(e => int.TryParse(e.reason, out _))
-                                  .Sum(e => int.Parse(e.reason))
+                    TotalSales = g.Where(e => int.TryParse(e.quatity.ToString(), out _))
+                                  .Sum(e => int.Parse(e.quatity.ToString()))
                 })
                 .OrderByDescending(p => p.TotalSales)
                 .Take(20)
@@ -751,10 +751,12 @@ namespace SmartPoultry
             activeButton.Background = (Brush)new BrushConverter().ConvertFrom("#FF2C6E5D");
             activeBorder.Background = (Brush)new BrushConverter().ConvertFrom("#FF2C6E5D");
             activeBorder.BorderBrush = (Brush)new BrushConverter().ConvertFrom("#FF2C6E5D");
+            activeButton.Foreground = new SolidColorBrush(Colors.White);
 
             foreach (var button in buttons)
             {
                 button.Background = (Brush)new BrushConverter().ConvertFrom("#FF8DC6B7");
+                button.Foreground = new SolidColorBrush(Colors.Black);
             }
 
             foreach (var border in borders)

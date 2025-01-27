@@ -42,7 +42,7 @@ namespace SmartPoultry.DataServices
             }
         }
 
-        public bool Create(string name, string category, string status, int employee, string remarks, decimal price, long orderid)
+        public bool Create(string name, string category, string status, int employee, string remarks, decimal price, long orderid, DateTime addedDate)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace SmartPoultry.DataServices
                     Remarks = remarks,
                     price = price,
                     Order_ID = orderid,
-                    Added_Date = DateTime.Now
+                    Added_Date = addedDate
                 };
                 _context.Expenses.Add(expenses);
                 _context.SaveChanges();

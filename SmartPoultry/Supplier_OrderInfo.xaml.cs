@@ -28,10 +28,24 @@ namespace SmartPoultry
         public ProductServices productServices;
         public ProductVariationServices productVariationServices;
         SupplierOrders supplierOrders;
+        MainWindow mainWindow;
 
         Add_Delivery delivery;
         Add_FinancialLiabilities liabilities;
-        
+
+        public Supplier_OrderInfo(SupplierOrders order, MainWindow main)
+        {
+            InitializeComponent();
+            supplierServices = new SupplierServices(context);
+            userServices = new UserServices(context);
+            productServices = new ProductServices(context);
+            productVariationServices = new ProductVariationServices(context);
+            supplierOrders = order;
+            mainWindow = main;
+
+
+            Initialize(order);
+        }
         public Supplier_OrderInfo(SupplierOrders order, Add_Delivery control)
         {
             InitializeComponent();
@@ -143,9 +157,13 @@ namespace SmartPoultry
             {
                 delivery.ActiveOverlay(false);
             }
-            else 
+            else if (liabilities != null)
             {
                 liabilities.ActiveOverlay(false);
+            }
+            else
+            {
+                mainWindow.ActiveOverlay(false);
             }
         }
     }

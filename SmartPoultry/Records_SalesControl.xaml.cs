@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static SmartPoultry.App;
 
 namespace SmartPoultry
 {
@@ -25,6 +26,7 @@ namespace SmartPoultry
     {
         public AppDbContext context = new AppDbContext();
         SalesServices salesServices;
+        Sales sales;
         public Records_SalesControl(long receiptid, int oddeven)
         {
             InitializeComponent();
@@ -40,12 +42,21 @@ namespace SmartPoultry
         public void displayDetails(long receiptid) 
         {
             Sales sale = salesServices.GetSales(receiptid);
+            sales = sale;
             DateTime dateTime = sale.purchase_date;
             IdLabel.Content = sale.receipt_id.ToString();
             DateLabel.Content = dateTime.ToString("MM-dd-yyyy");
             StatusLabel.Content = sale.status;
             MethodLabel.Content = sale.payment_mode;
             PriceLabel.Content = sale.total_price.ToString("N2");
+        }
+
+        private void infoDisplay_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = UserContext.mainWindow;
+            Sales_OrderInfo orderInfo = new Sales_OrderInfo(sales, mainWindow);
+            mainWindow.ActiveOverlay(true);
+            orderInfo.ShowDialog();
         }
     }
 }

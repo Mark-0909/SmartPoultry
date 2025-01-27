@@ -294,7 +294,7 @@ namespace SmartPoultry
                 }
                 ActiveOverlay(false);
                 bool isPhaseOut = productService.ProductPhaseOut(prod.product_id);
-                bool isRecorded = InventoryLogsServices.Create(prod.product_id, UserContext.CurrentUserId, "PHASE OUT", remarksInput);
+                bool isRecorded = InventoryLogsServices.Create(prod.product_id, UserContext.CurrentUserId, "PHASE OUT", remarksInput, 0);
                 bool isUserLogRecorded = userLogsServices.Create(UserContext.CurrentUserId, "PRODUCT", $"Phase out {prod.product_name}: {remarksInput}");
 
                 if (!isPhaseOut || !isRecorded)
@@ -627,7 +627,7 @@ namespace SmartPoultry
                 }
 
                 string isProductUpdated = productService.EditProduct(prod.product_id, name, animallist, typelist, supplierid, stocks, selectedFilePath, this);
-                bool isRecorded = InventoryLogsServices.Create(prod.product_id, UserContext.CurrentUserId, "EDIT", remarksInput);
+                bool isRecorded = InventoryLogsServices.Create(prod.product_id, UserContext.CurrentUserId, "EDIT", remarksInput, 0);
                 bool isUserLogRecorded = userLogsServices.Create(UserContext.CurrentUserId, "Product", $"Edit {prod.product_name}: {remarksInput}");
                 if (isProductUpdated != "true" || !isRecorded || !isUserLogRecorded)
                 {
@@ -720,7 +720,7 @@ namespace SmartPoultry
                 {
                     AddVariations(id);
 
-                    bool isRecorded = InventoryLogsServices.Create(id, employeeId, "ADD", "Added new product.");
+                    bool isRecorded = InventoryLogsServices.Create(id, employeeId, "ADD", "Added new product.", 0);
 
                     if (!isRecorded)
                     {

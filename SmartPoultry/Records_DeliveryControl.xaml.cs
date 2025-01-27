@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static SmartPoultry.App;
 
 namespace SmartPoultry
 {
@@ -25,12 +26,13 @@ namespace SmartPoultry
     {
         AppDbContext context = new AppDbContext();
         UserServices userServices;
+        Deliveries deliveries;
         public Records_DeliveryControl(Deliveries deliveries, int evenOdd)
         {
             InitializeComponent();
             userServices = new UserServices(context);
 
-
+            this.deliveries = deliveries;
             NameLabel.Content = deliveries.name;
             DateLabel.Content = deliveries.added_date.ToString("MM-dd-yyyy");
             EmployeeLabel.Content = userServices.GetUser(deliveries.employee_incharge).Username;
@@ -42,6 +44,13 @@ namespace SmartPoultry
                 ThisBorder.Background = new SolidColorBrush(Colors.White);  
             }
         }
-        
+
+        private void DeliveryInfo_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = UserContext.mainWindow;
+            Add_Delivery add_Deliveries = new Add_Delivery(deliveries, mainWindow);
+            mainWindow.ActiveOverlay(true);
+            add_Deliveries.ShowDialog();
+        }
     }
 }

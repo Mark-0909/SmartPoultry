@@ -277,7 +277,17 @@ namespace SmartPoultry
 
             if(status == "paid")
             {
-                bool isCreatedExpense = expensesServices.Create(NameTextBox.Text, "SUPPLY", "DONE", UserContext.CurrentUserId, "Order supply delivered.", decimal.Parse(PriceTextBox.Text), int.Parse(deliveries.order_id.ToString()));
+                bool isCreatedExpense = expensesServices.Create(
+                    NameTextBox.Text,
+                    "SUPPLY",
+                    "DONE",
+                    UserContext.CurrentUserId,
+                    "Order supply delivered.",
+                    decimal.Parse(PriceTextBox.Text),
+                    int.Parse(deliveries.order_id.ToString()),
+                    deliveries.added_date == DateTime.MinValue ? DateTime.Now : deliveries.added_date
+                );
+
                 if (!isCreatedExpense)
                 {
                     PopUpNotif("alert", "Creating expense row unsuccessful.");

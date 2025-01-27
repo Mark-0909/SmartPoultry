@@ -295,7 +295,7 @@ namespace SmartPoultry
             {
                 CreateExpense = expensesServices.Create(
                     NameTextBox.Text, "BILL", "DONE", UserContext.CurrentUserId,
-                    "Payment done.", amount, 0);
+                    "Payment done.", amount, 0, finance.added_date);
             }
             else if (finance.order_id != 0)
             {
@@ -310,7 +310,7 @@ namespace SmartPoultry
             {
                 CreateExpense = expensesServices.Create(
                     NameTextBox.Text, "BILL", "DONE", UserContext.CurrentUserId,
-                    "Payment done.", amount, long.Parse(finance.order_id.ToString()));
+                    "Payment done.", amount, long.Parse(finance.order_id.ToString()), finance.added_date);
             }
 
             

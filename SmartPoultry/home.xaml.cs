@@ -217,7 +217,9 @@ namespace SmartPoultry
                 }
                 AdjustStocksInventory();
                 mainWindow1.PopUpNotif("notif", "Order confirmed successfully!");
-                
+
+                MinusStocksProduct(StringProductList, StringQuantityList);
+
                 isOrderConfirmed = true;
 
                 orderPanel.Children.Clear();
@@ -231,7 +233,7 @@ namespace SmartPoultry
 
                 DisplayReceipt(addingSales, salesServices, context);
 
-                MinusStocksProduct(StringProductList, StringQuantityList);
+                
 
                 MainWindow mainWindow = UserContext.mainWindow;
 
@@ -275,7 +277,7 @@ namespace SmartPoultry
 
 
                     productServices.AdjustStocks("subtract", newstocks, product.product_id);
-                    bool ProductUpdated = inventoryLogsServices.Create(product.product_id, UserContext.CurrentUserId, "SALES", qty[i].ToString());
+                    bool ProductUpdated = inventoryLogsServices.Create(product.product_id, UserContext.CurrentUserId, "SALES", $"{qty[i].ToString()} {VarSpecification[i]}", int.Parse(qty[i].ToString()));
 
                     if (!ProductUpdated) 
                     {

@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using static SmartPoultry.App;
 
 namespace SmartPoultry
 {
@@ -25,6 +26,7 @@ namespace SmartPoultry
     {
         AppDbContext context = new AppDbContext();
         UserServices userServices;
+        FinancialLiabilities financialLiabilities;
         public Records_PaymentsControl(FinancialLiabilities finance, int evenOdd)
         {
             InitializeComponent();
@@ -34,11 +36,20 @@ namespace SmartPoultry
             EmployeeLabel.Content = userServices.GetUser(finance.employee_incharge).Username;
             PurposeLabel.Content = finance.status;
             AmountLabel.Content = finance.amount.ToString("N2");
+            financialLiabilities = finance;
 
             if (evenOdd == 1)
             {
                 ThisBorder.Background = new SolidColorBrush(Colors.White);
             }
+        }
+
+        private void PaymentInfoBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MainWindow mainWindow = UserContext.mainWindow;
+            Add_FinancialLiabilities add_FinancialLiabilities = new Add_FinancialLiabilities(financialLiabilities, mainWindow);
+            mainWindow.ActiveOverlay(true);
+            add_FinancialLiabilities.ShowDialog();
         }
     }
 }

@@ -22,7 +22,7 @@ namespace SmartPoultry.DataServices
             return list;
 
         }
-        public bool Create(int productid, int employeeid, string action, string reason)
+        public bool Create(int productid, int employeeid, string action, string reason, int qty)
         {
             try
             {

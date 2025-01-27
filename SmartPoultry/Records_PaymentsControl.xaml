@@ -11,9 +11,10 @@
             <Label x:Name="NameLabel" Content="Name" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="40" Margin="9,0,0,0" VerticalAlignment="Center" Width="155" FontSize="14"/>
         </Border>
         <Label x:Name="EmployeeLabel" Content="Employee" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="40" Margin="433,0,0,0" VerticalAlignment="Center" Width="155" FontSize="14"/>
-        <Label x:Name="AmountLabel" Content="Amount" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="40" Margin="831,0,0,0" VerticalAlignment="Center" Width="155" FontSize="14"/>
+        <Label x:Name="AmountLabel" Content="Amount" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="40" Margin="797,0,0,0" VerticalAlignment="Center" Width="155" FontSize="14"/>
         <Label x:Name="PurposeLabel" Content="Purpose" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="40" Margin="642,0,0,0" VerticalAlignment="Center" Width="155" FontSize="14"/>
         <Label x:Name="DateLabel" Content="Date" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Height="40" Margin="202,0,0,0" VerticalAlignment="Center" Width="155" FontSize="14"/>
+        <Button x:Name="PaymentInfoBtn" Content="Button" HorizontalAlignment="Left" Height="32" Margin="970,0,0,0" VerticalAlignment="Center" Width="60" Click="PaymentInfoBtn_Click"/>
 
     </Grid>
 </UserControl>

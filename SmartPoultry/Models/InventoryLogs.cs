@@ -20,6 +20,8 @@ namespace SmartPoultry.Models
         public string action { get; set; }
         [MaxLength(255)]
         public string reason { get; set; }
+
+        public int quatity { get; set; }
         public DateTime timestamp { get; set; }
     }
 }
