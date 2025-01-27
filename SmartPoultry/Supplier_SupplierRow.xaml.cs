@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -34,6 +35,30 @@ namespace SmartPoultry
             Supplier = supplier;
 
             MouseDown += Supplier_SupplierControl_MouseDown;
+
+            // Apply alternating background colors
+            ApplyAlternatingBackgroundColors();
+        }
+
+        private void ApplyAlternatingBackgroundColors()
+        {
+            // Get the parent container (e.g., WrapPanel or StackPanel)
+            var parent = Parent as Panel;
+            if (parent == null) return;
+
+            int count = 0;
+
+            // Loop through all children of the parent container
+            foreach (UIElement child in parent.Children)
+            {
+                if (child is Supplier_SupplierControl)
+                {
+                    count++;
+                }
+            }
+
+            // Apply alternating colors based on the count
+            HighlightBorder.Background = new SolidColorBrush(count % 2 == 0 ? Colors.LightGray : Colors.White);
         }
 
         private void Supplier_SupplierControl_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -53,10 +78,9 @@ namespace SmartPoultry
         {
             // Loop through all panels or areas that might contain Supplier_SupplierControl
             var allContainers = new List<Panel>
-        {
-            mainWindow.supplierControl.SupplierListPanel,
-       
-        };
+            {
+                mainWindow.supplierControl.SupplierListPanel,
+            };
 
             foreach (Panel container in allContainers)
             {
