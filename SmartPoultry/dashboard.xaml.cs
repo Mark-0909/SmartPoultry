@@ -156,6 +156,9 @@ namespace SmartPoultry
             {
                 DateTime toDate = ToDatePicker.SelectedDate.Value;
 
+                FromDatePicker.BlackoutDates.Clear();
+                FromDatePicker.BlackoutDates.Add(new CalendarDateRange(toDate.AddDays(1), DateTime.MaxValue));
+
                 GenerateRevenueAndCostComboChart(FromDatePicker.SelectedDate.Value, ToDatePicker.SelectedDate.Value);
                 OverAllSalesAndCostPieGraph(FromDatePicker.SelectedDate.Value, ToDatePicker.SelectedDate.Value);
                 DisplayProductPerformanceChart(FromDatePicker.SelectedDate.Value, ToDatePicker.SelectedDate.Value);
@@ -164,7 +167,6 @@ namespace SmartPoultry
             {
                 FromDatePicker.BlackoutDates.Clear();
             }
-
 
             if (FromDatePicker.SelectedDate.HasValue && ToDatePicker.SelectedDate.HasValue)
             {
@@ -379,7 +381,7 @@ namespace SmartPoultry
         }
     };
 
-            // Second Pie Chart (Paid Sales vs Expenses)
+            
             PaidSalesAndExpensesPieChart.Series = new SeriesCollection
     {
         new PieSeries
@@ -465,43 +467,44 @@ namespace SmartPoultry
                 .Select(g => new
                 {
                     ProductId = g.Key,
-                    TotalSales = g.Where(e => int.TryParse(e.reason, out _)) 
-                                  .Sum(e => int.Parse(e.reason)) 
+                    TotalSales = g.Where(e => int.TryParse(e.reason, out _))
+                                  .Sum(e => int.Parse(e.reason))
                 })
-                .OrderByDescending(p => p.TotalSales) 
-                .Take(20) 
+                .OrderByDescending(p => p.TotalSales)
+                .Take(20)
                 .ToList();
+
             var productNames = productPerformance.Select(p => productServices.FetchProduct(p.ProductId).product_name).ToList();
             var salesData = productPerformance.Select(p => p.TotalSales).ToList();
 
-
             ProductPerformanceChart.Series.Clear();
             ProductPerformanceChart.Series = new SeriesCollection
-                {
-                    new ColumnSeries
-                    {
-                        Title = "Total Sales",
-                        Values = new ChartValues<int>(salesData) 
-                    }
-                };
-
+        {
+            new ColumnSeries
+            {
+                Title = "Total Sales",
+                Values = new ChartValues<int>(salesData)
+            }
+        };
 
             ProductPerformanceChart.AxisX.Clear();
             ProductPerformanceChart.AxisX.Add(new Axis
             {
                 Title = "Products",
-                Labels = productNames, 
-                LabelsRotation = -20 
+                Labels = productNames,
+                LabelsRotation = -30, // Rotate labels for better visibility
+                LabelFormatter = value => value.ToString("0"),
+                Separator = new LiveCharts.Wpf.Separator(), // Adjust spacing between labels
             });
 
-
-            ProductPerformanceChart.AxisY.Clear(); 
+            ProductPerformanceChart.AxisY.Clear();
             ProductPerformanceChart.AxisY.Add(new Axis
             {
                 Title = "Total Sales",
-                LabelFormatter = value => value.ToString("0") 
+                LabelFormatter = value => value.ToString("0")
             });
         }
+
 
 
 
