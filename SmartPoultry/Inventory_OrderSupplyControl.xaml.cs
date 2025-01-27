@@ -25,6 +25,12 @@ namespace SmartPoultry
     /// </summary>
     public partial class Inventory_OrderSupplyControl : UserControl
     {
+
+        public class NotificationException : Exception
+        {
+            public NotificationException(string message) : base(message) { }
+        }
+
         public int supplierID { get; set; }
         public AppDbContext context = new AppDbContext();
         public SupplierServices supplierServices;
@@ -34,6 +40,7 @@ namespace SmartPoultry
         public DeliveriesServices deliveriesServices;
 
         SupplierList supplierrow;
+
         public Inventory_OrderSupplyControl(int supplierid, Products product, Inventory_OrderToSupplier OrderForm)
         {
             InitializeComponent();
@@ -55,8 +62,10 @@ namespace SmartPoultry
         {
             if (datePicker.SelectedDate == null)
             {
-                throw new InvalidOperationException("Date is required.");  
+                throw new NotificationException(orderForm.PopUpNotif("alert", "Date is required."));
             }
+
+
 
             List<string> productid = new List<string>();
             List<string> qty = new List<string>();
@@ -78,14 +87,14 @@ namespace SmartPoultry
 
             if (added == -1)
             {
-                MessageBox.Show("Order Unsuccessful.");
+                orderForm.PopUpNotif("alert", "Order Unsuccessful.");
                 return;
             }
             bool DelilveryAdded = deliveriesServices.Create(added, supplierrow.Name, "To Receive", 0, supplierrow.Location, "pending", supplierrow.Contact, deliveryDate, "", 0);
 
             if (!DelilveryAdded) 
             {
-                MessageBox.Show("Order Unsuccessful.");
+                orderForm.PopUpNotif("alert", "Order Unsuccessful.");
                 return;
             }
 
@@ -104,10 +113,10 @@ namespace SmartPoultry
             }
             else
             {
-                throw new InvalidOperationException("This control does not have a valid parent container.");
+                throw new InvalidOperationException(orderForm.PopUpNotif("alert", "This control does not have a valid parent container."));
             }
 
-            MessageBox.Show("Order Confirmed Successfully!");
+            orderForm.PopUpNotif("notif", "Order Confirmed Successfully!");
         }
 
 
@@ -131,7 +140,7 @@ namespace SmartPoultry
                 }
                 else
                 {
-                    throw new InvalidOperationException("This control does not have a valid parent container.");
+                    throw new InvalidOperationException(orderForm.PopUpNotif("alert", "This control does not have a valid parent container."));
                 }
             }
         }
@@ -164,7 +173,7 @@ namespace SmartPoultry
             }
             else
             {
-                throw new InvalidOperationException("This control does not have a valid parent container.");
+                throw new InvalidOperationException(orderForm.PopUpNotif("alert", "This control does not have a valid parent container."));
             }
 
         }
