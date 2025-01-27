@@ -47,7 +47,7 @@ namespace SmartPoultry
             }
         }
 
-        private void OrderInfoBtn_Click(object sender, RoutedEventArgs e)
+        private void infoDisplay_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = UserContext.mainWindow;
             Supplier_OrderInfo supplier_OrdersInfo = new Supplier_OrderInfo(supplierOrders, mainWindow);

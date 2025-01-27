@@ -96,7 +96,13 @@ namespace SmartPoultry
             mainWindow = UserContext.mainWindow;
 
             EnabledForm(false);
+            ToPayRBtn.IsEnabled = false;
+            ToReceiveRBtn.IsEnabled = false;
             NotifPopup.Visibility = Visibility.Hidden;
+            if(finance.status == "paid")
+            {
+                Paid();
+            }
         }
         public void PopUpNotif(string type, string message)
         {
@@ -147,17 +153,36 @@ namespace SmartPoultry
         }
 
 
+        public void Paid()
+        {
+            NameTextBox.IsReadOnly = true;
+            PriceTextBox.IsReadOnly = true;
+            datePicker.IsEnabled = false;
+            ContactsTextBox.IsReadOnly = true;
 
+            ToPayRBtn.IsEnabled = false;
+            ToReceiveRBtn.IsEnabled = false;
+            
+            ConfirmBtn.Visibility = Visibility.Collapsed;
+
+            CashRBtn.IsEnabled = false;
+            GCashRBtn.IsEnabled = false;
+            EditBtn.Visibility = Visibility.Hidden;
+        }
         public void EnabledForm(bool isEnabled)
         {
             NameTextBox.IsEnabled = isEnabled;
             PriceTextBox.IsEnabled = isEnabled;
             datePicker.IsEnabled = isEnabled;
             ContactsTextBox.IsEnabled = isEnabled;
-            ToPayRBtn.IsEnabled = isEnabled;
-            ToReceiveRBtn.IsEnabled = isEnabled;
+            
             CashRBtn.IsEnabled = isEnabled;
             GCashRBtn.IsEnabled = isEnabled;
+
+            if (finance.order_id != 0) 
+            {
+                PriceTextBox.IsEnabled = false;
+            }
         }
 
         public void DatePicker_Loaded(object sender, RoutedEventArgs e)
@@ -551,6 +576,11 @@ namespace SmartPoultry
         private void PriceTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             HandleNumericInput(PriceTextBox, true, 7);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

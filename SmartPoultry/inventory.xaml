@@ -66,7 +66,7 @@
             </TextBox>
         </Border>
         <Label Content="INVENTORY" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Margin="10,4,0,0"/>
-        <Button HorizontalAlignment="Left" Margin="864,11,0,0" VerticalAlignment="Top" Height="35" Width="34" Click="OpenAddForm_Click" BorderBrush="Transparent" Background="Transparent">
+        <Button HorizontalAlignment="Left" Margin="864,11,0,0" VerticalAlignment="Top" Height="35" Width="34" Click="OpenAddForm_Click" BorderBrush="Transparent" Background="Transparent" Style="{StaticResource NoHoverButton}">
             <Image Height="31" Width="30" Source="/Images/addbutton.png" Stretch="Fill"/>
         </Button>
         <ScrollViewer Height="484" Margin="10,150,0,0" VerticalAlignment="Top" HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Left" Width="1113">
@@ -219,8 +219,26 @@
                 </Border>
             </Grid>
         </Border>
-        <Button x:Name="OutOfStockBtn" Content="Out of Stock" HorizontalAlignment="Left" Height="41" Margin="789,8,0,0" VerticalAlignment="Top" Width="50" Click="OutOfStock_Clicked"/>
-        <Button x:Name="OrderBtn" Content="Order" HorizontalAlignment="Left" Height="41" Margin="679,8,0,0" VerticalAlignment="Top" Width="50" Click="OrderToSupplier_Click"/>
-        <Button x:Name="PhaseOutBtn" Content="PhaseOut" HorizontalAlignment="Left" Height="41" Margin="734,8,0,0" VerticalAlignment="Top" Width="50" Click="PhaseOut_Clicked"/>
+        <Button x:Name="OutOfStockBtn" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Height="46" Width="55" Margin="809,6,0,0" VerticalAlignment="Top" Click="OutOfStock_Clicked" Style="{StaticResource NoHoverButton}">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top">
+                <Image Height="31" Width="40" Source="/Images/outofstockIcon.png"/>
+                <TextBlock Text="Out of Stock" FontSize="9" Foreground="Green" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,-2,0,0"/>
+            </StackPanel>
+        </Button>
+
+        <Button x:Name="OrderBtn" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Height="42" Width="44" Margin="715,8,0,0" VerticalAlignment="Top" Click="OrderToSupplier_Click" Style="{StaticResource NoHoverButton}">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image Height="30" Width="36" Source="/Images/OrderIcon.png"/>
+                <TextBlock Text="Order" Foreground="Green" FontSize="9" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,-2,0,0"/>
+            </StackPanel>
+        </Button>
+
+        <Button x:Name="PhaseOutBtn" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Height="50" Width="50" Margin="759,2,0,0" VerticalAlignment="Top" Click="PhaseOut_Clicked" Style="{StaticResource NoHoverButton}">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image Height="39" Width="41" Source="/Images/phaseOutIcon.png"/>
+                <TextBlock Text="Phase Out" Foreground="Red" FontSize="9" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,-5,0,0"/>
+            </StackPanel>
+        </Button>
+
     </Grid>
 </UserControl>

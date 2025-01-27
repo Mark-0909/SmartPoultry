@@ -9,8 +9,49 @@
         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" 
         WindowStyle="None" Background="Transparent" 
         Foreground="Transparent" AllowsTransparency="True">
+    <Window.Resources>
+        <Style x:Key="NoHoverButton" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <!-- Animation for the button itself when hovered -->
+                                            <DoubleAnimation 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            To=".7" Duration="0:0:0.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+
+                                            <DoubleAnimation 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            To="1.0" Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
-        <Border CornerRadius="10 10 10 10" BorderBrush="#FF2C6E5D" Background="White" BorderThickness="2" RenderTransformOrigin="0.5,0.5" Height="601" VerticalAlignment="Center" Margin="-1,0,1,0">
+        <Border CornerRadius="10 10 10 10" BorderBrush="#FF2C6E5D" Background="White" BorderThickness="2" RenderTransformOrigin="0.5,0.5" Height="412" VerticalAlignment="Center" Margin="-1,0,1,0">
             <Border.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -23,15 +64,14 @@
                 <Label HorizontalAlignment="Center" Foreground="White" VerticalAlignment="Center" Content="ORDER INFORMATION" FontSize="20" FontWeight="Bold"/>
             </Border>
         </Border>
-        <Button x:Name="CloseButton" Click="CloseWindow_Click" HorizontalAlignment="Left" Height="30" Margin="269,6,0,0" VerticalAlignment="Top" Width="26" Background="Transparent" BorderBrush="Transparent">
+        <Button x:Name="CloseButton" Click="CloseWindow_Click" HorizontalAlignment="Left" Height="30" Margin="266,99,0,0" VerticalAlignment="Top" Width="26" Background="Transparent" BorderBrush="Transparent"  Style="{StaticResource NoHoverButton}">
             <Image Height="22" Width="24" Source="/Images/close.png"/>
         </Button>
-        <Label Content="Name:" HorizontalAlignment="Left" Height="38" Margin="5,44,0,0" VerticalAlignment="Top" Width="90" FontSize="14" FontWeight="Bold"/>
-        <Label Content="Item" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="38" Margin="43,95,0,0" VerticalAlignment="Top" Width="70" FontWeight="Bold"/>
-        <Label Content="" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="38" Margin="207,95,0,0" VerticalAlignment="Top" Width="82" FontWeight="Bold"/>
-        <Label Content="Qty" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="38" Margin="113,95,0,0" VerticalAlignment="Top" Width="94" FontWeight="Bold"/>
+        <Label Content="Name:" HorizontalAlignment="Left" Height="38" Margin="5,145,0,0" VerticalAlignment="Top" Width="90" FontSize="14" FontWeight="Bold"/>
+        <Label Content="Item" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="38" Margin="43,203,0,0" VerticalAlignment="Top" Width="70" FontWeight="Bold"/>
+        <Label Content="Qty" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Height="38" Margin="113,203,0,0" VerticalAlignment="Top" Width="94" FontWeight="Bold"/>
 
-        <ScrollViewer x:Name="OrderScroller"  HorizontalAlignment="Center" Height="276" Margin="0,127,0,0" VerticalAlignment="Top" Width="280">
+        <ScrollViewer x:Name="OrderScroller"  HorizontalAlignment="Center" Height="197" VerticalAlignment="Top" Width="280" Margin="0,221,0,0">
             <WrapPanel x:Name="OrderWPanel" Margin="0,0,0,0" Width="270">
                 <Border x:Name="OrderBorder" BorderBrush="Transparent" BorderThickness="1" Height="35" Width="255">
                     <WrapPanel>
@@ -45,15 +85,14 @@
                 </Border>
             </WrapPanel>
         </ScrollViewer>
-        <Label x:Name="NameLabel" Content="Name" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="26" Margin="138,44,0,0" VerticalAlignment="Top" Width="150" FontSize="14"/>
-        <Label Content="Order Date:" HorizontalAlignment="Left" Height="38" Margin="5,70,0,0" VerticalAlignment="Top" Width="108" FontSize="14" FontWeight="Bold"/>
-        <Label x:Name="PurchaseDatelabel" Content="Purchase Date" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="26" Margin="138,70,0,0" VerticalAlignment="Top" Width="151" FontSize="14" RenderTransformOrigin="0.445,1.553"/>
-        <Label x:Name="DeliveryStatusLabel" Content="Delivered Date:" HorizontalAlignment="Left" Height="38" Margin="10,451,0,0" VerticalAlignment="Top" Width="121" FontSize="14" FontWeight="Bold"/>
-        <Label x:Name="PurchaseDatelabel_Copy" Content="Delivery Date" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="38" Margin="131,450,0,0" VerticalAlignment="Top" Width="151" FontSize="14" RenderTransformOrigin="0.445,1.553"/>
-        <Label Content="Employee In charge:" HorizontalAlignment="Left" Height="38" Margin="10,481,0,0" VerticalAlignment="Top" Width="152" FontSize="14" FontWeight="Bold"/>
-        <Label x:Name="EmployeeLabel" Content="Employee" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="38" Margin="162,481,0,0" VerticalAlignment="Top" Width="122" FontSize="14" RenderTransformOrigin="0.445,1.553"/>
-        <Label Content="Total Amount:" HorizontalAlignment="Left" Height="38" Margin="10,408,0,0" VerticalAlignment="Top" Width="132" FontSize="17" FontWeight="Bold"/>
-        <Label x:Name="AmountLabel" Content="Total Amount" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Height="38" Margin="157,408,0,0" VerticalAlignment="Top" Width="132" FontSize="17"/>
+        <Label x:Name="NameLabel" Content="Name" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="26" Margin="138,145,0,0" VerticalAlignment="Top" Width="150" FontSize="14"/>
+        <Label Content="Order Date:" HorizontalAlignment="Left" Height="38" Margin="5,171,0,0" VerticalAlignment="Top" Width="108" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="PurchaseDatelabel" Content="Purchase Date" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="26" Margin="138,171,0,0" VerticalAlignment="Top" Width="151" FontSize="14" RenderTransformOrigin="0.445,1.553"/>
+
+        <Label Content="Employee In charge:" HorizontalAlignment="Left" Height="38" Margin="10,451,0,0" VerticalAlignment="Top" Width="152" FontSize="14" FontWeight="Bold"/>
+        <Label x:Name="EmployeeLabel" Content="Employee" HorizontalContentAlignment="Right" HorizontalAlignment="Left" Height="38" Margin="167,451,0,0" VerticalAlignment="Top" Width="122" FontSize="14" RenderTransformOrigin="0.445,1.553"/>
+        <Label Content="Total Amount:" HorizontalAlignment="Left" Height="38" Margin="10,423,0,0" VerticalAlignment="Top" Width="132" FontSize="17" FontWeight="Bold"/>
+        <Label x:Name="AmountLabel" Content="0" HorizontalAlignment="Left" HorizontalContentAlignment="Right" Height="38" Margin="160,423,0,0" VerticalAlignment="Top" Width="132" FontSize="17"/>
     </Grid>
 
 

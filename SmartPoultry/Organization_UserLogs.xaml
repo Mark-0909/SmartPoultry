@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
              mc:Ignorable="d" 
-             d:DesignHeight="61" d:DesignWidth="424" Width="424" Height="61">
+             d:DesignHeight="61" d:DesignWidth="424" Width="423" Height="61" Margin="0 0 0 5">
     <Grid>
         <Border x:Name="ControlBorder" CornerRadius="10" BorderBrush="#FFDBDBDB" BorderThickness="1" HorizontalAlignment="Center" Height="61" VerticalAlignment="Center" Width="424" Background="#FFDBDBDB">
             <WrapPanel>

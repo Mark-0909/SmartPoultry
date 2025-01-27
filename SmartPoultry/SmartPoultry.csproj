@@ -18,8 +18,11 @@
     <None Remove="Images\addicon.png" />
     <None Remove="Images\addorder.png" />
     <None Remove="Images\addvariant.png" />
+    <None Remove="Images\banIcon.png" />
     <None Remove="Images\blacklogo.png" />
     <None Remove="Images\blacktext.png" />
+    <None Remove="Images\checkIcon.png" />
+    <None Remove="Images\clearIcon.png" />
     <None Remove="Images\clipicon.png" />
     <None Remove="Images\close.png" />
     <None Remove="Images\closegray.png" />
@@ -27,6 +30,7 @@
     <None Remove="Images\dashboardgrey.png" />
     <None Remove="Images\dropdown.png" />
     <None Remove="Images\dropup.png" />
+    <None Remove="Images\editIcon.png" />
     <None Remove="Images\exiticon.png" />
     <None Remove="Images\greenlogo.png" />
     <None Remove="Images\homeicongreen.png" />
@@ -41,11 +45,16 @@
     <None Remove="Images\logo.png" />
     <None Remove="Images\logouticon.png" />
     <None Remove="Images\minusorder.png" />
+    <None Remove="Images\OrderIcon.png" />
     <None Remove="Images\organizationgreen.png" />
     <None Remove="Images\organizationgrey.png" />
+    <None Remove="Images\outofstockIcon.png" />
+    <None Remove="Images\phaseOutIcon.png" />
     <None Remove="Images\qrcode.png" />
     <None Remove="Images\recordsgreen.png" />
     <None Remove="Images\recordsgrey.png" />
+    <None Remove="Images\reloadIcon.png" />
+    <None Remove="Images\remarksIcon.png" />
     <None Remove="Images\removeorder.png" />
     <None Remove="Images\schedulegray.png" />
     <None Remove="Images\schedulegreen.png" />
@@ -59,7 +68,16 @@
     <Resource Include="Images\addbutton.png" />
     <Resource Include="Images\addbuttonproduct.png" />
     <Resource Include="Images\addbuttonsupplier.png" />
+    <Resource Include="Images\banIcon.png" />
+    <Resource Include="Images\checkIcon.png" />
+    <Resource Include="Images\clearIcon.png" />
     <Resource Include="Images\closegray.png" />
+    <Resource Include="Images\editIcon.png" />
+    <Resource Include="Images\OrderIcon.png" />
+    <Resource Include="Images\outofstockIcon.png" />
+    <Resource Include="Images\phaseOutIcon.png" />
+    <Resource Include="Images\reloadIcon.png" />
+    <Resource Include="Images\remarksIcon.png" />
     <Resource Include="Images\schedulegray.png" />
     <Resource Include="Images\schedulegreen.png" />
   </ItemGroup>

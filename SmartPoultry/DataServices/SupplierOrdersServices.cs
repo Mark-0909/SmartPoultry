@@ -29,7 +29,7 @@ namespace SmartPoultry.DataServices
                 var suppOrder = _context.SupplierOrders.FirstOrDefault(p => p.id == id);
                 suppOrder.price = price;
                 _context.SaveChanges();
-
+                mainWindow.recordsControl.OrdersControl.DisplaySupplierOrders("");
                 return true;
             }
             catch (Exception ex)
@@ -68,7 +68,7 @@ namespace SmartPoultry.DataServices
                 _context.SupplierOrders.Add(Order);
                 _context.SaveChanges();
 
-                mainWindow.recordsControl.OrdersControl.DisplaySupplierOrders();
+                mainWindow.recordsControl.OrdersControl.DisplaySupplierOrders("");
                 return Order.id;
             }
             catch (Exception ex) 

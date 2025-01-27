@@ -179,8 +179,11 @@ namespace SmartPoultry
 
         public void DisplayTodaysExpenses()
         {
-            ExpensesListPanel.Children.Clear();
-
+            if (ExpensesListPanel.Children.Count > 0)
+            {
+                ExpensesListPanel.Children.Clear();
+            }
+            
             List<Expenses> expenses = expensesServices.GetTodaysExpenses();
 
             int evenOdd = 0;

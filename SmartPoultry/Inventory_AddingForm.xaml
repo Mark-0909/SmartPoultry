@@ -347,12 +347,30 @@
                 </Button>
             </Border>
         </WrapPanel>
-        <Label Content="Stocks: " HorizontalAlignment="Left" Margin="23,621,0,0" VerticalAlignment="Top" FontSize="15" RenderTransformOrigin="0.482,-0.021"/>
-        <Label x:Name="stocklisting" Content="00.00" HorizontalAlignment="Left" Margin="113,621,0,0" VerticalAlignment="Top" FontSize="15" Width="56" Height="31"/>
-        <Label x:Name="stockunit" Content="stocks " HorizontalAlignment="Left" Margin="203,621,0,0" VerticalAlignment="Top" FontSize="15"/>
-        <Button x:Name="editBtn"  Content="edit" HorizontalAlignment="Left" Height="30" Margin="448,622,0,0" VerticalAlignment="Top" Width="66" Click="EditBtn_Click"/>
-        <Button x:Name="phaseoutBtn"  Content="phaseout" Height="30" Margin="522,622,10,0" VerticalAlignment="Top" Click="PhaseOutBtn_Click"/>
-        <Border  BorderBrush="Transparent" BorderThickness="1" Margin="471,151,22,512" Background="Transparent" MouseLeftButtonDown="AddSUpplier_Click">
+        <Label Content="Stocks: " HorizontalAlignment="Left" Margin="23,608,0,0" VerticalAlignment="Top" FontSize="15" RenderTransformOrigin="0.482,-0.021"/>
+        <Border  x:Name="StocksBorder" BorderBrush="#FF66C265" BorderThickness="1" CornerRadius="5" Padding="5" HorizontalAlignment="Left" Margin="113,601,0,0" VerticalAlignment="Top" Background="#FFC0E4BE" MouseLeftButtonDown="StockBorder_Click">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                
+                <Label x:Name="stocklisting" Content="00.00" HorizontalAlignment="Left" Margin="0,0,5,0" VerticalAlignment="Top" FontSize="15" Width="56" Height="31" Foreground="#FF32A230" />
+               
+                <Label x:Name="stockunit" Content="stocks" HorizontalAlignment="Left" Margin="0" VerticalAlignment="Top" FontSize="15" Foreground="#FF32A230" />
+            </StackPanel>
+        </Border>
+
+        <Button x:Name="EditBtn" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Height="44" Margin="496,606,0,0" VerticalAlignment="Top" Width="44" Click="EditBtn_Click" Style="{StaticResource NoHoverButton}">
+            <StackPanel>
+                <Image Height="33" Width="31" Source="/Images/editIcon.png" />
+                <TextBlock Text="Edit" HorizontalAlignment="Center" Foreground="Green" Margin="0 -3 0 0" FontSize="9" />
+            </StackPanel>
+        </Button>
+
+        <Button x:Name="PhaseOutBtn" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Height="50" Width="50" Margin="540,601,0,0" VerticalAlignment="Top" Click="PhaseOutBtn_Clicked" Style="{StaticResource NoHoverButton}">
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Image Height="39" Width="41" Source="/Images/phaseOutIcon.png"/>
+                <TextBlock Text="Phase Out" Foreground="Red" FontSize="9" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,-5,0,0"/>
+            </StackPanel>
+        </Button>
+        <Border x:Name="addSupplierBorder"  BorderBrush="Transparent" BorderThickness="1" Margin="471,151,22,512" Background="Transparent" MouseLeftButtonDown="AddSUpplier_Click">
             <WrapPanel Margin="0,0,-1,0">
                 <Label Content="Add Supplier" Foreground="#FF003200"/>
                 <Button BorderBrush="Transparent" Background="Transparent" Click="AddSUpplier_Click" Style="{StaticResource NoHoverButton}">

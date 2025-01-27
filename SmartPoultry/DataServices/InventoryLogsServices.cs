@@ -39,7 +39,7 @@ namespace SmartPoultry.DataServices
                 _context.Add(row);
                 _context.SaveChanges();
 
-                mainWindow.recordsControl.InventoryControl.FetchInventoryLogs();
+                mainWindow.recordsControl.InventoryControl.FetchInventoryLogs("");
                 return true;
             }
             catch (Exception ex) 

@@ -43,6 +43,7 @@ namespace SmartPoultry.DataServices
                 
 
                 _context.SaveChanges();
+                mainWindow.recordsControl.PaymentsControl.DisplayPayments("");
                 return true;
             }
             catch (Exception ex)
@@ -65,6 +66,7 @@ namespace SmartPoultry.DataServices
                 payment.Remarks = remarks;
 
                 _context.SaveChanges();
+                mainWindow.recordsControl.PaymentsControl.DisplayPayments("");
                 return true;
             }
             catch (Exception ex)
@@ -82,6 +84,7 @@ namespace SmartPoultry.DataServices
                 itemrow.Remarks = remarks;
                 itemrow.updated_date = DateTime.Now;
                 _context.SaveChanges();
+                mainWindow.recordsControl.PaymentsControl.DisplayPayments("");
                 return true;
 
             }
@@ -150,7 +153,7 @@ namespace SmartPoultry.DataServices
                 _context.Add(newSched);
                 _context.SaveChanges();
 
-                mainWindow.recordsControl.PaymentsControl.DisplayPayments();   
+                mainWindow.recordsControl.PaymentsControl.DisplayPayments("");   
                 return true;
             }
             catch (Exception ex) {

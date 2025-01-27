@@ -61,13 +61,54 @@
         </Border>
 
         <!-- Buttons -->
-        <Button x:Name="InventoryBtn" Content="INVENTORY" HorizontalAlignment="Left" Height="60" Margin="167,59,0,0" VerticalAlignment="Top" Width="162" FontSize="20" FontWeight="Bold" BorderBrush="#FFDCEDD5" Foreground="Gray" Background="#FFDCEDD5" Click="Inventory_Clicked" Style="{StaticResource NoHoverButton}"/>
-        <Button x:Name="LogsBtn" Content="LOGS" HorizontalAlignment="Left" Height="60" Margin="956,59,0,0" VerticalAlignment="Top" Width="157" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Logs_Clicked" Style="{StaticResource NoHoverButton}"/>
+        <Button x:Name="InventoryBtn" Content="INVENTORY" HorizontalAlignment="Left" Height="60" Margin="172,59,0,0" VerticalAlignment="Top" Width="157" FontSize="20" FontWeight="Bold" BorderBrush="#FFDCEDD5" Foreground="Gray" Background="#FFDCEDD5" Click="Inventory_Clicked" Style="{StaticResource NoHoverButton}"/>
+        <Button x:Name="LogsBtn" Content="LOGS" HorizontalAlignment="Left" Height="60" Margin="961,59,0,0" VerticalAlignment="Top" Width="152" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Logs_Clicked" Style="{StaticResource NoHoverButton}"/>
         <Button x:Name="SalesBtn" Content="SALES" HorizontalAlignment="Left" Height="60" Margin="10,59,0,0" VerticalAlignment="Top" Width="157" Click="Sales_Clicked" FontSize="20" FontWeight="Bold" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D" Foreground="White" Style="{StaticResource NoHoverButton}"/>
-        <Button x:Name="PaymentsBtn" Content="PAYMENTS" HorizontalAlignment="Left" Height="60" Margin="329,59,0,0" VerticalAlignment="Top" Width="158" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Payments_Clicked" Style="{StaticResource NoHoverButton}"/>
-        <Button x:Name="DeliveryBtn" Content="DELIVERY" HorizontalAlignment="Left" Height="60" Margin="487,59,0,0" VerticalAlignment="Top" Width="157" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Delivery_Clicked" Style="{StaticResource NoHoverButton}"/>
-        <Button x:Name="OrdersBtn" Content="ORDERS" HorizontalAlignment="Left" Height="60" Margin="642,59,0,0" VerticalAlignment="Top" Width="157" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Orders_Clicked" Style="{StaticResource NoHoverButton}"/>
-        <Button x:Name="ExpensesBtn" Content="EXPENSES" HorizontalAlignment="Left" Height="60" Margin="799,59,0,0" VerticalAlignment="Top" Width="157" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Expenses_Clicked" Style="{StaticResource NoHoverButton}"/>
+        <Button x:Name="PaymentsBtn" Content="PAYMENTS" HorizontalAlignment="Left" Height="60" Margin="334,59,0,0" VerticalAlignment="Top" Width="153" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Payments_Clicked" Style="{StaticResource NoHoverButton}"/>
+        <Button x:Name="DeliveryBtn" Content="DELIVERY" HorizontalAlignment="Left" Height="60" Margin="492,59,0,0" VerticalAlignment="Top" Width="152" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Delivery_Clicked" Style="{StaticResource NoHoverButton}"/>
+        <Button x:Name="OrdersBtn" Content="ORDERS" HorizontalAlignment="Left" Height="60" Margin="649,59,0,0" VerticalAlignment="Top" Width="150" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Orders_Clicked" Style="{StaticResource NoHoverButton}"/>
+        <Button x:Name="ExpensesBtn" Content="EXPENSES" HorizontalAlignment="Left" Height="60" Margin="804,59,0,0" VerticalAlignment="Top" Width="152" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Expenses_Clicked" Style="{StaticResource NoHoverButton}"/>
+
+        <Border BorderThickness="1" HorizontalAlignment="Left" Height="41" Margin="903,8,0,0" VerticalAlignment="Top" Width="210" Background="White" CornerRadius="10">
+            <TextBox x:Name="SearchTB"
+         HorizontalAlignment="Center"
+         TextWrapping="Wrap"
+         Text="Search Product..."
+         VerticalAlignment="Top"
+         Width="196"
+         Height="32"
+         Background="White"
+         BorderBrush="White"
+         TextAlignment="Justify"
+         Padding="0,4,0,0"
+         FontSize="14"
+         MaxLines="1"
+         RenderTransformOrigin="0.5,0.5"
+         Margin="0,5,0,0"
+         
+         GotFocus="SearchTB_GotFocus"
+         LostFocus="SearchTB_LostFocus"
+         Foreground="Gray"
+         KeyDown="SearchTB_KeyDown" >
+
+                <TextBox.Style>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="SelectionBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+        </Border>
+        <Button x:Name="ReloadBtn" Background="Transparent" BorderBrush="Transparent" Click="ReloadBtn_Click" HorizontalAlignment="Left" Height="43" Margin="848,7,0,0" VerticalAlignment="Top" Width="50" Style="{StaticResource NoHoverButton}">
+            <Image Height="43" Width="44" Source="/Images/reloadIcon.png"/>
+        </Button>
     </Grid>
 
 </UserControl>

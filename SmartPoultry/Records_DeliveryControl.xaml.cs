@@ -45,7 +45,7 @@ namespace SmartPoultry
             }
         }
 
-        private void DeliveryInfo_Click(object sender, RoutedEventArgs e)
+        private void infoDisplay_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = UserContext.mainWindow;
             Add_Delivery add_Deliveries = new Add_Delivery(deliveries, mainWindow);

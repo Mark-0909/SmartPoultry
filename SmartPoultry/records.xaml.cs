@@ -96,6 +96,11 @@ namespace SmartPoultry
             HideAllControls();
             ExpensesControl.Visibility = Visibility.Visible;
         }
+
+        public void SearchRecords()
+        {
+            // Search for records
+        }
         public void HandleButtonDesign(Button activeButton)
         {
             // Define active and inactive colors
@@ -120,7 +125,65 @@ namespace SmartPoultry
         }
 
 
+        private void SearchTB_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) 
+            {
+                string searchTerm = SearchTB.Text.Trim(); 
+                                                          
+                SearchRecords(searchTerm);
+            }
+        }
 
+        public void SearchRecords(string searchTerm)
+        {
+            SalesControl.FetchSales(searchTerm);
+            InventoryControl.FetchInventoryLogs(searchTerm);
+            PaymentsControl.DisplayPayments(searchTerm);
+            DeliveryControl.DisplayDeliveries(searchTerm);
+            OrdersControl.DisplaySupplierOrders(searchTerm);
+            ExpensesControl.DisplayExpenses(searchTerm);
+            LogsControl.FetchUserLogs(searchTerm);
+        }
+        private void ReloadBtn_Click(object sender, RoutedEventArgs e)
+        {
+            SalesControl.FetchSales("");
+            InventoryControl.FetchInventoryLogs("");
+            PaymentsControl.DisplayPayments("");
+            DeliveryControl.DisplayDeliveries("");
+            OrdersControl.DisplaySupplierOrders("");
+            ExpensesControl.DisplayExpenses("");
+            LogsControl.FetchUserLogs("");
+        }
 
+        private void SearchTB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(SearchTB, "Search Product...", true);
+        }
+        private void SearchTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(SearchTB, "Search Product...", false);
+        }
+        public void HandleTextBoxPlaceholder(TextBox tb, string placeholder, bool isFocused)
+        {
+            if (isFocused)
+            {
+                if (tb.Text == placeholder)
+                {
+                    tb.Text = string.Empty;
+                    tb.Foreground = Brushes.Black;
+                }
+            }
+            else // When the TextBox loses focus
+            {
+                if (string.IsNullOrWhiteSpace(tb.Text))
+                {
+                    tb.Text = placeholder;
+                    tb.Foreground = Brushes.Gray;
+                }
+            }
+        }
+
+        
     }
 }
