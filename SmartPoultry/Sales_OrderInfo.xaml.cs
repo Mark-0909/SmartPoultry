@@ -34,6 +34,7 @@ namespace SmartPoultry
         public SalesServices salesServices;
         public DeliveriesServices deliveryServices;
         public FinancialLiabilitiesServices financialLiabilitiesServices;
+        public UserLogsServices userLogsServices;
         MainWindow mainWindow;
         Sales sale;
         Add_FinancialLiabilities financeform;
@@ -95,6 +96,7 @@ namespace SmartPoultry
             salesServices = new SalesServices(context);
             deliveryServices = new DeliveriesServices(context);
             financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
+            userLogsServices = new UserLogsServices(context);
 
             List<string> productvarids = sales.product_list.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
             List<string> pricelist = sales.price_list.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList();
@@ -112,9 +114,22 @@ namespace SmartPoultry
             mainWindow = UserContext.mainWindow;
             provarid = productvarids;
             qtys = qtylist;
-        } 
+        }
 
+        public void ActiveOverlay(bool isActive)
+        {
+            if (isActive)
+            {
+                Overlay.Visibility = Visibility.Visible;
 
+                Panel.SetZIndex(Overlay, 99);
+            }
+            else
+            {
+                Overlay.Visibility = Visibility.Collapsed;
+                Panel.SetZIndex(Overlay, 0);
+            }
+        }
         public void GenerateList(List<string> prodvarid, List<string> qty, List<string> varSpec, List<string> priceList, List<string> prodname)
         {
             OrderWPanel.Children.Clear();
@@ -255,11 +270,31 @@ namespace SmartPoultry
             {
                 return;
             }
-            bool isVoidedSales = salesServices.MarkAsVoided(long.Parse(OrderIdLabel.Content.ToString()), "Mark as Void.");
-            bool isVoidedDeliver = deliveryServices.MarkAsVoided(long.Parse(OrderIdLabel.Content.ToString()), "Void Sales");
-            bool isVoidedFinance = financialLiabilitiesServices.MarkAsVoided(long.Parse(OrderIdLabel.Content.ToString()), "Mark as Void.");
 
-            if (!isVoidedSales || !isVoidedDeliver || !isVoidedFinance)
+            Remarks_Popup remarksPopup = new Remarks_Popup();
+            ActiveOverlay(true);
+            string remarksInput = null;
+
+            if (remarksPopup.ShowDialog() == true)
+            {
+                remarksInput = remarksPopup.Remarks;
+            }
+            else
+            {
+
+                ActiveOverlay(false);
+                return;
+            }
+            ActiveOverlay(false);
+
+            
+            bool isVoidedSales = salesServices.MarkAsVoided(long.Parse(OrderIdLabel.Content.ToString()), remarksInput);
+            bool isVoidedDeliver = deliveryServices.MarkAsVoided(long.Parse(OrderIdLabel.Content.ToString()), remarksInput);
+            bool isVoidedFinance = financialLiabilitiesServices.MarkAsVoided(long.Parse(OrderIdLabel.Content.ToString()), remarksInput);
+            bool IsUserLogAdded = userLogsServices.Create(UserContext.CurrentUserId, "SALES", remarksInput);
+            
+
+            if (!isVoidedSales || !isVoidedDeliver || !isVoidedFinance || !IsUserLogAdded)
             {
                 MessageBox.Show("Void unsuccessful.");
                 return;

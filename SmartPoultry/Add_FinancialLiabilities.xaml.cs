@@ -327,7 +327,7 @@ namespace SmartPoultry
                 return;
             }
 
-            bool isCreated = userLogsServices.Create(UserContext.CurrentUserId, "Payment Update", $"Edit {finance.name}: Mark as Paid");
+            bool isCreated = userLogsServices.Create(UserContext.CurrentUserId, "PAYMENT", $"Edit {finance.name}: Mark as Paid");
 
             this.Close();
             mainWindow.ActiveOverlay(false);
