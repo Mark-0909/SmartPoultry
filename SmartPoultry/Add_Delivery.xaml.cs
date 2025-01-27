@@ -385,6 +385,14 @@ namespace SmartPoultry
                         continue;
                     }
 
+                    bool isUpdatedToNoOrder = productServices.UpdateHasNoOrder(int.Parse(ids[i]));
+
+                    if (!isUpdatedToNoOrder)
+                    {
+                        PopUpNotif("alert", "Product update failed.");
+                        return;
+                    }
+
                     mainWindow.inventoryControl.UpdateStocksAfterSupplierDeliver(productId, newStock);
                     string productBaseUnit = productVariationServices.GetBaseUnit(productId);
                     bool IsInventoryLogCreated = inventoryLogsServices.Create(productId, UserContext.CurrentUserId, "DELIVERED", $"Delivered: {qty[i]} {productBaseUnit}", int.Parse(qty[i]));

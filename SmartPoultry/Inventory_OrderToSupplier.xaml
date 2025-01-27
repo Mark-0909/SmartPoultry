@@ -68,16 +68,17 @@
 
 
                 <Border CornerRadius="5" BorderBrush="Black" BorderThickness="1" Height="38" Width="147">
-                    <WrapPanel>
-                        <ComboBox x:Name="SearchCBox" Tag="Search Product..." BorderBrush="White"
-                  PreviewTextInput="SearchCBox_PreviewTextInput" IsEditable="True"  Margin="3"
-                  IsDropDownOpen="False" Height="28" Width="135" PreviewMouseDown="SearchCBox_PreviewMouseDown" KeyDown="SearchCBox_KeyDown" LostFocus="SearchCBox_LostFocus" />
+                    <WrapPanel Margin="-1,0,1,9">
+                        <ComboBox x:Name="SearchCBox" VerticalContentAlignment="Center"  Tag="Search Product..." BorderBrush="Transparent"
+                            PreviewTextInput="SearchCBox_PreviewTextInput" IsEditable="True" Margin="3"
+                            IsDropDownOpen="False" Height="28" Width="135" PreviewMouseDown="SearchCBox_PreviewMouseDown" 
+                            KeyDown="SearchCBox_KeyDown" LostFocus="SearchCBox_LostFocus" />
 
-                        <Button x:Name="SearchBTN" Width="25" Height="25" Background="White" 
+                        <Button x:Name="SearchBTN" Width="25" Height="30" Background="White" 
                 VerticalAlignment="Center" HorizontalAlignment="Right" 
-                Margin="-27,0,0,0" BorderBrush="Transparent" 
-                Click="SearchBTN_Click">
-                            <Image Height="22" Width="20" Source="/Images/2946467-200.png"/>
+                Margin="-27,2,0,0" BorderBrush="Transparent" 
+                Click="SearchBTN_Click" Style="{StaticResource NoHoverButton}">
+                            <Image Height="26" Width="20" Source="/Images/2946467-200.png"/>
                         </Button>
                     </WrapPanel>
                 </Border>
@@ -94,7 +95,7 @@
             </ScrollViewer>
         </StackPanel>
 
-        <Border x:Name="NotifPopup"  CornerRadius="10" BorderBrush="#FFCCE6D3" BorderThickness="1" HorizontalAlignment="Center" Height="46" Margin="0,24,0,0" VerticalAlignment="Top" Width="330" Background="#FFCCE6D3">
+        <Border x:Name="NotifPopup"  CornerRadius="10" BorderBrush="#FFCCE6D3" BorderThickness="1" HorizontalAlignment="Center" Height="46" Margin="0,8,0,0" VerticalAlignment="Top" Width="330" Background="#FFCCE6D3">
             <WrapPanel>
                 <Label x:Name="NotifMessage"  Content="Invalid Credentials" VerticalContentAlignment="Center" Padding="20 0 0 0" Height="43" Width="302" Foreground="#FF666666"/>
                 <Button x:Name="NotifCloseBtn" BorderBrush="Transparent" Background="Transparent" Height="20" Width="21" Click="NotifCloseBtn_Click"  Style="{StaticResource NoHoverButton}">
@@ -102,6 +103,9 @@
                 </Button>
             </WrapPanel>
         </Border>
+        <Border BorderBrush="White" Background="White" BorderThickness="1" HorizontalAlignment="Left" Height="3" Margin="191,84,0,0" VerticalAlignment="Top" Width="119"/>
+        <Border BorderBrush="White" Background="White" BorderThickness="1" HorizontalAlignment="Left" Height="31" Margin="190,56,0,0" VerticalAlignment="Top" Width="3"/>
+        <Border BorderBrush="White" Background="White" BorderThickness="1" HorizontalAlignment="Left" Height="3" Margin="191,56,0,0" VerticalAlignment="Top" Width="135"/>
 
 
 
