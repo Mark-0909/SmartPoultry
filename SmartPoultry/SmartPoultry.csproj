@@ -18,8 +18,11 @@
     <None Remove="Images\addicon.png" />
     <None Remove="Images\addorder.png" />
     <None Remove="Images\addvariant.png" />
+    <None Remove="Images\banIcon.png" />
     <None Remove="Images\blacklogo.png" />
     <None Remove="Images\blacktext.png" />
+    <None Remove="Images\checkIcon.png" />
+    <None Remove="Images\clearIcon.png" />
     <None Remove="Images\clipicon.png" />
     <None Remove="Images\close.png" />
     <None Remove="Images\closegray.png" />
@@ -46,6 +49,7 @@
     <None Remove="Images\qrcode.png" />
     <None Remove="Images\recordsgreen.png" />
     <None Remove="Images\recordsgrey.png" />
+    <None Remove="Images\reloadIcon.png" />
     <None Remove="Images\removeorder.png" />
     <None Remove="Images\schedulegray.png" />
     <None Remove="Images\schedulegreen.png" />
@@ -59,7 +63,11 @@
     <Resource Include="Images\addbutton.png" />
     <Resource Include="Images\addbuttonproduct.png" />
     <Resource Include="Images\addbuttonsupplier.png" />
+    <Resource Include="Images\banIcon.png" />
+    <Resource Include="Images\checkIcon.png" />
+    <Resource Include="Images\clearIcon.png" />
     <Resource Include="Images\closegray.png" />
+    <Resource Include="Images\reloadIcon.png" />
     <Resource Include="Images\schedulegray.png" />
     <Resource Include="Images\schedulegreen.png" />
   </ItemGroup>

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
              mc:Ignorable="d" 
-             d:DesignHeight="75" Width="590" Height="75" Background="Transparent" Margin="-10, 0, 0, 5" MouseLeftButtonDown="UserControl_MouseLeftButtonDown">
+             d:DesignHeight="75" Width="580" Height="75" Background="Transparent" Margin="-4, 0, 0, 5" MouseLeftButtonDown="UserControl_MouseLeftButtonDown">
     <Grid>
         <Border x:Name="ControlBorder" CornerRadius="8" BorderBrush="#FFDBDBDB" BorderThickness="1" HorizontalAlignment="Center" Height="75" VerticalAlignment="Center" Width="565" Background="#FFDBDBDB">
             <WrapPanel HorizontalAlignment="Center" Height="74" VerticalAlignment="Center" Width="509">

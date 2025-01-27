@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
-             mc:Ignorable="d" Background="#FFE3E3E3" Height="578" Width="1109">
+             mc:Ignorable="d" Background="#FFE3E3E3" Height="643.1" Width="1123">
     <UserControl.Resources>
         <Style x:Key="NoHoverButton" TargetType="Button">
             <Setter Property="Background" Value="White"/>
@@ -48,15 +48,17 @@
     </UserControl.Resources>
     <Grid>
         <Label Content="ORGANIZATION" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="30" FontWeight="Bold" Margin="10,4,0,0"/>
-        <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Center" Height="505" Margin="-13,59,0,0" VerticalAlignment="Top" Width="1073" Background="White">
-            <WrapPanel HorizontalAlignment="Center" Height="386" Margin="0,108,0,0" VerticalAlignment="Top" Width="1053">
-                <WrapPanel Height="386" Width="590">
-                    <ScrollViewer Height="386" Width="590">
-                        <WrapPanel x:Name="UserPanel"  Width="572"/>
+        <Border BorderBrush="White" BorderThickness="1" HorizontalAlignment="Center" Height="574" Margin="0,59,0,0" VerticalAlignment="Top" Width="1104" Background="White">
+            <WrapPanel HorizontalAlignment="Center" Height="455" Margin="0,108,0,0" VerticalAlignment="Top" Width="1052">
+                <WrapPanel Height="421"  Width="590">
+                    <ScrollViewer
+                Height="421" Width="590">
+                        <WrapPanel
+                x:Name="UserPanel" Width="572"/>
                     </ScrollViewer>
                 </WrapPanel>
-                <Border BorderBrush="Black" BorderThickness="1" Height="384" Width="463">
-                    <Grid Margin="10">
+                <Border CornerRadius="10" BorderBrush="Black" BorderThickness="1" Height="455" Width="462">
+                    <Grid Margin="-1,10,-1,10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
@@ -64,30 +66,48 @@
                         </Grid.RowDefinitions>
 
                         <WrapPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0,5,0,5">
-                            <Label x:Name="NameLabel" Content="Name" Height="30" Width="310" VerticalAlignment="Center" />
-                            <Button x:Name="BanBtn" Content="Ban" Height="30" Width="50" Click="BanBtn_Click" />
-                            <Button x:Name="ClearBtn" Content="Clear" Height="30" Width="50" Margin="5,0" Click="ClearBtn_Click" />
+                            <Label x:Name="NameLabel" Content="Name" Height="30" Width="310" VerticalAlignment="Center" FontSize="14" />
+                            <Button x:Name="BanBtn" Background="Transparent" BorderBrush="Transparent" Height="50" Width="50" Click="BanBtn_Click" Style="{StaticResource NoHoverButton}">
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                    <Image Height="33" Width="45" Source="/Images/banIcon.png"/>
+                                    <TextBlock Text="Ban" FontSize="9" Foreground="Red" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button x:Name="ClearBtn" Background="Transparent" BorderBrush="Transparent" Height="50" Width="48" Click="ClearBtn_Click" Style="{StaticResource NoHoverButton}">
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Image Height="34" Width="40" Source="/Images/clearIcon.png"/>
+                                    <TextBlock Text="Clear" FontSize="9" Foreground="Black" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,5,0,0"/>
+                                </StackPanel>
+                            </Button>
+
                         </WrapPanel>
 
-                        <ScrollViewer Grid.Row="1" Margin="0,59,0,10" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                        <ScrollViewer Grid.Row="1" Margin="10,59,10,10" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                             <WrapPanel x:Name="UserLogsList" Width="Auto" />
                         </ScrollViewer>
 
 
-                        <WrapPanel HorizontalAlignment="Left" Margin="0,0,0,278" Grid.Row="1" Width="407">
-                            <ComboBox x:Name="RoleCBox" Height="30" Width="150" Margin="5,0" SelectionChanged="RoleCBox_SelectionChanged">
+                        <WrapPanel HorizontalAlignment="Left" Margin="0,0,0,319" Grid.Row="1" Width="407">
+                            <ComboBox x:Name="RoleCBox" Height="30" Width="150" Margin="25,0" SelectionChanged="RoleCBox_SelectionChanged">
                                 <ComboBoxItem Content="admin" />
                                 <ComboBoxItem Content="employee" />
                             </ComboBox>
-                            <Button x:Name="SaveChangesBtn" Content="Check" Height="30" Width="50" Margin="5,0" Click="SaveChangesBtn_Click" />
+                            <Button x:Name="SaveChangesBtn" Background="Transparent" BorderBrush="Transparent" Height="30" Width="124" Click="SaveChangesBtn_Click" Style="{StaticResource NoHoverButton}">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <Image Height="25" Width="27" Source="/Images/checkIcon.png"/>
+                                    <TextBlock Text="Save Changes" Foreground="Green" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                                </StackPanel>
+                            </Button>
+
                         </WrapPanel>
                     </Grid>
                 </Border>
 
             </WrapPanel>
         </Border>
-        <Button x:Name="InactiveBtn" Content="INACTIVE" HorizontalAlignment="Left" Height="60" Margin="557,59,0,0" VerticalAlignment="Top" Width="534" FontSize="20" FontWeight="Bold" BorderBrush="#FFDCEDD5" Foreground="Gray" Background="#FFDCEDD5" Click="Inactive_Clicked" Style="{StaticResource NoHoverButton}"/>
-        <Button x:Name="ActiveBtn" Content="ACTIVE" HorizontalAlignment="Left" Height="60" Margin="18,59,0,0" VerticalAlignment="Top" Width="534" Click="Active_Clicked" FontSize="20" FontWeight="Bold" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D" Foreground="White" Style="{StaticResource NoHoverButton}"/>
+        <Button x:Name="InactiveBtn" Content="INACTIVE" HorizontalAlignment="Left" Height="60" Margin="565,59,0,0" VerticalAlignment="Top" Width="548" FontSize="20" FontWeight="Bold" BorderBrush="#FFDCEDD5" Foreground="Gray" Background="#FFDCEDD5" Click="Inactive_Clicked" Style="{StaticResource NoHoverButton}"/>
+        <Button x:Name="ActiveBtn" Content="ACTIVE" HorizontalAlignment="Left" Height="60" Margin="10,59,0,0" VerticalAlignment="Top" Width="548" Click="Active_Clicked" FontSize="20" FontWeight="Bold" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D" Foreground="White" Style="{StaticResource NoHoverButton}"/>
         <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="MEMBER INFO" HorizontalAlignment="Left" Height="36" Margin="757,127,0,0" VerticalAlignment="Top" Width="200" FontSize="20" FontWeight="Bold"/>
 
         <Border BorderThickness="1" HorizontalAlignment="Left" Height="41" Margin="884,8,0,0" VerticalAlignment="Top" Width="210" Background="White" CornerRadius="10">
@@ -127,6 +147,10 @@
                 </TextBox.Style>
             </TextBox>
         </Border>
-        <Button Content="Button" HorizontalAlignment="Left" Height="39" Margin="811,10,0,0" VerticalAlignment="Top" Width="68" Click="ReloadBtn_Click"/>
+        <Button Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Height="39" Margin="846,9,0,0" VerticalAlignment="Top" Width="38" Click="ReloadBtn_Click" Style="{StaticResource NoHoverButton}">
+            <Image Height="30" Width="35" Source="/Images/reloadIcon.png"/>
+        </Button>
+        <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="Username" HorizontalAlignment="Left" Height="38" Margin="150,140,0,0" VerticalAlignment="Top" Width="93" FontSize="14"/>
+        <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="Role" HorizontalAlignment="Left" Height="38" Margin="405,140,0,0" VerticalAlignment="Top" Width="93" FontSize="14"/>
     </Grid>
 </UserControl>
