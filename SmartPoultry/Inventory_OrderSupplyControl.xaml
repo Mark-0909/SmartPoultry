@@ -5,7 +5,48 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
              mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="200"
-             Width="Auto" Height="Auto">
+             Width="380" Height="Auto">
+    <UserControl.Resources>
+        <Style x:Key="NoHoverButton" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <!-- Animation for the button itself when hovered -->
+                                            <DoubleAnimation 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            To=".7" Duration="0:0:0.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+
+                                            <DoubleAnimation 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            To="1.0" Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <!-- Main Content -->
         <Border BorderBrush="Black" BorderThickness="1" Background="#FFEAEAEA">
@@ -16,7 +57,7 @@
                         <Label Content="Supplier:" Height="33" Width="89"/>
                     </Border>
                     <Border BorderBrush="Transparent" BorderThickness="1" Background="Transparent">
-                        <Label x:Name="SupplierNameLabel" Content="Supplier Name" Height="33" Width="267"/>
+                        <Label x:Name="SupplierNameLabel" Content="Supplier Name" Height="33" Margin="17 0 0 0" Width="200"/>
                     </Border>
 
                     <Border BorderBrush="Transparent" BorderThickness="1" Background="Transparent">
@@ -29,22 +70,22 @@
                         <Label Content="Contact: " Height="33" Width="92"/>
                     </Border>
                     <Border BorderBrush="Transparent" BorderThickness="1" Background="Transparent" Width="244">
-                        <Label x:Name="ContactLabel" Content="Contact" Height="33" Width="92"/>
+                        <Label x:Name="ContactLabel" Margin="-15 0 0 0" Content="Contact" Height="33" Width="200"/>
                     </Border>
                     <Border BorderBrush="Transparent" BorderThickness="1" Background="Transparent" Width="93">
                         <Label x:Name="ContactLabel1_Copy" Content="Delivery Date: " Height="33" Width="92" Margin="0,0,-1,0"/>
                     </Border>
                     <Border BorderBrush="Transparent" BorderThickness="1" Background="Transparent" Width="93">
-                        <DatePicker x:Name="datePicker" Loaded="DatePicker_Loaded"/>
+                        <DatePicker x:Name="datePicker" Loaded="DatePicker_Loaded" Height="24"/>
 
                     </Border>
 
                     <!-- Product Info Header -->
                     <Border BorderBrush="Transparent" BorderThickness="1" Background="Transparent" Width="370" Height="46">
                         <WrapPanel>
-                            <Label Content="Product" Height="34" Width="77"/>
-                            <Label Content="Current Stocks" Height="34" Width="96"/>
-                            <Label Content="QTY" Height="34" Width="77"/>
+                            <Label Content="Product" Height="34" Width="77" Margin="40 16 0 0"/>
+                            <Label Content="Current Stocks" Height="34" Width="96" Margin="10 16 0 0"/>
+                            <Label Content="QTY" Height="34" Width="77" Margin="33 16 0 0"/>
                         </WrapPanel>
                     </Border>
                 </WrapPanel>
@@ -52,16 +93,18 @@
         </Border>
 
         <!-- Remove Button Positioned in the Upper Right -->
-        <Button Content="Remove"
+        <Button
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
-            Margin="5"
-            Width="75"
-            Height="30"
-            Background="Red"
-            Foreground="White"
+            Width="50"
+            Height="48"
+            Background="Transparent"
+            Foreground="Transparent"
             FontWeight="Bold"
-            Click="Remove_Clicked"/>
+            BorderBrush="Transparent"
+            Click="Remove_Clicked" Style="{StaticResource NoHoverButton}">
+            <Image Height="46" Width="42" Source="/Images/phaseOutIcon.png"/>
+        </Button>
     </Grid>
 
 </UserControl>

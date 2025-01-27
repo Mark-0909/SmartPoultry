@@ -4,22 +4,62 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SmartPoultry"
-             mc:Ignorable="d" 
-             d:DesignHeight="44" d:DesignWidth="370">
+             mc:Ignorable="d" d:DesignWidth="370" Width="377" Height="31">
+    <UserControl.Resources>
+        <Style x:Key="NoHoverButton" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <!-- Animation for the button itself when hovered -->
+                                            <DoubleAnimation 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            To=".7" Duration="0:0:0.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+
+                                            <DoubleAnimation 
+                                            Storyboard.TargetProperty="Opacity" 
+                                            To="1.0" Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
     <Grid>
-        <Border BorderBrush="White" BorderThickness="1" Background="White">
+        <Border BorderBrush="LightGray" BorderThickness=".5" Background="White">
             <WrapPanel>
-                <Label x:Name="NameLabel" Content="name" Height="32" Width="143"/>
-                <Label x:Name="StocksLabel" Content="Stcks" Height="32" Width="71"/>
-                <Button x:Name="minusBtn" Height="26" Width="30" BorderBrush="Transparent" Background="Transparent" Click="minusBtn_Click">
-                    <Image Height="20" Width="23" Source="/Images/minusorder.png"/>
+                <Label x:Name="NameLabel" Content="name" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Height="29" Width="138"/>
+                <Label x:Name="StocksLabel" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="Stcks" Height="29" Width="71"/>
+                <Button x:Name="minusBtn" Height="17" Width="25" BorderBrush="Transparent" Background="Transparent" Click="minusBtn_Click" Margin="30 0 0 0" Style="{StaticResource NoHoverButton}">
+                    <Image Height="13" Width="15" Source="/Images/minusorder.png"/>
                 </Button>
-                <Label x:Name="QTYLabel" Content="1" Height="32" Width="15" />
-                <Button x:Name="AddBtn" Height="26" Width="30" BorderBrush="Transparent" Background="Transparent" Click="AddBtn_Click" >
-                    <Image Height="22" Width="24" Source="/Images/addorder.png"/>
+                <Label x:Name="QTYLabel" Content="1" Height="29" Width="19" />
+                <Button x:Name="AddBtn" Height="21" Width="25" BorderBrush="Transparent" Background="Transparent" Click="AddBtn_Click" Margin="0 0 0 0" Style="{StaticResource NoHoverButton}">
+                    <Image Height="16" Width="17" Source="/Images/addorder.png"/>
                 </Button>
-                <Button Height="26" Width="30" BorderBrush="Transparent" Background="Transparent" Click="Remove_Clicked">
-                    <Image Height="20" Width="25" Source="/Images/removeorder.png"/>
+                <Button Height="23" Width="25" BorderBrush="Transparent" Background="Transparent" Margin="43 4 0 0" Click="Remove_Clicked" Style="{StaticResource NoHoverButton}">
+                    <Image Height="16" Width="18" Source="/Images/removeorder.png"/>
                 </Button>
             </WrapPanel>
         </Border>

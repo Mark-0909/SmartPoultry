@@ -51,6 +51,23 @@ namespace SmartPoultry.DataServices
             }
         }
 
+        public bool UpdateHasNoOrder(int Id)
+        {
+            try
+            {
+                _context.ChangeTracker.Clear();
+                var product = _context.Products.FirstOrDefault(p => p.product_id == Id);
+                product.hasOrder = false;
+                _context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
         public Products GetProductByName(string name)
         {
             try
