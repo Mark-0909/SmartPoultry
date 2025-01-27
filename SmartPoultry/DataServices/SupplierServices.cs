@@ -37,6 +37,28 @@ namespace SmartPoultry.DataServices
                 return false;
             }
         }
+
+        public string DeleteSupplier(int id)
+        {
+            try
+            {
+                var supplier = _context.SupplierLists.FirstOrDefault(s => s.Id == id);
+                if (supplier == null)
+                {
+                    return "Supplier not found.";
+                }
+
+                _context.SupplierLists.Remove(supplier);
+                _context.SaveChanges();
+                return "Supplier deleted successfully.";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error deleting supplier: " + ex.Message);
+                return "An error occurred while deleting the supplier.";
+            }
+        }
+
         public int FindSupplierByName(string name)
         {
             try
