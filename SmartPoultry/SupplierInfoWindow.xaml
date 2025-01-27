@@ -83,7 +83,8 @@
                     <TextBox x:Name="ContactPerson" Height="30" Margin="0,5,0,20" BorderBrush="#CCCCCC" BorderThickness="1" Background="#FFFFFF"/>
 
                     <Label Content="Phone:" FontWeight="Bold"/>
-                    <TextBox x:Name="Phone" Height="30" Margin="0,5,0,20" BorderBrush="#CCCCCC" BorderThickness="1" Background="#FFFFFF"/>
+                    <TextBox x:Name="Phone" Height="30" Margin="0,5,0,20" BorderBrush="#CCCCCC" BorderThickness="1" Background="#FFFFFF"
+                             PreviewTextInput="Phone_PreviewTextInput" DataObject.Pasting="Phone_Pasting"/>
 
                     <Label Content="Email:" FontWeight="Bold"/>
                     <TextBox x:Name="Email" Height="30" Margin="0,5,0,20" BorderBrush="#CCCCCC" BorderThickness="1" Background="#FFFFFF"/>

@@ -8,11 +8,19 @@
         <!-- Highlight Background -->
         <Border x:Name="HighlightBorder" CornerRadius="10" BorderBrush="Transparent" BorderThickness="1" 
                 VerticalAlignment="Center" Background="White" Height="37">
-            <TextBox x:Name="ContactInfo" Text="CONTACT INFO" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="362,0,0,0" Width="133"
-                     PreviewTextInput="ContactInfo_PreviewTextInput" DataObject.Pasting="ContactInfo_Pasting" Height="17"/>
         </Border>
-        <Label x:Name="Name" Content="NAME" HorizontalAlignment="Left" Margin="32,0,0,0" VerticalAlignment="Center" Width="137"/>
-        <Label x:Name="ContactPerson" Content="CONTACT PERSON" HorizontalAlignment="Left" VerticalAlignment="Center" Width="161" Margin="186,0,0,0"/>
+
+        <!-- Name Label -->
+        <Label x:Name="Name" Content="NAME" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="32,0,0,0" Width="137"/>
+
+        <!-- Contact Person Label -->
+        <Label x:Name="ContactPerson" Content="CONTACT PERSON" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="186,0,0,0" Width="161"/>
+
+        <!-- Contact Info Label -->
+        <Label x:Name="ContactInfo" Content="CONTACT INFO" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="362,0,0,0" Width="133"
+               PreviewTextInput="ContactInfo_PreviewTextInput" DataObject.Pasting="ContactInfo_Pasting"/>
+
+        <!-- Edit Button -->
         <Button x:Name="EditButton" Content="Edit" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="507,0,0,0" Width="75" Height="25" 
                 Background="#FF077C5E" Foreground="White" FontWeight="Bold" Click="EditButton_Click"/>
 

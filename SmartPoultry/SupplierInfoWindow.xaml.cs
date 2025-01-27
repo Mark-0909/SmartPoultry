@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 using SmartPoultry.DataAccess;
 using SmartPoultry.DataServices;
 using SmartPoultry.Models;
@@ -16,6 +18,7 @@ namespace SmartPoultry
         public SupplierList Supplier { get; private set; }
         public bool IsUpdated { get; private set; }
         MainWindow mainWindow = UserContext.mainWindow;
+
         public SupplierInfoWindow(SupplierList supplier)
         {
             InitializeComponent();
@@ -36,12 +39,13 @@ namespace SmartPoultry
             bool isUpdated = supplierServices.UpdateSupplier(Supplier.Id, SupplierName.Text, ContactPerson.Text, Phone.Text, Address.Text, Email.Text);
             if (!isUpdated)
             {
-                MessageBox.Show("Suuplier not updated!");
+                MessageBox.Show("Supplier not updated!");
                 return;
             }
-            MessageBox.Show("Suuplier updated!");
+            MessageBox.Show("Supplier updated!");
             DynamicUpdate();
         }
+
         public void DynamicUpdate()
         {
             mainWindow.supplierControl.SupplierListPanel.Children.Clear();
@@ -55,6 +59,7 @@ namespace SmartPoultry
                 control.SupplierClicked += Supplier_SupplierControl_SupplierClicked;
             }
         }
+
         public void Supplier_SupplierControl_SupplierClicked(SupplierList supplier)
         {
             SupplierName.Text = supplier.Name;
@@ -63,6 +68,7 @@ namespace SmartPoultry
             Email.Text = supplier.Email;
             Address.Text = supplier.Location;
         }
+
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
             var result = MessageBox.Show("Are you sure you want to delete this supplier?", "Confirm Delete", MessageBoxButton.YesNo);
@@ -85,6 +91,31 @@ namespace SmartPoultry
             this.Close();
         }
 
-        
+        // Restrict Phone field to only allow integers
+        private void Phone_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Check if the input is a digit
+            if (!char.IsDigit(e.Text, e.Text.Length - 1))
+            {
+                e.Handled = true; // Block non-digit input
+            }
+        }
+
+        private void Phone_Pasting(object sender, DataObjectPastingEventArgs e)
+        {
+            // Check if the pasted text is a valid integer
+            if (e.DataObject.GetDataPresent(typeof(string)))
+            {
+                string text = (string)e.DataObject.GetData(typeof(string));
+                if (!int.TryParse(text, out _))
+                {
+                    e.CancelCommand(); // Block pasting non-integer text
+                }
+            }
+            else
+            {
+                e.CancelCommand(); // Block non-text data
+            }
+        }
     }
 }
