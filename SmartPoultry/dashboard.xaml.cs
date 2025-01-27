@@ -203,6 +203,66 @@ namespace SmartPoultry
             }
         }
 
+        public void DisplayProductPerformanceChart(DateTime FromDate, DateTime ToDate)
+        {
+            List<InventoryLogs> logs = inventoryLogsServices.GetList();
+
+            var salesLogs = logs.Where(p => p.action == "SALES" &&
+                                            p.timestamp.Date >= FromDate.Date &&
+                                            p.timestamp.Date <= ToDate.Date)
+                                .ToList();
+            var productPerformance = salesLogs
+                .GroupBy(p => p.product_id)
+                .Select(g => new
+                {
+                    ProductId = g.Key,
+                    TotalSales = g.Where(e => int.TryParse(e.quatity.ToString(), out _))
+                                  .Sum(e => int.Parse(e.quatity.ToString()))
+                })
+                .OrderByDescending(p => p.TotalSales)
+                .Take(20) 
+                .ToList();
+
+            var productNames = productPerformance
+                .Select(p => productServices.FetchProduct(p.ProductId)?.product_name ?? $"Product {p.ProductId}")
+                .ToList();
+            var salesData = productPerformance.Select(p => p.TotalSales).ToList();
+
+            ProductPerformanceChart.Series.Clear();
+            ProductPerformanceChart.Series = new SeriesCollection
+            {
+                new ColumnSeries
+                {
+                    Title = "Total Sales",
+                    Values = new ChartValues<int>(salesData),
+                    DataLabels = true 
+                }
+            };
+
+
+            ProductPerformanceChart.AxisX.Clear();
+            ProductPerformanceChart.AxisX.Add(new Axis
+            {
+                Title = "Products",
+                Labels = productNames,
+                LabelsRotation = -20, 
+                Separator = new LiveCharts.Wpf.Separator
+                {
+                    Step = 1 
+                }
+            });
+
+            
+            ProductPerformanceChart.AxisY.Clear();
+            ProductPerformanceChart.AxisY.Add(new Axis
+            {
+                Title = "Total Sales",
+                LabelFormatter = value => value.ToString("N0")
+            });
+
+            // Adjust chart padding for better label visibility
+            ProductPerformanceChart.Padding = new System.Windows.Thickness(10);
+        }
 
 
         public void GenerateRevenueAndCostComboChart(DateTime FromDate, DateTime ToDate)
@@ -452,57 +512,7 @@ namespace SmartPoultry
 
 
 
-        public void DisplayProductPerformanceChart(DateTime FromDate, DateTime ToDate)
-        {
-            List<InventoryLogs> logs = inventoryLogsServices.GetList();
-
-            var salesLogs = logs.Where(p => p.action == "SALES" &&
-                                            p.timestamp.Date >= FromDate.Date &&
-                                            p.timestamp.Date <= ToDate.Date)
-                                .ToList();
-
-            var productPerformance = salesLogs
-                .GroupBy(p => p.product_id)
-                .Select(g => new
-                {
-                    ProductId = g.Key,
-                    TotalSales = g.Where(e => int.TryParse(e.quatity.ToString(), out _))
-                                  .Sum(e => int.Parse(e.quatity.ToString()))
-                })
-                .OrderByDescending(p => p.TotalSales)
-                .Take(20)
-                .ToList();
-
-            var productNames = productPerformance.Select(p => productServices.FetchProduct(p.ProductId).product_name).ToList();
-            var salesData = productPerformance.Select(p => p.TotalSales).ToList();
-
-            ProductPerformanceChart.Series.Clear();
-            ProductPerformanceChart.Series = new SeriesCollection
-        {
-            new ColumnSeries
-            {
-                Title = "Total Sales",
-                Values = new ChartValues<int>(salesData)
-            }
-        };
-
-            ProductPerformanceChart.AxisX.Clear();
-            ProductPerformanceChart.AxisX.Add(new Axis
-            {
-                Title = "Products",
-                Labels = productNames,
-                LabelsRotation = -30, // Rotate labels for better visibility
-                LabelFormatter = value => value.ToString("0"),
-                Separator = new LiveCharts.Wpf.Separator(), // Adjust spacing between labels
-            });
-
-            ProductPerformanceChart.AxisY.Clear();
-            ProductPerformanceChart.AxisY.Add(new Axis
-            {
-                Title = "Total Sales",
-                LabelFormatter = value => value.ToString("0")
-            });
-        }
+        
 
 
 

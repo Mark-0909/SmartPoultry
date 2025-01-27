@@ -13,6 +13,7 @@ namespace SmartPoultry.DataServices
     public class FinancialLiabilitiesServices
     {
         private readonly AppDbContext _context;
+        MainWindow mainWindow = UserContext.mainWindow;
 
         public FinancialLiabilitiesServices(AppDbContext context)
         {
@@ -148,6 +149,8 @@ namespace SmartPoultry.DataServices
                 };
                 _context.Add(newSched);
                 _context.SaveChanges();
+
+                mainWindow.recordsControl.PaymentsControl.DisplayPayments();   
                 return true;
             }
             catch (Exception ex) {

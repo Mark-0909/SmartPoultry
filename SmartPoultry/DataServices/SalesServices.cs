@@ -2,12 +2,15 @@
 using SmartPoultry.Models;
 using System;
 using System.Windows;
+using static SmartPoultry.App;
 
 namespace SmartPoultry.DataServices
 {
+    
     public class SalesServices
     {
         private readonly AppDbContext _context;
+        MainWindow mainWindow = UserContext.mainWindow;
 
         public SalesServices(AppDbContext context)
         {
@@ -163,6 +166,7 @@ namespace SmartPoultry.DataServices
                 _context.Sales.Add(newSales);
                 _context.SaveChanges();
 
+                mainWindow.recordsControl.SalesControl.FetchSales();
                 return newSales.receipt_id;
             }
             catch (Exception e)

@@ -5,13 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using static SmartPoultry.App;
 namespace SmartPoultry.DataServices
 {
     
     public class InventoryLogsServices
     {
         AppDbContext _context;
+        MainWindow mainWindow = UserContext.mainWindow;
         public InventoryLogsServices(AppDbContext context) 
         {
             _context = context;
@@ -37,6 +38,8 @@ namespace SmartPoultry.DataServices
 
                 _context.Add(row);
                 _context.SaveChanges();
+
+                mainWindow.recordsControl.InventoryControl.FetchInventoryLogs();
                 return true;
             }
             catch (Exception ex) 

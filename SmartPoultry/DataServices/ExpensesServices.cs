@@ -6,12 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using static SmartPoultry.App;
 
 namespace SmartPoultry.DataServices
 {
     public class ExpensesServices
     {
         private readonly AppDbContext _context;
+        MainWindow mainWindow = UserContext.mainWindow;
         public ExpensesServices(AppDbContext context)
         {
             _context = context;
@@ -60,6 +62,8 @@ namespace SmartPoultry.DataServices
                 };
                 _context.Expenses.Add(expenses);
                 _context.SaveChanges();
+
+                mainWindow.recordsControl.ExpensesControl.DisplayExpenses();
                 return true;
             }
             catch (Exception ex)

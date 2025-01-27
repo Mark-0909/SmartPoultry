@@ -12,6 +12,7 @@ namespace SmartPoultry.DataServices
     public class SupplierOrdersServices
     {
         public AppDbContext _context;
+        MainWindow mainWindow = UserContext.mainWindow;
         public SupplierOrdersServices(AppDbContext context) 
         {
             _context = context;
@@ -66,6 +67,8 @@ namespace SmartPoultry.DataServices
                 };
                 _context.SupplierOrders.Add(Order);
                 _context.SaveChanges();
+
+                mainWindow.recordsControl.OrdersControl.DisplaySupplierOrders();
                 return Order.id;
             }
             catch (Exception ex) 

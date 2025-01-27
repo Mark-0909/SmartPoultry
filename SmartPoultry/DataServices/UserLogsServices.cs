@@ -6,12 +6,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static SmartPoultry.App;
 
 namespace SmartPoultry.DataServices
 {
     public class UserLogsServices
     {
         AppDbContext _context;
+        MainWindow mainWindow = UserContext.mainWindow;
         public UserLogsServices(AppDbContext context)
         {
             _context = context;
@@ -40,6 +42,8 @@ namespace SmartPoultry.DataServices
                 };
                 _context.Add(row);
                 _context.SaveChanges();
+
+                mainWindow.recordsControl.LogsControl.FetchUserLogs();
                 return true;
             }
             catch (Exception ex)
