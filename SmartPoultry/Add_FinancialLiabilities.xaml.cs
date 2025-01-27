@@ -284,18 +284,18 @@ namespace SmartPoultry
             bool CreateExpense = true;
 
 
-            if (!decimal.TryParse(finance.amount.ToString(), out var amount))
+            if (!decimal.TryParse(finance.amount.ToString(), out var amount)) 
             {
                 PopUpNotif("alert", "Invalid finance amount.");
                 return;
             }
 
 
-            if (finance.type == "To Pay")
+            if (finance.type == "To Pay" && finance.order_id != 0)
             {
                 CreateExpense = expensesServices.Create(
-                    NameTextBox.Text, "BILL", "DONE", UserContext.CurrentUserId,
-                    "Payment done.", amount, 0, finance.added_date);
+                    NameTextBox.Text, "SUPPLY", "DONE", UserContext.CurrentUserId,
+                    "Payment done.", amount, finance.order_id, finance.added_date);
             }
             else if (finance.order_id != 0)
             {

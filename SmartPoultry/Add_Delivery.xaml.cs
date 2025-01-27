@@ -218,7 +218,7 @@ namespace SmartPoultry
                 PopUpNotif("alert", "Add Delivery Man");
                 return;
             }
-            if (status == "unpaid" && (!datePicker.SelectedDate.HasValue || datePicker.SelectedDate.Value.Date == DateTime.Now.Date))
+            if (status == "unpaid" && type == "To Receive" && (!datePicker.SelectedDate.HasValue || datePicker.SelectedDate.Value.Date == DateTime.Now.Date))
             {
                 PopUpNotif("alert", "Select a valid payment date.");
                 return;
@@ -258,7 +258,14 @@ namespace SmartPoultry
 
             bool updatedDelivery = deliveriesServices.UpdateDelivered(deliveries.Id, DeliveryManTextBox.Text, "Update Delivery");
             bool updateSale = deliveries.type != "To Deliver" || salesServices.UpdateDelivered(deliveries.order_id, "Update Delivery");
-            bool IsPriceUpdated = supplierOrdersServices.UpdatePrice(int.Parse(OrderId.Content.ToString()), decimal.Parse(PriceTextBox.Text.ToString()));
+            bool IsPriceUpdated = true;
+
+
+            if (deliveries.type == "To Receive")
+            {
+                IsPriceUpdated = supplierOrdersServices.UpdatePrice(int.Parse(OrderId.Content.ToString()), decimal.Parse(PriceTextBox.Text.ToString()));
+            }
+            
            
 
             if (!updatedDelivery || !updateSale || !IsPriceUpdated)
@@ -287,7 +294,7 @@ namespace SmartPoultry
                 return;
             }
 
-            if(status == "paid")
+            if(status == "paid" && type == "To Receive")
             {
                 bool isCreatedExpense = expensesServices.Create(
                     NameTextBox.Text,
@@ -300,6 +307,8 @@ namespace SmartPoultry
                     deliveries.added_date == DateTime.MinValue ? DateTime.Now : deliveries.added_date
                 );
 
+                deliveriesServices.UpdatePaymentStatus(deliveries.Id);
+
                 if (!isCreatedExpense)
                 {
                     PopUpNotif("alert", "Creating expense row unsuccessful.");
@@ -307,42 +316,47 @@ namespace SmartPoultry
                 }
             }
 
-            SupplierOrders order = supplierOrdersServices.GetById(int.Parse(orderId.ToString()));
-            if (order == null)
+
+            if(type == "To Receive")
             {
-                PopUpNotif("alert", "Order not found.");
-                return;
-            }
-
-            List<string> ids = order.productList.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList();
-            List<string> qty = order.orderQty.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList();
-
-            for (int i = 0; i < ids.Count; i++)
-            {
-                if (!int.TryParse(ids[i], out var productId) ||
-                    !decimal.TryParse(qty[i], out var quantity))
+                SupplierOrders order = supplierOrdersServices.GetById(int.Parse(orderId.ToString()));
+                if (order == null)
                 {
-                    PopUpNotif("alert", $"Invalid product or quantity for ID: {ids[i]}.");
-                    continue;
-                }
-
-                decimal newStock = productServices.UpdateStockAfterDelivery(productId, quantity);
-
-                if (newStock == -1)
-                {
-                    PopUpNotif("alert", $"Stock update failed for Product ID: {productId}");
-                    continue;
-                }
-
-                mainWindow.inventoryControl.UpdateStocksAfterSupplierDeliver(productId, newStock);
-                string productBaseUnit = productVariationServices.GetBaseUnit(productId);
-                bool IsInventoryLogCreated = inventoryLogsServices.Create(productId, UserContext.CurrentUserId, "DELIVERED", $"Delivered: {qty[i]} {productBaseUnit}", int.Parse(qty[i]));
-                if (!IsInventoryLogCreated)
-                {
-                    PopUpNotif("alert", "Inventory log creation failed.");
+                    PopUpNotif("alert", "Order not found.");
                     return;
                 }
+
+                List<string> ids = order.productList.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList();
+                List<string> qty = order.orderQty.Split(",", StringSplitOptions.RemoveEmptyEntries).ToList();
+
+                for (int i = 0; i < ids.Count; i++)
+                {
+                    if (!int.TryParse(ids[i], out var productId) ||
+                        !decimal.TryParse(qty[i], out var quantity))
+                    {
+                        PopUpNotif("alert", $"Invalid product or quantity for ID: {ids[i]}.");
+                        continue;
+                    }
+
+                    decimal newStock = productServices.UpdateStockAfterDelivery(productId, quantity);
+
+                    if (newStock == -1)
+                    {
+                        PopUpNotif("alert", $"Stock update failed for Product ID: {productId}");
+                        continue;
+                    }
+
+                    mainWindow.inventoryControl.UpdateStocksAfterSupplierDeliver(productId, newStock);
+                    string productBaseUnit = productVariationServices.GetBaseUnit(productId);
+                    bool IsInventoryLogCreated = inventoryLogsServices.Create(productId, UserContext.CurrentUserId, "DELIVERED", $"Delivered: {qty[i]} {productBaseUnit}", int.Parse(qty[i]));
+                    if (!IsInventoryLogCreated)
+                    {
+                        PopUpNotif("alert", "Inventory log creation failed.");
+                        return;
+                    }
+                }
             }
+            
             mainWindow.homeControl.DynamicReload();
 
 

@@ -17,6 +17,12 @@ namespace SmartPoultry.DataServices
             _context = context;
         }
 
+        public void UpdatePaymentStatus(int id)
+        {
+            var delivery = _context.Deliveries.FirstOrDefault(x => x.Id == id);
+            delivery.payment_status = "paid";
+            _context.SaveChanges();
+        }
         public List<Deliveries> GetDeliveriesList()
         {
             try
@@ -108,6 +114,7 @@ namespace SmartPoultry.DataServices
                 row.delivery_status = "delivered";
                 row.delivery_man = deliveryman;
                 row.Remarks = remarks;
+                row.delivery_date = DateTime.Now;
                 _context.SaveChanges();
 
                 return true;
