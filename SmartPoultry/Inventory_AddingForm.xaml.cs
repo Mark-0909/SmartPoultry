@@ -50,6 +50,7 @@ namespace SmartPoultry
         public ProductVariationServices productVariationService;
         public SupplierServices supplierServices;
         public InventoryLogsServices InventoryLogsServices;
+        UserLogsServices userLogsServices;
 
         string Agenda = "Add";
         public bool isForEdit = false;
@@ -74,8 +75,9 @@ namespace SmartPoultry
             productVariationService = new ProductVariationServices(context);
             supplierServices = new SupplierServices(context);
             InventoryLogsServices = new InventoryLogsServices(context);
+            userLogsServices = new UserLogsServices(context);
 
-            
+
             PopulateSupplierList("add");
             SupplierCBox.SelectedItem = "-- Select a Supplier --";
             windowName.Content = "ADD PRODUCT";
@@ -90,6 +92,12 @@ namespace SmartPoultry
             mainWindow = window;
             inventoryControl = productcontrol;
 
+            if(product.status == "inactive")
+            {
+                phaseoutBtn.Visibility = Visibility.Collapsed;
+                editBtn.Visibility = Visibility.Collapsed;
+            }
+
             prod = product;
             windowName.Content = "PRODUCT DETAILS";
             isEditing = true;
@@ -100,6 +108,8 @@ namespace SmartPoultry
             productService = new ProductServices(context);
             productVariationService = new ProductVariationServices(context);
             supplierServices = new SupplierServices(context);
+            InventoryLogsServices = new InventoryLogsServices(context);
+            userLogsServices = new UserLogsServices(context);
 
             PopulateSupplierList("edit");
 
@@ -259,13 +269,58 @@ namespace SmartPoultry
 
         private void PhaseOutBtn_Click(object sender, RoutedEventArgs e)
         {
-            bool isPhaseOut = productService.ProductPhaseOut(prod.product_id);
-            if (isPhaseOut) 
+            MessageBoxResult result = MessageBox.Show(
+                $"Are you sure you want to phase out {prod.product_name}?",
+                "Confirm Phase Out",
+                MessageBoxButton.YesNo,
+                MessageBoxImage.Question
+            );
+
+            if (result == MessageBoxResult.Yes)
             {
-                PopUpNotif("alert", $"{prod.product_name} Phased out unsuccessful.");
+                Remarks_Popup remarksPopup = new Remarks_Popup();
+                ActiveOverlay(true);
+                string remarksInput = null;
+
+                if (remarksPopup.ShowDialog() == true)
+                {
+                    remarksInput = remarksPopup.Remarks;
+                }
+                else
+                {
+
+                    ActiveOverlay(false);
+                    return;
+                }
+                ActiveOverlay(false);
+                bool isPhaseOut = productService.ProductPhaseOut(prod.product_id);
+                bool isRecorded = InventoryLogsServices.Create(prod.product_id, UserContext.CurrentUserId, "PHASE OUT", remarksInput);
+                bool isUserLogRecorded = userLogsServices.Create(UserContext.CurrentUserId, "PRODUCT", $"Phase out {prod.product_name}: {remarksInput}");
+
+                if (!isPhaseOut || !isRecorded)
+                {
+                    PopUpNotif("alert", $"{prod.product_name} Phase out unsuccessful.");
+                    return;
+                }
+                else
+                {
+                    PopUpNotif("notif", $"{prod.product_name} was phased out successfully.");
+                    this.SubmitBtn.IsEnabled = false;
+                    
+                    if(SubmitBtn.Content == "Update")
+                    {
+                        RoutedEventArgs args = new RoutedEventArgs(Button.ClickEvent);
+                        EditBtn_Click(editBtn, args);
+                    }
+                    editBtn.IsEnabled = false;
+                }
             }
-            PopUpNotif("notif", $"{prod.product_name} was Phased out successfully.");
+            else
+            {
+                PopUpNotif("notif", "Phase out operation was canceled.");
+            }
         }
+
         public void DisableForm(bool isEnabled)
         {
             SelectImageBtn.IsEnabled = isEnabled;
@@ -531,6 +586,27 @@ namespace SmartPoultry
         {
             try
             {
+                Remarks_Popup remarksPopup = new Remarks_Popup();
+                ActiveOverlay(true);
+                string remarksInput = null;
+
+                if (remarksPopup.ShowDialog() == true)
+                {
+                    remarksInput = remarksPopup.Remarks;
+                }
+                else
+                {
+
+                    ActiveOverlay(false);
+                    return;
+                }
+
+                ActiveOverlay(false);
+
+
+
+
+
                 string name = ProductNameTextBox.Text;
                 int supplierid = supplierServices.FindSupplierByName(SupplierCBox.Text);
                 string animallist = string.Join(",", AnimalList);
@@ -551,7 +627,9 @@ namespace SmartPoultry
                 }
 
                 string isProductUpdated = productService.EditProduct(prod.product_id, name, animallist, typelist, supplierid, stocks, selectedFilePath, this);
-                if (isProductUpdated != "true")
+                bool isRecorded = InventoryLogsServices.Create(prod.product_id, UserContext.CurrentUserId, "EDIT", remarksInput);
+                bool isUserLogRecorded = userLogsServices.Create(UserContext.CurrentUserId, "Product", $"Edit {prod.product_name}: {remarksInput}");
+                if (isProductUpdated != "true" || !isRecorded || !isUserLogRecorded)
                 {
                     MessageBox.Show(isProductUpdated);
                     return;
