@@ -36,9 +36,9 @@ namespace SmartPoultry
         public string filteranimal = "";
         public string filtertype = "";
 
-        bool OutOfStock = false;
-        bool Phaseout = false;
-        
+        public bool OutOfStock = false;
+        public bool Phaseout = false;
+
         public inventory()
         {
             InitializeComponent();
@@ -50,16 +50,18 @@ namespace SmartPoultry
         }
         public void DynamicReload()
         {
-            var args = new RoutedEventArgs(Button.ClickEvent); 
+            var args = new RoutedEventArgs(Button.ClickEvent);
 
             AllButton_Click(animalAllBtn, args);
             TypeAllButton_Click(typeAllBtn, args);
         }
         private void LoadProducts()
         {
-            
+
             List<Products> products = productService.GetAllProducts();
-            
+
+            products = products.Where(p => p.status == "active").ToList();
+
 
             foreach (var product in products)
             {
@@ -71,13 +73,13 @@ namespace SmartPoultry
                     product.image
                 );
 
-                
+
                 ProductListWPanel.Children.Add(productControl);
             }
         }
         public void UpdateStocksAfterSupplierDeliver(int prodId, decimal stocks)
         {
-            
+
             foreach (UIElement element in ProductListWPanel.Children)
 
             {
@@ -95,7 +97,7 @@ namespace SmartPoultry
             Inventory_AddingForm addForm = new Inventory_AddingForm();
             if (mainWindow != null)
             {
-                
+
                 mainWindow.ActiveOverlay(true);
                 addForm.ShowDialog();
 
@@ -104,10 +106,10 @@ namespace SmartPoultry
             {
                 MessageBox.Show("Unable to access the MainWindow. inventory");
             }
-            
-            
+
+
         }
-        
+
         private void SearchTB_GotFocus(object sender, RoutedEventArgs e)
         {
             HandleTextBoxPlaceholder(SearchTB, "Search Product...", true);
@@ -142,11 +144,11 @@ namespace SmartPoultry
             {
                 if (string.IsNullOrWhiteSpace(SearchTB.Text))
                 {
-                    SearchProducts("");  
+                    SearchProducts("");
                 }
                 return;
             }
-            SearchProducts(SearchTB.Text); 
+            SearchProducts(SearchTB.Text);
         }
 
         public void FilterProducts(string type, string animal)
@@ -160,6 +162,17 @@ namespace SmartPoultry
                 AppDbContext context = new AppDbContext();
                 ProductServices prodservices = new ProductServices(context);
                 List<Products> products = prodservices.FilterProducts(type, animal);
+
+                if (OutOfStock)
+                {
+                    List<Products> lowStockProducts = prodservices.GetLowStockProducts("", "", "");
+
+                    products = products.Intersect(lowStockProducts, new ProductComparer()).ToList();
+                }
+                if (Phaseout)
+                {
+                    products = products.Where(p => p.status == "inactive").ToList();
+                }
 
                 foreach (Products product in products)
                 {
@@ -183,6 +196,19 @@ namespace SmartPoultry
                 MessageBox.Show($"Error filtering products: {ex.Message}");
             }
         }
+        public class ProductComparer : IEqualityComparer<Products>
+        {
+            public bool Equals(Products x, Products y)
+            {
+                return x.product_id == y.product_id;
+            }
+
+            public int GetHashCode(Products obj)
+            {
+                return obj.product_id.GetHashCode();
+            }
+        }
+
         public void SearchProducts(string searchterm)
         {
             try
@@ -192,7 +218,18 @@ namespace SmartPoultry
 
 
                 List<Products> products = productService.SearchProducts(searchterm, filtertype, filteranimal);
-                
+
+                if (OutOfStock)
+                {
+                    List<Products> lowStockProducts = productService.GetLowStockProducts("", "", "");
+
+                    products = products.Intersect(lowStockProducts, new ProductComparer()).ToList();
+                }
+                if (Phaseout)
+                {
+                    products = products.Where(p => p.status == "inactive").ToList();
+                }
+
                 foreach (Products product in products)
                 {
 
@@ -206,7 +243,7 @@ namespace SmartPoultry
 
                     ProductListWPanel.Children.Add(control);
                 }
-                
+
             }
             catch (Exception ex)
             {
@@ -219,6 +256,7 @@ namespace SmartPoultry
             if (!OutOfStock)
             {
                 OutOfStock = true;
+                OutOfStockBtn.Background = new SolidColorBrush(Colors.Green);
 
                 if (ProductListWPanel.Children.Count > 0)
                 {
@@ -242,12 +280,78 @@ namespace SmartPoultry
                     ProductListWPanel.Children.Add(productControl);
                 }
             }
-            else 
+            else
             {
                 OutOfStock = false;
+                OutOfStockBtn.Background = new SolidColorBrush(Colors.White);
+                if (ProductListWPanel.Children.Count > 0)
+                {
+                    ProductListWPanel.Children.Clear();
+                    FilterProducts(filtertype, filteranimal);
+                }
             }
-            
+            if (Phaseout)
+            {
+                Phaseout = false;
+                PhaseOutBtn.Background = new SolidColorBrush(Colors.White);
+            }
         }
+        private void PhaseOut_Clicked(object sender, RoutedEventArgs e)
+        {
+            if (!Phaseout)
+            {
+                Phaseout = true;
+                PhaseOutBtn.Background = new SolidColorBrush(Colors.Green);
+
+                List<Products> products = productService.GetAllProducts();
+
+                products = products.Where(p => p.status == "inactive").ToList();
+
+                if (ProductListWPanel.Children.Count > 0)
+                {
+                    ProductListWPanel.Children.Clear();
+                }
+
+                foreach (var product in products)
+                {
+
+                    Inventory_ProductControl productControl = new Inventory_ProductControl(
+                        product.product_id,
+                        product.product_name,
+                        product.stocks,
+                        product.image
+                    );
+
+
+                    ProductListWPanel.Children.Add(productControl);
+                }
+            }
+            else
+            {
+                Phaseout = false;
+                PhaseOutBtn.Background = new SolidColorBrush(Colors.White);
+                if (ProductListWPanel.Children.Count > 0)
+                {
+                    ProductListWPanel.Children.Clear();
+                    FilterProducts(filtertype, filteranimal);
+                }
+            }
+            if (OutOfStock)
+            {
+                OutOfStock = false;
+                OutOfStockBtn.Background = new SolidColorBrush(Colors.White);
+            }
+        }
+        private void OrderToSupplier_Click(object sender, RoutedEventArgs e)
+        {
+
+            MainWindow mainWindow = UserContext.mainWindow;
+            Inventory_OrderToSupplier window = new Inventory_OrderToSupplier();
+            mainWindow.ActiveOverlay(true);
+            window.ShowDialog();
+        }
+
+        
 
         //Inventory Buttons Click Functions (Animal type)
         private void AllButton_Click(object sender, RoutedEventArgs e)
@@ -627,17 +731,6 @@ namespace SmartPoultry
 
         }
 
-        private void OrderToSupplier_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow mainWindow = UserContext.mainWindow;
-            Inventory_OrderToSupplier window = new Inventory_OrderToSupplier();
-            mainWindow.ActiveOverlay(true);
-            window.ShowDialog();
-        }
-
-        private void PhaseOut_Clicked(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
     }
 }

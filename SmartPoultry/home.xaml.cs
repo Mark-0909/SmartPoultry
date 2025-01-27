@@ -622,6 +622,7 @@ namespace SmartPoultry
         {
 
             List<Products> products = productServices.GetAllProducts();
+            products = products.Where(p => p.status == "active").ToList();
 
             posPrdocutsPanel.Children.Clear();
 
@@ -756,6 +757,7 @@ namespace SmartPoultry
                 AppDbContext context = new AppDbContext();
                 ProductServices prodservices = new ProductServices(context);
                 List<Products> products = prodservices.FilterProducts(type, animal);
+                products = products.Where(p => p.status == "active").ToList();
 
                 foreach (var product in products)
                 {
@@ -795,6 +797,7 @@ namespace SmartPoultry
                 posPrdocutsPanel.Children.Clear();
 
                 List<Products> products = productServices.SearchProducts(searchterm, filterProduct, filterAnimal);
+                products = products.Where(p => p.status == "active").ToList();
 
                 foreach (var product in products)
                 {

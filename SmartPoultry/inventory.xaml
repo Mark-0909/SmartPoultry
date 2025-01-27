@@ -219,8 +219,8 @@
                 </Border>
             </Grid>
         </Border>
-        <Button Content="Out of Stock" HorizontalAlignment="Left" Height="41" Margin="789,8,0,0" VerticalAlignment="Top" Width="50" Click="OutOfStock_Clicked"/>
-        <Button Content="Order" HorizontalAlignment="Left" Height="41" Margin="679,8,0,0" VerticalAlignment="Top" Width="50" Click="OrderToSupplier_Click"/>
-        <Button Content="PhaseOut" HorizontalAlignment="Left" Height="41" Margin="734,8,0,0" VerticalAlignment="Top" Width="50" Click="PhaseOut_Clicked"/>
+        <Button x:Name="OutOfStockBtn" Content="Out of Stock" HorizontalAlignment="Left" Height="41" Margin="789,8,0,0" VerticalAlignment="Top" Width="50" Click="OutOfStock_Clicked"/>
+        <Button x:Name="OrderBtn" Content="Order" HorizontalAlignment="Left" Height="41" Margin="679,8,0,0" VerticalAlignment="Top" Width="50" Click="OrderToSupplier_Click"/>
+        <Button x:Name="PhaseOutBtn" Content="PhaseOut" HorizontalAlignment="Left" Height="41" Margin="734,8,0,0" VerticalAlignment="Top" Width="50" Click="PhaseOut_Clicked"/>
     </Grid>
 </UserControl>
