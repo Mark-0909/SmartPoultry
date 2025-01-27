@@ -28,6 +28,7 @@ namespace SmartPoultry
         DeliveriesServices deliveriesServices;
         SupplierOrdersServices supplierOrdersServices;
         ExpensesServices expensesServices;
+        UserLogsServices userLogsServices;
         AppDbContext context = new AppDbContext();
 
         FinancialLiabilities finance;
@@ -43,6 +44,7 @@ namespace SmartPoultry
         {
             InitializeComponent();
             financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
+            userLogsServices = new UserLogsServices(context);
             datePicker.SelectedDate = DateTime.Now.AddDays(14);
             orderid = 0;
             EditBtn.Visibility = Visibility.Collapsed;
@@ -58,6 +60,7 @@ namespace SmartPoultry
         {
             InitializeComponent();
             financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
+            userLogsServices = new UserLogsServices(context);
             salesServices = new SalesServices(context);
             deliveriesServices = new DeliveriesServices(context);
             supplierOrdersServices = new SupplierOrdersServices(context);
@@ -222,6 +225,24 @@ namespace SmartPoultry
         }
         public void UpdatePayment()
         {
+            Remarks_Popup remarksPopup = new Remarks_Popup();
+            ActiveOverlay(true);
+            string remarksInput = null;
+
+            if (remarksPopup.ShowDialog() == true)
+            {
+                remarksInput = remarksPopup.Remarks;
+            }
+            else
+            {
+
+                ActiveOverlay(false);
+                return;
+            }
+
+
+            ActiveOverlay(false);
+
             string name = NameTextBox.Text;
             decimal price = decimal.Parse(PriceTextBox.Text);
             string type = "To Receive";
@@ -237,8 +258,9 @@ namespace SmartPoultry
             DateTime date = datePicker.SelectedDate.Value;
             string contacts = ContactsTextBox.Text;
 
-            bool isUpdated = financialLiabilitiesServices.EditPayment(finance.Id, name, price, type, paymode, date, contacts, "");
-            if (!isUpdated) 
+            bool isUpdated = financialLiabilitiesServices.EditPayment(finance.Id, name, price, type, paymode, date, contacts, remarksInput);
+            bool isCreated = userLogsServices.Create(UserContext.CurrentUserId, "PAYMENT", $"Edit {finance.name}: {remarksInput}");
+            if (!isUpdated || !isCreated) 
             {
                 PopUpNotif("alert", "Update Unsuccessfull");
             }
@@ -304,6 +326,8 @@ namespace SmartPoultry
                 PopUpNotif("alert", "Failed to create expense.");
                 return;
             }
+
+            bool isCreated = userLogsServices.Create(UserContext.CurrentUserId, "Payment Update", $"Edit {finance.name}: Mark as Paid");
 
             this.Close();
             mainWindow.ActiveOverlay(false);

@@ -21,6 +21,7 @@ namespace SmartPoultry
         SupplierOrdersServices supplierOrdersServices;
         ProductServices productServices;
         ExpensesServices expensesServices;
+        UserLogsServices userLogsServices;
         public AppDbContext context = new AppDbContext();
 
         Deliveries deliveries;
@@ -45,6 +46,7 @@ namespace SmartPoultry
             salesServices = new SalesServices(context);
             productServices = new ProductServices(context);
             financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
+            userLogsServices = new UserLogsServices(context);
             expensesServices = new ExpensesServices(context);
             
             EditBtn.Visibility = Visibility.Hidden;
@@ -62,6 +64,7 @@ namespace SmartPoultry
             financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
             supplierOrdersServices = new SupplierOrdersServices(context);
             productServices = new ProductServices(context);
+            userLogsServices = new UserLogsServices(context);
             expensesServices = new ExpensesServices(context);
 
             deliveries = itemrow;
@@ -313,8 +316,8 @@ namespace SmartPoultry
             }
             mainWindow.homeControl.DynamicReload();
 
-            
 
+            bool isCreatedUserlogs = userLogsServices.Create(UserContext.CurrentUserId, "DELIVERIES", $"Edit {deliveries.name}: Mark as Delivered");
             this.Close();
             mainWindow.ActiveOverlay(false);
             mainWindow.ScheduleUpdateReload();
@@ -328,6 +331,29 @@ namespace SmartPoultry
 
         public void EditDelivery()
         {
+            Remarks_Popup remarksPopup = new Remarks_Popup();
+            ActiveOverlay(true);
+            string remarksInput = null;
+
+            if (remarksPopup.ShowDialog() == true)
+            {
+                remarksInput = remarksPopup.Remarks;
+            }
+            else
+            {
+                
+                ActiveOverlay(false);
+                return;
+            }
+
+           
+            ActiveOverlay(false);
+
+
+
+
+
+
             string name = NameTextBox.Text;
             string address = AddressTextBox.Text;
             string type = "To Deliver";
@@ -340,9 +366,10 @@ namespace SmartPoultry
             string contacts = ContactsTextBox.Text;
             decimal charge = decimal.Parse(ChargeTextBox.Text);
 
-            bool UpdateDelivery = deliveriesServices.UpdateDelivery(deliveries.Id, name, address, type, date, price, contacts, charge, "Delivery Edit");
+            bool UpdateDelivery = deliveriesServices.UpdateDelivery(deliveries.Id, name, address, type, date, price, contacts, charge, remarksInput);
+            bool isCreated = userLogsServices.Create(UserContext.CurrentUserId, "DELIVERIES", $"Edit {deliveries.name}: {remarksInput}");
 
-            if (!UpdateDelivery) 
+            if (!UpdateDelivery || !isCreated) 
             {
                 PopUpNotif("alert", "Update Unsuccessful");
                 return;
