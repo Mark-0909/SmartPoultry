@@ -60,14 +60,15 @@ namespace SmartPoultry
         {
             InitializeComponent();
             SetRoundedCorners();
-            editBtn.Visibility = Visibility.Collapsed;
-            phaseoutBtn.Visibility = Visibility.Collapsed;
+            EditBtn.Visibility = Visibility.Collapsed;
+            PhaseOutBtn.Visibility = Visibility.Collapsed;
             AddingFormOverlay.Visibility = Visibility.Hidden;
             
 
 
             stockunit.Visibility = Visibility.Collapsed;
             stocklisting.Visibility = Visibility.Collapsed;
+            StocksBorder.Visibility = Visibility.Collapsed;
 
 
             context = new AppDbContext();
@@ -83,6 +84,7 @@ namespace SmartPoultry
             windowName.Content = "ADD PRODUCT";
 
             NotifPopup.Visibility = Visibility.Hidden;
+            
 
             mainWindow = UserContext.mainWindow;
         }
@@ -94,8 +96,8 @@ namespace SmartPoultry
 
             if(product.status == "inactive")
             {
-                phaseoutBtn.Visibility = Visibility.Collapsed;
-                editBtn.Visibility = Visibility.Collapsed;
+                PhaseOutBtn.Visibility = Visibility.Collapsed;
+                EditBtn.Visibility = Visibility.Collapsed;
                 addSupplierBorder.IsEnabled = false;
             }
 
@@ -268,7 +270,7 @@ namespace SmartPoultry
             }
         }
 
-        private void PhaseOutBtn_Click(object sender, RoutedEventArgs e)
+        private void PhaseOutBtn_Clicked(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show(
                 $"Are you sure you want to phase out {prod.product_name}?",
@@ -311,9 +313,9 @@ namespace SmartPoultry
                     if(SubmitBtn.Content == "Update")
                     {
                         RoutedEventArgs args = new RoutedEventArgs(Button.ClickEvent);
-                        EditBtn_Click(editBtn, args);
+                        EditBtn_Click(EditBtn, args);
                     }
-                    editBtn.IsEnabled = false;
+                    EditBtn.IsEnabled = false;
                 }
             }
             else
@@ -450,6 +452,7 @@ namespace SmartPoultry
                 conversionlist.Clear();
                 stocklisting.Visibility = Visibility.Hidden;
                 stockunit.Visibility = Visibility.Hidden;
+                StocksBorder.Visibility = Visibility.Hidden;
                 unitsWPanel.Children.Add(addUnitBtn);
                 return;
             }
@@ -508,6 +511,10 @@ namespace SmartPoultry
             unitsWPanel.Children.Add(addUnitBtn);
         }
 
+        private void StockBorder_Click(object sender, RoutedEventArgs args)
+        {
+            
+        }
         public void AddUnit(string name, string price, string conversion, string stocks, string type, int position)
         {
             
@@ -528,7 +535,7 @@ namespace SmartPoultry
             pricelist.Add(price);
             conversionlist.Add(conversion);
 
-            
+            StocksBorder.Visibility = Visibility.Visible;
             stocklisting.Visibility = Visibility.Visible;
             stockunit.Visibility = Visibility.Visible;
             stockunit.Content = unitlist[0];

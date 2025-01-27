@@ -24,12 +24,14 @@ namespace SmartPoultry.DataServices
             var delivery = _context.Deliveries.FirstOrDefault(x => x.Id == id);
             delivery.price = price;
             _context.SaveChanges();
+            mainWindow.recordsControl.DeliveryControl.DisplayDeliveries("");
         }
         public void UpdatePaymentStatus(int id)
         {
             var delivery = _context.Deliveries.FirstOrDefault(x => x.Id == id);
             delivery.payment_status = "paid";
             _context.SaveChanges();
+            mainWindow.recordsControl.DeliveryControl.DisplayDeliveries("");
         }
         public List<Deliveries> GetDeliveriesList()
         {
@@ -60,6 +62,7 @@ namespace SmartPoultry.DataServices
 
 
                 _context.SaveChanges();
+                mainWindow.recordsControl.DeliveryControl.DisplayDeliveries("");
                 return true;
             }
             catch (Exception ex)
@@ -89,6 +92,7 @@ namespace SmartPoultry.DataServices
 
                 _context.SaveChanges();
 
+                mainWindow.recordsControl.DeliveryControl.DisplayDeliveries("");
                 return true;
             }
             catch (Exception ex) 
@@ -105,6 +109,8 @@ namespace SmartPoultry.DataServices
                 itemrow.payment_status = "paid";
                 itemrow.Remarks = remarks;
                 _context.SaveChanges();
+
+                mainWindow.recordsControl.DeliveryControl.DisplayDeliveries("");
                 return true;
 
             }
@@ -125,6 +131,7 @@ namespace SmartPoultry.DataServices
                 row.delivery_date = DateTime.Now;
                 _context.SaveChanges();
 
+                mainWindow.recordsControl.DeliveryControl.DisplayDeliveries("");
                 return true;
             }
             catch (Exception ex) 

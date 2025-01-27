@@ -29,7 +29,7 @@ namespace SmartPoultry.DataServices
                 var suppOrder = _context.SupplierOrders.FirstOrDefault(p => p.id == id);
                 suppOrder.price = price;
                 _context.SaveChanges();
-
+                mainWindow.recordsControl.OrdersControl.DisplaySupplierOrders("");
                 return true;
             }
             catch (Exception ex)
