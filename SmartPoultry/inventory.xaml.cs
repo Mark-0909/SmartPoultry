@@ -256,95 +256,72 @@ namespace SmartPoultry
         }
         private void OutOfStock_Clicked(object sender, RoutedEventArgs e)
         {
-            if (!OutOfStock)
+            OutOfStock = !OutOfStock;
+
+
+            OutOfStockBtn.Opacity = OutOfStock ? 1.0 : 0.5;
+            Phaseout = false; 
+            PhaseOutBtn.Opacity = 0.5;
+
+            if (ProductListWPanel.Children.Count > 0)
             {
-                OutOfStock = true;
-                OutOfStockBtn.Opacity = 1;
-
-                if (ProductListWPanel.Children.Count > 0)
-                {
-                    ProductListWPanel.Children.Clear();
-                }
-
-                List<Products> products = productService.GetLowStockProducts("", "", "");
-
-
-                foreach (var product in products)
-                {
-
-                    Inventory_ProductControl productControl = new Inventory_ProductControl(
-                        product.product_id,
-                        product.product_name,
-                        product.stocks,
-                        product.image
-                    );
-
-
-                    ProductListWPanel.Children.Add(productControl);
-                }
+                ProductListWPanel.Children.Clear();
             }
-            else
-            {
-                OutOfStock = false;
-                OutOfStockBtn.Opacity = 0.5;
-                if (ProductListWPanel.Children.Count > 0)
-                {
-                    ProductListWPanel.Children.Clear();
-                    FilterProducts(filtertype, filteranimal);
-                }
-            }
-            if (Phaseout)
-            {
-                Phaseout = false;
-                PhaseOutBtn.Background = new SolidColorBrush(Colors.White);
-            }
-        }
-        private void PhaseOut_Clicked(object sender, RoutedEventArgs e)
-        {
-            if (!Phaseout)
-            {
-                Phaseout = true;
-                PhaseOutBtn.Opacity = 1;
 
-                List<Products> products = productService.GetAllProducts();
-
-                products = products.Where(p => p.status == "inactive").ToList();
-
-                if (ProductListWPanel.Children.Count > 0)
-                {
-                    ProductListWPanel.Children.Clear();
-                }
-
-                foreach (var product in products)
-                {
-
-                    Inventory_ProductControl productControl = new Inventory_ProductControl(
-                        product.product_id,
-                        product.product_name,
-                        product.stocks,
-                        product.image
-                    );
-
-
-                    ProductListWPanel.Children.Add(productControl);
-                }
-            }
-            else
-            {
-                Phaseout = false;
-                PhaseOutBtn.Opacity = 0.5;
-                if (ProductListWPanel.Children.Count > 0)
-                {
-                    ProductListWPanel.Children.Clear();
-                    FilterProducts(filtertype, filteranimal);
-                }
-            }
             if (OutOfStock)
             {
-                OutOfStock = false;
-                OutOfStockBtn.Background = new SolidColorBrush(Colors.White);
+                List<Products> products = productService.GetLowStockProducts("", "", "");
+                foreach (var product in products)
+                {
+                    Inventory_ProductControl productControl = new Inventory_ProductControl(
+                        product.product_id,
+                        product.product_name,
+                        product.stocks,
+                        product.image
+                    );
+                    ProductListWPanel.Children.Add(productControl);
+                }
+            }
+            else
+            {
+                FilterProducts(filtertype, filteranimal);
             }
         }
+
+        private void PhaseOut_Clicked(object sender, RoutedEventArgs e)
+        {
+            Phaseout = !Phaseout;
+
+            PhaseOutBtn.Opacity = Phaseout ? 1.0 : 0.5;
+            OutOfStock = false; 
+            OutOfStockBtn.Opacity = 0.5;
+
+            if (ProductListWPanel.Children.Count > 0)
+            {
+                ProductListWPanel.Children.Clear();
+            }
+
+            if (Phaseout)
+            {
+                List<Products> products = productService.GetAllProducts();
+                products = products.Where(p => p.status == "inactive").ToList();
+                foreach (var product in products)
+                {
+                    Inventory_ProductControl productControl = new Inventory_ProductControl(
+                        product.product_id,
+                        product.product_name,
+                        product.stocks,
+                        product.image
+                    );
+                    ProductListWPanel.Children.Add(productControl);
+                }
+            }
+            else
+            {
+                FilterProducts(filtertype, filteranimal);
+            }
+        }
+
         private void OrderToSupplier_Click(object sender, RoutedEventArgs e)
         {
 

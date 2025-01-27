@@ -96,6 +96,7 @@ namespace SmartPoultry
             {
                 phaseoutBtn.Visibility = Visibility.Collapsed;
                 editBtn.Visibility = Visibility.Collapsed;
+                addSupplierBorder.IsEnabled = false;
             }
 
             prod = product;

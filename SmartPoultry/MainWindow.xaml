@@ -7,7 +7,51 @@
         xmlns:local="clr-namespace:SmartPoultry"
         mc:Ignorable="d"
         Title="SmartPoultry" Height="716" Width="1229" WindowStartupLocation="CenterScreen" Background="#FFE3E3E3" Icon="/Images/smartpoultryicon.ico" WindowState="Maximized">
+
+    <Window.Resources>
+        <Style x:Key="NoHoverButton" TargetType="Button">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="BorderBrush" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                    BorderBrush="{TemplateBinding BorderBrush}" 
+                    BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <!-- Animation for the button itself when hovered -->
+                                            <DoubleAnimation 
+                                    Storyboard.TargetProperty="Opacity" 
+                                    To=".7" Duration="0:0:0.2" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+
+                                            <DoubleAnimation 
+                                    Storyboard.TargetProperty="Opacity" 
+                                    To="1.0" Duration="0:0:0.3" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Viewbox Stretch="Fill">
+
+        
         <Grid x:Name="MainGrid" HorizontalAlignment="Left" Width="1229">
 
 
@@ -210,7 +254,7 @@
                 </Button.Template>
                 <Image x:Name="supplierIcon" Height="61" Width="67" Source="/Images/suppliergrey.png"/>
             </Button>
-            <Button x:Name="LogoutBtn" Click="LogoutBtn_Clicked" HorizontalAlignment="Left" Height="37" Margin="1183,28,0,0" VerticalAlignment="Top" Width="36" Background="Transparent" BorderBrush="Transparent">
+            <Button x:Name="LogoutBtn" Click="LogoutBtn_Clicked" HorizontalAlignment="Left" Height="37" Margin="1183,28,0,0" VerticalAlignment="Top" Width="36" Background="Transparent" BorderBrush="Transparent" Style="{StaticResource NoHoverButton}">
                 <Image Height="28" Width="35" Source="/Images/logouticon.png"/>
             </Button>
 
