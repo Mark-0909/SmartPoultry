@@ -8,10 +8,11 @@
         <!-- Highlight Background -->
         <Border x:Name="HighlightBorder" CornerRadius="10" BorderBrush="Transparent" BorderThickness="1" 
                 VerticalAlignment="Center" Background="White" Height="37">
-            <Label x:Name="ContactInfo" Content="CONTACT INFO" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="362,0,0,0" Width="134"/>
+            <TextBox x:Name="ContactInfo" Text="CONTACT INFO" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="362,0,0,0" Width="133"
+                     PreviewTextInput="ContactInfo_PreviewTextInput" DataObject.Pasting="ContactInfo_Pasting" Height="17"/>
         </Border>
-        <Label x:Name="Name" Content="NAME" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Width="133"/>
-        <Label x:Name="ContactPerson" Content="CONTACT PERSON" HorizontalAlignment="Left" VerticalAlignment="Center" Width="166" Margin="186,0,0,0"/>
+        <Label x:Name="Name" Content="NAME" HorizontalAlignment="Left" Margin="32,0,0,0" VerticalAlignment="Center" Width="137"/>
+        <Label x:Name="ContactPerson" Content="CONTACT PERSON" HorizontalAlignment="Left" VerticalAlignment="Center" Width="161" Margin="186,0,0,0"/>
         <Button x:Name="EditButton" Content="Edit" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="507,0,0,0" Width="75" Height="25" 
                 Background="#FF077C5E" Foreground="White" FontWeight="Bold" Click="EditButton_Click"/>
 

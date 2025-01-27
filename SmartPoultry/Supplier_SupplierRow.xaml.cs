@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using SmartPoultry.Models;
 using static SmartPoultry.App;
@@ -30,7 +31,7 @@ namespace SmartPoultry
             InitializeComponent();
             Name.Content = supplier.Name;
             ContactPerson.Content = supplier.Contact_Person;
-            ContactInfo.Content = supplier.Contact;
+            ContactInfo.Text = supplier.Contact; // Use Text property for TextBox
 
             Supplier = supplier;
 
@@ -115,7 +116,34 @@ namespace SmartPoultry
             {
                 Name.Content = infoWindow.Supplier.Name;
                 ContactPerson.Content = infoWindow.Supplier.Contact_Person;
-                ContactInfo.Content = infoWindow.Supplier.Contact;
+                ContactInfo.Text = infoWindow.Supplier.Contact; // Use Text property for TextBox
+            }
+        }
+
+        // Restrict ContactInfo to only allow integers
+        private void ContactInfo_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            // Check if the input is a digit
+            if (!char.IsDigit(e.Text, e.Text.Length - 1))
+            {
+                e.Handled = true; // Block non-digit input
+            }
+        }
+
+        private void ContactInfo_Pasting(object sender, DataObjectPastingEventArgs e)
+        {
+            // Check if the pasted text is a valid integer
+            if (e.DataObject.GetDataPresent(typeof(string)))
+            {
+                string text = (string)e.DataObject.GetData(typeof(string));
+                if (!int.TryParse(text, out _))
+                {
+                    e.CancelCommand(); // Block pasting non-integer text
+                }
+            }
+            else
+            {
+                e.CancelCommand(); // Block non-text data
             }
         }
     }
