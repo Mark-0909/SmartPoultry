@@ -22,6 +22,8 @@ namespace SmartPoultry
         ProductServices productServices;
         ExpensesServices expensesServices;
         UserLogsServices userLogsServices;
+        InventoryLogsServices inventoryLogsServices;
+        ProductVariationServices productVariationServices;
         public AppDbContext context = new AppDbContext();
 
         Deliveries deliveries;
@@ -48,7 +50,9 @@ namespace SmartPoultry
             financialLiabilitiesServices = new FinancialLiabilitiesServices(context);
             userLogsServices = new UserLogsServices(context);
             expensesServices = new ExpensesServices(context);
-            
+            inventoryLogsServices = new InventoryLogsServices(context);
+            productVariationServices  = new ProductVariationServices(context);
+
             EditBtn.Visibility = Visibility.Hidden;
 
             
@@ -66,6 +70,8 @@ namespace SmartPoultry
             productServices = new ProductServices(context);
             userLogsServices = new UserLogsServices(context);
             expensesServices = new ExpensesServices(context);
+            inventoryLogsServices = new InventoryLogsServices(context);
+            productVariationServices = new ProductVariationServices(context);
 
             deliveries = itemrow;
 
@@ -212,6 +218,12 @@ namespace SmartPoultry
                 PopUpNotif("alert", "Add Delivery Man");
                 return;
             }
+            if (status == "unpaid" && (!datePicker.SelectedDate.HasValue || datePicker.SelectedDate.Value.Date == DateTime.Now.Date))
+            {
+                PopUpNotif("alert", "Select a valid payment date.");
+                return;
+            }
+
 
             if (deliveries.payment_status == "pending")
             {
@@ -323,6 +335,13 @@ namespace SmartPoultry
                 }
 
                 mainWindow.inventoryControl.UpdateStocksAfterSupplierDeliver(productId, newStock);
+                string productBaseUnit = productVariationServices.GetBaseUnit(productId);
+                bool IsInventoryLogCreated = inventoryLogsServices.Create(productId, UserContext.CurrentUserId, "DELIVERED", $"Delivered: {qty[i]} {productBaseUnit}", int.Parse(qty[i]));
+                if (!IsInventoryLogCreated)
+                {
+                    PopUpNotif("alert", "Inventory log creation failed.");
+                    return;
+                }
             }
             mainWindow.homeControl.DynamicReload();
 
@@ -519,11 +538,13 @@ namespace SmartPoultry
         private void PaidRadio_IsChecked(object sender, RoutedEventArgs e)
         {
             status = "paid";
+            DeliveryOrPaymentDate.Content = "Delivery Date:";
         }
 
         private void UnpaidRadio_IsChecked(object sender, RoutedEventArgs e)
         {
             status = "unpaid";
+            DeliveryOrPaymentDate.Content = "Payment Date:";
         }
 
         private void ContactsTextBox_TextChanged(object sender, TextChangedEventArgs e)

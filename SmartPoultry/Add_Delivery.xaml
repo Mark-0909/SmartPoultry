@@ -65,7 +65,7 @@
         <Label Content="Type:" HorizontalAlignment="Left" Height="30" Margin="10,166,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
         <RadioButton x:Name="toDeliverRadio" Checked="ToDeliver_IsChecked"  IsChecked="True" GroupName="Type" VerticalContentAlignment="Center" Content="To Deliver" HorizontalAlignment="Left" Height="21" Margin="10,195,0,0" VerticalAlignment="Top" Width="90" FontSize="14"/>
         <RadioButton x:Name="toReceiveRadio" Checked="ToReceive_IsChecked"  GroupName="Type" VerticalContentAlignment="Center" Content="To Receive" HorizontalAlignment="Left" Height="21" Margin="100,195,0,0" VerticalAlignment="Top" Width="90" FontSize="14"/>
-        <Label Content="Delivery Date: " HorizontalAlignment="Left" Height="30" Margin="11,221,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
+        <Label x:Name="DeliveryOrPaymentDate" Content="Delivery Date: " HorizontalAlignment="Left" Height="30" Margin="11,221,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
         <Label Content="Contacts:" HorizontalAlignment="Left" Height="30" Margin="10,284,0,0" VerticalAlignment="Top" Width="96" RenderTransformOrigin="0.515,1.038" FontSize="14"/>
         <Label Content="Price:" HorizontalAlignment="Left" Height="30" Margin="216,221,0,0" VerticalAlignment="Top" Width="96" RenderTransformOrigin="0.515,1.038" FontSize="14"/>
         <Label x:Name="Status" Content="Status: " HorizontalAlignment="Left" Height="30" Margin="216,166,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
