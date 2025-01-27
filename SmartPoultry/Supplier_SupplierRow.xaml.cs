@@ -81,11 +81,6 @@ namespace SmartPoultry
                 : new SolidColorBrush(Colors.White);
         }
 
-        private void ReturnVisualState()
-        {
-
-        }
-
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
             var infoWindow = new SupplierInfoWindow(Supplier);

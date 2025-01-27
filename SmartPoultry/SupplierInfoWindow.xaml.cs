@@ -65,24 +65,17 @@ namespace SmartPoultry
         }
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
         {
-            // Confirm before deleting
             var result = MessageBox.Show("Are you sure you want to delete this supplier?", "Confirm Delete", MessageBoxButton.YesNo);
             if (result == MessageBoxResult.Yes)
             {
-                var existingSupplier = _context.SupplierLists.FirstOrDefault(s => s.Id == Supplier.Id);
-                if (existingSupplier != null)
+                string deleteResult = supplierServices.DeleteSupplier(Supplier.Id);
+
+                MessageBox.Show(deleteResult);
+
+                if (deleteResult == "Supplier deleted successfully.")
                 {
-                    try
-                    {
-                        _context.SupplierLists.Remove(existingSupplier);
-                        _context.SaveChanges();
-                        MessageBox.Show("Supplier deleted successfully.");
-                        this.Close();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Error deleting supplier: {ex.Message}");
-                    }
+                    DynamicUpdate();
+                    this.Close();
                 }
             }
         }
