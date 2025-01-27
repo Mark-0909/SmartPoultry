@@ -68,6 +68,45 @@
         <Button x:Name="DeliveryBtn" Content="DELIVERY" HorizontalAlignment="Left" Height="60" Margin="487,59,0,0" VerticalAlignment="Top" Width="157" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Delivery_Clicked" Style="{StaticResource NoHoverButton}"/>
         <Button x:Name="OrdersBtn" Content="ORDERS" HorizontalAlignment="Left" Height="60" Margin="642,59,0,0" VerticalAlignment="Top" Width="157" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Orders_Clicked" Style="{StaticResource NoHoverButton}"/>
         <Button x:Name="ExpensesBtn" Content="EXPENSES" HorizontalAlignment="Left" Height="60" Margin="799,59,0,0" VerticalAlignment="Top" Width="157" FontSize="20" FontWeight="Bold" Foreground="Gray" Background="#FFDCEDD5" BorderBrush="#FFDCEDD5" Click="Expenses_Clicked" Style="{StaticResource NoHoverButton}"/>
+        
+        <Border BorderThickness="1" HorizontalAlignment="Left" Height="41" Margin="903,8,0,0" VerticalAlignment="Top" Width="210" Background="White" CornerRadius="10">
+            <TextBox x:Name="SearchTB"
+         HorizontalAlignment="Center"
+         TextWrapping="Wrap"
+         Text="Search Product..."
+         VerticalAlignment="Top"
+         Width="196"
+         Height="32"
+         Background="White"
+         BorderBrush="White"
+         TextAlignment="Justify"
+         Padding="0,4,0,0"
+         FontSize="14"
+         MaxLines="1"
+         RenderTransformOrigin="0.5,0.5"
+         Margin="0,5,0,0"
+         
+         GotFocus="SearchTB_GotFocus"
+         LostFocus="SearchTB_LostFocus"
+         Foreground="Gray"
+         KeyDown="SearchTB_KeyDown" >
+
+            <TextBox.Style>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="SelectionBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+        </Border>
+        <Button x:Name="ReloadBtn" Click="ReloadBtn_Click" Content="Reload" HorizontalAlignment="Left" Height="28" Margin="819,15,0,0" VerticalAlignment="Top" Width="79"/>
     </Grid>
 
 </UserControl>

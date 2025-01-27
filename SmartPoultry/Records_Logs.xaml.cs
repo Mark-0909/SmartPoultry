@@ -29,12 +29,24 @@ namespace SmartPoultry
         {
             InitializeComponent();
             userLogsServices = new UserLogsServices(context);
-            FetchUserLogs();
+            FetchUserLogs("");
         }
 
-        public void FetchUserLogs()
+        public void FetchUserLogs(string searchTerm)
         {
-            List<UserLogs> logs = userLogsServices.GetList();
+            if (SalesPanel.Children.Count > 0)
+            {
+                SalesPanel.Children.Clear();
+            }
+            List<UserLogs> logs = userLogsServices.GetList(); 
+
+            logs = logs.Where(x =>
+                x.user_id.ToString().Contains(searchTerm) ||                 
+                (x.action != null && x.action.ToLower().Contains(searchTerm.ToLower())) ||  
+                x.timestamp.ToString("yyyy-MM-dd").Contains(searchTerm) ||     
+                (x.Remarks != null && x.Remarks.ToLower().Contains(searchTerm.ToLower()))   
+            ).ToList();
+
             int evenodd = 0;
             for (int i = 0; i < logs.Count; i++)
             {

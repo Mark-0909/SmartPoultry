@@ -90,5 +90,43 @@
         <Button x:Name="ActiveBtn" Content="ACTIVE" HorizontalAlignment="Left" Height="60" Margin="18,59,0,0" VerticalAlignment="Top" Width="534" Click="Active_Clicked" FontSize="20" FontWeight="Bold" Background="#FF2C6E5D" BorderBrush="#FF2C6E5D" Foreground="White" Style="{StaticResource NoHoverButton}"/>
         <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="MEMBER INFO" HorizontalAlignment="Left" Height="36" Margin="757,127,0,0" VerticalAlignment="Top" Width="200" FontSize="20" FontWeight="Bold"/>
 
+        <Border BorderThickness="1" HorizontalAlignment="Left" Height="41" Margin="884,8,0,0" VerticalAlignment="Top" Width="210" Background="White" CornerRadius="10">
+            <TextBox x:Name="SearchTB"
+ HorizontalAlignment="Center"
+ TextWrapping="Wrap"
+ Text="Search Product..."
+ VerticalAlignment="Top"
+ Width="196"
+ Height="32"
+ Background="White"
+ BorderBrush="White"
+ TextAlignment="Justify"
+ Padding="0,4,0,0"
+ FontSize="14"
+ MaxLines="1"
+ RenderTransformOrigin="0.5,0.5"
+ Margin="0,5,0,0"
+ 
+ GotFocus="SearchTB_GotFocus"
+ LostFocus="SearchTB_LostFocus"
+ Foreground="Gray"
+ KeyDown="SearchTB_KeyDown" >
+
+                <TextBox.Style>
+                    <Style TargetType="{x:Type TextBox}">
+                        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="SelectionBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="Transparent"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBox.Style>
+            </TextBox>
+        </Border>
+        <Button Content="Button" HorizontalAlignment="Left" Height="39" Margin="811,10,0,0" VerticalAlignment="Top" Width="68" Click="ReloadBtn_Click"/>
     </Grid>
 </UserControl>

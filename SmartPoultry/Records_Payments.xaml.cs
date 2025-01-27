@@ -29,15 +29,31 @@ namespace SmartPoultry
         {
             InitializeComponent();
             FinancialLiabilitiesServices = new FinancialLiabilitiesServices(context);
-            DisplayPayments();
+            DisplayPayments("");
         }
-        public void DisplayPayments()
+        public void DisplayPayments( string searchTerm)
         {
             if(SalesPanel.Children.Count != 0)
             {
                 SalesPanel.Children.Clear();
             }
-            List<FinancialLiabilities> finances = FinancialLiabilitiesServices.GetAllPayments();
+            List<FinancialLiabilities> finances = FinancialLiabilitiesServices.GetAllPayments(); 
+
+
+            finances = finances.Where(x =>
+                (x.name != null && x.name.ToLower().Contains(searchTerm.ToLower())) ||             
+                x.order_id.ToString().Contains(searchTerm) ||                                      
+                x.amount.ToString().Contains(searchTerm) ||                                      
+                (x.type != null && x.type.ToLower().Contains(searchTerm.ToLower())) ||             
+                (x.status != null && x.status.ToLower().Contains(searchTerm.ToLower())) ||       
+                x.added_date.ToString("yyyy-MM-dd").Contains(searchTerm) ||                         
+                x.due_date.ToString("yyyy-MM-dd").Contains(searchTerm) ||                          
+                x.updated_date.ToString("yyyy-MM-dd").Contains(searchTerm) ||                     
+                (x.contacts != null && x.contacts.ToLower().Contains(searchTerm.ToLower())) ||      
+                (x.payment_mode != null && x.payment_mode.ToLower().Contains(searchTerm.ToLower())) || 
+                (x.Remarks != null && x.Remarks.ToLower().Contains(searchTerm.ToLower()))        
+            ).ToList();
+
             int evenOdd = 0;
 
             for(int i = 0; i < finances.Count; i++)

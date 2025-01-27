@@ -41,7 +41,7 @@ namespace SmartPoultry
             InitializeComponent();
             userServices = new UserServices(context);
             logServices = new UserLogsServices(context);
-            GetUserList("active");
+            GetUserList("active", "");
 
             NameLabel.Visibility = Visibility.Hidden;
             BanBtn.Visibility = Visibility.Hidden;
@@ -50,6 +50,46 @@ namespace SmartPoultry
             SaveChangesBtn.Visibility = Visibility.Hidden;
 
 
+        }
+
+        private void SearchTB_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                string searchTerm = SearchTB.Text.Trim();
+
+                GetUserList(ListType, searchTerm);
+            }
+        }
+
+
+
+        private void SearchTB_GotFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(SearchTB, "Search Product...", true);
+        }
+        private void SearchTB_LostFocus(object sender, RoutedEventArgs e)
+        {
+            HandleTextBoxPlaceholder(SearchTB, "Search Product...", false);
+        }
+        public void HandleTextBoxPlaceholder(TextBox tb, string placeholder, bool isFocused)
+        {
+            if (isFocused)
+            {
+                if (tb.Text == placeholder)
+                {
+                    tb.Text = string.Empty;
+                    tb.Foreground = Brushes.Black;
+                }
+            }
+            else // When the TextBox loses focus
+            {
+                if (string.IsNullOrWhiteSpace(tb.Text))
+                {
+                    tb.Text = placeholder;
+                    tb.Foreground = Brushes.Gray;
+                }
+            }
         }
         public void ViewUser(User user)
         {
@@ -116,13 +156,14 @@ namespace SmartPoultry
 
 
 
-        public void GetUserList(string status)
+        public void GetUserList(string status, string searchTerm)
         {
             if(UserPanel.Children.Count > 0)
             {
                 UserPanel.Children.Clear();
             }
             List<User> users = userServices.GetUserList(status);
+            users = users.Where(p => p.Username.ToLower().Contains(searchTerm.ToLower())).ToList();
 
             int userid = UserContext.CurrentUserId;
             int evenodd = 0;
@@ -152,7 +193,7 @@ namespace SmartPoultry
         private void Active_Clicked(object sender, RoutedEventArgs e)
         {
             HandleButtonDesign(ActiveBtn);
-            GetUserList("active");
+            GetUserList("active", "");
             ListType = "active";
             Clear(false);
         }
@@ -160,7 +201,7 @@ namespace SmartPoultry
         private void Inactive_Clicked(object sender, RoutedEventArgs e)
         {
             HandleButtonDesign(InactiveBtn);
-            GetUserList("inactive");
+            GetUserList("inactive", "");
             ListType = "inactive";
             Clear(false);
         }
@@ -253,7 +294,7 @@ namespace SmartPoultry
                 mainWindow.PopUpNotif("notif", "Unban successfully.");
             }
             UserPanel.Children.Clear();
-            GetUserList(Status);
+            GetUserList(Status, "");
 
         }
 
@@ -298,8 +339,12 @@ namespace SmartPoultry
             }
 
             mainWindow.PopUpNotif("notif", "Role updated successfully.");
-            GetUserList(ListType);
+            GetUserList(ListType, "");
         }
 
+        private void ReloadBtn_Click(object sender, RoutedEventArgs e)
+        {
+            GetUserList(ListType, "");
+        }
     }
 }

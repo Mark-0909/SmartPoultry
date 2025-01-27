@@ -150,7 +150,7 @@ namespace SmartPoultry.DataServices
                 _context.Add(newSched);
                 _context.SaveChanges();
 
-                mainWindow.recordsControl.PaymentsControl.DisplayPayments();   
+                mainWindow.recordsControl.PaymentsControl.DisplayPayments("");   
                 return true;
             }
             catch (Exception ex) {

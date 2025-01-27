@@ -29,12 +29,27 @@ namespace SmartPoultry
         {
             InitializeComponent();
             inventoryLogsServices = new InventoryLogsServices(context);
-            FetchInventoryLogs();
+            FetchInventoryLogs("");
         }
-        public void FetchInventoryLogs()
+        public void FetchInventoryLogs(string searchTerm)
         {
+            if(SalesPanel.Children.Count > 0)
+            {
+                SalesPanel.Children.Clear();
+            }
 
-            List<InventoryLogs> inventory = inventoryLogsServices.GetList();
+            List<InventoryLogs> inventory = inventoryLogsServices.GetList(); 
+
+            
+            inventory = inventory.Where(x =>
+                (x.action != null && x.action.ToLower().Contains(searchTerm.ToLower())) ||    
+                (x.reason != null && x.reason.ToLower().Contains(searchTerm.ToLower())) ||    
+                x.product_id.ToString().Contains(searchTerm) ||                             
+                x.employee_incharge.ToString().Contains(searchTerm) ||                      
+                x.quatity.ToString().Contains(searchTerm) ||                                
+                x.timestamp.ToString("yyyy-MM-dd").Contains(searchTerm)                     
+            ).ToList();
+
             int evenodd = 0;
             for (int i = 0; i < inventory.Count; i++)
             {

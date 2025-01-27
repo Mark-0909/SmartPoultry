@@ -43,7 +43,7 @@ namespace SmartPoultry.DataServices
                 _context.Add(row);
                 _context.SaveChanges();
 
-                mainWindow.recordsControl.LogsControl.FetchUserLogs();
+                mainWindow.recordsControl.LogsControl.FetchUserLogs("");
                 return true;
             }
             catch (Exception ex)

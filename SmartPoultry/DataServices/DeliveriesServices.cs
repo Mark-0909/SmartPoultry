@@ -184,7 +184,7 @@ namespace SmartPoultry.DataServices
                 _context.Deliveries.Add(newDelivery);
                 _context.SaveChanges();
 
-                mainWindow.recordsControl.DeliveryControl.DisplayDeliveries();
+                mainWindow.recordsControl.DeliveryControl.DisplayDeliveries("");
                 return true;
             }
             catch (Exception ex)

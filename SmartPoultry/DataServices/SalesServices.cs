@@ -166,7 +166,7 @@ namespace SmartPoultry.DataServices
                 _context.Sales.Add(newSales);
                 _context.SaveChanges();
 
-                mainWindow.recordsControl.SalesControl.FetchSales();
+                mainWindow.recordsControl.SalesControl.FetchSales("");
                 return newSales.receipt_id;
             }
             catch (Exception e)

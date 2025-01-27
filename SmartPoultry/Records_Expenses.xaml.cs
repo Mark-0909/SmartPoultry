@@ -31,16 +31,30 @@ namespace SmartPoultry
 
             expensesServices = new ExpensesServices(context);
 
-            DisplayExpenses();
+            DisplayExpenses("");
         }
-        public void DisplayExpenses()
+        public void DisplayExpenses(string searchTerm)
         {
             if(ExpensesPanel.Children.Count != 0)
             {
                 ExpensesPanel.Children.Clear();
             }
 
-            List<Expenses> expenses = new List<Expenses>();
+            List<Expenses> expenses = expensesServices.GeAllExpenses(); 
+
+           
+            expenses = expenses.Where(x =>
+                (x.Name != null && x.Name.ToLower().Contains(searchTerm.ToLower())) ||
+                (x.Category != null && x.Category.ToLower().Contains(searchTerm.ToLower())) ||
+                (x.Status != null && x.Status.ToLower().Contains(searchTerm.ToLower())) ||
+                (x.Remarks != null && x.Remarks.ToLower().Contains(searchTerm.ToLower())) ||
+                x.Order_ID.ToString().Contains(searchTerm) ||
+                x.price.ToString("0.00").Contains(searchTerm) ||
+                x.Added_Date.ToString("yyyy-MM-dd").Contains(searchTerm) ||
+                x.Updated_Time.ToString("yyyy-MM-dd").Contains(searchTerm) ||
+                x.Employee_Incharge.ToString().Contains(searchTerm)
+            ).ToList();
+
 
             try
             {

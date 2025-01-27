@@ -63,7 +63,7 @@ namespace SmartPoultry.DataServices
                 _context.Expenses.Add(expenses);
                 _context.SaveChanges();
 
-                mainWindow.recordsControl.ExpensesControl.DisplayExpenses();
+                mainWindow.recordsControl.ExpensesControl.DisplayExpenses("");
                 return true;
             }
             catch (Exception ex)

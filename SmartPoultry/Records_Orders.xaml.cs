@@ -29,15 +29,27 @@ namespace SmartPoultry
         {
             InitializeComponent();
             SupplierOrdersServices = new SupplierOrdersServices(context);
-            DisplaySupplierOrders();
+            DisplaySupplierOrders("");
         }
-        public void DisplaySupplierOrders()
+        public void DisplaySupplierOrders(string searchTerm)
         {
             if (SalesPanel.Children.Count != 0)
             {
                 SalesPanel.Children.Clear();
             }
-            List<SupplierOrders> orders = SupplierOrdersServices.GetAllSupplierOrders();
+            List<SupplierOrders> orders = SupplierOrdersServices.GetAllSupplierOrders(); 
+
+
+            orders = orders.Where(x =>
+                x.supplierID.ToString().Contains(searchTerm) ||                      
+                (x.productList != null && x.productList.ToLower().Contains(searchTerm.ToLower())) || 
+                (x.orderQty != null && x.orderQty.ToLower().Contains(searchTerm.ToLower())) ||     
+                x.price.ToString().Contains(searchTerm) ||                          
+                x.Added_Date.ToString("yyyy-MM-dd").Contains(searchTerm) ||         
+                x.Delivery_Date.ToString("yyyy-MM-dd").Contains(searchTerm) ||      
+                x.Delivered_Date.ToString("yyyy-MM-dd").Contains(searchTerm)         
+            ).ToList();
+
             int evenOdd = 0;
             for(int i = 0; i < orders.Count; i++)
             {

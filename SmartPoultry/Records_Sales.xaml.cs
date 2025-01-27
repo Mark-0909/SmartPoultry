@@ -30,11 +30,31 @@ namespace SmartPoultry
             InitializeComponent();
             salesServices = new SalesServices(context);
 
-            FetchSales();
+            FetchSales("");
         }
-        public void FetchSales()
+        public void FetchSales(string searchTerm)
         {
-            List<Sales> sales = salesServices.GetAllSales();
+            if (SalesPanel.Children.Count > 0)
+            {
+                SalesPanel.Children.Clear();
+            }
+            List<Sales> sales = salesServices.GetAllSales(); 
+
+ 
+            sales = sales.Where(x =>
+                x.receipt_id.ToString().Contains(searchTerm) ||                                   
+                (x.product_list != null && x.product_list.ToLower().Contains(searchTerm.ToLower())) || 
+                (x.price_list != null && x.price_list.ToLower().Contains(searchTerm.ToLower())) ||      
+                (x.quantity_list != null && x.quantity_list.ToLower().Contains(searchTerm.ToLower())) || 
+                x.purchase_date.ToString("yyyy-MM-dd").Contains(searchTerm) ||                    
+                (x.variation_list != null && x.variation_list.ToLower().Contains(searchTerm.ToLower())) || 
+                (x.payment_mode != null && x.payment_mode.ToLower().Contains(searchTerm.ToLower())) ||
+                (x.status != null && x.status.ToLower().Contains(searchTerm.ToLower())) ||              
+                (x.purchase_method != null && x.purchase_method.ToLower().Contains(searchTerm.ToLower())) || 
+                x.total_price.ToString().Contains(searchTerm) ||                                   
+                (x.Remarks != null && x.Remarks.ToLower().Contains(searchTerm.ToLower()))            
+            ).ToList();
+
             int evenodd = 0;
             for (int i = 0; i < sales.Count; i++)
             {

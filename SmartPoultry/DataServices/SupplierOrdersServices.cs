@@ -68,7 +68,7 @@ namespace SmartPoultry.DataServices
                 _context.SupplierOrders.Add(Order);
                 _context.SaveChanges();
 
-                mainWindow.recordsControl.OrdersControl.DisplaySupplierOrders();
+                mainWindow.recordsControl.OrdersControl.DisplaySupplierOrders("");
                 return Order.id;
             }
             catch (Exception ex) 
