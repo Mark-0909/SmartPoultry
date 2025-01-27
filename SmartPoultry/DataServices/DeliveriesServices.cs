@@ -6,12 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using static SmartPoultry.App;
 
 namespace SmartPoultry.DataServices
 {
     public class DeliveriesServices
     {
         private readonly AppDbContext _context;
+        MainWindow mainWindow = UserContext.mainWindow;
         public DeliveriesServices(AppDbContext context)
         {
             _context = context;
@@ -181,6 +183,8 @@ namespace SmartPoultry.DataServices
                 };
                 _context.Deliveries.Add(newDelivery);
                 _context.SaveChanges();
+
+                mainWindow.recordsControl.DeliveryControl.DisplayDeliveries();
                 return true;
             }
             catch (Exception ex)

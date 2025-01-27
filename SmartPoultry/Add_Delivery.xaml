@@ -74,7 +74,7 @@
         <Label Content="Delivery Man: " HorizontalAlignment="Left" Height="30" Margin="221,284,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
         <Label Content="Charge: " HorizontalAlignment="Left" Height="29" Margin="12,349,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
         <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="12,314,0,0" VerticalAlignment="Top" Width="204">
-            <TextBox x:Name="ContactsTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="Contact..." VerticalAlignment="Center" Width="192" BorderBrush="Transparent" Foreground="Gray" GotFocus="ContactsTB_GotFocus" LostFocus="ContactsTB_LostFocus" FontSize="14">
+            <TextBox x:Name="ContactsTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="Contact..." VerticalAlignment="Center" Width="192" BorderBrush="Transparent" Foreground="Gray" GotFocus="ContactsTB_GotFocus" LostFocus="ContactsTB_LostFocus" FontSize="14" TextChanged="ContactsTextBox_TextChanged_1">
                 <TextBox.Style>
                     <Style TargetType="TextBox">
                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -141,7 +141,7 @@
 
         </Border>
         <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="14,378,0,0" VerticalAlignment="Top" Width="182">
-            <TextBox x:Name="ChargeTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="22" TextWrapping="Wrap" Text="Charge fee..." VerticalAlignment="Center" Width="175" BorderBrush="Transparent" Foreground="Gray" GotFocus="ChargeTB_GotFocus" LostFocus="ChargeTB_LostFocus" FontSize="14">
+            <TextBox x:Name="ChargeTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="22" TextWrapping="Wrap" Text="Charge fee..." VerticalAlignment="Center" Width="175" BorderBrush="Transparent" Foreground="Gray" GotFocus="ChargeTB_GotFocus" LostFocus="ChargeTB_LostFocus" FontSize="14" TextChanged="ChargeTextBox_TextChanged">
                 <TextBox.Style>
                     <Style TargetType="TextBox">
                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -192,7 +192,7 @@
             </TextBox>
         </Border>
         <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="216,249,0,0" VerticalAlignment="Top" Width="185">
-            <TextBox x:Name="PriceTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="22" Tag="Price..." TextWrapping="Wrap" Text="Price..." VerticalAlignment="Center" Width="175" BorderBrush="Transparent" Foreground="Gray" GotFocus="PriceTB_GotFocus" LostFocus="PriceTB_LostFocus" FontSize="14" >
+            <TextBox x:Name="PriceTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="22" Tag="Price..." TextWrapping="Wrap" Text="Price..." VerticalAlignment="Center" Width="175" BorderBrush="Transparent" Foreground="Gray" GotFocus="PriceTB_GotFocus" LostFocus="PriceTB_LostFocus" FontSize="14" TextChanged="PriceTextBox_TextChanged" >
                 <TextBox.Style>
                     <Style TargetType="TextBox">
                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>

@@ -329,7 +329,7 @@ namespace SmartPoultry
         {
             if (stocksTextBox.IsFocused) // Only filter when the user is typing
             {
-                HandleNumericInput(stocksTextBox, true);
+                HandleNumericInput(stocksTextBox, true, 3);
             }
         }
 
@@ -337,7 +337,7 @@ namespace SmartPoultry
         {
             if (priceTextBox.IsFocused) // Only filter when the user is typing
             {
-                HandleNumericInput(priceTextBox, true);
+                HandleNumericInput(priceTextBox, true, 7);
             }
         }
 
@@ -345,12 +345,12 @@ namespace SmartPoultry
         {
             if (conversionTextbox.IsFocused) // Only filter when the user is typing
             {
-                HandleNumericInput(conversionTextbox, false);
+                HandleNumericInput(conversionTextbox, false, 4);
             }
         }
 
 
-        private void HandleNumericInput(TextBox textBox, bool allowDecimal)
+        private void HandleNumericInput(TextBox textBox, bool allowDecimal, int NumberLimit)
         {
             if (textBox == null || string.IsNullOrEmpty(textBox.Text)) return;
 
@@ -362,11 +362,46 @@ namespace SmartPoultry
 
             if (allowDecimal)
             {
+                int decimalIndex = filteredInput.IndexOf('.');
+
+                if (decimalIndex == -1)
+                {
+                    if (filteredInput.Length > NumberLimit)
+                    {
+                        filteredInput = filteredInput.Substring(0, NumberLimit);
+                    }
+                }
+                else
+                {
+
+                    string wholePart = filteredInput.Substring(0, decimalIndex);
+                    string decimalPart = filteredInput.Substring(decimalIndex + 1);
+
+                    if (wholePart.Length > NumberLimit)
+                    {
+                        wholePart = wholePart.Substring(0, NumberLimit);
+                    }
+
+                    if (decimalPart.Length > 2)
+                    {
+                        decimalPart = decimalPart.Substring(0, 2);
+                    }
+
+                    filteredInput = $"{wholePart}.{decimalPart}";
+                }
+
                 int firstDecimalIndex = filteredInput.IndexOf('.');
                 if (firstDecimalIndex != -1)
                 {
                     filteredInput = filteredInput.Substring(0, firstDecimalIndex + 1) +
                                     filteredInput.Substring(firstDecimalIndex + 1).Replace(".", "");
+                }
+            }
+            else
+            {
+                if (filteredInput.Length > NumberLimit)
+                {
+                    filteredInput = filteredInput.Substring(0, NumberLimit);
                 }
             }
 
@@ -376,6 +411,7 @@ namespace SmartPoultry
                 textBox.CaretIndex = filteredInput.Length;
             }
         }
+
 
 
 

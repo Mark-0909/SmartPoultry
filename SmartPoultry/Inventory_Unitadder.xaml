@@ -142,7 +142,7 @@
 
         </Border>
         <Border x:Name="stocksBorder" CornerRadius="5" BorderBrush="#FF077C5E" BorderThickness="1" HorizontalAlignment="Left" Height="36" Margin="218,65,0,0" VerticalAlignment="Top" Width="164">
-            <TextBox x:Name="stocksTextBox" HorizontalAlignment="Center" VerticalContentAlignment="Center" TextWrapping="Wrap" Text="Stocks..." VerticalAlignment="Top" Width="144" FontSize="16" Height="26" BorderBrush="White" SelectionBrush="White" Foreground="Gray" GotFocus="StocksTB_GotFocused" LostFocus="StocksTB_LostFocused" TextChanged="StocksTB_TextChanged" Margin="0,3,0,0">
+            <TextBox x:Name="stocksTextBox" HorizontalAlignment="Center" VerticalContentAlignment="Center" TextWrapping="Wrap" Text="Stocks..." Width="144" FontSize="16" BorderBrush="White" SelectionBrush="White" Foreground="Gray" GotFocus="StocksTB_GotFocused" LostFocus="StocksTB_LostFocused" TextChanged="StocksTB_TextChanged" Margin="0,3,0,5">
                 <TextBox.Style>
                     <Style TargetType="TextBox">
                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>

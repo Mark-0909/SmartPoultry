@@ -55,6 +55,7 @@ namespace SmartPoultry
 
             mainWindow = UserContext.mainWindow;
             NotifPopup.Visibility = Visibility.Hidden;
+            RemarksBtn.Visibility = Visibility.Collapsed;
         }
         public Add_FinancialLiabilities(FinancialLiabilities itemrow, MainWindow mainwindow)
         {
@@ -434,7 +435,7 @@ namespace SmartPoultry
                     tb.Foreground = Brushes.Black;
                 }
             }
-            else // When the TextBox loses focus
+            else 
             {
                 if (string.IsNullOrWhiteSpace(tb.Text))
                 {
@@ -480,6 +481,76 @@ namespace SmartPoultry
         private void NotifCloseBtn_Click(object sender, RoutedEventArgs e)
         {
             NotifPopup.Visibility = Visibility.Hidden;
+        }
+
+        private void ContactsTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            HandleNumericInput(ContactsTextBox, false, 11);
+        }
+        private void HandleNumericInput(TextBox textBox, bool allowDecimal, int NumberLimit)
+        {
+            if (textBox == null || string.IsNullOrEmpty(textBox.Text)) return;
+
+            string input = textBox.Text;
+
+            string filteredInput = allowDecimal
+                ? new string(input.Where(c => char.IsDigit(c) || c == '.').ToArray())
+                : new string(input.Where(char.IsDigit).ToArray());
+
+            if (allowDecimal)
+            {
+                int decimalIndex = filteredInput.IndexOf('.');
+
+                if (decimalIndex == -1)
+                {
+                    if (filteredInput.Length > NumberLimit)
+                    {
+                        filteredInput = filteredInput.Substring(0, NumberLimit);
+                    }
+                }
+                else
+                {
+                    string wholePart = filteredInput.Substring(0, decimalIndex);
+                    string decimalPart = filteredInput.Substring(decimalIndex + 1);
+                    if (wholePart.Length > NumberLimit)
+                    {
+                        wholePart = wholePart.Substring(0, NumberLimit);
+                    }
+
+                    if (decimalPart.Length > 2)
+                    {
+                        decimalPart = decimalPart.Substring(0, 2);
+                    }
+
+                    filteredInput = $"{wholePart}.{decimalPart}";
+                }
+
+                int firstDecimalIndex = filteredInput.IndexOf('.');
+                if (firstDecimalIndex != -1)
+                {
+                    filteredInput = filteredInput.Substring(0, firstDecimalIndex + 1) +
+                                    filteredInput.Substring(firstDecimalIndex + 1).Replace(".", "");
+                }
+            }
+            else
+            {
+
+                if (filteredInput.Length > NumberLimit)
+                {
+                    filteredInput = filteredInput.Substring(0, NumberLimit);
+                }
+            }
+
+            if (input != filteredInput)
+            {
+                textBox.Text = filteredInput;
+                textBox.CaretIndex = filteredInput.Length;
+            }
+        }
+
+        private void PriceTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            HandleNumericInput(PriceTextBox, true, 7);
         }
     }
 }

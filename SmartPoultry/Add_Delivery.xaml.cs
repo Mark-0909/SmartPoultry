@@ -625,20 +625,44 @@ namespace SmartPoultry
         {
             HandleTextBoxPlaceholder(ContactsTextBox, "Contact...", false);
         }
-        private void HandleNumericInput(TextBox textBox, bool allowDecimal)
+        private void HandleNumericInput(TextBox textBox, bool allowDecimal, int NumberLimit)
         {
             if (textBox == null || string.IsNullOrEmpty(textBox.Text)) return;
 
             string input = textBox.Text;
 
-            // Filter input based on whether decimals are allowed
             string filteredInput = allowDecimal
                 ? new string(input.Where(c => char.IsDigit(c) || c == '.').ToArray())
                 : new string(input.Where(char.IsDigit).ToArray());
 
-            // Allow only one decimal point
             if (allowDecimal)
             {
+                int decimalIndex = filteredInput.IndexOf('.');
+
+                if (decimalIndex == -1)
+                {
+                    if (filteredInput.Length > NumberLimit)
+                    {
+                        filteredInput = filteredInput.Substring(0, NumberLimit);
+                    }
+                }
+                else
+                {
+                    string wholePart = filteredInput.Substring(0, decimalIndex);
+                    string decimalPart = filteredInput.Substring(decimalIndex + 1);
+                    if (wholePart.Length > NumberLimit)
+                    {
+                        wholePart = wholePart.Substring(0, NumberLimit);
+                    }
+
+                    if (decimalPart.Length > 2)
+                    {
+                        decimalPart = decimalPart.Substring(0, 2);
+                    }
+
+                    filteredInput = $"{wholePart}.{decimalPart}";
+                }
+
                 int firstDecimalIndex = filteredInput.IndexOf('.');
                 if (firstDecimalIndex != -1)
                 {
@@ -646,8 +670,15 @@ namespace SmartPoultry
                                     filteredInput.Substring(firstDecimalIndex + 1).Replace(".", "");
                 }
             }
+            else
+            {
 
-            // Update the TextBox only if input has changed
+                if (filteredInput.Length > NumberLimit)
+                {
+                    filteredInput = filteredInput.Substring(0, NumberLimit);
+                }
+            }
+
             if (input != filteredInput)
             {
                 textBox.Text = filteredInput;
@@ -715,6 +746,21 @@ namespace SmartPoultry
         private void NotifCloseBtn_Click(object sender, RoutedEventArgs e)
         {
             NotifPopup.Visibility = Visibility.Hidden;
+        }
+
+        private void ContactsTextBox_TextChanged_1(object sender, TextChangedEventArgs e)
+        {
+            HandleNumericInput(ContactsTextBox, false, 11);
+        }
+
+        private void ChargeTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            HandleNumericInput(ChargeTextBox, true, 7);
+        }
+
+        private void PriceTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            HandleNumericInput(PriceTextBox, true, 7);
         }
     }
 }

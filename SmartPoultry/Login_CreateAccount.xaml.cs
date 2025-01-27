@@ -49,7 +49,16 @@ namespace SmartPoultry
                 loginWindow.PopUpNotif("alert", "Please complete all the necessary field.");
                 return;
             }
-
+            if(usernameTB.Text.Length < 6)
+            {
+                loginWindow.PopUpNotif("alert", "Username must be at least 6 characters.");
+                return;
+            }
+            if (passwordTB.Password.Length < 6)
+            {
+                loginWindow.PopUpNotif("alert", "Password must be at least 6 characters.");
+                return;
+            }
             bool isUsernamePresent = userServices.IsUserNamePresent(usernameTB.Text);
 
             if (isUsernamePresent)

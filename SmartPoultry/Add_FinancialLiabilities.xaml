@@ -72,7 +72,7 @@
         <RadioButton x:Name="GCashRBtn" Checked="GCash_IsChecked" GroupName="Mode" VerticalContentAlignment="Center" Content="GCash" HorizontalAlignment="Left" Height="22" Margin="114,262,0,0" VerticalAlignment="Top" Width="90" FontSize="14"/>
         <Label Content="Contacts:" HorizontalAlignment="Left" Height="30" Margin="13,294,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
         <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="13,329,0,0" VerticalAlignment="Top" Width="412">
-            <TextBox x:Name="ContactsTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="22" TextWrapping="Wrap" Text="Contacts..." VerticalAlignment="Center" Width="404" GotFocus="ContactTB_GotFocus" LostFocus="ContactTB_LostFocus" Foreground="Gray" BorderBrush="Transparent" FontSize="14">
+            <TextBox x:Name="ContactsTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="22" TextWrapping="Wrap" Text="Contacts..." VerticalAlignment="Bottom" Width="404" GotFocus="ContactTB_GotFocus" LostFocus="ContactTB_LostFocus" Foreground="Gray" BorderBrush="Transparent" FontSize="14" Margin="0,0,0,3" TextChanged="ContactsTextBox_TextChanged">
                 <TextBox.Style>
                     <Style TargetType="TextBox">
                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -90,7 +90,7 @@
             </TextBox>
         </Border>
         <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="13,141,0,0" VerticalAlignment="Top" Width="412">
-            <TextBox x:Name="PriceTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="Price..." VerticalAlignment="Center" Width="404" GotFocus="PriceTB_GotFocus" LostFocus="PriceTB_LostFocus" Foreground="Gray" BorderBrush="Transparent" FontSize="14">
+            <TextBox x:Name="PriceTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="23" TextWrapping="Wrap" Text="Price..." VerticalAlignment="Center" Width="404" GotFocus="PriceTB_GotFocus" LostFocus="PriceTB_LostFocus" Foreground="Gray" BorderBrush="Transparent" FontSize="14" TextChanged="PriceTextBox_TextChanged">
                 <TextBox.Style>
                     <Style TargetType="TextBox">
                         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -157,7 +157,7 @@
                 </Button>
             </WrapPanel>
         </Border>
-        <Button Content="Button" 
+        <Button x:Name="RemarksBtn" Content="Button" 
 HorizontalAlignment="Left" 
 Height="22" 
 Margin="294,420,0,0" 
