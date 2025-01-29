@@ -33,6 +33,7 @@ namespace SmartPoultry
             InitializeComponent();
             addingForm = addringform;
             supplierServices = new SupplierServices(context);
+            NotifPopup.Visibility = Visibility.Hidden;
         }
         public void PopUpNotif(string type, string message)
         {
