@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartPoultry"
         mc:Ignorable="d"
-        Title="LoginPage" Height="652" Width="942" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="LoginPage" Height="652" Width="942" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Icon="/Images/smartpoultryicon.ico">
     <Grid Background="#FFC9C9C9">
         <Rectangle HorizontalAlignment="Left" Height="636" Stroke="White" VerticalAlignment="Center" Width="471" Margin="471,0,0,0" Fill="White"/>
         <local:Login_CreateAccount x:Name="createAccountControl" HorizontalAlignment="Left" Margin="512,0,0,0" VerticalAlignment="Center"/>

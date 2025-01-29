@@ -17,6 +17,8 @@ namespace SmartPoultry
             public static MainWindow mainWindow { get; set; }
 
             public static home homewindow { get; set; }
+
+
         }
 
     }

@@ -179,25 +179,26 @@ namespace SmartPoultry
         public bool Validation()
         {
             if (purchasemethod == "to deliver" && status == "unpaid" &&
-                (NameTB.Text == NameTB.Tag.ToString() || ContactsTB.Text == ContactsTB.Tag.ToString() || ChargeTB.Text == ChargeTB.Tag.ToString() || AddressTB.Text == AddressTB.Tag.ToString()))
+                (NameTB.Text == NameTB.Tag.ToString() || ContactsTB.Text == ContactsTB.Tag.ToString() || ChargeTB.Text == ChargeTB.Tag.ToString() || AddressTB.Text == AddressTB.Tag.ToString()) || ContactsTB.Text.Length < 11)
             {
                 PopUpNotif("alert", "Incomplete Details");
                 return false;
             }
 
             if (status == "unpaid" &&
-                (NameTB.Text == NameTB.Tag.ToString() || ContactsTB.Text == ContactsTB.Tag.ToString()))
+                (NameTB.Text == NameTB.Tag.ToString() || ContactsTB.Text == ContactsTB.Tag.ToString()) || ContactsTB.Text.Length < 11)
             {
                 PopUpNotif("alert", "Incomplete Details");
                 return false;
             }
 
             if (purchasemethod == "to deliver" &&
-                (NameTB.Text == NameTB.Tag.ToString() || ContactsTB.Text == ContactsTB.Tag.ToString() || ChargeTB.Text == ChargeTB.Tag.ToString() || AddressTB.Text == AddressTB.Tag.ToString()))
+                (NameTB.Text == NameTB.Tag.ToString() || ContactsTB.Text == ContactsTB.Tag.ToString() || ChargeTB.Text == ChargeTB.Tag.ToString() || AddressTB.Text == AddressTB.Tag.ToString()) || ContactsTB.Text.Length < 11)
             {
                 PopUpNotif("alert", "Incomplete Details");
                 return false;
             }
+
             return true;
         }
 
@@ -205,6 +206,7 @@ namespace SmartPoultry
         private void Confirm_Click(object sender, RoutedEventArgs e)
         {
             decimal price = decimal.Parse(totalPricelabel.Content.ToString());
+
             if (Validation())
             {
                 if (purchasemethod == "to deliver" && status == "unpaid")

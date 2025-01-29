@@ -232,6 +232,11 @@ namespace SmartPoultry
         {
             if (confirmBtn.Content.ToString() == "CONFIRM")
             {
+                if (ContactsTextBox.Text.Length < 11)
+                {
+                    PopUpNotif("error", "Contact number must be 11 digits.");
+                    return;
+                }
                 AddScheduledDelivery();
             }
             else if (confirmBtn.Content.ToString() == "DELIVERED")

@@ -37,6 +37,7 @@ namespace SmartPoultry.DataServices
         {
             try
             {
+                _context.ChangeTracker.Clear();
                 var deliveris = _context.Deliveries.OrderByDescending(x => x.added_date).ToList();
                 return deliveris;
             }

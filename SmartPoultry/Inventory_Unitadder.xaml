@@ -135,6 +135,7 @@
                 <ComboBoxItem Content="1ml"/>
                 <ComboBoxItem Content="1pc"/>
                 <ComboBoxItem Content="10pcs"/>
+                <ComboBoxItem Content="box"/>
 
                 <!-- Custom ComboBox Button Style -->
 

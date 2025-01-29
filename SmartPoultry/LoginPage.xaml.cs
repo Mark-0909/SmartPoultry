@@ -39,7 +39,7 @@ namespace SmartPoultry
 
             context.Database.EnsureCreated();
 
-            DbInitializer.ApplyMigrations(context);
+            
 
 
             userServices = new UserServices(context);

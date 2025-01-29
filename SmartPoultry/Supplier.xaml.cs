@@ -3,12 +3,14 @@ using System.Windows.Controls;
 using SmartPoultry.DataAccess;
 using SmartPoultry.DataServices;
 using SmartPoultry.Models;
+using static SmartPoultry.App;
 
 namespace SmartPoultry
 {
     public partial class Supplier : UserControl
     {
         private readonly SupplierServices _supplierServices;
+        MainWindow mainWindow = UserContext.mainWindow;
 
         public Supplier()
         {
@@ -19,6 +21,18 @@ namespace SmartPoultry
 
         private void AddSupplier_Click(object sender, System.Windows.RoutedEventArgs e)
         {
+            if (Phone.Text.Length < 11)
+            {
+                mainWindow.PopUpNotif("error", "Contact number must be 11 digits.");
+                return;
+            }
+            if (!Email.Text.Contains("@") || !Email.Text.Contains("."))
+            {
+                mainWindow.PopUpNotif("error", "Invalid email address.");
+                return;
+            }
+
+
             bool success = _supplierServices.Create(
                 SupplierName.Text,
                 ContactPerson.Text,
@@ -34,7 +48,7 @@ namespace SmartPoultry
             }
             else
             {
-                System.Windows.MessageBox.Show("Failed to add the supplier.");
+                mainWindow.PopUpNotif("alert", "Failed to add the supplier.");
             }
         }
 
