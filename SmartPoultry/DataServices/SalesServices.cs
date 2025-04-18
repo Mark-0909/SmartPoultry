@@ -88,6 +88,7 @@ namespace SmartPoultry.DataServices
         {
             try
             {
+                _context.ChangeTracker.Clear();
                 Sales sales = _context.Sales.FirstOrDefault(p => p.receipt_id == id);
                 return sales;
             }

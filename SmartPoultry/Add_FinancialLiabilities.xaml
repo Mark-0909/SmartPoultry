@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SmartPoultry"
         mc:Ignorable="d"
-        Title="Add_FinancialLiabilities" Height="480" Width="432" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent" AllowsTransparency="True">
+        Title="Add_FinancialLiabilities" Height="425" Width="432" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" Background="Transparent" AllowsTransparency="True">
     <Window.Resources>
         <Style x:Key="NoHoverButton" TargetType="Button">
             <Setter Property="Background" Value="White"/>
@@ -48,7 +48,7 @@
         </Style>
     </Window.Resources>
     <Grid>
-        <Border x:Name="Overlay" BorderBrush="#FFA7A7A7" Background="#FFA7A7A7" CornerRadius="10" Opacity=".5" BorderThickness="1" HorizontalAlignment="Center" Height="480" VerticalAlignment="Center" Width="432"/>
+        <Border x:Name="Overlay" BorderBrush="#FFA7A7A7" Background="#FFA7A7A7" CornerRadius="10" Opacity=".5" BorderThickness="1" HorizontalAlignment="Center" Height="372" VerticalAlignment="Center" Width="432"/>
 
         <Border CornerRadius="10" BorderBrush="#FF2C6E5D" Background="White" BorderThickness="1">
             <Border CornerRadius="10 10 0 0" BorderBrush="#FF2C6E5D" BorderThickness="1" HorizontalAlignment="Center" Height="38" Margin="0,-1,0,0" VerticalAlignment="Top" Width="432" Background="#FF2C6E5D">
@@ -58,7 +58,7 @@
             </Border>
         </Border>
         <Label HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Content="SCHEDULE PAYMENT" HorizontalAlignment="Center" Height="35" VerticalAlignment="Top" Width="220" FontSize="20" Foreground="White" FontWeight="Bold"/>
-        <Border CornerRadius="0 0 10 10" BorderBrush="#FF2C6E5D" BorderThickness="1" HorizontalAlignment="Center" Height="32" Margin="0,448,0,0" VerticalAlignment="Top" Width="432" Background="#FF2C6E5D">
+        <Border CornerRadius="0 0 10 10" BorderBrush="#FF2C6E5D" BorderThickness="1" HorizontalAlignment="Center" Height="32" Margin="0,394,0,0" VerticalAlignment="Top" Width="432" Background="#FF2C6E5D">
             <Button x:Name="ConfirmBtn"  Content="CONFIRM" HorizontalAlignment="Center" Height="27" VerticalAlignment="Center" Width="412" BorderBrush="#FF2C6E5D" Background="#FF2C6E5D" FontSize="15" Click="ConfirmButton_Click" Foreground="White" FontWeight="Bold"  Style="{StaticResource NoHoverButton}"/>
         </Border>
         <Label Content="Name: " HorizontalAlignment="Left" Height="30" Margin="12,43,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
@@ -70,8 +70,8 @@
         <Label Content="Payment Mode:" HorizontalAlignment="Left" Height="30" Margin="13,232,0,0" VerticalAlignment="Top" Width="112" FontSize="14"/>
         <RadioButton x:Name="CashRBtn" Checked="Cash_IsChecked" IsChecked="True" GroupName="Mode"  VerticalContentAlignment="Center" Content="Cash" HorizontalAlignment="Left" Height="22" Margin="13,267,0,0" VerticalAlignment="Top" Width="90" FontSize="14"/>
         <RadioButton x:Name="GCashRBtn" Checked="GCash_IsChecked" GroupName="Mode" VerticalContentAlignment="Center" Content="GCash" HorizontalAlignment="Left" Height="22" Margin="114,262,0,0" VerticalAlignment="Top" Width="90" FontSize="14"/>
-        <Label Content="Contacts:" HorizontalAlignment="Left" Height="30" Margin="13,294,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
-        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="13,329,0,0" VerticalAlignment="Top" Width="412">
+        <Label Content="Contacts:" HorizontalAlignment="Left" Height="30" Margin="12,289,0,0" VerticalAlignment="Top" Width="96" FontSize="14"/>
+        <Border CornerRadius="5" BorderBrush="Gray" BorderThickness="1" HorizontalAlignment="Left" Height="30" Margin="12,319,0,0" VerticalAlignment="Top" Width="412">
             <TextBox x:Name="ContactsTextBox" VerticalContentAlignment="Center" HorizontalAlignment="Center" Height="22" TextWrapping="Wrap" Text="Contacts..." VerticalAlignment="Bottom" Width="404" GotFocus="ContactTB_GotFocus" LostFocus="ContactTB_LostFocus" Foreground="Gray" BorderBrush="Transparent" FontSize="14" Margin="0,0,0,3" TextChanged="ContactsTextBox_TextChanged">
                 <TextBox.Style>
                     <Style TargetType="TextBox">
@@ -141,12 +141,12 @@
                 </DatePicker.Style>
             </DatePicker>
         </Border>
-        <Button x:Name="EditBtn" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Height="38" Margin="345,407,0,0" VerticalAlignment="Top" Width="44" Click="EditBtn_Click"  Style="{StaticResource NoHoverButton}">
-            <Image Height="38" Width="39" Source="/Images/editIcon.png"/>
+        <Button x:Name="EditBtn" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Left" Height="36" Margin="342,353,0,0" VerticalAlignment="Top" Width="39" Click="EditBtn_Click"  Style="{StaticResource NoHoverButton}">
+            <Image Height="38" Width="43" Source="/Images/editIcon.png"/>
         </Button>
-        <Label x:Name="orderIdLabel" Content="Order ID:" HorizontalAlignment="Left" Height="30" Margin="10,410,0,0" VerticalAlignment="Top" Width="80" FontSize="14"/>
-        <Label x:Name="OrderId" Content="25010838347" HorizontalAlignment="Left" Height="30" Margin="90,410,0,0" VerticalAlignment="Top" Width="100" FontSize="14"/>
-        <Button x:Name="OrderDetailsBtn" HorizontalAlignment="Left" Height="30" Margin="190,410,0,0" VerticalAlignment="Top" Width="35" Click="OrderDetailsBtn_Click"  Style="{StaticResource NoHoverButton}">
+        <Label x:Name="orderIdLabel" Content="Order ID:" HorizontalAlignment="Left" Height="30" Margin="15,359,0,0" VerticalAlignment="Top" Width="80" FontSize="14"/>
+        <Label x:Name="OrderId" Content="25010838347" HorizontalAlignment="Left" Height="30" Margin="90,359,0,0" VerticalAlignment="Top" Width="100" FontSize="14"/>
+        <Button x:Name="OrderDetailsBtn" HorizontalAlignment="Left" Height="30" Margin="190,359,0,0" VerticalAlignment="Top" Width="35" Click="OrderDetailsBtn_Click"  Style="{StaticResource NoHoverButton}">
             <Image Height="22" Width="24" Source="/Images/infoicon.png"/>
         </Button>
 
@@ -162,7 +162,7 @@
         <Button 
 HorizontalAlignment="Left" 
 Height="39" 
-Margin="391,405,0,0" 
+Margin="386,350,0,0" 
 VerticalAlignment="Top" 
 Width="33" 
 MouseEnter="Button_MouseEnter"
@@ -173,7 +173,7 @@ MouseLeave="Button_MouseLeave" Style="{StaticResource NoHoverButton}" Click="But
         <TextBox x:Name="RemarksTextBox" 
  HorizontalAlignment="Left" 
  VerticalAlignment="Top" 
- Margin="165,360,0,0" 
+ Margin="180,300,0,0" 
  Width="200" 
  Height="50" 
  IsReadOnly="True" 

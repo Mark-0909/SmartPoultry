@@ -22,6 +22,7 @@ namespace SmartPoultry.DataServices
 
         public List<FinancialLiabilities> GetAllPayments()
         {
+            _context.ChangeTracker.Clear();
             var lists = _context.FinancialLiabilities.OrderByDescending(p => p.added_date).ToList();
 
             return lists;

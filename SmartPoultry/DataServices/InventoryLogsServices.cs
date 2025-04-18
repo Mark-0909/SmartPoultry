@@ -19,6 +19,7 @@ namespace SmartPoultry.DataServices
         }
         public List<InventoryLogs> GetList()
         {
+            _context.ChangeTracker.Clear();
             var list = _context.InventoryLogs.OrderByDescending(p => p.timestamp).ToList();
             return list;
 

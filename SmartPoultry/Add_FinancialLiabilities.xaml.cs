@@ -255,6 +255,11 @@ namespace SmartPoultry
             }
             else if(ConfirmBtn.Content.ToString() == "CONFIRM")
             {
+                if (ContactsTextBox.Text.Length < 11)
+                {
+                    PopUpNotif("error", "Contact number must be 11 digits.");
+                    return;
+                }
                 AddScheduledPayment();
             }else if (ConfirmBtn.Content.ToString() == "UPDATE")
             {

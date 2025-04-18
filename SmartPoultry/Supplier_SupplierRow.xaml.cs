@@ -31,7 +31,7 @@ namespace SmartPoultry
             InitializeComponent();
             Name.Content = supplier.Name;
             ContactPerson.Content = supplier.Contact_Person;
-            ContactInfo.Text = supplier.Contact; // Use Text property for TextBox
+            ContactInfo.Content = supplier.Contact; // Use Text property for TextBox
 
             Supplier = supplier;
 
@@ -116,7 +116,7 @@ namespace SmartPoultry
             {
                 Name.Content = infoWindow.Supplier.Name;
                 ContactPerson.Content = infoWindow.Supplier.Contact_Person;
-                ContactInfo.Text = infoWindow.Supplier.Contact; // Use Text property for TextBox
+                ContactInfo.Content = infoWindow.Supplier.Contact; // Use Text property for TextBox
             }
         }
 

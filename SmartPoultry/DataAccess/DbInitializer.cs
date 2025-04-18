@@ -3,11 +3,28 @@ using Microsoft.EntityFrameworkCore;
 
 namespace SmartPoultry.DataAccess
 {
-    public static class DbInitializer
+    public class DbInitializer
     {
-        public static void ApplyMigrations(AppDbContext context)
+        public static void Initialize()
         {
-            context.Database.Migrate();
+            using (var context = new AppDbContext())
+            {
+                try
+                {
+                    if (context.Database.GetPendingMigrations().Any())
+                    {
+                        context.Database.Migrate();
+                    }
+                    else
+                    {
+                        context.Database.EnsureCreated(); 
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Database Initialization Error: {ex.Message}");
+                }
+            }
         }
     }
 }

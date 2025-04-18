@@ -44,21 +44,46 @@ namespace SmartPoultry
         }
         public void Submit()
         {
-            if (usernameTB.Text == "Username..." || string.IsNullOrWhiteSpace(passwordTB.Password) || string.IsNullOrWhiteSpace(confirmpassTB.Password) || q1TB.Text == "Pet's name..." || q2TB.Text == "Favorite color..." || q3TB.Text == "Book or movie...")
+            
+            if (usernameTB.Text == "Username..." || string.IsNullOrWhiteSpace(passwordTB.Password) || string.IsNullOrWhiteSpace(confirmpassTB.Password) || q1TB.Text == q1TB.Tag.ToString() || q2TB.Text == q2TB.Tag.ToString() || q3TB.Text == q3TB.Tag.ToString())
             {
                 loginWindow.PopUpNotif("alert", "Please complete all the necessary field.");
                 return;
             }
-            if(usernameTB.Text.Length < 6)
+            if(usernameTB.Text.Length < 8)
             {
-                loginWindow.PopUpNotif("alert", "Username must be at least 6 characters.");
+                loginWindow.PopUpNotif("alert", "Username must be at least 8 characters.");
                 return;
             }
-            if (passwordTB.Password.Length < 6)
+            string password = passwordTB.Password;
+
+            if (password.Length < 8)
             {
-                loginWindow.PopUpNotif("alert", "Password must be at least 6 characters.");
+                loginWindow.PopUpNotif("alert", "Password must be at least 8 characters long.");
                 return;
             }
+            else if (!password.Any(char.IsUpper))
+            {
+                loginWindow.PopUpNotif("alert", "Password must contain at least one uppercase letter.");
+                return;
+            }
+            else if (!password.Any(char.IsLower))
+            {
+                loginWindow.PopUpNotif("alert", "Password must contain at least one lowercase letter.");
+                return;
+            }
+            else if (!password.Any(char.IsDigit))
+            {
+                loginWindow.PopUpNotif("alert", "Password must contain at least one number.");
+                return;
+            }
+            else if (!password.Any(ch => !char.IsLetterOrDigit(ch)))
+            {
+                loginWindow.PopUpNotif("alert", "Password must contain at least one special character.");
+                return;
+            }
+            
+
             bool isUsernamePresent = userServices.IsUserNamePresent(usernameTB.Text);
 
             if (isUsernamePresent)
@@ -75,10 +100,10 @@ namespace SmartPoultry
                 role = "employee";
             }
             string username = usernameTB.Text;
-            string password;
+            string password2;
             if (passwordTB.Password == confirmpassTB.Password)
             {
-                password = confirmpassTB.Password;
+                password2 = confirmpassTB.Password;
             }
             else
             {

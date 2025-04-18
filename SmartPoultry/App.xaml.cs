@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using SmartPoultry.DataAccess;
+using System.Configuration;
 using System.Data;
 using System.Windows;
 
@@ -9,7 +10,12 @@ namespace SmartPoultry
     /// </summary>
     public partial class App : Application
     {
-        
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            DbInitializer.Initialize();
+        }
         public static class UserContext
         {
             public static int CurrentUserId { get; set; } = -1;
@@ -17,6 +23,8 @@ namespace SmartPoultry
             public static MainWindow mainWindow { get; set; }
 
             public static home homewindow { get; set; }
+
+            
         }
 
     }
